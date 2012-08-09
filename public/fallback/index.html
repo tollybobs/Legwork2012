@@ -1,0 +1,274 @@
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body style="margin: 0 auto; border-top:4px solid #000;">
+	<div id="span0" style="position:absolute;visibility:hidden;"><img src="http://www.sigscom.com/addons/Santa%20Trailer/elch.gif"></div> 
+    <div id="span1" style="position:absolute;visibility:hidden;"><img src="http://www.sigscom.com/addons/Santa%20Trailer/elch.gif"></div> 
+    <div id="span2" style="position:absolute;visibility:hidden;"><img src="http://www.sigscom.com/addons/Santa%20Trailer/elch.gif"></div> 
+    <div id="span3" style="position:absolute;visibility:hidden;"><img src="http://www.sigscom.com/addons/Santa%20Trailer/elch.gif"></div> 
+    <div id="span4" style="position:absolute;visibility:hidden;"><img src="http://www.sigscom.com/addons/Santa%20Trailer/elch.gif"></div> 
+    <div id="span5" style="position:absolute;visibility:hidden;"><img src="http://www.sigscom.com/addons/Santa%20Trailer/elch.gif"></div> 
+    <div id="span6" style="position:absolute;visibility:hidden;"><img src="http://www.sigscom.com/addons/Santa%20Trailer/zuegel.gif"></div> 
+    <div id="span7" style="position:absolute;visibility:hidden;"><img src="http://www.sigscom.com/addons/Santa%20Trailer/santaclaus.gif"></div> 
+    <div id="span8" style="position:absolute;visibility:hidden;"> </div> 
+    <script> 
+    // CREDITS:
+    // Christmas Cursor Trailer 2
+    // by Urs Dudli and Peter Gehrig 
+    // Copyright (c) 2001 Peter Gehrig and Urs Dudli. All rights reserved.
+    // Permission given to use the script provided that this notice remains as is.
+    // Additional scripts can be found at http://www.24fun.com
+    // info@24fun.ch
+    // 12/3/2001
+     
+    // IMPORTANT: 
+    // If you add this script to a script-library or script-archive 
+    // you have to add a link to http://www.24fun.com on the webpage 
+    // where this script will be running.
+     
+    var step=8 
+    var stepbasic=8
+    var numberofimages=8
+    var spacebetweenimgs=32
+    var x,y
+    var flag=0
+    var xpos=new Array()
+     
+    var ns6=document.getElementById&&!document.all?1:0
+     
+    for (i=0;i<=8;i++) {
+    	xpos[i]=-100
+    }
+     
+    var ypos=new Array()
+    for (i=0;i<=numberofimages;i++) {
+    	ypos[i]=-100
+    }
+     
+    function handlerMM(e) {
+    	x = (document.layers || ns6) ? e.pageX : document.body.scrollLeft+event.clientX
+    	y = (document.layers || ns6) ? e.pageY : document.body.scrollTop+event.clientY
+    	flag=1
+    }
+     
+    function initiatetracker() {
+    	if (document.all) {
+    		for (i=0; i<numberofimages; i++) {
+        		var thisspan=eval("span"+(i)+".style")
+    			thisspan.posLeft=xpos[i]
+    			thisspan.posTop=ypos[i]
+        		thisspan.visibility="visible"
+        	}
+    		makesnake()
+    	}
+        
+       if (ns6) {
+    		for (i=0; i<numberofimages; i++) {
+    			document.getElementById("span"+i).style.left=xpos[i]
+    			document.getElementById("span"+i).style.top=ypos[i]
+        		document.getElementById("span"+i).style.visibility="visible"
+        	}
+    		makesnake()
+    	}
+    	if (document.layers) {
+    		for (i=0; i<numberofimages; i++) {
+        		var thisspan=eval("document.span"+i)
+    			thisspan.left=xpos[i]
+    			thisspan.top=ypos[i]
+    			thisspan.visibility="visible"
+    		}
+     
+        	makesnake()
+    	}
+    }
+     
+    function makesnake() {
+    	if (flag==1 && document.all) {
+        	for (i=numberofimages; i>=1; i--) {
+       			xpos[i]=xpos[i-1]+spacebetweenimgs
+    			ypos[i]=ypos[i-1]
+        	}
+    		xpos[0]=x+stepbasic
+    		ypos[0]=y
+    	
+    		for (i=0; i<numberofimages; i++) {
+        		var thisspan = eval("span"+(i)+".style")
+        		thisspan.posLeft=xpos[i]
+    			thisspan.posTop=ypos[i]
+        	}
+    	}
+        
+        if (flag==1 && ns6) {
+        	for (i=numberofimages; i>=1; i--) {
+       			xpos[i]=xpos[i-1]+spacebetweenimgs
+    			ypos[i]=ypos[i-1]
+        	}
+    		xpos[0]=x+stepbasic
+    		ypos[0]=y
+    	
+    		for (i=0; i<numberofimages; i++) {
+        		document.getElementById("span"+i).style.left=xpos[i]
+    			document.getElementById("span"+i).style.top=ypos[i]
+        	}
+    	}
+    	
+    	else if (flag==1 && document.layers) {
+        	for (i=numberofimages; i>=1; i--) {
+       			xpos[i]=xpos[i-1]+spacebetweenimgs
+    			ypos[i]=ypos[i-1]
+        	}
+    		xpos[0]=x+stepbasic
+    		ypos[0]=y
+    	
+    		for (i=0; i<numberofimages; i++) {
+        		var thisspan = eval("document.span"+i)
+        		thisspan.left=xpos[i]
+    			thisspan.top=ypos[i]
+        	}
+    	}
+    		var timer=setTimeout("makesnake()",30)
+    }
+     
+    if (document.layers){
+    	document.captureEvents(Event.MOUSEMOVE);
+    }
+    document.onmousemove=handlerMM;
+    window.onload=initiatetracker
+    </script> 
+		<table cellspacing="50px" cellpadding="40px" width="1024px" align="center">
+			<tr>
+				<td align="center">
+					<img src="imgs/legwork-logo.jpg">
+				</td>
+			</tr>
+			<tr width="100%" bgcolor="#fff052">
+				<td>
+					<marquee><font size="5" style="font-family: Arial, sans-serif;"><b>HELLO e-FRIENDS!!!!HELLO e-FRIENDS!!!!HELLO e-FRIENDS!!!!HELLO e-FRIENDS!!!!HELLO e-Friends!!!!</b></font></marquee>
+					<p style="font-family: Arial, sans-serif; font-weight: lighter; line-height: 1.5em; ">It looks like your visiting our site on a browser that is really, really old. Unfortunately, this means you can’t get the full experience. It’d be awesome if you could upgrade to a modern browser, especially Chrome or Safari as those are the best out there right now. If not, here is a PDF you can download with our capabilities:</p>
+					<a href="#"><img src="imgs/capabilities.jpg"></a>
+					<p style="font-family: Arial, sans-serif; font-weight: lighter; line-height: 1.5em;"><a href="mailto:hello@legworkstudio.com">hello@legworkstudio.com</a><br/>
+					(303) 902-2180<br/>
+					40 S Broadway, Ste. 201 Denver, CO 80209</p>
+				</td>
+			</tr>
+			<table cellspacing="40px" align="center">
+				<tbody width="835px">
+					<tr align="left">
+						<td><img src="imgs/newsandupdates.jpg"></td>
+					</tr>
+					<tr style="padding:40px 0 40px 0;">
+						<td width="295px" valign="top">
+							<font size="4" style="font-family: Arial, sans-serif;"><b>MINI DISC IS THE WAVE OF THE FUTURE</b></font>
+							<p style="font-family: Arial, sans-serif; font-weight: light; line-height: 1.5em;">I love my new mini-disc player. It can hold so much music! Who would have ever thought you could fit 100 songs in your pocket. This is totally crazy!</p>
+						</td>
+						<td>
+							<img src="imgs/mini-disc-player.jpg" width="400px" height="240px" alt="">
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="295px" valign="top">
+							<font size="4" style="font-family: Arial, sans-serif;"><b>Flash Animation Experiments</b></font>
+							<p style="font-family: Arial, sans-serif; font-weight: lighter; line-height: 1.5em;"> We can’t tell you how excited we are about all the amazing stuff you can do with Flash 4. Here’s a link to some experiments we’ve been working on. <a href="#">Click here.</a></p>
+						</td>
+						<td>
+							<img src="imgs/flash-animation.jpg" width="400px" height="240px" alt="">
+						</td>
+					</tr>
+					
+					
+					
+					<tr>
+						<td width="295px" valign="top">
+							<font size="4" style="font-family: Arial, sans-serif;"><b>THOSE DAMN AOL CDS</b></font>
+							<p style="font-family: Arial, sans-serif; font-weight: lighter; line-height: 1.5em;"> We can’t seem to stop getting CDs to sign up with AOL in the mail, so we decided to do something interesting with them. What are you doing with yours?</p>
+						</td>
+						<td>
+							<img src="imgs/aol-cds.jpg" width="400px" height="240px" alt="">
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="295px" valign="top">
+							<font size="4" style="font-family: Arial, sans-serif;"><b>DOWNLOAD OUR NEW WALLPAPER!</b></font>
+							<p style="font-family: Arial, sans-serif; font-weight: lighter; line-height: 1.5em;"> Check out the new wallpaper we just designed! It’s available in 800x600 or 1024x768 for those of you with HUGE monitors.</p>
+						</td>
+						<td>
+							<img src="imgs/new-wallpaper.jpg" width="400px" height="240px" alt="">
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="295px" valign="top">
+							<font size="4" style="font-family: Arial, sans-serif;"><b>WE LOVE NAPSTER</b></font>
+							<p style="font-family: Arial, sans-serif; font-weight: lighter; line-height: 1.5em;">All of us at Legwork love what Napster is doing. Our fingers are crossed that the service will win their lawsuit and not get shut down. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here.</p>
+						</td>
+						<td>
+							<img src="imgs/napster.jpg" width="400px" height="240px" alt="">
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="295px" valign="top">
+							<font size="4" style="font-family: Arial, sans-serif;"><b>JOIN US ON FRIENDSTER</b></font>
+							<p style="font-family: Arial, sans-serif; font-weight: lighter; line-height: 1.5em;">Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here..</p>
+						</td>
+						<td>
+							<img src="imgs/friendster.jpg" width="400px" height="240px" alt="">
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="295px" valign="top">
+							<font size="4" style="font-family: Arial, sans-serif;"><b>NINTENDO ANNOUNCES GAMECUBE!</b></font>
+							<p style="font-family: Arial, sans-serif; font-weight: lighter; line-height: 1.5em;">Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here.</p>
+						</td>
+						<td>
+							<img src="imgs/gamecube.jpg" width="400px" height="240px" alt="">
+						</td>
+					</tr>
+					<tr>
+						<td width="295px" valign="top">
+							<font size="4" style="font-family: Arial, sans-serif;"><b>WEEZER'S NEW RECORD SUCKS</b></font>
+							<p style="font-family: Arial, sans-serif; font-weight: lighter; line-height: 1.5em;">What happened to these guys? Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here.</p>
+						</td>
+						<td>
+							<img src="imgs/weezer.jpg" width="400px" height="240px" alt="">
+						</td>
+					</tr>
+					<tr>
+						<td width="295px" valign="top">
+							<font size="4" style="font-family: Arial, sans-serif;"><b>TOM SELLECK WINS EMMY FOR HIS ROLE AS RICHARD ON FRIENDS</b></font>
+							<p style="font-family: Arial, sans-serif; font-weight: lighter; line-height: 1.5em;">What happened to these guys? Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here.</p>
+						</td>
+						<td>
+							<img src="imgs/tom-selleck.jpg" width="400px" height="240px" alt="">
+						</td>
+					</tr>
+					<tr>
+						<td width="295px" valign="top">
+							<font size="4" style="font-family: Arial, sans-serif;"><b>THE FUTURE IS AWESOME. CHECK OUT THE SEGWAY</b></font>
+							<p style="font-family: Arial, sans-serif; font-weight: lighter; line-height: 1.5em;">What happened to these guys? Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here.</p>
+						</td>
+						<td>
+							<img src="imgs/segways.jpg" width="400px" height="240px" alt="">
+						</td>
+					</tr>
+					<tr>
+						<td width="295px" valign="top">
+							<font size="4" style="font-family: Arial, sans-serif;"><b>REMEMBER Y2K COMPLIANCE? THAT WAS HILARIOUS</b></font>
+							<p style="font-family: Arial, sans-serif; font-weight: lighter; line-height: 1.5em;">What happened to these guys? Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here. Hilarious text about stupid shit would go here.</p>
+						</td>
+						<td>
+							<img src="imgs/y2k-ready.jpg" width="400px" height="240px" alt="">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</table>
+		
+	</body>
+</html>

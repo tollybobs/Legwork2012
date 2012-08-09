@@ -1,0 +1,354 @@
+// TEXT
+h1
+  font: normal normal normal 32px/32px "MuseoSlab700", Verdana, sans-serif
+
+// DEFAULTS: 320 and up (phone)
+@media screen and (min-width: 320px)
+  html, body
+    width: 100%
+    height: 100%
+    min-width: 320px
+
+  body
+    background: $white
+
+  #wrapper
+    width: 100%
+    height: auto
+
+    // header
+    header
+      position: fixed
+      width: 100%
+      height: 50px
+      border-top: 4px solid $less_black
+      z-index: 666
+
+      nav
+        position: relative
+        width: 100%
+        height: 50px
+        margin: 0 auto
+        background-color: $more_black
+        @include nav_shadow
+
+        h1
+          position: absolute
+          top: 0px
+          right: 0px
+          width: 100%
+          height: 50px
+          border-left: 1px solid $more_black
+
+        ul
+          display: none
+
+    // footer
+    footer
+      position: fixed
+      bottom: 0px
+      left: 0px
+      width: 100%
+      height: 42px
+      border-top: 8px solid #4a4a4a
+      background-color: $nav_bg
+      z-index: 666
+      @include nav_shadow
+
+      h2, a
+        float: left
+        height: 100%
+        margin-left: 15px
+
+      h2
+        width: 83px
+
+      a, a:link, a:visited
+        width: auto
+        font-size: 12px
+        line-height: 42px
+        color: $white
+        text-decoration: none
+
+      a:hover, a:visited
+        text-decoration: underline
+
+      a#footer-email:before
+        content: "Email"
+      a#footer-phone:before
+        content: "Call"
+      a#footer-address:before
+        content: "Directions"
+
+      #footer-social
+        display: none
+
+// OVERRIDES: 540 and up (tablet)
+@media screen and (min-width: 540px)
+  #wrapper
+
+    // header
+    header
+      nav
+        h1
+          width: 36%
+
+        ul
+          display: block
+          float: left
+          width: 32%
+          height: 42px
+          background-color: $nav_bg
+          -webkit-box-shadow: inset 1px 0 0 $nav_highlight
+          -moz-box-shadow: inset 1px 0 0 $nav_highlight
+          box-shadow: inset 1px 0 0 $nav_highlight
+          -webkit-transition: background-color 0.3s ease-out
+          -moz-transition: background-color 0.3s ease-out
+          -ms-transition: background-color 0.3s ease-out
+
+          li
+            position: relative
+            width: auto
+
+          li.nav-dropper
+            height: 42px
+            margin-bottom: 8px
+
+            h2
+              width: 72px
+              height: 100%
+              margin-left: 15px
+              overflow: hidden
+
+            h2:after
+              content: ""
+              position: absolute
+              top: 50%
+              right: 18px
+              margin-top: -1px
+              width: 0
+              height: 0
+              border-left: 3px solid transparent
+              border-right: 3px solid transparent
+              border-top: 3px solid $white
+
+          li.drop-item
+            height: 40px
+            margin: 0 2px
+            background-color: $nav_bg
+            border-top: 1px solid $nav_highlight
+            border-bottom: 1px solid $more_black
+            display: none
+            overflow: hidden
+
+            a, a:link, a:visited
+              display: block
+              width: auto
+              height: 100%
+              padding: 0 14px
+              font-size: 12px
+              line-height: 40px
+              text-decoration: none
+
+            a:hover, a:active
+              color: $white !important
+
+            a.filter
+              color: $white !important
+              background-color: #333
+
+            a.filter:before,
+            a.filter:after
+              content: ""
+              position: absolute
+              top: 50%
+              right: 18px
+              width: 2px
+              height: 10px
+              margin-top: -6px
+              background-color: $white
+
+              -webkit-transform: rotate(45deg)
+              -moz-transform: rotate(45deg)
+              -ms-transform: rotate(45deg)
+              -o-transform: rotate(45deg)
+              transform: rotate(45deg)
+
+            a.filter:after
+              -webkit-transform: rotate(-45deg)
+              -moz-transform: rotate(-45deg)
+              -ms-transform: rotate(-45deg)
+              -o-transform: rotate(-45deg)
+              transform: rotate(-45deg)
+
+            a.last-so-round-it-out-son
+              @include round_dropdown
+
+          li.drop-item:first-child
+            height: 41px
+            border-top: 0px
+
+          li.drop-item:last-child
+            @include round_dropdown
+
+        ul:hover
+          background-color: $nav_hover
+          
+          li.drop-item
+            display: block
+
+        ul#our-work
+          border-bottom: 8px solid $yellow
+          margin-right: 1px
+
+          li.drop-item
+            a, a:link, a:visited
+              color: $yellow
+
+        ul#our-world
+          border-bottom: 8px solid $blue
+
+          li.nav-dropper
+            h2
+              width: 79px
+              background-position: 0px -105px
+
+          li.drop-item
+            a, a:link, a:visited
+              color: $blue
+
+    // footer
+    footer
+      a#footer-email:before
+        content: ""attr(data-email)""
+      a#footer-phone:before
+        content: ""attr(data-phone)""
+      a#footer-address:before
+        content: "Directions"
+
+// OVERRIDES: 1140 and up (desktop)
+@media screen and (min-width: 1140px)
+  #wrapper
+
+    // header
+    header
+      nav
+        width: 1140px
+
+        h1
+          width: 409px
+
+        ul
+          li.nav-dropper
+            float: left
+            margin: 0 13px 0 0
+
+            h2:after
+              display: none
+
+          li.drop-item
+            display: block
+            float: left
+            height: 33px
+            border: 0px
+            margin: 0px
+            padding-top: 10px
+            background-color: transparent
+
+            a, a:link, a:visited
+              height: 22px
+              padding: 0 13px
+              line-height: 22px
+              -webkit-border-radius: 10px
+              -moz-border-radius: 10px
+              border-radius: 10px
+
+              -moz-transform: translateY(-1px)
+
+            a.filter
+              background-color: #333
+              -webkit-box-shadow: inset 0 -1px 0 0 #555
+              -moz-box-shadow: inset 0 -1px 0 0 #555
+              box-shadow: inset 0 -1px 0 0 #555
+
+            a.filter:before,
+            a.filter:after
+              display: none
+
+          li.drop-item:last-child
+            -webkit-border-bottom-right-radius: 0px
+            -webkit-border-bottom-left-radius: 0px
+            -moz-border-radius-bottomright: 0px
+            -moz-border-radius-bottomleft: 0px
+            border-bottom-right-radius: 0px
+            border-bottom-left-radius: 0px
+
+        ul#our-work
+          width: 343px
+
+        ul#our-world
+          width: 386px
+
+    // footer
+    footer
+      left: 50%
+      width: 730px
+      margin: 0 0 0 -570px
+
+      a#footer-address:before
+        content: ""attr(data-address)""
+
+      #footer-social
+        display: block
+        float: right
+        height: 13px
+        margin: 15px 15px 0 0
+
+        a
+          float: left
+          width: 12px
+          height: 13px
+          margin: 0 6px 0 0
+          background: asset-url("desktop/footer_social.png", image) no-repeat 0 0
+
+        #social-github
+          background-position: -12px 0
+        #social-vimeo
+          background-position: -24px 0
+        #social-twitter
+          background-position: -36px 0
+        #social-facebook
+          background-position: -48px 0
+
+        #social-tooltip
+          position: absolute
+          top: -23px
+          left: 0
+          width: auto
+          height: 23px
+          padding: 0 10px
+          font-size: 11px
+          line-height: 23px
+          color: #fff
+          background-color: #ff0090
+          -webkit-border-top-right-radius: 5px
+          -webkit-border-top-left-radius: 5px
+          -moz-border-radius-topright: 5px
+          -moz-border-radius-topleft: 5px
+          border-top-right-radius: 5px
+          border-top-left-radius: 5px
+          -webkit-border-bottom-right-radius: 5px
+          -moz-border-radius-bottomright: 5px
+          border-bottom-right-radius: 5px
+          display: none
+          @include nav_shadow
+
+        #social-tooltip:before
+          content: ""
+          position: absolute
+          bottom: -10px
+          left: 0
+          width: 0
+          height: 0
+          border-top: 10px solid #ff0090
+          border-right: 10px solid transparent

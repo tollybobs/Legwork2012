@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<!-- UTF-8, proudly encoding in variable width since 1993 -->
+	<meta charset="utf-8">
+
+	<!-- New IE -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<!-- Old IE: hold on to your butts -->
+	<!--[if lt IE 9]><meta http-equiv="REFRESH" content="0;url=/fallback"><![endif]-->
+
+	<!-- Meta -->
+	<title>Legwork Studio / Creativity. Innovation. DIY Ethic.</title>
+	<meta name="description" content="Hello internet voyager. We are a small, award winning digital studio located in Denver, CO. Got a minute? Click on those blue words up there.">
+	<meta name="copyright" content="Copyright © Legwork. All Rights Reserved." />
+	<meta name="author" content="Legwork Studio (http://www.legworkstudio.com)" />
+	<meta name="robots" content="index, follow" />
+
+	<!-- Mobile -->
+	<meta name="viewport" content="width=device-width">
+
+	<!-- OG Junk -->
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Legwork">
+	<meta property="og:title" content="Legwork Studio / Creativity. Innovation. DIY Ethic.">
+	<meta property="og:desription" content="Listen, Facebot: check out this craaazy site! It's for Legwork Studio; a small, award winning digital studio located in Denver, CO.">
+	<meta property="og:url" content="http://legworkstudio.com/">
+	<meta property="og:image" content="facebot.jpg">
+
+	<!-- OMG, this is my faaavorite -->
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+	<!-- Hot title font, ref'd locally for FF and IE -->
+	<link href="/fonts/Museo_Slab_700.css" media="all" rel="stylesheet" type="text/css">
+
+	<!-- Whatever you do, do it with style -->
+	<%= stylesheet_link_tag "desktop", :media => "all" %>
+
+	<!-- Modernizr -->
+	<%= javascript_include_tag "desktop-top" %>
+
+	<!-- Keep it authentic -->
+	<%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+<!-- Won't work without this stuff, who cares about SEO anyways? -->
+<%= javascript_include_tag "desktop-bottom" %>
+</body>
+</html>

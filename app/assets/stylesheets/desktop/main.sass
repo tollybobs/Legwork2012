@@ -2,7 +2,7 @@
 h1
   font: normal normal normal 32px/32px "MuseoSlab700", Verdana, sans-serif
 
-// DEFAULTS: 320 and up (phone)
+// DEFAULTS: 320 and up (phone portrait)
 @media screen and (min-width: 320px)
   html, body
     width: 100%
@@ -11,6 +11,7 @@ h1
 
   body
     background: $white
+    -webkit-text-size-adjust: none
 
   #wrapper
     width: 100%
@@ -20,289 +21,320 @@ h1
     header
       position: fixed
       width: 100%
-      height: 50px
-      border-top: 4px solid $less_black
+      height: 264px
       z-index: 666
+      background-color: $less_black
+      @include nav_shadow
 
       nav
         position: relative
         width: 100%
-        height: 50px
+        height: 210px
         margin: 0 auto
-        background-color: $more_black
-        @include nav_shadow
-
-        h1
-          position: absolute
-          top: 0px
-          right: 0px
-          width: 100%
-          height: 50px
-          border-left: 1px solid $more_black
 
         ul
-          display: none
+          display: block
+          width: 100%
+          height: 69px
+          border-top: 1px solid $less_black
+          background-color: $nav_bg
+
+          li
+            position: relative
+            float: left
+            width: 33%
+            height: 69px
+            height: 100%
+
+            a
+              display: block
+              width: auto
+              height: 69px
+              color: $white
+              font: normal normal bold 10px/102px Helvetica, Arial, sans-serif
+              text-align: center
+              text-decoration: none
+              background: transparent asset-url("desktop/test-icon.gif", image) no-repeat 50% 14px
+              overflow: hidden
+
+          li:nth-child(3)
+            width: 34%
+
+            a
+              border-right: 1px solid $less_black
+              border-left: 1px solid $less_black
+
+          li.nav-title
+            display: none
+
+      #menu-btn
+        display: block
+        position: absolute
+        bottom: 0px
+        left: 0px
+        width: 100%
+        height: 45px
+        border-top: 1px solid $nav_highlight
+        border-bottom: 4px solid $yellow
+        background-color: $nav_bg
+
+      h1
+        position: absolute
+        bottom: -20px
+        right: 20px
+        width: 70px
+        height: 70px
+        background: asset-url("desktop/logo.gif", image) no-repeat top left
+        @include nav_shadow
 
     // footer
     footer
+      display: none
+
+// OVERRIDES: 480 and up (phone landscape)
+@media screen and (min-width: 480px)
+  #wrapper
+    header
+      height: 204px
+
+      nav
+        height: 150px
+
+        ul
+          height: 49px
+
+          li
+            height: 49px
+
+            a
+              height: 49px
+              text-align: left
+              padding-left: 54px
+              line-height: 49px
+              background-position: 12px 12px
+
+// OVERRIDES: 740 and up (tablet)
+@media screen and (min-width: 740px)
+  #wrapper
+
+    // header
+    header:before
+      content: ""
+      position: absolute
+      top: 0px
+      left: 0px
+      width: 100%
+      height: 1px
+      background-color: $nav_highlight
+
+    header
+      height: 70px
+      border-top: 4px solid $less_black
+      background-color: $nav_bg
+
+      nav
+        position: absolute
+        bottom: 0px
+        width: auto
+        height: 70px
+        border-right: 1px solid $nav_highlight
+        background-color: $black
+
+        ul
+          display: block
+          float: left
+          width: auto
+          height: 65px
+          margin-right: 1px
+          border-top: 1px solid $nav_highlight
+          background-color: $nav_bg
+
+          li
+            width: auto
+            height: 65px
+
+            a
+              height: 65px
+              padding: 0 13px
+              text-align: center
+              font: normal normal normal 12px/61px Helvetica, Arial, sans-serif
+              background: transparent
+
+          li:nth-child(2)
+            padding-left: 13px
+
+          li:nth-child(3)
+            width: auto
+            height: 65px
+
+            a
+              height: 65px
+              border-right: 0px
+              border-left: 0px
+
+          li:nth-child(4)
+            padding-right: 13px
+
+          li.nav-title
+            display: none
+
+        ul#our-work
+          border-bottom: 4px solid $yellow
+
+          li
+            a
+              color: $yellow
+
+        ul#our-world
+          border-bottom: 4px solid $blue
+
+          li
+            a
+              color: $blue
+
+          li:nth-child(2)
+            border-left: 1px solid $nav_highlight
+
+        ul#contact-mobile
+          display: none
+
+      #menu-btn
+        display: none
+
+      h1
+        bottom: -28px
+        right: 26px
+        width: 98px
+        height: 98px
+        background: asset-url("desktop/bigger-logo.gif", image) no-repeat top left
+
+    // footer
+    footer
+      display: block
       position: fixed
       bottom: 0px
       left: 0px
       width: 100%
-      height: 42px
-      border-top: 8px solid #4a4a4a
+      height: 46px
+      border-top: 4px solid #4d4d4d
       background-color: $nav_bg
       z-index: 666
       @include nav_shadow
 
       h2, a
         float: left
+        width: auto
         height: 100%
-        margin-left: 15px
 
       h2
-        width: 83px
+        font: normal normal normal 12px/46px "MuseoSlab700", Verdana, sans-serif
+        color: $white
+        text-transform: uppercase
+        margin-left: 26px
 
       a, a:link, a:visited
-        width: auto
-        font-size: 12px
-        line-height: 42px
+        font: normal normal normal 12px/46px Helvetica, Arial, sans-serif
         color: $white
         text-decoration: none
+        margin-left: 24px
 
       a:hover, a:visited
         text-decoration: underline
 
-      a#footer-email:before
-        content: "Email"
-      a#footer-phone:before
-        content: "Call"
-      a#footer-address:before
-        content: "Directions"
-
       #footer-social
         display: none
 
-// OVERRIDES: 540 and up (tablet)
-@media screen and (min-width: 540px)
+// OVERRIDES: 1025 and up (desktop)
+@media screen and (min-width: 1025px)
   #wrapper
 
     // header
     header
+      height: 50px
+
       nav
-        h1
-          width: 36%
+        height: 50px
 
         ul
-          display: block
-          float: left
-          width: 32%
-          height: 42px
-          background-color: $nav_bg
-          -webkit-box-shadow: inset 1px 0 0 $nav_highlight
-          -moz-box-shadow: inset 1px 0 0 $nav_highlight
-          box-shadow: inset 1px 0 0 $nav_highlight
-          -webkit-transition: background-color 0.3s ease-out
-          -moz-transition: background-color 0.3s ease-out
-          -ms-transition: background-color 0.3s ease-out
+          height: 45px
+          -webkit-transition: background-color 300ms
+          -moz-transition: background-color 300ms
+          -o-transition: background-color 300ms
+          transition: background-color 300ms
 
           li
-            position: relative
-            width: auto
+            height: 45px
 
-          li.nav-dropper
-            height: 42px
-            margin-bottom: 8px
+            a
+              height: 45px
+              line-height: 45px
+
+          li:nth-child(2)
+            padding-left: 0px
+
+          li:nth-child(3)
+            height: 45px
+
+            a
+              height: 45px
+              line-height: 45px
+
+          li.nav-title
+            display: block
+            padding: 0 13px 0 26px
 
             h2
-              width: 72px
-              height: 100%
-              margin-left: 15px
-              overflow: hidden
+              font: normal normal normal 12px/45px "MuseoSlab700", Verdana, sans-serif
+              color: $white
+              text-transform: uppercase
 
-            h2:after
-              content: ""
-              position: absolute
-              top: 50%
-              right: 18px
-              margin-top: -1px
-              width: 0
-              height: 0
-              border-left: 3px solid transparent
-              border-right: 3px solid transparent
-              border-top: 3px solid $white
+        ul#our-work
+          li
+            a
+              -webkit-transition: color 300ms
+              -moz-transition: color 300ms
+              -o-transition: color 300ms
+              transition: color 300ms
 
-          li.drop-item
-            height: 40px
-            margin: 0 2px
-            background-color: $nav_bg
-            border-top: 1px solid $nav_highlight
-            border-bottom: 1px solid $more_black
-            display: none
-            overflow: hidden
+            a:hover
+              color: $white
 
-            a, a:link, a:visited
-              display: block
-              width: auto
-              height: 100%
-              padding: 0 14px
-              font-size: 12px
-              line-height: 40px
-              text-decoration: none
+        ul#our-world
+          li
+            a
+              -webkit-transition: color 300ms
+              -moz-transition: color 300ms
+              -o-transition: color 300ms
+              transition: color 300ms
 
-            a:hover, a:active
-              color: $white !important
+            a:hover
+              color: $white
 
-            a.filter
-              color: $white !important
-              background-color: #333
+          li:nth-child(1)
+            border-left: 1px solid $nav_highlight
 
-            a.filter:before,
-            a.filter:after
-              content: ""
-              position: absolute
-              top: 50%
-              right: 18px
-              width: 2px
-              height: 10px
-              margin-top: -6px
-              background-color: $white
-
-              -webkit-transform: rotate(45deg)
-              -moz-transform: rotate(45deg)
-              -ms-transform: rotate(45deg)
-              -o-transform: rotate(45deg)
-              transform: rotate(45deg)
-
-            a.filter:after
-              -webkit-transform: rotate(-45deg)
-              -moz-transform: rotate(-45deg)
-              -ms-transform: rotate(-45deg)
-              -o-transform: rotate(-45deg)
-              transform: rotate(-45deg)
-
-            a.last-so-round-it-out-son
-              @include round_dropdown
-
-          li.drop-item:first-child
-            height: 41px
-            border-top: 0px
-
-          li.drop-item:last-child
-            @include round_dropdown
+          li:nth-child(2)
+            border-left: 0px
 
         ul:hover
-          background-color: $nav_hover
-          
-          li.drop-item
-            display: block
+          background-color: $nav_highlight
 
-        ul#our-work
-          border-bottom: 8px solid $yellow
-          margin-right: 1px
-
-          li.drop-item
-            a, a:link, a:visited
-              color: $yellow
-
-        ul#our-world
-          border-bottom: 8px solid $blue
-
-          li.nav-dropper
-            h2
-              width: 79px
-              background-position: 0px -105px
-
-          li.drop-item
-            a, a:link, a:visited
-              color: $blue
+      h1
+        bottom: -20px
+        right: 26px
+        width: 70px
+        height: 70px
+        background: asset-url("desktop/logo.gif", image) no-repeat top left
 
     // footer
     footer
-      a#footer-email:before
-        content: ""attr(data-email)""
-      a#footer-phone:before
-        content: ""attr(data-phone)""
-      a#footer-address:before
-        content: "Directions"
-
-// OVERRIDES: 1140 and up (desktop)
-@media screen and (min-width: 1140px)
-  #wrapper
-
-    // header
-    header
-      nav
-        width: 1140px
-
-        h1
-          width: 409px
-
-        ul
-          li.nav-dropper
-            float: left
-            margin: 0 13px 0 0
-
-            h2:after
-              display: none
-
-          li.drop-item
-            display: block
-            float: left
-            height: 33px
-            border: 0px
-            margin: 0px
-            padding-top: 10px
-            background-color: transparent
-
-            a, a:link, a:visited
-              height: 22px
-              padding: 0 13px
-              line-height: 22px
-              -webkit-border-radius: 10px
-              -moz-border-radius: 10px
-              border-radius: 10px
-
-              -moz-transform: translateY(-1px)
-
-            a.filter
-              background-color: #333
-              -webkit-box-shadow: inset 0 -1px 0 0 #555
-              -moz-box-shadow: inset 0 -1px 0 0 #555
-              box-shadow: inset 0 -1px 0 0 #555
-
-            a.filter:before,
-            a.filter:after
-              display: none
-
-          li.drop-item:last-child
-            -webkit-border-bottom-right-radius: 0px
-            -webkit-border-bottom-left-radius: 0px
-            -moz-border-radius-bottomright: 0px
-            -moz-border-radius-bottomleft: 0px
-            border-bottom-right-radius: 0px
-            border-bottom-left-radius: 0px
-
-        ul#our-work
-          width: 343px
-
-        ul#our-world
-          width: 386px
-
-    // footer
-    footer
-      left: 50%
-      width: 730px
-      margin: 0 0 0 -570px
-
-      a#footer-address:before
-        content: ""attr(data-address)""
+      width: 751px
 
       #footer-social
         display: block
         float: right
         height: 13px
-        margin: 15px 15px 0 0
+        margin: 16px 26px 0 0
 
         a
           float: left
@@ -352,3 +384,20 @@ h1
           height: 0
           border-top: 10px solid #ff0090
           border-right: 10px solid transparent
+
+// OVERRIDES: retina display
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)
+  #wrapper
+
+    // header
+    header
+      nav
+        ul
+          li
+            a
+              background-image: asset-url("desktop/test-icon@2x.gif", image)
+              background-size: 30px 24px
+
+      h1
+        background-image: asset-url("desktop/bigger-logo@2x.gif", image)
+        background-size: 70px 70px

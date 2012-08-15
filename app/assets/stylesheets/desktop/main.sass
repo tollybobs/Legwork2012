@@ -38,18 +38,18 @@ h1
           height: 69px
           border-top: 1px solid $less_black
           background-color: $nav_bg
+          list-style: none
 
           li
             position: relative
             float: left
             width: 33%
-            height: 69px
             height: 100%
 
             a
               display: block
               width: auto
-              height: 69px
+              height: 100%
               color: $white
               font: normal normal bold 10px/102px Helvetica, Arial, sans-serif
               text-align: center
@@ -104,10 +104,7 @@ h1
           height: 49px
 
           li
-            height: 49px
-
             a
-              height: 49px
               text-align: left
               padding-left: 54px
               line-height: 49px
@@ -151,24 +148,21 @@ h1
 
           li
             width: auto
-            height: 65px
 
             a
-              height: 65px
               padding: 0 13px
               text-align: center
               font: normal normal normal 12px/61px Helvetica, Arial, sans-serif
               background: transparent
+              @include text_shadow(-1px, -1px, 1px, $more_black)
 
           li:nth-child(2)
             padding-left: 13px
 
           li:nth-child(3)
             width: auto
-            height: 65px
 
             a
-              height: 65px
               border-right: 0px
               border-left: 0px
 
@@ -221,27 +215,36 @@ h1
       z-index: 666
       @include nav_shadow
 
-      h2, a
+      ul
         float: left
         width: auto
-        height: 100%
+        list-style: none
 
-      h2
-        font: normal normal normal 12px/46px "MuseoSlab700", Verdana, sans-serif
-        color: $white
-        text-transform: uppercase
-        margin-left: 26px
+      ul#contact-footer
+        height: 46px
 
-      a, a:link, a:visited
-        font: normal normal normal 12px/46px Helvetica, Arial, sans-serif
-        color: $white
-        text-decoration: none
-        margin-left: 24px
+        li
+          float: left
+          width: auto
+          height: 100%
+          margin-left: 26px
 
-      a:hover, a:visited
-        text-decoration: underline
+          h2, a
+            width: auto
+            height: 100%
+            @include text_shadow(-1px, -1px, 1px, $more_black)
 
-      #footer-social
+          h2
+            font: normal normal normal 12px/46px "MuseoSlab700", Verdana, sans-serif
+            color: $white
+            text-transform: uppercase
+
+          a
+            font: normal normal normal 12px/46px Helvetica, Arial, sans-serif
+            color: $light_gray
+            text-decoration: none
+
+      ul#social-footer
         display: none
 
 // OVERRIDES: 1025 and up (desktop)
@@ -257,26 +260,17 @@ h1
 
         ul
           height: 45px
-          -webkit-transition: background-color 300ms
-          -moz-transition: background-color 300ms
-          -o-transition: background-color 300ms
-          transition: background-color 300ms
+          @include transition(background-color, 250ms, linear)
 
           li
-            height: 45px
-
             a
-              height: 45px
               line-height: 45px
 
           li:nth-child(2)
             padding-left: 0px
 
           li:nth-child(3)
-            height: 45px
-
             a
-              height: 45px
               line-height: 45px
 
           li.nav-title
@@ -287,14 +281,12 @@ h1
               font: normal normal normal 12px/45px "MuseoSlab700", Verdana, sans-serif
               color: $white
               text-transform: uppercase
+              @include text_shadow(-1px, -1px, 1px, $more_black)
 
         ul#our-work
           li
             a
-              -webkit-transition: color 300ms
-              -moz-transition: color 300ms
-              -o-transition: color 300ms
-              transition: color 300ms
+              @include transition(color, 250ms, linear)
 
             a:hover
               color: $white
@@ -302,10 +294,7 @@ h1
         ul#our-world
           li
             a
-              -webkit-transition: color 300ms
-              -moz-transition: color 300ms
-              -o-transition: color 300ms
-              transition: color 300ms
+              @include transition(color, 250ms, linear)
 
             a:hover
               color: $white
@@ -328,62 +317,80 @@ h1
 
     // footer
     footer
-      width: 751px
+      width: 764px
 
-      #footer-social
+      ul#contact-footer
+        a
+          @include transition(color, 250ms, linear)
+
+        a:hover
+          color: $white
+
+      ul#social-footer
         display: block
         float: right
-        height: 13px
-        margin: 16px 26px 0 0
+        height: 16px
+        margin: 15px 26px 0 0
 
-        a
+        li
+          position: relative
           float: left
-          width: 12px
-          height: 13px
-          margin: 0 6px 0 0
-          background: asset-url("desktop/footer_social.png", image) no-repeat 0 0
+          width: 16px
+          height: 100%
+          margin-right: 10px
 
-        #social-github
-          background-position: -12px 0
-        #social-vimeo
-          background-position: -24px 0
-        #social-twitter
-          background-position: -36px 0
-        #social-facebook
-          background-position: -48px 0
+          a
+            display: block
+            width: 100%
+            height: 100%
+            background: asset-url("desktop/social-icons.gif", image) no-repeat 0 0
+            opacity: 0.75
+            @include transition(opacity, 250ms, linear)
 
-        #social-tooltip
-          position: absolute
-          top: -23px
-          left: 0
-          width: auto
-          height: 23px
-          padding: 0 10px
-          font-size: 11px
-          line-height: 23px
-          color: #fff
-          background-color: #ff0090
-          -webkit-border-top-right-radius: 5px
-          -webkit-border-top-left-radius: 5px
-          -moz-border-radius-topright: 5px
-          -moz-border-radius-topleft: 5px
-          border-top-right-radius: 5px
-          border-top-left-radius: 5px
-          -webkit-border-bottom-right-radius: 5px
-          -moz-border-radius-bottomright: 5px
-          border-bottom-right-radius: 5px
-          display: none
-          @include nav_shadow
+          a#social-github
+            background-position: 0px 0
+          a#social-vimeo
+            background-position: -16px 0
+          a#social-facebook
+            background-position: -32px 0
+          a#social-twitter
+            background-position: -48px 0
 
-        #social-tooltip:before
-          content: ""
-          position: absolute
-          bottom: -10px
-          left: 0
-          width: 0
-          height: 0
-          border-top: 10px solid #ff0090
-          border-right: 10px solid transparent
+          a:hover
+            opacity: 1
+
+          a:hover:before
+            content: ""
+            display: block
+            position: absolute
+            top: -15px
+            left: 8px
+            border-top: 10px solid $hot
+            border-right: 10px solid transparent
+
+          a:hover:after
+            content: attr(data-tooltip)
+            display: block
+            position: absolute
+            top: -38px
+            left: 8px
+            width: auto
+            height: 23px
+            padding: 0 10px
+            font: normal normal normal 12px/24px Helvetica, Arial, sans-serif
+            color: $white
+            white-space: nowrap
+            -webkit-font-smoothing: subpixel-antialiased
+            background-color: $hot
+            -webkit-border-top-right-radius: 5px
+            -webkit-border-top-left-radius: 5px
+            -moz-border-radius-topright: 5px
+            -moz-border-radius-topleft: 5px
+            border-top-right-radius: 5px
+            border-top-left-radius: 5px
+            -webkit-border-bottom-right-radius: 5px
+            -moz-border-radius-bottomright: 5px
+            border-bottom-right-radius: 5px
 
 // OVERRIDES: retina display
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)
@@ -401,3 +408,11 @@ h1
       h1
         background-image: asset-url("desktop/bigger-logo@2x.gif", image)
         background-size: 70px 70px
+
+    // footer
+    footer
+      ul#social-footer
+        li
+          a
+            background: asset-url("desktop/social-icons@2x.gif", image) no-repeat 0 0
+            background-size: 16px 16px

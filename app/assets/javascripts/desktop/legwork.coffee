@@ -27,7 +27,6 @@ class Legwork.Application
     @initial_touch = 0
     @last_y = 0
     @direction = 'down'
-    @final_time = 0
     @final_touch = 0
 
     @observeSomeSweetEvents()
@@ -84,7 +83,6 @@ class Legwork.Application
     @$wrapper[0].addEventListener(@touch_move, @onTouchMove, false)
     @$wrapper[0].addEventListener(@touch_end, @onTouchEnd, false)
 
-
   ###
   *------------------------------------------*
   | onTouchMove:void (=)
@@ -102,7 +100,10 @@ class Legwork.Application
     @direction = if y > @last_y then 'down' else 'up'
     @last_y = y
 
-    @$header.css('margin-top', offset + 'px')
+    if new Date().getTime() - @initial_time < 150
+      return false
+    else
+      @$header.css('margin-top', offset + 'px')
 
   ###
   *------------------------------------------*
@@ -116,7 +117,6 @@ class Legwork.Application
     @$wrapper[0].removeEventListener(@touch_move, @onTouchMove, false)
     @$wrapper[0].removeEventListener(@touch_end, @onTouchEnd, false)
 
-    @final_time = new Date().getTime()
     @final_touch = if e.changedTouches? then e.changedTouches[0].pageY else e.pageY
 
     if @final_touch - @initial_touch > @$nav.outerHeight()

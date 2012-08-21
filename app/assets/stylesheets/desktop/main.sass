@@ -8,6 +8,7 @@ h1
     width: 100%
     height: 100%
     min-width: 320px
+    overflow-x: hidden
 
   body
     background: $white
@@ -20,15 +21,18 @@ h1
     // header
     header
       position: fixed
+      top: -100%
+      left: 0px
       width: 100%
-      height: 264px
+      height: 100%
       z-index: 666
       background-color: $less_black
       @include nav_shadow
 
       nav
-        position: relative
-        width: 100%
+        position: absolute
+        bottom: 0px
+        width: 101% // Webkit pixel rounding
         height: 210px
         margin: 0 auto
 
@@ -102,22 +106,93 @@ h1
       #menu-btn
         display: block
         position: absolute
-        bottom: 0px
+        top: 100%
         left: 0px
         width: 100%
-        height: 45px
-        border-top: 1px solid $nav_highlight
+        height: 46px
+        border-top: 4px solid $black
         border-bottom: 4px solid $yellow
         background-color: $nav_bg
+        @include inner_shadow(0, 0, -1px, #2b2b2b)
+
+        h2
+          margin-left: 40px
+          font: normal normal normal 12px/46px "MuseoSlab700", Verdana, sans-serif
+          color: $white
+          text-transform: uppercase
+          @include text_shadow(-1px, -1px, 1px, $more_black)
+
+        h2:before,
+        h2:after
+          content: ""
+          position: absolute
+          top: 15px
+          left: 20px
+          width: 0px
+          height: 0px
+          border-bottom: 5px solid $white
+          border-right: 5px solid transparent
+          border-left: 5px solid transparent
+
+        h2:after
+          top: 25px
+          border-bottom: 0px
+          border-top: 5px solid $white
+
+        #menu-handle
+          position: absolute
+          top: 50%
+          left: 50%
+          width: 14px
+          height: 0px
+          margin: -2px 0 0 -7px
+          border-top: 1px solid $black
+          border-bottom: 1px solid #444
+
+        #menu-handle:before,
+        #menu-handle:after
+          content: ""
+          position: absolute
+          top: 50%
+          left: 50%
+          width: 14px
+          height: 0px
+          margin: -4px 0 0 -7px
+          border-top: 1px solid $black
+          border-bottom: 1px solid #444
+
+        #menu-handle:after
+          margin-top: 2px
 
       h1
         position: absolute
-        bottom: -20px
+        bottom: -74px
         right: 20px
         width: 70px
         height: 70px
         background: asset-url("desktop/logo.gif", image) no-repeat top left
         @include nav_shadow
+
+    header.transition
+      @include transition(margin-top, 500ms, ease-in-out)
+
+    header.open
+      #menu-btn
+        h2:before,
+        h2:after
+          content: ""
+          position: absolute
+          top: 16px
+          left: 24px
+          width: 4px
+          height: 14px
+          border: 0px
+          background-color: $white
+          @include rotate(45deg)
+
+        h2:after
+          @include rotate(-45deg)
+
 
     // footer
     footer
@@ -127,8 +202,6 @@ h1
 @media screen and (min-width: 480px)
   #wrapper
     header
-      height: 204px
-
       nav
         height: 150px
 
@@ -183,7 +256,9 @@ h1
       background-color: $nav_highlight
 
     header
+      top: 0px
       height: 70px
+      margin-top: 0px !important
       border-top: 4px solid $less_black
       background-color: $nav_bg
 

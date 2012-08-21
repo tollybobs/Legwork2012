@@ -17,6 +17,13 @@ $hot:               #ff0090
   -o-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3)
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3)
 
+@mixin inner_shadow($x, $y, $radius, $color)
+  -webkit-box-shadow: inset $x $y $radius $color
+  -moz-box-shadow: inset $x $y $radius $color
+  -ms-box-shadow: inset $x $y $radius $color
+  -o-box-shadow: inset $x $y $radius $color
+  box-shadow: inset $x $y $radius $color
+
 @mixin transition($property, $duration, $ease)
   -webkit-transition: $property $duration $ease
   -moz-transition: $property $duration $ease
@@ -26,5 +33,6 @@ $hot:               #ff0090
 @mixin text_shadow($x, $y, $radius, $color)
   -webkit-text-shadow: $x $y $radius $color
   -moz-text-shadow: $x $y $radius $color
+  -ms-text-shadow: $x $y $radius $color
   -o-text-shadow: $x $y $radius $color
   text-shadow: $x $y $radius $color

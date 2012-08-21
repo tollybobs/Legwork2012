@@ -3,20 +3,31 @@
   <!-- Header -->
   <header>
     <nav class="cf">
-      <ul id="our-work" class="drop-menu">
-        <li class="nav-dropper"><h2>Our Work</h2></li>
-        <li class="drop-item"><a href="#">Interactive</a></li>
-        <li class="drop-item"><a href="#">Motion</a></li>
-        <li class="drop-item"><a href="#" class="last-so-round-it-out-son">Illustration</a></li>
+      <ul id="our-work">
+        <li class="nav-title"><h2>Our Work</h2></li>
+        <li><a class="ajaxy" id="work-interactive" href="javascript:void(0);">Interactive</a></li>
+        <li><a class="ajaxy" id="work-motion" href="javascript:void(0);">Motion</a></li>
+        <li><a class="ajaxy" id="work-illustration" href="javascript:void(0);">Illustration</a></li>
       </ul>
-      <ul id="our-world" class="drop-menu">
-        <li class="nav-dropper"><h2>Our World</h2></li>
-        <li class="drop-item"><a href="#">About Us</a></li>
-        <li class="drop-item"><a href="#">Giveaways</a></li>
-        <li class="drop-item"><a href="#" class="last-so-round-it-out-son">Extracurricular</a></li>
+      <ul id="our-world">
+        <li class="nav-title"><h2>Our World</h2></li>
+        <li><a class="ajaxy" id="world-about" href="javascript:void(0);">About Us</a></li>
+        <li><a class="ajaxy" id="world-open" href="javascript:void(0);">Open Source</a></li>
+        <li><a class="ajaxy" id="world-extra" href="javascript:void(0);">Extracurricular</a></li>
       </ul>
-      <h1 class="ir">Legwork</h1>
+      <ul id="contact-mobile">
+        <li class="nav-title"><h2>Contact</h2></li>
+        <li><a id="contact-email" href="mailto:hello@legworkstudio.com">Email Us</a></li>
+        <li><a id="contact-phone" href="tel:1-303-902-2180">Call Us</a></li>
+        <li><a id="contact-address" href="http://g.co/maps/9f46q">Visit Us</a></li>
+      </ul>
     </nav>
+
+    <div id="menu-btn">
+      <h2>Menu</h2>
+      <div id="menu-handle"></div>
+    </div>
+    <h1 class="ir">Legwork</h1>
   </header>
   <!--/Header -->
 
@@ -27,18 +38,19 @@
 
   <!-- Footer -->
   <footer>
-    <h2>Contact Us</h2>
-    <a data-email="hello@legworkstudio.com" href="mailto:hello@legworkstudio.com" id="footer-email"></a>
-    <a data-phone="(303) 902-2180" href="tel:1-303-902-2180" id="footer-phone"></a>
-    <a data-address="40 S Broadway Ste. 201 Denver, CO 80209" href="http://g.co/maps/9f46q" id="footer-address"></a>
+    <ul id="contact-footer">
+      <li class="nav-title"><h2>Contact Us</h2></li>
+      <li><a href="mailto:hello@legworkstudio.com" id="footer-email">hello@legworkstudio.com</a></li>
+      <li><a href="tel:1-303-902-2180" id="footer-phone">(303) 902-2180</a></li>
+      <li><a href="http://g.co/maps/9f46q" id="footer-address">40 S Broadway / Denver, CO 80209</a></li>
+    </ul>
 
-    <div id="footer-social">
-      <a href="#" id="social-github" class="ir">Follow on Github</a>
-      <a href="#" id="social-vimeo" class="ir">Watch on Vimeo</a>
-      <a href="#" id="social-twitter" class="ir">Follow on Twitter</a>
-      <a href="#" id="social-facebook" class="ir nmr">Subscribe on Facebook</a>
-      <div id="social-tooltip"></div>
-    </div>
+    <ul id="social-footer">
+      <li><a href="javascript:void(0);" id="social-github" data-tooltip="Follow on Github"></a></li>
+      <li><a href="javascript:void(0);" id="social-vimeo" data-tooltip="Watch on Vimeo"></a></li>
+      <li><a href="javascript:void(0);" id="social-facebook" data-tooltip="Subscribe on Facebook"></a></li>
+      <li class="nmr"><a href="javascript:void(0);" id="social-twitter" data-tooltip="Follow on Twitter"></a></li>
+    </ul>
   </footer>
   <!--/Footer -->
 

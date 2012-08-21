@@ -2,353 +2,570 @@
 h1
   font: normal normal normal 32px/32px "MuseoSlab700", Verdana, sans-serif
 
-// DEFAULTS: 320 and up (phone)
+// DEFAULTS: 320 and up (phone portrait)
 @media screen and (min-width: 320px)
   html, body
     width: 100%
     height: 100%
     min-width: 320px
+    overflow-x: hidden
 
   body
     background: $white
+    -webkit-text-size-adjust: none
 
   #wrapper
     width: 100%
-    height: auto
+    height: 100%
 
     // header
     header
       position: fixed
+      top: -100%
+      left: 0px
       width: 100%
-      height: 50px
-      border-top: 4px solid $less_black
+      height: 100%
       z-index: 666
+      background-color: $less_black
+      @include nav_shadow
 
       nav
-        position: relative
-        width: 100%
-        height: 50px
+        position: absolute
+        bottom: 0px
+        width: 101% // Webkit pixel rounding
+        height: 210px
         margin: 0 auto
-        background-color: $more_black
-        @include nav_shadow
-
-        h1
-          position: absolute
-          top: 0px
-          right: 0px
-          width: 100%
-          height: 50px
-          border-left: 1px solid $more_black
 
         ul
-          display: none
+          display: block
+          width: 100%
+          height: 69px
+          border-top: 1px solid $less_black
+          background-color: $nav_bg
+          list-style: none
+
+          li
+            position: relative
+            float: left
+            width: 33%
+            height: 100%
+
+            a
+              display: block
+              width: auto
+              height: 100%
+              color: $white
+              font: normal normal bold 10px/102px Helvetica, Arial, sans-serif
+              text-align: center
+              text-decoration: none
+              background: transparent asset-url("desktop/mobile-icons.gif", image) no-repeat 0px 0px
+              overflow: hidden
+              @include inner_shadow(0, 0, -1px, #2b2b2b)
+
+            a#work-interactive
+              background-position: 50% 14px
+
+            a#work-motion
+              background-position: 50% -46px
+
+            a#work-illustration
+              background-position: 50% -106px
+
+            a#world-about
+              background-position: 50% -166px
+
+            a#world-open
+              background-position: 50% -226px
+
+            a#world-extra
+              background-position: 50% -286px
+
+            a#contact-email
+              background-position: 50% 14px
+
+            a#contact-phone
+              background-position: 50% 14px
+
+            a#contact-address
+              background-position: 50% 14px
+
+            a.selected
+              background-color: $less_black
+              @include inner_shadow(0, 0, 7px, $black)
+
+          li:nth-child(3)
+            width: 34%
+
+            a
+              border-right: 1px solid $less_black
+              border-left: 1px solid $less_black
+
+          li.nav-title
+            display: none
+
+      #menu-btn
+        display: block
+        position: absolute
+        top: 100%
+        left: 0px
+        width: 100%
+        height: 46px
+        border-top: 4px solid $black
+        border-bottom: 4px solid $yellow
+        background-color: $nav_bg
+        @include inner_shadow(0, 0, -1px, #2b2b2b)
+
+        h2
+          margin-left: 40px
+          font: normal normal normal 12px/46px "MuseoSlab700", Verdana, sans-serif
+          color: $white
+          text-transform: uppercase
+          @include text_shadow(-1px, -1px, 1px, $more_black)
+
+        h2:before,
+        h2:after
+          content: ""
+          position: absolute
+          top: 15px
+          left: 20px
+          width: 0px
+          height: 0px
+          border-bottom: 5px solid $white
+          border-right: 5px solid transparent
+          border-left: 5px solid transparent
+
+        h2:after
+          top: 25px
+          border-bottom: 0px
+          border-top: 5px solid $white
+
+        #menu-handle
+          position: absolute
+          top: 50%
+          left: 50%
+          width: 14px
+          height: 0px
+          margin: -2px 0 0 -7px
+          border-top: 1px solid $black
+          border-bottom: 1px solid #444
+
+        #menu-handle:before,
+        #menu-handle:after
+          content: ""
+          position: absolute
+          top: 50%
+          left: 50%
+          width: 14px
+          height: 0px
+          margin: -4px 0 0 -7px
+          border-top: 1px solid $black
+          border-bottom: 1px solid #444
+
+        #menu-handle:after
+          margin-top: 2px
+
+      h1
+        position: absolute
+        bottom: -74px
+        right: 20px
+        width: 70px
+        height: 70px
+        background: asset-url("desktop/logo.gif", image) no-repeat top left
+        @include nav_shadow
+
+    header.transition
+      @include transition(margin-top, 500ms, ease-in-out)
+
+    header.open
+      #menu-btn
+        h2:before,
+        h2:after
+          content: ""
+          position: absolute
+          top: 16px
+          left: 24px
+          width: 4px
+          height: 14px
+          border: 0px
+          background-color: $white
+          @include rotate(45deg)
+
+        h2:after
+          @include rotate(-45deg)
+
 
     // footer
     footer
-      position: fixed
-      bottom: 0px
-      left: 0px
-      width: 100%
-      height: 42px
-      border-top: 8px solid #4a4a4a
-      background-color: $nav_bg
-      z-index: 666
-      @include nav_shadow
+      display: none
 
-      h2, a
-        float: left
-        height: 100%
-        margin-left: 15px
+// OVERRIDES: 480 and up (phone landscape)
+@media screen and (min-width: 480px)
+  #wrapper
+    header
+      nav
+        height: 150px
 
-      h2
-        width: 83px
+        ul
+          height: 49px
 
-      a, a:link, a:visited
-        width: auto
-        font-size: 12px
-        line-height: 42px
-        color: $white
-        text-decoration: none
+          li
+            a
+              text-align: left
+              padding-left: 61px
+              line-height: 49px
 
-      a:hover, a:visited
-        text-decoration: underline
+            a#work-interactive
+              background-position: 12px 12px
 
-      a#footer-email:before
-        content: "Email"
-      a#footer-phone:before
-        content: "Call"
-      a#footer-address:before
-        content: "Directions"
+            a#work-motion
+              background-position: 12px -48px
 
-      #footer-social
-        display: none
+            a#work-illustration
+              background-position: 12px -108px
 
-// OVERRIDES: 540 and up (tablet)
-@media screen and (min-width: 540px)
+            a#world-about
+              background-position: 12px -168px
+
+            a#world-open
+              background-position: 12px -228px
+
+            a#world-extra
+              background-position: 12px -288px
+
+            a#contact-email
+              background-position: 12px 12px
+
+            a#contact-phone
+              background-position: 12px 12px
+
+            a#contact-address
+              background-position: 12px 12px
+
+// OVERRIDES: 740 and up (tablet)
+@media screen and (min-width: 740px)
   #wrapper
 
     // header
+    header:before
+      content: ""
+      position: absolute
+      top: 0px
+      left: 0px
+      width: 100%
+      height: 1px
+      background-color: $nav_highlight
+
     header
+      top: 0px
+      height: 70px
+      margin-top: 0px !important
+      border-top: 4px solid $less_black
+      background-color: $nav_bg
+
       nav
-        h1
-          width: 36%
+        position: absolute
+        bottom: 0px
+        width: auto
+        height: 70px
+        border-right: 1px solid $nav_highlight
+        background-color: $black
 
         ul
           display: block
           float: left
-          width: 32%
-          height: 42px
+          width: auto
+          height: 65px
+          margin-right: 1px
+          border-top: 1px solid $nav_highlight
           background-color: $nav_bg
-          -webkit-box-shadow: inset 1px 0 0 $nav_highlight
-          -moz-box-shadow: inset 1px 0 0 $nav_highlight
-          box-shadow: inset 1px 0 0 $nav_highlight
-          -webkit-transition: background-color 0.3s ease-out
-          -moz-transition: background-color 0.3s ease-out
-          -ms-transition: background-color 0.3s ease-out
 
           li
-            position: relative
             width: auto
 
-          li.nav-dropper
-            height: 42px
-            margin-bottom: 8px
+            a
+              position: relative
+              padding: 0 13px
+              text-align: center
+              font: normal normal normal 12px/65px Helvetica, Arial, sans-serif
+              background: transparent
+              @include text_shadow(-1px, -1px, 1px, $more_black)
+              @include inner_shadow(0, 0, 0, transparent)
 
-            h2
-              width: 72px
-              height: 100%
-              margin-left: 15px
-              overflow: hidden
+            a.selected
+              @include text_shadow(1px, 1px, 1px, $more_black)
 
-            h2:after
+            a.selected:after
               content: ""
               position: absolute
-              top: 50%
-              right: 18px
-              margin-top: -1px
-              width: 0
-              height: 0
-              border-left: 3px solid transparent
-              border-right: 3px solid transparent
-              border-top: 3px solid $white
+              top: 5px
+              right: 5px
+              width: 5px
+              height: 5px
+              background: asset-url("desktop/filter-close.gif", image) no-repeat top left
 
-          li.drop-item
-            height: 40px
-            margin: 0 2px
-            background-color: $nav_bg
-            border-top: 1px solid $nav_highlight
-            border-bottom: 1px solid $more_black
+          li:nth-child(2)
+            padding-left: 13px
+
+          li:nth-child(3)
+            width: auto
+
+            a
+              border-right: 0px
+              border-left: 0px
+
+          li:nth-child(4)
+            padding-right: 13px
+
+          li.nav-title
             display: none
-            overflow: hidden
-
-            a, a:link, a:visited
-              display: block
-              width: auto
-              height: 100%
-              padding: 0 14px
-              font-size: 12px
-              line-height: 40px
-              text-decoration: none
-
-            a:hover, a:active
-              color: $white !important
-
-            a.filter
-              color: $white !important
-              background-color: #333
-
-            a.filter:before,
-            a.filter:after
-              content: ""
-              position: absolute
-              top: 50%
-              right: 18px
-              width: 2px
-              height: 10px
-              margin-top: -6px
-              background-color: $white
-
-              -webkit-transform: rotate(45deg)
-              -moz-transform: rotate(45deg)
-              -ms-transform: rotate(45deg)
-              -o-transform: rotate(45deg)
-              transform: rotate(45deg)
-
-            a.filter:after
-              -webkit-transform: rotate(-45deg)
-              -moz-transform: rotate(-45deg)
-              -ms-transform: rotate(-45deg)
-              -o-transform: rotate(-45deg)
-              transform: rotate(-45deg)
-
-            a.last-so-round-it-out-son
-              @include round_dropdown
-
-          li.drop-item:first-child
-            height: 41px
-            border-top: 0px
-
-          li.drop-item:last-child
-            @include round_dropdown
-
-        ul:hover
-          background-color: $nav_hover
-          
-          li.drop-item
-            display: block
 
         ul#our-work
-          border-bottom: 8px solid $yellow
-          margin-right: 1px
+          border-bottom: 4px solid $yellow
 
-          li.drop-item
-            a, a:link, a:visited
+          li
+            a
               color: $yellow
 
+            a.selected
+              color: $white
+
         ul#our-world
-          border-bottom: 8px solid $blue
+          border-bottom: 4px solid $blue
 
-          li.nav-dropper
-            h2
-              width: 79px
-              background-position: 0px -105px
-
-          li.drop-item
-            a, a:link, a:visited
+          li
+            a
               color: $blue
+
+            a.selected
+              color: $white
+
+          li:nth-child(2)
+            border-left: 1px solid $nav_highlight
+
+        ul#contact-mobile
+          display: none
+
+      #menu-btn
+        display: none
+
+      h1
+        bottom: -28px
+        right: 26px
+        width: 98px
+        height: 98px
+        background: asset-url("desktop/bigger-logo.gif", image) no-repeat top left
 
     // footer
     footer
-      a#footer-email:before
-        content: ""attr(data-email)""
-      a#footer-phone:before
-        content: ""attr(data-phone)""
-      a#footer-address:before
-        content: "Directions"
+      display: block
+      position: fixed
+      bottom: 0px
+      left: 0px
+      width: 100%
+      height: 46px
+      border-top: 4px solid #4d4d4d
+      background-color: $nav_bg
+      z-index: 666
+      @include nav_shadow
 
-// OVERRIDES: 1140 and up (desktop)
-@media screen and (min-width: 1140px)
+      ul
+        float: left
+        width: auto
+        list-style: none
+
+      ul#contact-footer
+        height: 46px
+
+        li
+          float: left
+          width: auto
+          height: 100%
+          margin-left: 26px
+
+          h2, a
+            width: auto
+            height: 100%
+            @include text_shadow(-1px, -1px, 1px, $more_black)
+
+          h2
+            font: normal normal normal 12px/46px "MuseoSlab700", Verdana, sans-serif
+            color: $white
+            text-transform: uppercase
+
+          a
+            font: normal normal normal 12px/46px Helvetica, Arial, sans-serif
+            color: $light_gray
+            text-decoration: none
+
+      ul#social-footer
+        display: none
+
+// OVERRIDES: 1025 and up (desktop)
+@media screen and (min-width: 1025px)
+  #wrapper
+
+    // header
+    header
+      height: 50px
+
+      nav
+        height: 50px
+
+        ul
+          height: 45px
+          @include transition(background-color, 250ms, linear)
+
+          li
+            a
+              line-height: 45px
+
+          li:nth-child(2)
+            padding-left: 0px
+
+          li:nth-child(3)
+            a
+              line-height: 45px
+
+          li.nav-title
+            display: block
+            padding: 0 13px 0 26px
+
+            h2
+              font: normal normal normal 12px/45px "MuseoSlab700", Verdana, sans-serif
+              color: $white
+              text-transform: uppercase
+              @include text_shadow(-1px, -1px, 1px, $more_black)
+
+        ul#our-work
+          li
+            a
+              @include transition(color, 250ms, linear)
+
+            a:hover
+              color: $white
+
+        ul#our-world
+          li
+            a
+              @include transition(color, 250ms, linear)
+
+            a:hover
+              color: $white
+
+          li:nth-child(1)
+            border-left: 1px solid $nav_highlight
+
+          li:nth-child(2)
+            border-left: 0px
+
+        ul:hover
+          background-color: $nav_highlight
+
+      h1
+        bottom: -20px
+        right: 26px
+        width: 70px
+        height: 70px
+        background: asset-url("desktop/logo.gif", image) no-repeat top left
+
+    // footer
+    footer
+      width: 764px
+
+      ul#contact-footer
+        a
+          @include transition(color, 250ms, linear)
+
+        a:hover
+          color: $white
+
+      ul#social-footer
+        display: block
+        float: right
+        height: 16px
+        margin: 15px 26px 0 0
+
+        li
+          position: relative
+          float: left
+          width: 16px
+          height: 100%
+          margin-right: 10px
+
+          a
+            display: block
+            width: 100%
+            height: 100%
+            background: asset-url("desktop/social-icons.gif", image) no-repeat 0 0
+            opacity: 0.75
+            @include transition(opacity, 250ms, linear)
+
+          a#social-github
+            background-position: 0px 0
+          a#social-vimeo
+            background-position: -16px 0
+          a#social-facebook
+            background-position: -32px 0
+          a#social-twitter
+            background-position: -48px 0
+
+          a:hover
+            opacity: 1
+
+          a:hover:before
+            content: ""
+            display: block
+            position: absolute
+            top: -15px
+            left: 8px
+            border-top: 10px solid $hot
+            border-right: 10px solid transparent
+
+          a:hover:after
+            content: attr(data-tooltip)
+            display: block
+            position: absolute
+            top: -38px
+            left: 8px
+            width: auto
+            height: 23px
+            padding: 0 10px
+            font: normal normal normal 12px/24px Helvetica, Arial, sans-serif
+            color: $white
+            white-space: nowrap
+            -webkit-font-smoothing: subpixel-antialiased
+            background-color: $hot
+            -webkit-border-top-right-radius: 5px
+            -webkit-border-top-left-radius: 5px
+            -moz-border-radius-topright: 5px
+            -moz-border-radius-topleft: 5px
+            border-top-right-radius: 5px
+            border-top-left-radius: 5px
+            -webkit-border-bottom-right-radius: 5px
+            -moz-border-radius-bottomright: 5px
+            border-bottom-right-radius: 5px
+
+// OVERRIDES: retina display
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)
   #wrapper
 
     // header
     header
       nav
-        width: 1140px
-
-        h1
-          width: 409px
-
         ul
-          li.nav-dropper
-            float: left
-            margin: 0 13px 0 0
+          li
+            a
+              background-image: asset-url("desktop/mobile-icons@2x.gif", image)
+              background-size: 37px 540px
 
-            h2:after
-              display: none
-
-          li.drop-item
-            display: block
-            float: left
-            height: 33px
-            border: 0px
-            margin: 0px
-            padding-top: 10px
-            background-color: transparent
-
-            a, a:link, a:visited
-              height: 22px
-              padding: 0 13px
-              line-height: 22px
-              -webkit-border-radius: 10px
-              -moz-border-radius: 10px
-              border-radius: 10px
-
-              -moz-transform: translateY(-1px)
-
-            a.filter
-              background-color: #333
-              -webkit-box-shadow: inset 0 -1px 0 0 #555
-              -moz-box-shadow: inset 0 -1px 0 0 #555
-              box-shadow: inset 0 -1px 0 0 #555
-
-            a.filter:before,
-            a.filter:after
-              display: none
-
-          li.drop-item:last-child
-            -webkit-border-bottom-right-radius: 0px
-            -webkit-border-bottom-left-radius: 0px
-            -moz-border-radius-bottomright: 0px
-            -moz-border-radius-bottomleft: 0px
-            border-bottom-right-radius: 0px
-            border-bottom-left-radius: 0px
-
-        ul#our-work
-          width: 343px
-
-        ul#our-world
-          width: 386px
+      h1
+        background-image: asset-url("desktop/bigger-logo@2x.gif", image)
+        background-size: 70px 70px
 
     // footer
     footer
-      left: 50%
-      width: 730px
-      margin: 0 0 0 -570px
-
-      a#footer-address:before
-        content: ""attr(data-address)""
-
-      #footer-social
-        display: block
-        float: right
-        height: 13px
-        margin: 15px 15px 0 0
-
-        a
-          float: left
-          width: 12px
-          height: 13px
-          margin: 0 6px 0 0
-          background: asset-url("desktop/footer_social.png", image) no-repeat 0 0
-
-        #social-github
-          background-position: -12px 0
-        #social-vimeo
-          background-position: -24px 0
-        #social-twitter
-          background-position: -36px 0
-        #social-facebook
-          background-position: -48px 0
-
-        #social-tooltip
-          position: absolute
-          top: -23px
-          left: 0
-          width: auto
-          height: 23px
-          padding: 0 10px
-          font-size: 11px
-          line-height: 23px
-          color: #fff
-          background-color: #ff0090
-          -webkit-border-top-right-radius: 5px
-          -webkit-border-top-left-radius: 5px
-          -moz-border-radius-topright: 5px
-          -moz-border-radius-topleft: 5px
-          border-top-right-radius: 5px
-          border-top-left-radius: 5px
-          -webkit-border-bottom-right-radius: 5px
-          -moz-border-radius-bottomright: 5px
-          border-bottom-right-radius: 5px
-          display: none
-          @include nav_shadow
-
-        #social-tooltip:before
-          content: ""
-          position: absolute
-          bottom: -10px
-          left: 0
-          width: 0
-          height: 0
-          border-top: 10px solid #ff0090
-          border-right: 10px solid transparent
+      ul#social-footer
+        li
+          a
+            background: asset-url("desktop/social-icons@2x.gif", image) no-repeat 0 0
+            background-size: 16px 16px

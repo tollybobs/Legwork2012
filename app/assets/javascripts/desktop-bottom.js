@@ -9,4 +9,5 @@
 //= require plugins/jquery.scrollTo-1.4.2-min
 //
 // Legwork 2012
+//= require shared/namespaces
 //= require desktop/legwork

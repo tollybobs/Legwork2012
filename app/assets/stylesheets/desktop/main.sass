@@ -28,6 +28,7 @@ h1
       z-index: 666
       background-color: $less_black
       @include nav_shadow
+      @include transition(margin-top, 300ms, ease-in-out)
 
       nav
         position: absolute
@@ -172,9 +173,6 @@ h1
         height: 70px
         background: asset-url("desktop/logo.gif", image) no-repeat top left
         @include nav_shadow
-
-    header.transition
-      @include transition(margin-top, 500ms, ease-in-out)
 
     header.open
       #menu-btn

@@ -100,7 +100,7 @@ class Legwork.Application
     @direction = if y > @last_y then 'down' else 'up'
     @last_y = y
 
-    if new Date().getTime() - @initial_time < 150
+    if new Date().getTime() - @initial_time < 220
       return false
     else
       @$header.css('margin-top', offset + 'px')

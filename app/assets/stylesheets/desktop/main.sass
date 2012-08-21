@@ -15,7 +15,7 @@ h1
 
   #wrapper
     width: 100%
-    height: auto
+    height: 100%
 
     // header
     header
@@ -54,8 +54,40 @@ h1
               font: normal normal bold 10px/102px Helvetica, Arial, sans-serif
               text-align: center
               text-decoration: none
-              background: transparent asset-url("desktop/test-icon.gif", image) no-repeat 50% 14px
+              background: transparent asset-url("desktop/mobile-icons.gif", image) no-repeat 0px 0px
               overflow: hidden
+              @include inner_shadow(0, 0, -1px, #2b2b2b)
+
+            a#work-interactive
+              background-position: 50% 14px
+
+            a#work-motion
+              background-position: 50% -46px
+
+            a#work-illustration
+              background-position: 50% -106px
+
+            a#world-about
+              background-position: 50% -166px
+
+            a#world-open
+              background-position: 50% -226px
+
+            a#world-extra
+              background-position: 50% -286px
+
+            a#contact-email
+              background-position: 50% 14px
+
+            a#contact-phone
+              background-position: 50% 14px
+
+            a#contact-address
+              background-position: 50% 14px
+
+            a.selected
+              background-color: $less_black
+              @include inner_shadow(0, 0, 7px, $black)
 
           li:nth-child(3)
             width: 34%
@@ -106,8 +138,34 @@ h1
           li
             a
               text-align: left
-              padding-left: 54px
+              padding-left: 61px
               line-height: 49px
+
+            a#work-interactive
+              background-position: 12px 12px
+
+            a#work-motion
+              background-position: 12px -48px
+
+            a#work-illustration
+              background-position: 12px -108px
+
+            a#world-about
+              background-position: 12px -168px
+
+            a#world-open
+              background-position: 12px -228px
+
+            a#world-extra
+              background-position: 12px -288px
+
+            a#contact-email
+              background-position: 12px 12px
+
+            a#contact-phone
+              background-position: 12px 12px
+
+            a#contact-address
               background-position: 12px 12px
 
 // OVERRIDES: 740 and up (tablet)
@@ -150,11 +208,25 @@ h1
             width: auto
 
             a
+              position: relative
               padding: 0 13px
               text-align: center
-              font: normal normal normal 12px/61px Helvetica, Arial, sans-serif
+              font: normal normal normal 12px/65px Helvetica, Arial, sans-serif
               background: transparent
               @include text_shadow(-1px, -1px, 1px, $more_black)
+              @include inner_shadow(0, 0, 0, transparent)
+
+            a.selected
+              @include text_shadow(1px, 1px, 1px, $more_black)
+
+            a.selected:after
+              content: ""
+              position: absolute
+              top: 5px
+              right: 5px
+              width: 5px
+              height: 5px
+              background: asset-url("desktop/filter-close.gif", image) no-repeat top left
 
           li:nth-child(2)
             padding-left: 13px
@@ -179,12 +251,18 @@ h1
             a
               color: $yellow
 
+            a.selected
+              color: $white
+
         ul#our-world
           border-bottom: 4px solid $blue
 
           li
             a
               color: $blue
+
+            a.selected
+              color: $white
 
           li:nth-child(2)
             border-left: 1px solid $nav_highlight
@@ -402,8 +480,8 @@ h1
         ul
           li
             a
-              background-image: asset-url("desktop/test-icon@2x.gif", image)
-              background-size: 30px 24px
+              background-image: asset-url("desktop/mobile-icons@2x.gif", image)
+              background-size: 37px 540px
 
       h1
         background-image: asset-url("desktop/bigger-logo@2x.gif", image)

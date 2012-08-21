@@ -36,3 +36,10 @@ $hot:               #ff0090
   -ms-text-shadow: $x $y $radius $color
   -o-text-shadow: $x $y $radius $color
   text-shadow: $x $y $radius $color
+
+@mixin rotate($d)
+  -webkit-transform: rotate($d)
+  -moz-transform: rotate($d)
+  -ms-transform: rotate($d)
+  -o-transform: rotate($d)
+  transform: rotate($d)

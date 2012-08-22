@@ -10,4 +10,9 @@
 //
 // Legwork 2012
 //= require shared/namespaces
+// 
+// Components
+//= require_tree ./desktop/components
+//
+// Main
 //= require desktop/legwork

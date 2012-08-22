@@ -8,7 +8,7 @@ h1
     width: 100%
     height: 100%
     min-width: 320px
-    overflow-x: hidden
+    overflow: hidden
 
   body
     background: $white
@@ -27,7 +27,6 @@ h1
       height: 100%
       z-index: 666
       background-color: $less_black
-      @include nav_shadow
 
       nav
         position: absolute
@@ -55,39 +54,40 @@ h1
               width: auto
               height: 100%
               color: $white
-              font: normal normal bold 10px/102px Helvetica, Arial, sans-serif
+              font: normal normal bold 10px/104px Helvetica, Arial, sans-serif
               text-align: center
               text-decoration: none
-              background: transparent asset-url("desktop/mobile-icons.gif", image) no-repeat 0px 0px
+              background: transparent asset-url("desktop/mobile-icons.png", image) no-repeat 0px 0px
               overflow: hidden
               @include inner_shadow(0, 0, -1px, #2b2b2b)
+              @include text_shadow(-1px, -1px, 1px, $more_black)
 
             a#work-interactive
-              background-position: 50% 14px
+              background-position: 50% 10px
 
             a#work-motion
-              background-position: 50% -46px
+              background-position: 50% -50px
 
             a#work-illustration
-              background-position: 50% -106px
+              background-position: 50% -108px
 
             a#world-about
-              background-position: 50% -166px
+              background-position: 50% -170px
 
             a#world-open
-              background-position: 50% -226px
+              background-position: 50% -229px
 
             a#world-extra
-              background-position: 50% -286px
+              background-position: 50% -290px
 
             a#contact-email
-              background-position: 50% 14px
+              background-position: 50% -348px
 
             a#contact-phone
-              background-position: 50% 14px
+              background-position: 50% -409px
 
             a#contact-address
-              background-position: 50% 14px
+              background-position: 50% -470px
 
             a.selected
               background-color: $less_black
@@ -103,6 +103,13 @@ h1
           li.nav-title
             display: none
 
+        ul#contact-mobile
+          background-color: #1b1b1b
+
+          li
+            a
+              @include inner_shadow(0, 0, -1px, #1f1f1f)
+
       #menu-btn
         display: block
         position: absolute
@@ -114,6 +121,7 @@ h1
         border-bottom: 4px solid $yellow
         background-color: $nav_bg
         @include inner_shadow(0, 0, -1px, #2b2b2b)
+        @include nav_shadow
 
         h2
           margin-left: 40px
@@ -193,6 +201,19 @@ h1
         h2:after
           @include rotate(-45deg)
 
+    // main
+    #legwork
+      position: absolute
+      top: 0px
+      left: 0px
+      width: 100%
+      height: 100%
+      overflow-y: scroll
+      -webkit-overflow-scrolling: touch
+
+      #test
+        width: 100%
+        height: 6000px
 
     // footer
     footer
@@ -215,31 +236,31 @@ h1
               line-height: 49px
 
             a#work-interactive
-              background-position: 12px 12px
+              background-position: 12px 9px
 
             a#work-motion
-              background-position: 12px -48px
+              background-position: 12px -51px
 
             a#work-illustration
-              background-position: 12px -108px
+              background-position: 12px -110px
 
             a#world-about
-              background-position: 12px -168px
+              background-position: 12px -172px
 
             a#world-open
-              background-position: 12px -228px
+              background-position: 12px -233px
 
             a#world-extra
-              background-position: 12px -288px
+              background-position: 12px -293px
 
             a#contact-email
-              background-position: 12px 12px
+              background-position: 12px -351px
 
             a#contact-phone
-              background-position: 12px 12px
+              background-position: 12px -412px
 
             a#contact-address
-              background-position: 12px 12px
+              background-position: 12px -472px
 
 // OVERRIDES: 740 and up (tablet)
 @media screen and (min-width: 740px)
@@ -261,6 +282,7 @@ h1
       margin-top: 0px !important
       border-top: 4px solid $less_black
       background-color: $nav_bg
+      @include nav_shadow
 
       nav
         position: absolute
@@ -555,7 +577,7 @@ h1
         ul
           li
             a
-              background-image: asset-url("desktop/mobile-icons@2x.gif", image)
+              background-image: asset-url("desktop/mobile-icons@2x.png", image)
               background-size: 37px 540px
 
       h1

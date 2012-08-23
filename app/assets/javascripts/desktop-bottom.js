@@ -1,5 +1,5 @@
 // Libs
-//= require lib/jquery-1.7.2.min
+//= require lib/jquery-1.8.0.min
 //= require lib/underscore-min
 //= require lib/jquery.history
 //
@@ -10,7 +10,10 @@
 //
 // Legwork 2012
 //= require shared/namespaces
-// 
+//
+// Templates
+//= require_tree ./desktop/templates
+//
 // Components
 //= require_tree ./desktop/components
 //

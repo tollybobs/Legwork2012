@@ -8,7 +8,6 @@ h1
     width: 100%
     height: 100%
     min-width: 320px
-    overflow: hidden
 
   body
     background: $white
@@ -203,21 +202,98 @@ h1
 
     // main
     #legwork
-      position: absolute
-      top: 0px
-      left: 0px
       width: 100%
-      height: 100%
-      overflow-y: scroll
-      -webkit-overflow-scrolling: touch
-
-      #test
-        width: 100%
-        height: 6000px
+      // height: 6000px
 
     // footer
     footer
       display: none
+
+  // main preloader
+  #main-loader
+    position: absolute
+    top: 0px
+    left: 0px
+    width: 100%
+    height: 100%
+    background-color: $white
+    z-index: 999
+
+    #bros
+      position: absolute
+      bottom: 0px
+      left: 50%
+      width: 320px
+      height: 163px
+      margin-left: -160px
+      background: $white asset-url("desktop/preloader.gif", image) no-repeat top left
+      background-size: cover
+
+    #speech-bubble
+      position: absolute
+      bottom: 170px
+      left: 50%
+      width: 90px
+      height: 40px
+      padding: 10px 15px
+
+      -webkit-border-radius: 60px 30px
+      -moz-border-radius: 60px 30px
+      -ms-border-radius: 60px 30px
+      -o-border-radius: 60px 30px
+
+      #speech-bubble-inner
+        display: table
+        width: 100%
+        height: 100%
+
+        span
+          display: table-cell
+          width: 100%
+          height: 100%
+          vertical-align: middle
+          font: normal normal bold 9px/12px Helvetica, Arial, sans-serif
+          text-align: center
+          color: $white
+
+          sup
+            display: none
+
+    #speech-bubble.left
+      margin-left: -60px
+      background-color: $black
+
+    #speech-bubble.left:after
+      content: ""
+      position: absolute
+      top: 55px
+      left: 30px
+      width: 15px
+      height: 15px
+      border-right: 10px solid $black
+
+      -webkit-border-bottom-right-radius: 15px
+      -moz-border-radius-bottomright: 15px
+      -ms-border-bottom-right-radius: 15px
+      -o-border-bottom-right-radius: 15px
+
+    #speech-bubble.right
+      margin-left: -72px
+      background-color: $nav_bg
+
+    #speech-bubble.right:after
+      content: ""
+      position: absolute
+      top: 55px
+      left: 60px
+      width: 15px
+      height: 15px
+      border-left: 10px solid $nav_bg
+
+      -webkit-border-bottom-left-radius: 15px
+      -moz-border-radius-bottomleft: 15px
+      -ms-border-bottom-left-radius: 15px
+      -o-border-bottom-left-radius: 15px
 
 // OVERRIDES: 480 and up (phone landscape)
 @media screen and (min-width: 480px)
@@ -261,6 +337,14 @@ h1
 
             a#contact-address
               background-position: 12px -472px
+
+  // main preloader
+  #main-loader
+    #bros
+      bottom: -110px
+
+    #speech-bubble
+      bottom: 60px
 
 // OVERRIDES: 740 and up (tablet)
 @media screen and (min-width: 740px)
@@ -421,6 +505,73 @@ h1
 
       ul#social-footer
         display: none
+
+  // main preloader
+  #main-loader
+    #bros
+      top: 50%
+      left: 50%
+      width: 640px
+      height: 325px
+      margin: -163px 0 0 -320px
+
+    #speech-bubble
+      position: absolute
+      top: 50%
+      left: 50%
+      width: 140px
+      height: 60px
+      padding: 20px 30px
+
+      -webkit-border-radius: 100px 50px
+      -moz-border-radius: 100px 50px
+      -ms-border-radius: 100px 50px
+      -o-border-radius: 100px 50px
+
+      #speech-bubble-inner
+        display: table
+        width: 100%
+        height: 100%
+
+        span
+          font: normal normal bold 14px/20px Helvetica, Arial, sans-serif
+
+          sup
+            display: inline
+            position: relative
+            top: -0.9em
+            font: normal normal normal 8px/0 Helvetica, Arial, sans-serif
+            vertical-align: baseline
+
+    #speech-bubble.left
+      margin: -285px 0 0 -105px
+
+    #speech-bubble.left:after
+      top: 90px
+      left: 40px
+      width: 30px
+      height: 30px
+      border-right: 20px solid $black
+
+      -webkit-border-bottom-right-radius: 30px
+      -moz-border-radius-bottomright: 30px
+      -ms-border-bottom-right-radius: 30px
+      -o-border-bottom-right-radius: 30px
+
+    #speech-bubble.right
+      margin: -275px 0 0 -130px
+
+    #speech-bubble.right:after
+      top: 90px
+      left: 100px
+      width: 30px
+      height: 30px
+      border-left: 20px solid $nav_bg
+
+      -webkit-border-bottom-left-radius: 30px
+      -moz-border-radius-bottomleft: 30px
+      -ms-border-bottom-left-radius: 30px
+      -o-border-bottom-left-radius: 30px
 
 // OVERRIDES: 1025 and up (desktop)
 @media screen and (min-width: 1025px)

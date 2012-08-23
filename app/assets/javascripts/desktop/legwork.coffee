@@ -38,6 +38,11 @@ class Legwork.Application
     if @$menu_btn.is(':visible') is true
       @mobile_menu = new Legwork.MobileMenu()
 
+    @preloader = new Legwork.Loader({})
+
+    #$test = $(JST['desktop/templates/test']({}))
+    #$test.appendTo(Legwork.$body)
+
   ###
   *------------------------------------------*
   | observeSomeSweetEvents:void (-)

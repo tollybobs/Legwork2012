@@ -13,6 +13,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'eco'
 
 group :development do
   gem 'heroku'

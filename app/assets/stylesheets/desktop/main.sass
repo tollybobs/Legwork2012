@@ -219,33 +219,38 @@ h1
     background-color: $white
     z-index: 999
 
+    #status
+      width: 100%
+      height: 100px
+      background-color: #eee
+      font: normal normal bold 9px/100px Helvetica, Arial, sans-serif
+      color: #ccc
+      text-align: center
+
     #bros
       position: absolute
       bottom: 0px
       left: 50%
-      width: 320px
+      width: 215px
       height: 163px
-      margin-left: -160px
-      background: $white asset-url("desktop/preloader.gif", image) no-repeat top left
+      margin-left: -107px
+      background: asset-url("desktop/preloader.gif", image) no-repeat top left
       background-size: cover
 
     #speech-bubble
       position: absolute
       bottom: 170px
       left: 50%
-      width: 90px
-      height: 40px
-      padding: 10px 15px
-
-      -webkit-border-radius: 60px 30px
-      -moz-border-radius: 60px 30px
-      -ms-border-radius: 60px 30px
-      -o-border-radius: 60px 30px
+      width: 86px
+      height: 51px
+      padding: 4px 7px
+      background: asset-url("desktop/speech-bubbles.gif", image) no-repeat 0px 0px
+      background-size: cover
 
       #speech-bubble-inner
         display: table
         width: 100%
-        height: 100%
+        height: 36px
 
         span
           display: table-cell
@@ -260,40 +265,11 @@ h1
             display: none
 
     #speech-bubble.left
-      margin-left: -60px
-      background-color: $black
-
-    #speech-bubble.left:after
-      content: ""
-      position: absolute
-      top: 55px
-      left: 30px
-      width: 15px
-      height: 15px
-      border-right: 10px solid $black
-
-      -webkit-border-bottom-right-radius: 15px
-      -moz-border-radius-bottomright: 15px
-      -ms-border-bottom-right-radius: 15px
-      -o-border-bottom-right-radius: 15px
+      margin-left: -50px
 
     #speech-bubble.right
-      margin-left: -72px
-      background-color: $nav_bg
-
-    #speech-bubble.right:after
-      content: ""
-      position: absolute
-      top: 55px
-      left: 60px
-      width: 15px
-      height: 15px
-      border-left: 10px solid $nav_bg
-
-      -webkit-border-bottom-left-radius: 15px
-      -moz-border-radius-bottomleft: 15px
-      -ms-border-bottom-left-radius: 15px
-      -o-border-bottom-left-radius: 15px
+      margin: 0 0 -5px -50px
+      background-position: -100px 0px
 
 // OVERRIDES: 480 and up (phone landscape)
 @media screen and (min-width: 480px)
@@ -340,11 +316,15 @@ h1
 
   // main preloader
   #main-loader
+    #status
+      height: 75px
+      line-height: 75px
+
     #bros
-      bottom: -110px
+      bottom: -100px
 
     #speech-bubble
-      bottom: 60px
+      bottom: 70px
 
 // OVERRIDES: 740 and up (tablet)
 @media screen and (min-width: 740px)
@@ -509,29 +489,25 @@ h1
   // main preloader
   #main-loader
     #bros
-      top: 50%
-      left: 50%
-      width: 640px
+      bottom: 0px
+      width: 430px
       height: 325px
-      margin: -163px 0 0 -320px
+      margin: -163px 0 0 -215px
+
+    #status
+      height: 200px
+      font: normal normal normal 12px/200px Helvetica, Arial, sans-serif
 
     #speech-bubble
-      position: absolute
-      top: 50%
-      left: 50%
-      width: 140px
-      height: 60px
-      padding: 20px 30px
-
-      -webkit-border-radius: 100px 50px
-      -moz-border-radius: 100px 50px
-      -ms-border-radius: 100px 50px
-      -o-border-radius: 100px 50px
+      bottom: 335px
+      width: 172px
+      height: 89px
+      padding: 14px
 
       #speech-bubble-inner
         display: table
         width: 100%
-        height: 100%
+        height: 60px
 
         span
           font: normal normal bold 14px/20px Helvetica, Arial, sans-serif
@@ -544,34 +520,11 @@ h1
             vertical-align: baseline
 
     #speech-bubble.left
-      margin: -285px 0 0 -105px
-
-    #speech-bubble.left:after
-      top: 90px
-      left: 40px
-      width: 30px
-      height: 30px
-      border-right: 20px solid $black
-
-      -webkit-border-bottom-right-radius: 30px
-      -moz-border-radius-bottomright: 30px
-      -ms-border-bottom-right-radius: 30px
-      -o-border-bottom-right-radius: 30px
+      margin-left: -105px
 
     #speech-bubble.right
-      margin: -275px 0 0 -130px
-
-    #speech-bubble.right:after
-      top: 90px
-      left: 100px
-      width: 30px
-      height: 30px
-      border-left: 20px solid $nav_bg
-
-      -webkit-border-bottom-left-radius: 30px
-      -moz-border-radius-bottomleft: 30px
-      -ms-border-bottom-left-radius: 30px
-      -o-border-bottom-left-radius: 30px
+      margin: 0 0 -5px -95px
+      background-position: -200px 0px
 
 // OVERRIDES: 1025 and up (desktop)
 @media screen and (min-width: 1025px)

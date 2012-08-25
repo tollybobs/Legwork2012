@@ -100,7 +100,7 @@ class Legwork.Loader
                     'margin-bottom':'0px'
                   , 666, 'easeInOutExpo'
 
-              $('#legwork').delay(166).animate
+              $('#legwork').delay(111).animate
                 'width':'100%'
               , 333, 'easeInOutExpo'
 

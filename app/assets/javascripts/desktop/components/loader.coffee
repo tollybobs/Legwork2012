@@ -60,19 +60,49 @@ class Legwork.Loader
       .find('span')
       .html(msg)
 
-    setTimeout ->
+    @speech_to = setTimeout ->
       $('#speech-bubble').show()
     , 1000
 
     @interval += 1
 
-    if @interval <= 10
+    if @interval <= 5
       setTimeout =>
         @updateSpeech()
       , if msg.length * 120 < 3000 then 3000 else msg.length * 120
     else
-      $('#main-loader').fadeOut 500, ->
-        $(this).remove()
+      clearTimeout(@speech_to)
+      $('#status').text('')
+
+      $('#bros')
+        .animate
+          'bottom':'-325px'
+        ,
+          'duration':666
+          'easing':'easeInExpo'
+          'step': (now, fx) =>
+            p = Math.abs(now) / 325
+
+            $('#status').css
+              'opacity':1 - p
+          'complete': (e) ->
+            $('#bands').animate
+              'width':'100%'
+            , 333, 'easeInExpo', =>
+              $('#main-loader').animate
+                'margin-left':'100%'
+              , 333, 'easeOutExpo', ->
+                $(this).remove()
+
+                $('header').find('h1')
+                  .delay(250)
+                  .animate
+                    'margin-bottom':'0px'
+                  , 666, 'easeInOutExpo'
+
+              $('#legwork').delay(166).animate
+                'width':'100%'
+              , 333, 'easeInOutExpo'
 
     #@build(initObj.type)
     #@loadImages()

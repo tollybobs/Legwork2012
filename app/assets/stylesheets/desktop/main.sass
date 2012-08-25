@@ -103,11 +103,19 @@ h1
             display: none
 
         ul#contact-mobile
-          background-color: #1b1b1b
-
           li
             a
-              @include inner_shadow(0, 0, -1px, #1f1f1f)
+              position: relative
+
+            a:after
+              content: ""
+              position: absolute
+              top: 2px
+              right: 2px
+              width: 0px
+              height: 0px
+              border-top: 7px solid $black
+              border-left: 7px solid transparent
 
       #menu-btn
         display: block
@@ -177,6 +185,7 @@ h1
         right: 20px
         width: 70px
         height: 70px
+        margin-bottom: 74px
         background: asset-url("desktop/logo.gif", image) no-repeat top left
         @include nav_shadow
 
@@ -202,8 +211,9 @@ h1
 
     // main
     #legwork
-      width: 100%
-      // height: 6000px
+      width: 0%
+      height: 100%
+      background: asset-url("desktop/test.gif", image) repeat top left
 
     // footer
     footer
@@ -222,10 +232,10 @@ h1
     #status
       width: 100%
       height: 100px
-      background-color: #eee
       font: normal normal bold 9px/100px Helvetica, Arial, sans-serif
       color: #ccc
       text-align: center
+      background-color: #eee
 
     #bros
       position: absolute
@@ -270,6 +280,22 @@ h1
     #speech-bubble.right
       margin: 0 0 -5px -50px
       background-position: -100px 0px
+
+    #bands
+      position: absolute
+      top: 0px
+      left: 0px
+      width: 0%
+      height: 100%
+
+    #bands:before
+      content: ""
+      position: absolute
+      top: 0px
+      left: 0px
+      width: 100%
+      height: 54px
+      background-color: $black
 
 // OVERRIDES: 480 and up (phone landscape)
 @media screen and (min-width: 480px)
@@ -439,6 +465,7 @@ h1
         right: 26px
         width: 98px
         height: 98px
+        margin-bottom: 102px
         background: asset-url("desktop/bigger-logo.gif", image) no-repeat top left
 
     // footer
@@ -526,6 +553,24 @@ h1
       margin: 0 0 -5px -95px
       background-position: -200px 0px
 
+    #bands:before
+      content: ""
+      position: absolute
+      top: 0px
+      left: 0px
+      width: 100%
+      height: 74px
+      background-color: $black
+
+    #bands:after
+      content: ""
+      position: absolute
+      bottom: 0px
+      left: 0px
+      width: 100%
+      height: 50px
+      background-color: $black
+
 // OVERRIDES: 1025 and up (desktop)
 @media screen and (min-width: 1025px)
   #wrapper
@@ -592,6 +637,7 @@ h1
         right: 26px
         width: 70px
         height: 70px
+        margin-bottom: 74px
         background: asset-url("desktop/logo.gif", image) no-repeat top left
 
     // footer
@@ -670,6 +716,25 @@ h1
             -webkit-border-bottom-right-radius: 5px
             -moz-border-radius-bottomright: 5px
             border-bottom-right-radius: 5px
+
+  #main-loader
+    #bands:before
+      content: ""
+      position: absolute
+      top: 0px
+      left: 0px
+      width: 100%
+      height: 54px
+      background-color: $black
+
+    #bands:after
+      content: ""
+      position: absolute
+      bottom: 0px
+      left: 0px
+      width: 100%
+      height: 50px
+      background-color: $black
 
 // OVERRIDES: retina display
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)

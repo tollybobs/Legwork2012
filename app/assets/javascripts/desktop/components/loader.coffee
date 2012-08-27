@@ -40,10 +40,15 @@ class Legwork.Loader
     @interval = 0
     @rand = 0
     @prev_rand = 0
+    @percent = 0
 
-    setTimeout =>
+    @talk_to = setTimeout =>
       @updateSpeech()
     , 2000
+
+    setTimeout =>
+      @updateFill()
+    , 500
 
   updateSpeech: ->
     @prev_rand = @rand
@@ -60,19 +65,24 @@ class Legwork.Loader
       .find('span')
       .html(msg)
 
-    @speech_to = setTimeout ->
+    @show_to = setTimeout ->
       $('#speech-bubble').show()
     , 1000
 
-    @interval += 1
+    @talk_to = setTimeout =>
+      @interval += 1
+      @updateSpeech()
+    , if msg.length * 120 < 3000 then 3000 else msg.length * 120
 
-    if @interval <= 5
-      setTimeout =>
-        @updateSpeech()
-      , if msg.length * 120 < 3000 then 3000 else msg.length * 120
-    else
-      clearTimeout(@speech_to)
-      $('#status').text('')
+
+  updateFill: ->
+    @percent += 1
+    $('#fill').css('height', @percent + '%')
+
+    if @percent is 100
+      clearTimeout(@talk_to)
+      clearTimeout(@show_to)
+      $('#speech-bubble').hide()
 
       $('#bros')
         .animate
@@ -94,15 +104,17 @@ class Legwork.Loader
               , 333, 'easeOutExpo', ->
                 $(this).remove()
 
+              $('#legwork').delay(111).animate
+                'width':'100%'
+              , 666, 'easeInOutExpo', ->
                 $('header').find('h1')
-                  .delay(250)
                   .animate
                     'margin-bottom':'0px'
                   , 666, 'easeInOutExpo'
-
-              $('#legwork').delay(111).animate
-                'width':'100%'
-              , 333, 'easeInOutExpo'
+    else
+      setTimeout =>
+        @updateFill()
+      , Math.round(Math.random() * 500)
 
     #@build(initObj.type)
     #@loadImages()

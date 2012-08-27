@@ -226,16 +226,26 @@ h1
     left: 0px
     width: 100%
     height: 100%
-    background-color: $white
+    background-color: #eee
     z-index: 999
 
-    #status
+    #fill
+      position: absolute
+      bottom: 0px
+      left: 0px
       width: 100%
-      height: 100px
-      font: normal normal bold 9px/100px Helvetica, Arial, sans-serif
-      color: #ccc
-      text-align: center
-      background-color: #eee
+      height: 0%
+      background-color: $white
+      @include transition(height, 150ms, ease-out)
+
+    #status
+      position: absolute
+      top: 0px
+      left: 0px
+      width: 100%
+      height: 100%
+      background: asset-url("desktop/status.png", image) no-repeat 50% 50%
+      background-size: cover
 
     #bros
       position: absolute
@@ -244,7 +254,7 @@ h1
       width: 215px
       height: 163px
       margin-left: -107px
-      background: asset-url("desktop/preloader.gif", image) no-repeat top left
+      background: asset-url("desktop/bros.png", image) no-repeat top left
       background-size: cover
 
     #speech-bubble
@@ -254,7 +264,7 @@ h1
       width: 86px
       height: 51px
       padding: 4px 7px
-      background: asset-url("desktop/speech-bubbles.gif", image) no-repeat 0px 0px
+      background: asset-url("desktop/speech-bubbles.png", image) no-repeat 0px 0px
       background-size: cover
 
       #speech-bubble-inner
@@ -294,8 +304,10 @@ h1
       top: 0px
       left: 0px
       width: 100%
-      height: 54px
-      background-color: $black
+      height: 50px
+      background-color: $nav_bg
+      border-top: 4px solid $black
+      @include nav_shadow
 
 // OVERRIDES: 480 and up (phone landscape)
 @media screen and (min-width: 480px)
@@ -342,10 +354,6 @@ h1
 
   // main preloader
   #main-loader
-    #status
-      height: 75px
-      line-height: 75px
-
     #bros
       bottom: -100px
 
@@ -521,10 +529,6 @@ h1
       height: 325px
       margin: -163px 0 0 -215px
 
-    #status
-      height: 200px
-      font: normal normal normal 12px/200px Helvetica, Arial, sans-serif
-
     #speech-bubble
       bottom: 335px
       width: 172px
@@ -559,8 +563,10 @@ h1
       top: 0px
       left: 0px
       width: 100%
-      height: 74px
-      background-color: $black
+      height: 70px
+      background-color: $nav_bg
+      border-top: 4px solid $black
+      @include nav_shadow
 
     #bands:after
       content: ""
@@ -568,8 +574,10 @@ h1
       bottom: 0px
       left: 0px
       width: 100%
-      height: 50px
-      background-color: $black
+      height: 46px
+      background-color: $nav_bg
+      border-top: 4px solid #4d4d4d
+      @include nav_shadow
 
 // OVERRIDES: 1025 and up (desktop)
 @media screen and (min-width: 1025px)
@@ -724,8 +732,10 @@ h1
       top: 0px
       left: 0px
       width: 100%
-      height: 54px
-      background-color: $black
+      height: 50px
+      background-color: $nav_bg
+      border-top: 4px solid $black
+      @include nav_shadow
 
     #bands:after
       content: ""
@@ -733,8 +743,10 @@ h1
       bottom: 0px
       left: 0px
       width: 100%
-      height: 50px
-      background-color: $black
+      height: 46px
+      background-color: $nav_bg
+      border-top: 4px solid #4d4d4d
+      @include nav_shadow
 
 // OVERRIDES: retina display
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)

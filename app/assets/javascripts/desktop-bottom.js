@@ -11,11 +11,16 @@
 // Legwork 2012
 //= require shared/namespaces
 //
+// Data
+//= require_tree ./desktop/data
+//
 // Templates
 //= require_tree ./desktop/templates
 //
 // Components
-//= require_tree ./desktop/components
+//= require desktop/components/loaders/loader
+//= require desktop/components/loaders/main-loader
+//= require desktop/components/mobile-menu
 //
 // Main
 //= require desktop/legwork

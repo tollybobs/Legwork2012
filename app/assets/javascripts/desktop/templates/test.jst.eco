@@ -1,7 +1,0 @@
-<div id="test">
-  <% if @test?: %>
-    <p>Test</p>
-  <% else: %>
-    <p>No Test</p>
-  <% end %>
-</div>

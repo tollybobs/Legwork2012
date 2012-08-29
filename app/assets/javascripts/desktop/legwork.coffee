@@ -19,13 +19,48 @@ class Legwork.Application
     Legwork.$html = $('html')
     Legwork.$body = $('body')
     Legwork.$wrapper = $('#wrapper')
+    Legwork.$header = $('header')
+    Legwork.$view = $('#legwork')
+    Legwork.$footer = $('footer')
 
     # Class vars
     @$menu_btn = $('#menu-btn')
     @$ajaxy = $('.ajaxy')
 
-    @build()
-    @observeSomeSweetEvents()
+    @preload()
+
+  ###
+  *------------------------------------------*
+  | preload:void (-)
+  |
+  | Merge assets and preload.
+  *----------------------------------------###
+  preload: ->
+    @preloader = new Legwork.MainLoader({'$el':Legwork.$body, 'assets':{images:[], videos:[]}})
+
+    Legwork.$body
+      .off('Legwork.loaded', @onLoadComplete)
+      .one('Legwork.loaded', @onLoadComplete)
+
+  ###
+  *------------------------------------------*
+  | onLoadComplete:void (=)
+  |
+  | e:object - event object
+  |
+  | Loading complete, finish transition.
+  *----------------------------------------###
+  onLoadComplete: (e) =>
+    Legwork.$view.delay(111).animate
+      'width':'100%'
+    , 666, 'easeInOutExpo', =>
+
+      @build()
+
+      Legwork.$header.find('h1')
+        .animate
+          'margin-bottom':'0px'
+        , 666, 'easeInOutExpo'
 
   ###
   *------------------------------------------*
@@ -38,10 +73,9 @@ class Legwork.Application
     if @$menu_btn.is(':visible') is true
       @mobile_menu = new Legwork.MobileMenu()
 
-    @preloader = new Legwork.Loader({})
+    console.log(Legwork.work, Legwork.world)
 
-    #$test = $(JST['desktop/templates/test']({}))
-    #$test.appendTo(Legwork.$body)
+    @observeSomeSweetEvents()
 
   ###
   *------------------------------------------*

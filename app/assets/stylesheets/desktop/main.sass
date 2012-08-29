@@ -16,6 +16,7 @@ h1
   #wrapper
     width: 100%
     height: 100%
+    display: none
 
     // header
     header
@@ -229,7 +230,7 @@ h1
     background-color: #eee
     z-index: 999
 
-    #fill
+    #loader-fill
       position: absolute
       bottom: 0px
       left: 0px
@@ -238,16 +239,16 @@ h1
       background-color: $white
       @include transition(height, 150ms, ease-out)
 
-    #status
+    #loader-status
       position: absolute
       top: 0px
       left: 0px
       width: 100%
       height: 100%
       background: asset-url("desktop/status.png", image) no-repeat 50% 50%
-      background-size: cover
+      @include background_size(100%, auto)
 
-    #bros
+    #loader-bros
       position: absolute
       bottom: 0px
       left: 50%
@@ -257,7 +258,7 @@ h1
       background: asset-url("desktop/bros.png", image) no-repeat top left
       background-size: cover
 
-    #speech-bubble
+    #loader-speech-bubble
       position: absolute
       bottom: 170px
       left: 50%
@@ -267,7 +268,7 @@ h1
       background: asset-url("desktop/speech-bubbles.png", image) no-repeat 0px 0px
       background-size: cover
 
-      #speech-bubble-inner
+      #loader-speech-bubble-inner
         display: table
         width: 100%
         height: 36px
@@ -284,21 +285,21 @@ h1
           sup
             display: none
 
-    #speech-bubble.left
+    #loader-speech-bubble.left
       margin-left: -50px
 
-    #speech-bubble.right
+    #loader-speech-bubble.right
       margin: 0 0 -5px -50px
       background-position: -100px 0px
 
-    #bands
+    #loader-bands
       position: absolute
       top: 0px
       left: 0px
       width: 0%
       height: 100%
 
-    #bands:before
+    #loader-bands:before
       content: ""
       position: absolute
       top: 0px
@@ -354,10 +355,10 @@ h1
 
   // main preloader
   #main-loader
-    #bros
+    #loader-bros
       bottom: -100px
 
-    #speech-bubble
+    #loader-speech-bubble
       bottom: 70px
 
 // OVERRIDES: 740 and up (tablet)
@@ -523,19 +524,19 @@ h1
 
   // main preloader
   #main-loader
-    #bros
+    #loader-bros
       bottom: 0px
       width: 430px
       height: 325px
       margin: -163px 0 0 -215px
 
-    #speech-bubble
+    #loader-speech-bubble
       bottom: 335px
       width: 172px
       height: 89px
       padding: 14px
 
-      #speech-bubble-inner
+      #loader-speech-bubble-inner
         display: table
         width: 100%
         height: 60px
@@ -550,14 +551,14 @@ h1
             font: normal normal normal 8px/0 Helvetica, Arial, sans-serif
             vertical-align: baseline
 
-    #speech-bubble.left
+    #loader-speech-bubble.left
       margin-left: -105px
 
-    #speech-bubble.right
+    #loader-speech-bubble.right
       margin: 0 0 -5px -95px
       background-position: -200px 0px
 
-    #bands:before
+    #loader-bands:before
       content: ""
       position: absolute
       top: 0px
@@ -568,7 +569,7 @@ h1
       border-top: 4px solid $black
       @include nav_shadow
 
-    #bands:after
+    #loader-bands:after
       content: ""
       position: absolute
       bottom: 0px
@@ -726,7 +727,7 @@ h1
             border-bottom-right-radius: 5px
 
   #main-loader
-    #bands:before
+    #loader-bands:before
       content: ""
       position: absolute
       top: 0px
@@ -737,7 +738,7 @@ h1
       border-top: 4px solid $black
       @include nav_shadow
 
-    #bands:after
+    #loader-bands:after
       content: ""
       position: absolute
       bottom: 0px

@@ -51,9 +51,10 @@ class Legwork.Application
   | Loading complete, finish transition.
   *----------------------------------------###
   onLoadComplete: (e) =>
-    Legwork.$view.delay(111).animate
-      'width':'100%'
+    $('#reveal').delay(111).animate
+      'margin-left':'100%'
     , 666, 'easeInOutExpo', =>
+      $('#reveal').remove()
 
       @build()
 
@@ -72,8 +73,6 @@ class Legwork.Application
     # Build the mobile menu if the button is visible
     if @$menu_btn.is(':visible') is true
       @mobile_menu = new Legwork.MobileMenu()
-
-    console.log(Legwork.work, Legwork.world)
 
     @observeSomeSweetEvents()
 

@@ -212,9 +212,39 @@ h1
 
     // main
     #legwork
-      width: 0%
+      width: 100%
       height: 100%
-      background: asset-url("desktop/test.gif", image) repeat top left
+
+      #cell-wrap
+        padding: 70px 20px 20px
+
+        #test-big,
+        #test-small,
+        #test-twitter
+          width: 100%
+          height: 0%
+          padding-top: 56%
+          margin-bottom: 20px
+          background-color: $blue
+
+        #test-small
+          background-color: $yellow
+
+        #test-twitter
+          padding-top: 32%
+          background-color: $pink
+
+        #test-sequence,
+        #test-gif
+          display: none
+
+      #reveal
+        position: absolute
+        top: 0px
+        left: 0px
+        width: 100%
+        height: 100%
+        background-color: $white
 
     // footer
     footer
@@ -353,6 +383,24 @@ h1
             a#contact-address
               background-position: 12px -472px
 
+    // main
+    #legwork
+      width: 100%
+      height: 100%
+
+      #cell-wrap
+        padding: 70px 0px 20px
+
+        #test-big,
+        #test-small,
+        #test-twitter
+          width: 440px
+          padding-top: 246px
+          margin: 0 auto 20px
+
+        #test-twitter
+          padding-top: 140px
+
   // main preloader
   #main-loader
     #loader-bros
@@ -476,6 +524,46 @@ h1
         height: 98px
         margin-bottom: 102px
         background: asset-url("desktop/bigger-logo.gif", image) no-repeat top left
+
+    // main
+    #legwork
+      #cell-wrap
+        position: absolute
+        top: 124px
+        left: 0px
+        width: 100%
+        padding: 0px
+
+        #test-big
+          position: absolute
+          top: 0px
+          left: 5%
+          width: 41%
+          height: 0%
+          padding-top: 23%
+          background-color: $blue
+
+        #test-small
+          position: absolute
+          top: 0px
+          left: 55%
+          width: 25%
+          height: 0%
+          padding-top: 14%
+          background-color: $yellow
+
+        #test-twitter
+          position: absolute
+          top: 400px
+          left: 5%
+          width: 40%
+          height: 0%
+          padding-top: 10%
+          background-color: $pink
+
+        #test-sequence,
+        #test-gif
+          display: none
 
     // footer
     footer
@@ -648,6 +736,11 @@ h1
         height: 70px
         margin-bottom: 74px
         background: asset-url("desktop/logo.gif", image) no-repeat top left
+
+    // main
+    #legwork
+      #cell-wrap
+        top: 104px
 
     // footer
     footer

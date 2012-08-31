@@ -1,6 +1,6 @@
 Legwork.home = {
 
-	// assets to preload
+	// Assets to preload
 	"assets": {
 		"images": [
 			
@@ -8,18 +8,155 @@ Legwork.home = {
 		"videos": []
 	},
 
-	// Featured Work
-	"work": [
-		"project-name"
-	],
-
-	// Featured World
-	"world": [
-		"name"
-	],
-
-	// Things
-	"things": [
+	// Layout
+	//
+	// Array guarantees order.
+	//
+	// Type will be parsed to get the relative template
+	// and will be added as the class attribute.
+	//
+	// Position is expressed as a % of the page width
+	// for both top and left. e.g.
+	//
+	// top  = position[0] * app_width
+	// left = position[1] * app_width
+	//
+	// Content points to a JSON file, except in the
+	// case of an animation, where it should just
+	// point directly to the image.
+	"layout": [
+		{
+			"type": "sequenced",
+			"position": "[0, 0.265]",
+			"title": "less talk.<br>more rock.",
+			"title_offset_left": "3%",
+			"content": "",
+			"content_offset": "right"
+		},
+		{
+			"type": "big work",
+			"position": "[0.328, 0.086]",
+			"content": "work/project-name"
+		},
+		{
+			"type": "small world",
+			"position": "[0.5, 0.578]",
+			"content": "world/name"
+		},
+		{
+			"type": "twitter",
+			"position": "[0.71, 0.203]"
+		},
+		{
+			"type": "sequenced",
+			"position": "[0.828, 0]",
+			"title": "less talk.<br>more rock.",
+			"title_offset_left": "3%",
+			"content": "",
+			"content_offset": "left"
+		},
+		{
+			"type": "small work",
+			"position": "[0.93, 0.64]",
+			"content": "work/project-name"
+		},
+		{
+			"type": "small world",
+			"position": "[1.195, 0.125]",
+			"content": "world/name"
+		},
+		{
+			"type": "big work",
+			"position": "[1.234, 0.469]",
+			"content": "work/project-name"
+		},
+		{
+			"type": "small work",
+			"position": "[1.438, 0.086]",
+			"content": "work/project-name"
+		},
+		{
+			"type": "twitter",
+			"position": "[1.547, 0.516]"
+		},
+		{
+			"type": "animated",
+			"position": "[1.625, 0.133]",
+			"content": ""
+		},
+		{
+			"type": "small work",
+			"position": "[1.711, 0.586]",
+			"content": "work/project-name"
+		},
+		{
+			"type": "sequenced",
+			"position": "[1.89, 0.313]",
+			"title": "less talk.<br>more rock.",
+			"title_offset_left": "3%",
+			"content": "",
+			"content_offset": "right"
+		},
+		{
+			"type": "small work",
+			"position": "[2, 0.086]",
+			"content": "work/project-name"
+		},
+		{
+			"type": "small world",
+			"position": "[2.305, 0.64]",
+			"content": "world/name"
+		},
+		{
+			"type": "big work",
+			"position": "[2.359, 0.125]",
+			"content": "work/project-name"
+		},
+		{
+			"type": "animated",
+			"position": "[2.477, 0.547]",
+			"content": ""
+		},
+		{
+			"type": "twitter",
+			"position": "[2.719, 0.086]"
+		},
+		{
+			"type": "small world",
+			"position": "[2.859, 0.547]",
+			"content": "world/name"
+		},
+		{
+			"type": "small work",
+			"position": "[2.938, 0.133]",
+			"content": "work/project-name"
+		},
+		{
+			"type": "small work",
+			"position": "[3.141, 0.586]",
+			"content": "work/project-name"
+		},
+		{
+			"type": "big world",
+			"position": "[3.203, 0.086]",
+			"content": "world/name"
+		},
+		{
+			"type": "twitter",
+			"position": "[3.516, 0.516]"
+		},
+		{
+			"type": "small work",
+			"position": "[3.672, 0.172]",
+			"content": "work/project-name"
+		},
+		{
+			"type": "sequenced",
+			"position": "[3.789, 0.281]",
+			"title": "less talk.<br>more rock.",
+			"title_offset_left": "3%",
+			"content": "",
+			"content_offset": "right"
+		}
 	]
-
 }

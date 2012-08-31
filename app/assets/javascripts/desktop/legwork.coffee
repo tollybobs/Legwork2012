@@ -26,6 +26,8 @@ class Legwork.Application
     # Class vars
     @$menu_btn = $('#menu-btn')
     @$ajaxy = $('.ajaxy')
+    @$stuff_wrap = $('#wrap-the-stuff')
+    @$stuff_reveal = $('#reveal-the-stuff')
 
     @preload()
 
@@ -51,12 +53,12 @@ class Legwork.Application
   | Loading complete, finish transition.
   *----------------------------------------###
   onLoadComplete: (e) =>
-    $('#reveal').delay(111).animate
+    @build()
+
+    @$stuff_reveal.delay(111).animate
       'margin-left':'100%'
     , 666, 'easeInOutExpo', =>
-      $('#reveal').remove()
-
-      @build()
+      @$stuff_reveal.remove()
 
       Legwork.$header.find('h1')
         .animate
@@ -74,7 +76,49 @@ class Legwork.Application
     if @$menu_btn.is(':visible') is true
       @mobile_menu = new Legwork.MobileMenu()
 
+    # Add the stuff
+    for stuff, id in Legwork.home.layout
+      # Container
+      $container = $(JST['desktop/templates/stuff'](stuff))
+
+      # Content
+      $content = $('')
+
+      # Append to DOM
+      $container.html($content).appendTo(@$stuff_wrap)
+
+    @$stuff = $('.stuff')
+
     @observeSomeSweetEvents()
+
+  ###
+  *------------------------------------------*
+  | layout:void (-)
+  |
+  | Compute layout for current window width.
+  *----------------------------------------###
+  layout: ->
+    w = @$stuff_wrap.outerWidth()
+
+    @$stuff.each (index, $t) =>
+      # NOTE: couldn't get $t.data('position') here. jQuery bug?
+      $t = $('.stuff').eq(index)
+      $t.css(@getLayoutOffset($t.data('position'), w))
+
+  ###
+  *------------------------------------------*
+  | getLayoutOffset:object (-)
+  |
+  | p:array - [top, left]
+  | w:number - current container width
+  |
+  | Get the position for the passed coords.
+  *----------------------------------------###
+  getLayoutOffset: (p, w) ->
+    return {
+      'top': Math.floor(w * p[0]) + 'px',
+      'left': Math.floor(w * p[1]) + 'px'
+    }
 
   ###
   *------------------------------------------*
@@ -85,11 +129,12 @@ class Legwork.Application
   observeSomeSweetEvents: ->
     # Window
     Legwork.$wn
-      .on 'resize', @onResize
+      .on('resize', @onResize)
+      .trigger('resize')
 
     # Ajaxy
     @$ajaxy
-      .on 'click', @onAjaxyLinkClick
+      .on('click', @onAjaxyLinkClick)
 
   ###
   *------------------------------------------*
@@ -100,12 +145,17 @@ class Legwork.Application
   | Window is being resized.
   *----------------------------------------###
   onResize: (e) =>
+    # Global cache window size
+    Legwork.app_width = Legwork.$wn.width()
+
     # Reset the mobile header if it exists, otherwise build
     # the mobile menu if the button becomese visible
     if @mobile_menu?
       @mobile_menu.resetHeader()
     else if @$menu_btn.is(':visible') is true
       @mobile_menu = new Legwork.MobileMenu()
+
+    @layout()
 
   ###
   *------------------------------------------*

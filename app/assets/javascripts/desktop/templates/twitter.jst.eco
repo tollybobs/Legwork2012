@@ -1,0 +1,8 @@
+<div class="twitter-inner activate-it">
+  <div class="twitter-details">
+    <h2><%= @date %></h2>
+    <h3>Via <%= @source %></h3>
+  </div>
+  <div class="twitter-logo"></div>
+  <p><%- @text %></p>
+</div>

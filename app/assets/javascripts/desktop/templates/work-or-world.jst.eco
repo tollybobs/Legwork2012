@@ -1,0 +1,7 @@
+<div class="ww-inner activate-it" style="background-position: 0px 0px; background-repeat: no-repeat; 
+background-image: url(<%= @thumbnail %>)">
+  <div class="ww-details">
+    <h2><%= @title %></h2>
+    <h3><%= @sub_title %></h3>
+  </div>
+</div>

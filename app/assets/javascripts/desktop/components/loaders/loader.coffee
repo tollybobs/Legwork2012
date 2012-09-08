@@ -17,10 +17,15 @@ class Legwork.Loader
   constructor: (initObj) ->
     @$el = initObj.$el
     @assets = initObj.assets
+    @total = @assets.images.length + @assets.videos.length + 1
+    @loaded = 0
     @percent = 0
+    @$video_stage = $('#ye-olde-hidden-video-holder')
 
     @build()
+    @loadTwitter()
     @loadImages()
+    @loadVideo()
 
   ###
   *------------------------------------------*
@@ -36,8 +41,31 @@ class Legwork.Loader
   |
   | Updated the view w/ percent loaded.
   *----------------------------------------###
-  updateProgress: (p) ->
-    @percent = p
+  updateProgress: () ->
+    @percent = Math.round((@loaded / @total) * 100)
+
+    if @loaded is @total
+      @loadComplete()
+
+  ###
+  *------------------------------------------*
+  | loadTwitter:void (-)
+  |
+  | Load the cached Twitter JSON.
+  *----------------------------------------###
+  loadTwitter: () ->
+    # TODO: cache this shit on our side
+    # TODO: in case of failure?
+    $.getJSON 'https://twitter.com/statuses/user_timeline.json?screen_name=legwork&trim_user=true&count=50&exclude_replies=true&callback=?', (data) =>
+      Legwork.twitter = data
+      
+      # filter replies, could be done server side
+      for tweet, index in Legwork.twitter
+        if ///^(@|\s@|\s\s@|.@|.\s@)///.test(tweet.text) is true
+          Legwork.twitter = _.without(Legwork.twitter, tweet)
+
+      @loaded++
+      @updateProgress()
 
   ###
   *------------------------------------------*
@@ -46,21 +74,15 @@ class Legwork.Loader
   | Preload the specified image collection.
   *----------------------------------------###
   loadImages: ->
-    checklist = @assets.images
+    for image in @assets.images
+      $current = $('<img />').attr
+        'src': image
+      .one 'load', {'path': image}, (e) =>
+        @loaded++
+        @updateProgress()
 
-    if checklist.length isnt 0
-      for image in @assets.images
-        $current = $('<img />').attr
-          'src': image
-        .one 'load', {'path': image}, (e) =>
-          checklist = _.without(checklist, e.data.path)
-          if checklist.length is 0
-            @imagesComplete()
-
-        if $current[0].complete is true
-          $current.trigger('load')
-    else
-      @loadVideo()
+      if $current[0].complete is true
+        $current.trigger('load')
 
     return false
 
@@ -71,43 +93,23 @@ class Legwork.Loader
   | Preload the specified video collection.
   *----------------------------------------###
   loadVideo: ->
-    if @assets.videos.length isnt 0 and Modernizr.video
+    # TODO: need a stronger test than window.width
+    if Modernizr.video and Legwork.$wn.width() > 1024
+      for video in @assets.videos
+        $v = $(JST['desktop/templates/html5-video'](video))
+        $v.appendTo(@$video_stage)
 
-      # TODO: abstract video loader
-      @videoComplete()
+        $v[0].addEventListener 'canplaythrough', =>
+          $v[0].removeEventListener 'canplaythrough'
 
-      ###
-      $vid = $(_.template(ParaNorman.templates.video, {'w':'1300', 'h':'560', 'id':'raise-the-judge', 'path':@assets.video[0]}))
-      $vid.appendTo('body')
+          @loaded++
+          @updateProgress()
 
-      $vid[0].addEventListener 'canplaythrough', =>
-        @videoComplete()
-        $vid[0].removeEventListener 'canplaythrough'
-      , false
-      ###
+        , false
     else
-      @loadComplete()
+      @loaded += @assets.videos.length
+      @updateProgress()
 
-    return false
-
-  ###
-  *------------------------------------------*
-  | imagesComplete:void (-)
-  |
-  | Images are done, update status and cont.
-  *----------------------------------------###
-  imagesComplete: ->
-    @loadVideo()
-    return false
-
-  ###
-  *------------------------------------------*
-  | videoComplete:void (-)
-  |
-  | Videos are done, update status and cont.
-  *----------------------------------------###
-  videoComplete: ->
-    @loadComplete()
     return false
 
   ###
@@ -118,8 +120,6 @@ class Legwork.Loader
   | dispatch Legwork.loaded back to $el
   *----------------------------------------###
   loadComplete: ->
-    @updateProgress(100)
-
     setTimeout =>
       @$view.fadeOut 600, =>
         @$view.remove()

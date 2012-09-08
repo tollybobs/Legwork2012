@@ -22,5 +22,8 @@
 //= require desktop/components/loaders/main-loader
 //= require desktop/components/mobile-menu
 //
+// Helpers
+//= require_tree ./desktop/helpers
+//
 // Main
 //= require desktop/legwork

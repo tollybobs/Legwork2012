@@ -5,9 +5,13 @@
     height: 100%
     min-width: 320px
 
+  html
+    overflow-y: scroll
+
   body
     background: $white
     -webkit-text-size-adjust: none
+    -webkit-font-smoothing: subpixel-antialiased
 
   #wrapper
     width: 100%
@@ -27,13 +31,13 @@
       nav
         position: absolute
         bottom: 0px
-        width: 101% // Webkit pixel rounding
+        width: 100%
         height: 210px
-        margin: 0 auto
+        overflow: hidden
 
         ul
           display: block
-          width: 100%
+          width: 101% // Webkit pixel rounding
           height: 69px
           border-top: 1px solid $less_black
           background-color: $nav_bg
@@ -211,24 +215,103 @@
       width: 100%
       height: 100%
 
+      #wrap-the-background
+        display: none
+
+      #wrap-the-canvas
+        display: none
+
       #wrap-the-stuff
         padding: 70px 20px 20px
 
         .stuff
+          position: relative
           width: 100%
           height: 0%
           padding-top: 56%
           margin-bottom: 20px
 
+          .marker
+            display: none
+
+          .activate-it
+            @include background_size(100%, 100%)
+
+        .work.stuff,
+        .world.stuff
+          .ww-inner
+            position: absolute
+            top: 0px
+            width: 100%
+            height: 100%
+
+            .ww-details
+              position: absolute
+              padding: 7px
+
+              h2
+                font: normal normal normal 9px/9px "MuseoSlab700", Verdana, sans-serif
+                text-transform: uppercase
+                margin-bottom: 1px
+
+              h3
+                font: normal normal normal 9px/9px Helvetica, Arial, sans-serif
+
         .work.stuff
-          background-color: $blue
+          .ww-details
+            background-color: $yellow
 
         .world.stuff
-          background-color: $yellow
+          .ww-details
+            background-color: $blue
 
         .twitter.stuff
-          padding-top: 32%
-          background-color: $pink
+          height: auto
+          padding: 0
+          background-color: #eee
+
+          .twitter-inner
+            .twitter-details
+              float: left
+              padding: 7px
+              background-color: $pink
+
+              h2
+                font: normal normal normal 9px/9px "MuseoSlab700", Verdana, sans-serif
+                text-transform: uppercase
+                margin-bottom: 1px
+
+              h3
+                font: normal normal normal 9px/9px Helvetica, Arial, sans-serif
+
+            .twitter-logo
+              float: right
+              width: 22px
+              height: 18px
+              padding: 7px
+              background: asset-url("desktop/bg-twitter-stuff.png", image) no-repeat 50% 50%
+              background-size: 22px 18px
+
+            p
+              font: normal normal normal 12px/20px "MuseoSlab700", Verdana, sans-serif
+              color: #666
+              padding: 24px 20px
+              -webkit-hyphens: auto
+              -moz-hyphens: auto
+              hyphens: auto
+              clear: both
+
+              a
+                color: #333
+                text-decoration: none
+
+              .tweet-at
+                color: #333
+                text-decoration: none
+
+              .tweet-hash
+                color: #999
+                text-decoration: none
 
         .sequenced.stuff,
         .animated.stuff,
@@ -237,7 +320,7 @@
       #reveal-the-stuff
         position: absolute
         top: 0px
-        left: 0px
+        right: 0px
         width: 100%
         height: 100%
         background-color: $white
@@ -250,7 +333,7 @@
   #main-loader
     position: absolute
     top: 0px
-    left: 0px
+    right: 0px
     width: 100%
     height: 100%
     background-color: #eee
@@ -336,6 +419,11 @@
       border-top: 4px solid $black
       @include nav_shadow
 
+  #ye-olde-hidden-video-holder
+    position: fixed
+    top: 0px
+    left: -1337px
+
 // OVERRIDES: 480 and up (phone landscape)
 @media screen and (min-width: 480px)
   #wrapper
@@ -391,9 +479,6 @@
           width: 440px
           padding-top: 246px
           margin: 0 auto 20px
-
-        .twitter.stuff
-          padding-top: 140px
 
   // main preloader
   #main-loader
@@ -522,8 +607,78 @@
     // main
     #legwork
       position: relative
-      max-width: 1500px
-      margin: 0px auto
+
+      #wrap-the-background
+        display: block
+        position: absolute
+        top: 54px
+        left: 0px
+        width: 100%
+        padding: 0px
+
+        .stuff
+          position: absolute
+          top: 0px
+          left: 0px
+          height: 0%
+
+          .marker
+            display: none
+
+          .activate-it
+            display: none
+
+        .sequenced.stuff
+          display: block
+          position: absolute
+          top: 0px
+          width: 56%
+          height: 0%
+          padding-top: 38%
+
+          .sequenced-inner
+            position: absolute
+            top: 0px
+            width: 100%
+            height: 100%
+
+            video
+              position: absolute
+              height: 100%
+              width: auto
+              display: none
+
+        .right.sequenced.stuff
+          .sequenced-inner
+            video
+              right: 0px
+
+        .left.sequenced.stuff
+          .sequenced-inner
+            video
+              left: 0px
+
+        .animated.stuff
+          display: block
+          position: absolute
+          top: 0px
+          left: 0px
+          width: 31%
+          height: 0%
+          padding-top: 31%
+
+          .animated-inner
+            position: absolute
+            top: 0px
+            width: 100%
+            height: 100%
+
+      #wrap-the-canvas
+        display: block
+        position: fixed
+        top: 74px
+        width: 100%
+        height: 50%
 
       #wrap-the-stuff
         position: absolute
@@ -538,6 +693,47 @@
           left: 0px
           height: 0%
 
+          .marker
+            display: block
+            position: absolute
+            top: -6px
+            left: 0px
+            width: 2px
+            height: 14px
+
+          .marker:after
+            content: ""
+            position: absolute
+            top: 6px
+            left: -6px
+            width: 14px
+            height: 2px
+
+          .activate-it
+            display: none
+
+        .work.stuff,
+        .world.stuff
+          .ww-inner
+            .ww-details
+              padding: 8px
+
+              h2
+                font: normal normal normal 10px/10px "MuseoSlab700", Verdana, sans-serif
+
+              h3
+                font: normal normal normal 10px/10px Helvetica, Arial, sans-serif
+
+        .work.stuff
+          .marker,
+          .marker:after
+            background-color: $yellow
+
+        .world.stuff
+          .marker,
+          .marker:after
+            background-color: $blue
+
         .big.stuff
           width: 41%
           padding-top: 23%
@@ -547,38 +743,26 @@
           padding-top: 14%
 
         .twitter.stuff
-          width: 40%
-          padding-top: 10%
+          width: 42%
 
-        .sequenced.stuff
-          display: block
-          position: absolute
-          top: 0px
-          left: 0px
-          width: 56%
-          height: 0%
-          padding-top: 38%
-          background: asset-url("desktop/sequenced.png", image) no-repeat top right
-          vertical-align: middle
-          @include background_size(auto, 100%)
+          .twitter-inner
+            .twitter-details
+              padding: 8px
 
-          h1
-            position: absolute
-            top: 50%
-            left: 0px
-            margin-top: -26px
-            font: normal normal normal 26px/26px "MuseoSlab700", Verdana, sans-serif
-            text-transform: uppercase
+              h2
+                font: normal normal normal 10px/10px "MuseoSlab700", Verdana, sans-serif
 
-        .animated.stuff
-          display: block
-          position: absolute
-          top: 0px
-          left: 0px
-          width: 31%
-          height: 0%
-          padding-top: 31%
-          background: asset-url("desktop/animated.png", image) no-repeat top left
+              h3
+                font: normal normal normal 10px/10px Helvetica, Arial, sans-serif
+
+            .twitter-logo
+              width: 24px
+              height: 20px
+              background-size: 24px 20px
+
+          .marker,
+          .marker:after
+            background-color: $pink
 
     // footer
     footer
@@ -754,13 +938,48 @@
 
     // main
     #legwork
+      max-width: 1500px
+      margin: 0px auto
+
+      #wrap-the-background
+        top: 34px
+
+      #wrap-the-canvas
+        top: 34px
+
       #wrap-the-stuff
         top: 34px
 
-        .sequenced.stuff
-          h1
-            margin-top: -36px
-            font: normal normal normal 36px/36px "MuseoSlab700", Verdana, sans-serif
+        .work.stuff,
+        .world.stuff
+          .ww-inner
+            .ww-details
+              padding: 10px 10px 9px
+
+              h2
+                font: normal normal normal 12px/12px "MuseoSlab700", Verdana, sans-serif
+
+              h3
+                font: normal normal normal 12px/12px Helvetica, Arial, sans-serif
+
+        .twitter.stuff
+          .twitter-inner
+            .twitter-details
+              padding: 10px 10px 9px
+
+              h2
+                font: normal normal normal 12px/12px "MuseoSlab700", Verdana, sans-serif
+
+              h3
+                font: normal normal normal 12px/12px Helvetica, Arial, sans-serif
+
+            .twitter-logo
+              width: 29px
+              height: 24px
+              background-size: 29px 24px
+
+            p
+              font: normal normal normal 14px/21px "MuseoSlab700", Verdana, sans-serif
 
     // footer
     footer

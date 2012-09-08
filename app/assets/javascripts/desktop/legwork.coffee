@@ -26,8 +26,22 @@ class Legwork.Application
     # Class vars
     @$menu_btn = $('#menu-btn')
     @$ajaxy = $('.ajaxy')
+    @$bg_wrap = $('#wrap-the-background')
+    @$canvas_wrap = $('#wrap-the-canvas')
+    @$lines = $('#lines')
+    @$line_wrap = $('#wrap-the-lines')
     @$stuff_wrap = $('#wrap-the-stuff')
     @$stuff_reveal = $('#reveal-the-stuff')
+
+    @stuff = []
+    @lifelines = @getLifelines()
+    @line_ctx = @$lines[0].getContext('2d')
+    @twitter_index = 0
+    @scroll_timeout = 0
+    @resize_timeout = 0
+    @activate_index = 0
+
+    @vector_utils = new Legwork.VectorUtils()
 
     @preload()
 
@@ -38,7 +52,7 @@ class Legwork.Application
   | Merge assets and preload.
   *----------------------------------------###
   preload: ->
-    @preloader = new Legwork.MainLoader({'$el':Legwork.$body, 'assets':{images:[], videos:[]}})
+    @preloader = new Legwork.MainLoader({'$el': Legwork.$body, 'assets': Legwork.home.assets})
 
     Legwork.$body
       .off('Legwork.loaded', @onLoadComplete)
@@ -56,7 +70,7 @@ class Legwork.Application
     @build()
 
     @$stuff_reveal.delay(111).animate
-      'margin-left':'100%'
+      'width':'0%'
     , 666, 'easeInOutExpo', =>
       @$stuff_reveal.remove()
 
@@ -64,6 +78,125 @@ class Legwork.Application
         .animate
           'margin-bottom':'0px'
         , 666, 'easeInOutExpo'
+
+  ###
+  *------------------------------------------*
+  | getLifelines:object (-)
+  |
+  | Build the lifelines object.
+  *----------------------------------------###
+  getLifelines: ->
+    obj = {
+      'twitter': {
+        'color': 'rgba(247, 142, 198, 1)',
+        'coords': []
+      },
+      'work': {
+        'color': 'rgba(234, 233, 56, 1)',
+        'coords': []
+      },
+      'world': {
+        'color': 'rgba(151, 213, 242, 1)',
+        'coords': []
+      }
+    }
+
+    for stuff, id in Legwork.home.layout
+      category = @getStuffType(stuff.type).replace(/animated|sequenced/g, '')
+      
+      if category isnt ''
+        obj[category].coords.push({'x':stuff.position[1], 'y':stuff.position[0]})
+
+    return obj
+
+  ###
+  *------------------------------------------*
+  | clear:void (-)
+  |
+  | cnv:dom - canvas
+  |
+  | Clear the canvas.
+  *----------------------------------------###
+  clear: (cnv) ->
+    ctx = cnv.getContext('2d')
+    ctx.clearRect(0, 0, cnv.width, cnv.height)
+    cnv.width = cnv.width
+
+  ###
+  *------------------------------------------*
+  | lines:void (-)
+  |
+  | obj:object - ref to lifelines item
+  | width:number - stroke size
+  | tightness:number - how curvatious?
+  |
+  | Draw lines.
+  | Couldn't have done this without
+  | http://bit.ly/tvuzR4. Thanks CBH!
+  *----------------------------------------###
+  lines: (obj, width, tightness) ->
+    p = 0
+    points = obj.coords
+
+    @line_ctx.strokeStyle = obj.color
+    @line_ctx.lineWidth = width
+
+    @line_ctx.beginPath()
+    @line_ctx.moveTo(@getOffset(points[0].x), @getOffset(points[0].y))
+
+    for p in [1..(points.length - 1)]
+
+      # For the second point set the it's control points
+      if p is 1
+        points[p].c1x = @getOffset(points[p - 1].x)
+        points[p].c1y = @getOffset(points[p - 1].y)
+
+      # For the penultimate point set the it's control points
+      if p is (points.length - 1)
+        points[p].c2x = @getOffset(points[p].x)
+        points[p].c2y = @getOffset(points[p].y)
+      else
+
+        # Thanks to JORIKI and Pumbaa80 at stackexchange for all the help with this next bit!
+
+        # Set some aliases for the previous, current and next points
+        a = [@getOffset(points[p - 1].x), @getOffset(points[p - 1].y)]
+        b = [@getOffset(points[p].x), @getOffset(points[p].y)]
+        c = [@getOffset(points[p + 1].x), @getOffset(points[p + 1].y)]
+
+        # Get the change in the vectors
+        delta_a = @vector_utils.subtract(b, a)
+        delta_c = @vector_utils.subtract(c, b)
+
+        # Get vector (m) perpendicular bisector
+        m = @vector_utils.normalize(@vector_utils.add(@vector_utils.normalize(delta_a), @vector_utils.normalize(delta_c)))
+
+        # Get ma and mc
+        ma = [-m[0], -m[1]]
+        mc = m
+
+        # Get the control point coordinates
+        points[p].c2x = b[0] + ((Math.sqrt(@vector_utils.sqr(delta_a[0]) + @vector_utils.sqr(delta_a[1])) / tightness) * ma[0])
+        points[p].c2y = b[1] + ((Math.sqrt(@vector_utils.sqr(delta_a[0]) + @vector_utils.sqr(delta_a[1])) / tightness) * ma[1])
+        points[p + 1].c1x = b[0] + ((Math.sqrt(@vector_utils.sqr(delta_c[0]) + @vector_utils.sqr(delta_c[1])) / tightness) * mc[0])
+        points[p + 1].c1y = b[1] + ((Math.sqrt(@vector_utils.sqr(delta_c[0]) + @vector_utils.sqr(delta_c[1])) / tightness) * mc[1])
+
+      # lines
+      @line_ctx.bezierCurveTo(points[p].c1x, points[p].c1y, points[p].c2x, points[p].c2y, @getOffset(points[p].x), @getOffset(points[p].y))
+
+    @line_ctx.stroke()
+
+  ###
+  *------------------------------------------*
+  | getOffset:void (-)
+  |
+  | v:number - value as % of width
+  |
+  | Get the offset of the passed val for
+  | the current app size.
+  *----------------------------------------###
+  getOffset: (v) ->
+    return (Math.floor(v * Legwork.app_width) + 1)
 
   ###
   *------------------------------------------*
@@ -78,18 +211,165 @@ class Legwork.Application
 
     # Add the stuff
     for stuff, id in Legwork.home.layout
+      category = @getStuffType(stuff.type)
+
       # Container
       $container = $(JST['desktop/templates/stuff'](stuff))
+      $content = ''
+      $parent = if category is 'sequenced' or category is 'animated' then @$bg_wrap else @$stuff_wrap
 
       # Content
-      $content = $('')
+      switch category
+        when 'sequenced'
+          $content = $(JST['desktop/templates/sequence'](stuff))
+          $('#' + stuff.content[0]).addClass('video-in').appendTo($content)
+          $('#' + stuff.content[1]).addClass('video-out').appendTo($content)
+          console.log($content)
+        when 'animated'
+          $content = $(JST['desktop/templates/animation'](stuff))
+        when 'twitter'
+          $content = $(JST['desktop/templates/twitter'](@getNextTweet()))
+        when 'work'
+          data = Legwork.work[stuff.content]
+          $content = $(JST['desktop/templates/work'](data))
+        when 'world'
+          data = Legwork.world[stuff.content]
+          $content = $(JST['desktop/templates/world'](data))
 
       # Append to DOM
-      $container.html($content).appendTo(@$stuff_wrap)
+      $container.append($content).appendTo($parent)
 
-    @$stuff = $('.stuff')
+      # Initial Event
+      $container
+        .one('Legwork.activate', @onStuffActivate)
+
+      # Collect
+      @stuff.push($container)
 
     @observeSomeSweetEvents()
+
+  ###
+  *------------------------------------------*
+  | getStuffType:void (-)
+  |
+  | t:string - type/class string
+  |
+  | What type of stuff are we dealing with?
+  *----------------------------------------###
+  getStuffType: (t) ->
+    return t.replace(/\s|big|small|left|right|stuff/g, '')
+
+  ###
+  *------------------------------------------*
+  | getNextTweet:object (-)
+  |
+  | Get the next Tweet.
+  *----------------------------------------###
+  getNextTweet: ->
+    tweet = Legwork.twitter[@twitter_index]
+    text = tweet.text
+    timestamp = tweet.created_at
+    date = ''
+    source = tweet.source
+
+    # test
+    #text = 'This rad tweet is custom built for testing a #hashtag and a @mention of someone and is exactly 140 characters long. <a href="legworkstudio.com" target="_new">http://legworkstudio.com</a>'
+
+    @twitter_index++
+
+    # format mentions, hashes and links
+    text = text.replace(/(^|\s)(@\w+)\b/g, ' <span class="tweet-at">$2</span>')
+    text = text.replace(/(^|\s)(#\w+)\b/g, ' <span class="tweet-hash">$2</span>')
+    text = text.replace(/([A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+)/g, '<a href="$1" target="_new">$1</a>')
+
+    # format date
+    time_since_tweet = Math.floor((new Date() - new Date(Date.parse(timestamp))) / 1000)
+
+    if time_since_tweet <= 1
+      date = "Just now"
+    else if time_since_tweet < 20
+      date = @toWords(time_since_tweet) + " seconds ago"
+    else if time_since_tweet < 40
+      date = "Half a minute ago"
+    else if time_since_tweet < 60
+      date = "Less than a minute ago"
+    else if time_since_tweet <= 90
+      date = "One minute ago"
+    else if time_since_tweet <= 3540
+      date = @toWords(Math.round(time_since_tweet / 60)) + " minutes ago"
+    else if time_since_tweet <= 5400
+      date = "One hour ago"
+    else if time_since_tweet <= 86400
+      date = @toWords(Math.round(time_since_tweet / 3600)) + " hours ago"
+    else if time_since_tweet <= 129600
+      date = "One day ago"
+    else if time_since_tweet < 604800
+      date = @toWords(Math.round(time_since_tweet / 86400)) + " days ago"
+    else if time_since_tweet <= 777600
+      date = "One week ago"
+    else if time_since_tweet <= 1000000
+      date = "In ancient times"
+
+    # prepare source
+    source = source.replace(/(^<.+>)(.+)(<.+>$)/, '$2')
+    source = source.replace(/web/, 'twitter.com')
+
+    return {
+      'text': text,
+      'date': date,
+      'source': source
+    }
+
+  ###
+  *------------------------------------------*
+  | toWords:string (-)
+  |
+  | s:number - number to convert
+  |
+  | Turn a number into some sweet words.
+  *----------------------------------------###
+  toWords: (s) ->
+    th = ['', ' thousand', ' million', ' billion', ' trillion', ' quadrillion', ' quintillion']
+    dg = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+    tn = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
+    tw = ['twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
+
+    s = s.toString()
+    s = s.replace(/[\, ]/g, '')
+    x = s.length
+    n = s.split('')
+    str = ''
+    sk = 0
+
+    for i in [0..(x - 1)]
+      if (x - i) % 3 is 2
+        if n[i] is '1'
+          str += tn[Number(n[i + 1])] + ' '
+          i++ # TODO: isn't working
+          sk = 1
+        else if n[i] isnt 0
+          str += tw[n[i] - 2] + ' '
+          sk = 1
+      else if n[i] isnt 0
+        str += dg[n[i]] + ' '
+        if (x - i) % 3 is 0
+          str += 'hundred '
+        sk = 1
+      if (x - i) % 3 is 1
+        if sk is 1
+          str += th[(x - i - 1) / 3] + ' '
+        sk = 0
+
+    return str.replace(/\s+/g, ' ')
+
+  ###
+  *------------------------------------------*
+  | startLayout:void (-)
+  |
+  | Start layout.
+  *----------------------------------------###
+  startLayout: ->
+    @$canvas_wrap.hide()
 
   ###
   *------------------------------------------*
@@ -98,12 +378,25 @@ class Legwork.Application
   | Compute layout for current window width.
   *----------------------------------------###
   layout: ->
-    w = @$stuff_wrap.outerWidth()
+    for $t, index in @stuff
+      $t.css(@getLayoutOffset($t.data('position'), Legwork.app_width))
 
-    @$stuff.each (index, $t) =>
-      # NOTE: couldn't get $t.data('position') here. jQuery bug?
-      $t = $('.stuff').eq(index)
-      $t.css(@getLayoutOffset($t.data('position'), w))
+  ###
+  *------------------------------------------*
+  | finishLayout:void (-)
+  |
+  | Finish layout.
+  *----------------------------------------###
+  finishLayout: ->
+    $last_item = _.last(@stuff)
+
+    @$stuff_wrap.css('height', $last_item.offset().top + $last_item.outerHeight() + 'px')
+
+    @$lines
+      .attr('width', Legwork.app_width)
+      .attr('height', Math.floor(Legwork.$wn.height() / 2))
+
+    @$canvas_wrap.show()
 
   ###
   *------------------------------------------*
@@ -115,10 +408,12 @@ class Legwork.Application
   | Get the position for the passed coords.
   *----------------------------------------###
   getLayoutOffset: (p, w) ->
-    return {
-      'top': Math.floor(w * p[0]) + 'px',
-      'left': Math.floor(w * p[1]) + 'px'
-    }
+    if w < 740
+      ob = {'top':'0px', 'left':'0px'}
+    else
+      ob = {'top': Math.floor(w * p[0]) + 'px', 'left': Math.floor(w * p[1]) + 'px'}
+
+    return ob
 
   ###
   *------------------------------------------*
@@ -129,12 +424,67 @@ class Legwork.Application
   observeSomeSweetEvents: ->
     # Window
     Legwork.$wn
+      .one('resize', @onResizeStart)
       .on('resize', @onResize)
+      .on('scroll', @onScroll)
       .trigger('resize')
 
     # Ajaxy
     @$ajaxy
       .on('click', @onAjaxyLinkClick)
+
+  ###
+  *------------------------------------------*
+  | onScroll:void (=)
+  | 
+  | e:object - event object
+  | 
+  | Window is being scrolled.
+  *----------------------------------------###
+  onScroll: (e) =>
+    # Debounce for onScrollComplete
+    clearTimeout(@scroll_timeout)
+    @scroll_timeout = setTimeout(@onScrollComplete, 250)
+
+    Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() / 2))
+
+    # Lines
+    @$canvas_wrap.css('opacity', 1)
+
+    @clear(@$lines[0])
+    @line_ctx.translate(0, -Legwork.$wn.scrollTop())
+
+    for key, value of @lifelines
+      @lines(value, 1, 3)
+
+    # Stuff
+    $previous_stuff = if @stuff[@activate_index - 1]? then @stuff[@activate_index - 1] else $('')
+    $current_stuff = @stuff[@activate_index]
+
+    if $previous_stuff.is(':visible') and $previous_stuff.offset().top > Legwork.event_horizon
+      $previous_stuff.trigger('Legwork.deactivate')
+
+    if $current_stuff.offset().top < Legwork.event_horizon
+      $current_stuff.trigger('Legwork.activate')
+
+  ###
+  *------------------------------------------*
+  | onScrollComplete:void (=)
+  | 
+  | Window is done being scrolled.
+  *----------------------------------------###
+  onScrollComplete: =>
+    @$canvas_wrap.animate({'opacity':0.25}, 250, 'linear')
+
+  ###
+  *------------------------------------------*
+  | onResizeStart:void (=)
+  | 
+  | Resize has started.
+  *----------------------------------------###
+  onResizeStart: (e) =>
+    # Layout
+    @startLayout()
 
   ###
   *------------------------------------------*
@@ -145,8 +495,12 @@ class Legwork.Application
   | Window is being resized.
   *----------------------------------------###
   onResize: (e) =>
-    # Global cache window size
-    Legwork.app_width = Legwork.$wn.width()
+    # Debounce for onResizeComplete
+    clearTimeout(@resize_timeout)
+    @resize_timeout = setTimeout(@onResizeComplete, 250)
+
+    # Global cache app size
+    Legwork.app_width = @$stuff_wrap.outerWidth()
 
     # Reset the mobile header if it exists, otherwise build
     # the mobile menu if the button becomese visible
@@ -155,7 +509,74 @@ class Legwork.Application
     else if @$menu_btn.is(':visible') is true
       @mobile_menu = new Legwork.MobileMenu()
 
+    # Layout
     @layout()
+
+  ###
+  *------------------------------------------*
+  | onResizeComplete:void (=)
+  | 
+  | Resize is finished.
+  *----------------------------------------###
+  onResizeComplete: =>
+    # Re-add event for onResizeStart
+    Legwork.$wn
+      .one('resize', @onResizeStart)
+
+    # Layout
+    @finishLayout()
+
+  ###
+  *------------------------------------------*
+  | onStuffActivate:void (=)
+  | 
+  | e:object - event object
+  | 
+  | This stuff got activated.
+  *----------------------------------------###
+  onStuffActivate: (e) =>
+    $t = $(e.currentTarget)
+    category = @getStuffType($t.attr('class'))
+
+    if category is 'sequenced'
+      $vid_in = $t.find('.video-in')
+      $vid_out = $t.find('.video-out')
+      $vid_in.show()
+      $vid_out.hide()
+      $vid_in[0].play()
+    else
+      $t.find('.activate-it').fadeIn(250)
+
+    $t.one('Legwork.deactivate', @onStuffDeactivate)
+
+    if @activate_index isnt @stuff.length
+      @activate_index++
+
+  ###
+  *------------------------------------------*
+  | onStuffDeactivate:void (=)
+  | 
+  | e:object - event object
+  | 
+  | This stuff got deactivated.
+  *----------------------------------------###
+  onStuffDeactivate: (e) =>
+    $t = $(e.currentTarget)
+    category = @getStuffType($t.attr('class'))
+
+    if category is 'sequenced'
+      $vid_in = $t.find('.video-in')
+      $vid_out = $t.find('.video-out')
+      $vid_in.hide()
+      $vid_out.show()
+      $vid_out[0].play()
+    else
+      $t.find('.activate-it').fadeIn(250)
+
+    $t.one('Legwork.activate', @onStuffActivate)
+
+    if @activate_index isnt 0
+      @activate_index--
 
   ###
   *------------------------------------------*

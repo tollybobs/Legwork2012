@@ -68,8 +68,8 @@ class Legwork.MainLoader extends Legwork.Loader
   |
   | Updated the view w/ percent loaded.
   *----------------------------------------###
-  updateProgress: (p) ->
-    super(p)
+  updateProgress: () ->
+    super()
     $('#loader-fill').css('height', @percent + '%')
 
   ###
@@ -120,8 +120,6 @@ class Legwork.MainLoader extends Legwork.Loader
   | dispatch Legwork.loaded back to $el
   *----------------------------------------###
   loadComplete: ->
-    @updateProgress(100)
-
     clearTimeout(@talk)
     clearTimeout(@show)
     @$speech_bubble.hide()
@@ -145,6 +143,6 @@ class Legwork.MainLoader extends Legwork.Loader
             @$el.trigger('Legwork.loaded')
 
             @$view.animate
-              'margin-left':'100%'
+              'width':'0%'
             , 333, 'easeOutExpo', ->
               $(this).remove()

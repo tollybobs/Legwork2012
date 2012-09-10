@@ -21,6 +21,13 @@ class Legwork.Loader
     @loaded = 0
     @percent = 0
     @$video_stage = $('#ye-olde-hidden-video-holder')
+    @supports_autoplay = (->
+      # TODO: stronger test
+      if navigator.userAgent.match(/iPhone/i) or navigator.userAgent.match(/iPod/i) or navigator.userAgent.match(/iPad/i)
+        return false
+      else
+        return true
+    )()
 
     @build()
     @loadTwitter()
@@ -93,8 +100,8 @@ class Legwork.Loader
   | Preload the specified video collection.
   *----------------------------------------###
   loadVideo: ->
-    # TODO: need a stronger test than window.width
-    if Modernizr.video and Legwork.$wn.width() > 1024
+    # TODO: test for autoplay capability
+    if Modernizr.video and @supports_autoplay
       for video in @assets.videos
         $v = $(JST['desktop/templates/html5-video'](video))
         $v.appendTo(@$video_stage)

@@ -216,13 +216,35 @@
       height: 100%
 
       #wrap-the-background
-        display: none
+        height: 200px
+        padding: 70px 20px 20px
+
+        .sequenced.stuff,
+        .animated.stuff
+          display: none
+
+        .sequenced.stuff:first-child
+          display: block
+          width: 100%
+          height: 100%
+
+          .sequenced-inner
+            width: 100%
+            height: 100%
+            background-position: 50% 50%
+            background-repeat: no-repeat
+            @include background_size(auto, 100%)
+
+        .sequenced.stuff
+          .sequenced-inner
+            video
+              display: none
 
       #wrap-the-canvas
         display: none
 
       #wrap-the-stuff
-        padding: 70px 20px 20px
+        padding: 0px 20px 20px
 
         .stuff
           position: relative
@@ -236,6 +258,9 @@
 
           .activate-it
             @include background_size(100%, 100%)
+
+        .stuff:last-child
+          margin-bottom: 0px
 
         .work.stuff,
         .world.stuff
@@ -312,10 +337,6 @@
               .tweet-hash
                 color: #999
                 text-decoration: none
-
-        .sequenced.stuff,
-        .animated.stuff,
-          display: none
 
       #reveal-the-stuff
         position: absolute
@@ -414,7 +435,7 @@
       top: 0px
       left: 0px
       width: 100%
-      height: 50px
+      height: 46px
       background-color: $nav_bg
       border-top: 4px solid $black
       @include nav_shadow
@@ -472,8 +493,11 @@
       width: 100%
       height: 100%
 
+      #wrap-the-background
+        height: 320px
+
       #wrap-the-stuff
-        padding: 70px 0px 20px
+        padding: 0px 0px 20px
 
         .stuff
           width: 440px
@@ -626,7 +650,15 @@
             display: none
 
           .activate-it
-            display: none
+            display: block
+
+        .sequenced.stuff:first-child
+          display: block
+          position: absolute
+          top: 0px
+          width: 56%
+          height: 0%
+          padding-top: 38%
 
         .sequenced.stuff
           display: block
@@ -641,22 +673,13 @@
             top: 0px
             width: 100%
             height: 100%
-
-            video
-              position: absolute
-              height: 100%
-              width: auto
-              display: none
+            background-position: top left
+            background-repeat: no-repeat
+            @include background_size(auto, 100%)
 
         .right.sequenced.stuff
           .sequenced-inner
-            video
-              right: 0px
-
-        .left.sequenced.stuff
-          .sequenced-inner
-            video
-              left: 0px
+            background-position: top right
 
         .animated.stuff
           display: block
@@ -672,6 +695,9 @@
             top: 0px
             width: 100%
             height: 100%
+            background-position: 0px 0px
+            background-repeat: no-repeat
+            @include background_size(100%, 100%)
 
       #wrap-the-canvas
         display: block
@@ -710,7 +736,7 @@
             height: 2px
 
           .activate-it
-            display: none
+            display: block
 
         .work.stuff,
         .world.stuff
@@ -944,11 +970,39 @@
       #wrap-the-background
         top: 34px
 
+        .stuff
+          .activate-it
+            display: none
+
+        .sequenced.stuff
+          .sequenced-inner
+            background: #fff !important
+
+            video
+              position: absolute
+              height: 100%
+              width: auto
+              display: none
+
+        .right.sequenced.stuff
+          .sequenced-inner
+            video
+              right: 0px
+
+        .left.sequenced.stuff
+          .sequenced-inner
+            video
+              left: 0px
+
       #wrap-the-canvas
         top: 34px
 
       #wrap-the-stuff
         top: 34px
+
+        .stuff
+          .activate-it
+            display: none
 
         .work.stuff,
         .world.stuff

@@ -188,6 +188,21 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
+  | doLines:void (-)
+  |
+  | v:number - value as % of width
+  |
+  | Where's the fuggin' mirror?
+  *----------------------------------------###
+  doLines: ->
+    @clear(@$lines[0])
+    @line_ctx.translate(0, -Legwork.$wn.scrollTop())
+
+    for key, value of @lifelines
+      @lines(value, 1, 3)
+
+  ###
+  *------------------------------------------*
   | getOffset:void (-)
   |
   | v:number - value as % of width
@@ -224,7 +239,6 @@ class Legwork.Application
           $content = $(JST['desktop/templates/sequence'](stuff))
           $('#' + stuff.content[0]).addClass('video-in').appendTo($content)
           $('#' + stuff.content[1]).addClass('video-out').appendTo($content)
-          console.log($content)
         when 'animated'
           $content = $(JST['desktop/templates/animation'](stuff))
         when 'twitter'
@@ -258,6 +272,23 @@ class Legwork.Application
   *----------------------------------------###
   getStuffType: (t) ->
     return t.replace(/\s|big|small|left|right|stuff/g, '')
+
+  ###
+  *------------------------------------------*
+  | doStuff:void (-)
+  |
+  | Activate/Deactivate stuff based on
+  | on scroll position.
+  *----------------------------------------###
+  doStuff: ->
+    $current_stuff = if @stuff[@activate_index]? then @stuff[@activate_index] else null
+    $previous_stuff = if @stuff[@activate_index - 1]? then @stuff[@activate_index - 1] else null
+
+    if $current_stuff? and $current_stuff.offset().top < Legwork.event_horizon
+      $current_stuff.trigger('Legwork.activate')
+
+    if $previous_stuff? and $previous_stuff.offset().top > Legwork.event_horizon
+      $previous_stuff.trigger('Legwork.deactivate')
 
   ###
   *------------------------------------------*
@@ -426,12 +457,26 @@ class Legwork.Application
     Legwork.$wn
       .one('resize', @onResizeStart)
       .on('resize', @onResize)
+      .one('scroll', @onScrollStart)
       .on('scroll', @onScroll)
       .trigger('resize')
+      .trigger('scroll')
 
     # Ajaxy
     @$ajaxy
       .on('click', @onAjaxyLinkClick)
+
+  ###
+  *------------------------------------------*
+  | onScrollStart:void (=)
+  | 
+  | e:object - event object
+  | 
+  | Window has started scrolling.
+  *----------------------------------------###
+  onScrollStart: (e) =>
+    if Legwork.app_width > 1025
+      @$canvas_wrap.stop(true, false).css('opacity', 1)
 
   ###
   *------------------------------------------*
@@ -446,26 +491,11 @@ class Legwork.Application
     clearTimeout(@scroll_timeout)
     @scroll_timeout = setTimeout(@onScrollComplete, 250)
 
-    Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() / 2))
+    Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() / 2)) + 34
 
-    # Lines
-    @$canvas_wrap.css('opacity', 1)
-
-    @clear(@$lines[0])
-    @line_ctx.translate(0, -Legwork.$wn.scrollTop())
-
-    for key, value of @lifelines
-      @lines(value, 1, 3)
-
-    # Stuff
-    $previous_stuff = if @stuff[@activate_index - 1]? then @stuff[@activate_index - 1] else $('')
-    $current_stuff = @stuff[@activate_index]
-
-    if $previous_stuff.is(':visible') and $previous_stuff.offset().top > Legwork.event_horizon
-      $previous_stuff.trigger('Legwork.deactivate')
-
-    if $current_stuff.offset().top < Legwork.event_horizon
-      $current_stuff.trigger('Legwork.activate')
+    if Legwork.app_width >= 1025
+      @doLines()
+      @doStuff()
 
   ###
   *------------------------------------------*
@@ -474,7 +504,12 @@ class Legwork.Application
   | Window is done being scrolled.
   *----------------------------------------###
   onScrollComplete: =>
-    @$canvas_wrap.animate({'opacity':0.25}, 250, 'linear')
+    # Re-add event for onScrollStart
+    Legwork.$wn
+      .one('scroll', @onScrollStart)
+
+    if Legwork.app_width >= 1025
+      @$canvas_wrap.stop(true, false).animate({'opacity':0.25}, 250, 'linear')
 
   ###
   *------------------------------------------*
@@ -483,8 +518,8 @@ class Legwork.Application
   | Resize has started.
   *----------------------------------------###
   onResizeStart: (e) =>
-    # Layout
-    @startLayout()
+    if Legwork.app_width >= 740
+      @startLayout()
 
   ###
   *------------------------------------------*
@@ -509,8 +544,15 @@ class Legwork.Application
     else if @$menu_btn.is(':visible') is true
       @mobile_menu = new Legwork.MobileMenu()
 
-    # Layout
-    @layout()
+    if Legwork.app_width < 1025
+      $('.sequenced').find('video').hide()
+      $('.activate-it').show()
+
+    if Legwork.app_width < 740
+      $('.stuff').attr('style', '')
+
+    if Legwork.app_width >= 740
+      @layout()
 
   ###
   *------------------------------------------*
@@ -523,8 +565,10 @@ class Legwork.Application
     Legwork.$wn
       .one('resize', @onResizeStart)
 
-    # Layout
-    @finishLayout()
+    if Legwork.app_width >= 740
+      @finishLayout()
+
+    Legwork.$wn.trigger('scroll')
 
   ###
   *------------------------------------------*
@@ -539,18 +583,13 @@ class Legwork.Application
     category = @getStuffType($t.attr('class'))
 
     if category is 'sequenced'
-      $vid_in = $t.find('.video-in')
-      $vid_out = $t.find('.video-out')
-      $vid_in.show()
-      $vid_out.hide()
-      $vid_in[0].play()
+      @playSequence($t, 'in')
     else
       $t.find('.activate-it').fadeIn(250)
 
     $t.one('Legwork.deactivate', @onStuffDeactivate)
 
-    if @activate_index isnt @stuff.length
-      @activate_index++
+    @activate_index++
 
   ###
   *------------------------------------------*
@@ -565,18 +604,33 @@ class Legwork.Application
     category = @getStuffType($t.attr('class'))
 
     if category is 'sequenced'
-      $vid_in = $t.find('.video-in')
-      $vid_out = $t.find('.video-out')
-      $vid_in.hide()
-      $vid_out.show()
-      $vid_out[0].play()
+      @playSequence($t, 'out')
     else
-      $t.find('.activate-it').fadeIn(250)
+      $t.find('.activate-it').fadeOut(250)
 
     $t.one('Legwork.activate', @onStuffActivate)
 
-    if @activate_index isnt 0
-      @activate_index--
+    @activate_index--
+
+  ###
+  *------------------------------------------*
+  | playSequence:void (-)
+  | 
+  | $parent:dom - sequence container
+  | type:string - in or out
+  | 
+  | Play a sequence video.
+  *----------------------------------------###
+  playSequence: ($parent, type) ->
+    $vid = $parent.find('.video-' + type)
+
+    $vid[0].currentTime = 0
+
+    setTimeout ->
+      $parent.find('video').hide()
+      $vid.show()
+      $vid[0].play()
+    , 50
 
   ###
   *------------------------------------------*

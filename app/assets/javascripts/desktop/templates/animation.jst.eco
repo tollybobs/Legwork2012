@@ -1,3 +1,2 @@
-<div class="animated-inner activate-it" style="background-position: 0px 0px; background-repeat: no-repeat; 
-background-image: url(<%= @content %>)">
+<div class="animated-inner activate-it" style="background-image: url(<%= @content %>)">
 </div>

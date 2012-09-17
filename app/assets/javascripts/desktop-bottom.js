@@ -21,6 +21,7 @@
 //= require desktop/components/loaders/loader
 //= require desktop/components/loaders/main-loader
 //= require desktop/components/mobile-menu
+//= require desktop/components/image-sequence
 //
 // Helpers
 //= require_tree ./desktop/helpers

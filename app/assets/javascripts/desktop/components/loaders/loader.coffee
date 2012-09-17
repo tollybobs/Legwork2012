@@ -17,7 +17,6 @@ class Legwork.Loader
   constructor: (initObj) ->
     @$el = initObj.$el
     @assets = initObj.assets
-    @total = @assets.images.length + @assets.videos.length + 1
     @loaded = 0
     @percent = 0
     @$video_stage = $('#ye-olde-hidden-video-holder')
@@ -29,10 +28,30 @@ class Legwork.Loader
         return true
     )()
 
+    @expandSequences()
+
+    @total = @assets.images.length + @assets.videos.length + 1
+
     @build()
     @loadTwitter()
     @loadImages()
     @loadVideo()
+
+  ###
+  *------------------------------------------*
+  | expandSequences:void (-)
+  |
+  | Expand image sequences and add them to
+  | the images array.
+  *----------------------------------------###
+  expandSequences: ->
+    for sequence in @assets.sequences
+      Legwork.sequence_collections[sequence.id] = []
+      for i in [0..(sequence.frames - 1)]
+        num = if i < 10 then '0' + i else i.toString()
+        path = sequence.path.replace(/\d{1,2}/g, num)
+        @assets.images.push(path)
+        Legwork.sequence_collections[sequence.id].push(path)
 
   ###
   *------------------------------------------*
@@ -100,15 +119,12 @@ class Legwork.Loader
   | Preload the specified video collection.
   *----------------------------------------###
   loadVideo: ->
-    # TODO: test for autoplay capability
     if Modernizr.video and @supports_autoplay
       for video in @assets.videos
         $v = $(JST['desktop/templates/html5-video'](video))
         $v.appendTo(@$video_stage)
 
         $v[0].addEventListener 'canplaythrough', =>
-          $v[0].removeEventListener 'canplaythrough'
-
           @loaded++
           @updateProgress()
 

@@ -1,0 +1,6 @@
+<div class="image-sequence-wrap">
+  <% for img, k in @img_arr: %>
+    <% st = if k is 0 then "block" else "none" %>
+    <div class="image-sequence-item" style="display: <%= st %>; background-image: url(<%= img %>);"></div>
+  <% end %>
+</div>

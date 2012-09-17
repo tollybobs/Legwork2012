@@ -27,6 +27,8 @@
       height: 100%
       z-index: 666
       background-color: $less_black
+      -webkit-transform: translateZ(0)
+      -webkit-backface-visibility: hidden
 
       nav
         position: absolute
@@ -142,18 +144,17 @@
         h2:after
           content: ""
           position: absolute
-          top: 15px
+          top: 14px
           left: 20px
-          width: 0px
-          height: 0px
-          border-bottom: 5px solid $white
-          border-right: 5px solid transparent
-          border-left: 5px solid transparent
+          width: 5px
+          height: 5px
+          border-top: 3px solid $white
+          border-left: 3px solid $white
+          @include rotate(45deg)
 
         h2:after
-          top: 25px
-          border-bottom: 0px
-          border-top: 5px solid $white
+          top: 23px
+          @include rotate(225deg)
 
         #menu-handle
           position: absolute
@@ -199,10 +200,10 @@
         h2:after
           content: ""
           position: absolute
-          top: 16px
+          top: 15px
           left: 24px
-          width: 4px
-          height: 14px
+          width: 3px
+          height: 15px
           border: 0px
           background-color: $white
           @include rotate(45deg)
@@ -239,6 +240,10 @@
           .sequenced-inner
             video
               display: none
+
+        .stuff.no-position
+          top: 0px !important
+          left: 0px !important
 
       #wrap-the-canvas
         display: none
@@ -281,6 +286,13 @@
 
               h3
                 font: normal normal normal 9px/9px Helvetica, Arial, sans-serif
+
+            a
+              display: block
+              position: absolute
+              top: 0px
+              width: 100%
+              height: 100%
 
         .work.stuff
           .ww-details
@@ -338,6 +350,10 @@
                 color: #999
                 text-decoration: none
 
+        .stuff.no-position
+          top: 0px !important
+          left: 0px !important
+
       #reveal-the-stuff
         position: absolute
         top: 0px
@@ -346,9 +362,82 @@
         height: 100%
         background-color: $white
 
+    // detail
+    #detail
+      position: fixed
+      top: 0px
+      left: 0px
+      width: 100%
+      height: 100%
+      z-index: 1337
+      display: none
+      overflow: hidden
+      -webkit-perspective: 600
+
+      .image-sequence-wrap
+        position: relative
+        width: 100%
+        height: 100%
+
+        .image-sequence-item
+          position: absolute
+          top: 0px
+          left: 0px
+          width: 100%
+          height: 100%
+          background-position: 50% 50%
+          background-repeat: no-repeat
+          @include background_size(100%, 100%)
+
+      #detail-inner
+        position: absolute
+        top: 0px
+        left: 0px
+        width: 100%
+        height: 100%
+        background-color: #666
+        opacity: 0
+        -webkit-transform: rotateX(3deg) scale(0.9)
+        -webkit-transform-origin: 50% 50%
+        -webkit-transition: opacity 333ms ease-out, -webkit-transform 333ms ease-out
+
+      #detail-inner.open
+        opacity: 1
+        -webkit-transform: rotateX(0deg) scale(1)
+
+      #detail-close-btn
+        position: absolute
+        top: 0px
+        left: 20px
+        width: 50px
+        height: 50px
+        margin-top: -55px
+        background-color: $black
+        @include nav_shadow
+
+      #detail-close-btn:before,
+      #detail-close-btn:after
+        content: ""
+        position: absolute
+        top: 17px
+        left: 23px
+        width: 3px
+        height: 15px
+        border: 0px
+        background-color: $white
+        @include rotate(45deg)
+
+      #detail-close-btn:after
+        @include rotate(-45deg)
+
+      #related-drawer
+        display: none
+
     // footer
     footer
       display: none
+      -webkit-transform: translateZ(0)
+      -webkit-backface-visibility: hidden
 
   // main preloader
   #main-loader
@@ -638,6 +727,7 @@
         top: 54px
         left: 0px
         width: 100%
+        height: auto
         padding: 0px
 
         .stuff
@@ -645,6 +735,7 @@
           top: 0px
           left: 0px
           height: 0%
+          @include transition(top, 100ms, linear)
 
           .marker
             display: none
@@ -699,6 +790,10 @@
             background-repeat: no-repeat
             @include background_size(100%, 100%)
 
+        .ignore
+          .activate-it
+            display: block !important
+
       #wrap-the-canvas
         display: block
         position: fixed
@@ -711,6 +806,7 @@
         top: 54px
         left: 0px
         width: 100%
+        height: auto
         padding: 0px
 
         .stuff
@@ -718,6 +814,7 @@
           top: 0px
           left: 0px
           height: 0%
+          @include transition(top, 100ms, linear)
 
           .marker
             display: block
@@ -789,6 +886,76 @@
           .marker,
           .marker:after
             background-color: $pink
+
+        .ignore
+          .activate-it
+            display: block !important
+
+    // detail
+    #detail
+      #detail-close-btn
+        left: 26px
+
+      #related-drawer
+        display: block
+        position: absolute
+        bottom: 0px
+        left: 0px
+        width: 100%
+        height: 200px
+        margin-bottom: -251px
+
+        #related-btn
+          position: absolute
+          top: -51px
+          left: 26px
+          width: auto
+          height: 50px
+
+          #related-btn-icon
+            position: absolute
+            top: 0px
+            left: 0px
+            width: 50px
+            height: 50px
+            background-color: $black
+            @include nav_shadow
+
+          #related-btn-icon:before,
+          #related-btn-icon:after
+            content: ""
+            position: absolute
+            top: 17px
+            left: 20px
+            width: 5px
+            height: 5px
+            border-top: 3px solid $white
+            border-left: 3px solid $white
+            @include rotate(45deg)
+
+          #related-btn-icon:after
+            top: 27px
+            @include rotate(225deg)
+
+          #related-btn-label
+            display: block
+            position: absolute
+            top: 0px
+            left: 51px
+            width: auto
+            height: 50px
+            padding: 0 20px
+            font: normal normal bold 12px/50px Helvetica, Arial, sans-serif
+            color: $white
+            white-space: nowrap
+            background-color: $black
+            @include nav_shadow
+
+        #related-inner
+          width: 100%
+          height: 200px
+          background-color: $black
+          @include nav_shadow
 
     // footer
     footer

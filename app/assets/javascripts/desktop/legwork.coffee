@@ -23,24 +23,25 @@ class Legwork.Application
     Legwork.$view = $('#legwork')
     Legwork.$footer = $('footer')
 
+    Legwork.sequence_collections = {}
+
     # Class vars
     @$menu_btn = $('#menu-btn')
-    @$ajaxy = $('.ajaxy')
     @$bg_wrap = $('#wrap-the-background')
     @$canvas_wrap = $('#wrap-the-canvas')
     @$lines = $('#lines')
     @$line_wrap = $('#wrap-the-lines')
     @$stuff_wrap = $('#wrap-the-stuff')
     @$stuff_reveal = $('#reveal-the-stuff')
+    @$detail = $('#detail')
 
+    @History = window.History
     @stuff = []
     @lifelines = @getLifelines()
     @line_ctx = @$lines[0].getContext('2d')
     @twitter_index = 0
     @scroll_timeout = 0
     @resize_timeout = 0
-    @activate_index = 0
-
     @vector_utils = new Legwork.VectorUtils()
 
     @preload()
@@ -245,9 +246,11 @@ class Legwork.Application
           $content = $(JST['desktop/templates/twitter'](@getNextTweet()))
         when 'work'
           data = Legwork.work[stuff.content]
+          data.link = '/work/' + stuff.content
           $content = $(JST['desktop/templates/work'](data))
         when 'world'
           data = Legwork.world[stuff.content]
+          data.link = '/world/' + stuff.content
           $content = $(JST['desktop/templates/world'](data))
 
       # Append to DOM
@@ -271,7 +274,7 @@ class Legwork.Application
   | What type of stuff are we dealing with?
   *----------------------------------------###
   getStuffType: (t) ->
-    return t.replace(/\s|big|small|left|right|stuff/g, '')
+    return t.replace(/\s|big|small|left|right|stuff|ignore/g, '')
 
   ###
   *------------------------------------------*
@@ -281,14 +284,11 @@ class Legwork.Application
   | on scroll position.
   *----------------------------------------###
   doStuff: ->
-    $current_stuff = if @stuff[@activate_index]? then @stuff[@activate_index] else null
-    $previous_stuff = if @stuff[@activate_index - 1]? then @stuff[@activate_index - 1] else null
-
-    if $current_stuff? and $current_stuff.offset().top < Legwork.event_horizon
-      $current_stuff.trigger('Legwork.activate')
-
-    if $previous_stuff? and $previous_stuff.offset().top > Legwork.event_horizon
-      $previous_stuff.trigger('Legwork.deactivate')
+    for $t, index in @stuff
+      if $t.offset().top < Legwork.event_horizon
+        $t.trigger('Legwork.activate')
+      else
+        $t.not('.ignore').trigger('Legwork.deactivate')
 
   ###
   *------------------------------------------*
@@ -410,7 +410,13 @@ class Legwork.Application
   *----------------------------------------###
   layout: ->
     for $t, index in @stuff
-      $t.css(@getLayoutOffset($t.data('position'), Legwork.app_width))
+      pos = @getLayoutOffset($t.data('position'), Legwork.app_width)
+      $t.css(pos)
+
+      if (+pos.top.replace(/px/, '')) < Legwork.$wn.height()
+        $t.addClass('ignore')
+      else
+        $t.removeClass('ignore')
 
   ###
   *------------------------------------------*
@@ -419,15 +425,13 @@ class Legwork.Application
   | Finish layout.
   *----------------------------------------###
   finishLayout: ->
-    $last_item = _.last(@stuff)
-
-    @$stuff_wrap.css('height', $last_item.offset().top + $last_item.outerHeight() + 'px')
-
     @$lines
       .attr('width', Legwork.app_width)
       .attr('height', Math.floor(Legwork.$wn.height() / 2))
 
     @$canvas_wrap.show()
+
+    Legwork.$wn.trigger('scroll')
 
   ###
   *------------------------------------------*
@@ -439,12 +443,7 @@ class Legwork.Application
   | Get the position for the passed coords.
   *----------------------------------------###
   getLayoutOffset: (p, w) ->
-    if w < 740
-      ob = {'top':'0px', 'left':'0px'}
-    else
-      ob = {'top': Math.floor(w * p[0]) + 'px', 'left': Math.floor(w * p[1]) + 'px'}
-
-    return ob
+    return {'top': Math.floor(w * p[0]) + 'px'}
 
   ###
   *------------------------------------------*
@@ -453,6 +452,9 @@ class Legwork.Application
   | Observe events scoped to this class.
   *----------------------------------------###
   observeSomeSweetEvents: ->
+    # History
+    @History.Adapter.bind(window, 'statechange', @onAppStateChange)
+
     # Window
     Legwork.$wn
       .one('resize', @onResizeStart)
@@ -463,8 +465,8 @@ class Legwork.Application
       .trigger('scroll')
 
     # Ajaxy
-    @$ajaxy
-      .on('click', @onAjaxyLinkClick)
+    Legwork.$body
+      .on('click', '.ajaxy', @onAjaxyLinkClick)
 
   ###
   *------------------------------------------*
@@ -475,7 +477,7 @@ class Legwork.Application
   | Window has started scrolling.
   *----------------------------------------###
   onScrollStart: (e) =>
-    if Legwork.app_width > 1025
+    if Legwork.app_width >= 1025
       @$canvas_wrap.stop(true, false).css('opacity', 1)
 
   ###
@@ -489,7 +491,7 @@ class Legwork.Application
   onScroll: (e) =>
     # Debounce for onScrollComplete
     clearTimeout(@scroll_timeout)
-    @scroll_timeout = setTimeout(@onScrollComplete, 250)
+    @scroll_timeout = setTimeout(@onScrollComplete, 333)
 
     Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() / 2)) + 34
 
@@ -532,7 +534,7 @@ class Legwork.Application
   onResize: (e) =>
     # Debounce for onResizeComplete
     clearTimeout(@resize_timeout)
-    @resize_timeout = setTimeout(@onResizeComplete, 250)
+    @resize_timeout = setTimeout(@onResizeComplete, 333)
 
     # Global cache app size
     Legwork.app_width = @$stuff_wrap.outerWidth()
@@ -545,13 +547,13 @@ class Legwork.Application
       @mobile_menu = new Legwork.MobileMenu()
 
     if Legwork.app_width < 1025
-      $('.sequenced').find('video').hide()
-      $('.activate-it').show()
+      $('.sequenced-inner').find('video').hide()
+      $('.activate-it').css('display', '')
 
     if Legwork.app_width < 740
-      $('.stuff').attr('style', '')
-
-    if Legwork.app_width >= 740
+      $('.stuff').addClass('no-position')
+    else
+      $('.stuff').removeClass('no-position')
       @layout()
 
   ###
@@ -568,7 +570,14 @@ class Legwork.Application
     if Legwork.app_width >= 740
       @finishLayout()
 
-    Legwork.$wn.trigger('scroll')
+    if Legwork.app_width >= 1025
+      for $t, index in @stuff
+        $t
+          .off('Legwork.activate')
+          .off('Legwork.deactivate')
+          .one('Legwork.activate', @onStuffActivate)
+
+      Legwork.$wn.trigger('scroll')
 
   ###
   *------------------------------------------*
@@ -589,8 +598,6 @@ class Legwork.Application
 
     $t.one('Legwork.deactivate', @onStuffDeactivate)
 
-    @activate_index++
-
   ###
   *------------------------------------------*
   | onStuffDeactivate:void (=)
@@ -609,8 +616,6 @@ class Legwork.Application
       $t.find('.activate-it').fadeOut(250)
 
     $t.one('Legwork.activate', @onStuffActivate)
-
-    @activate_index--
 
   ###
   *------------------------------------------*
@@ -641,14 +646,151 @@ class Legwork.Application
   | User has clicked an ajaxy link.
   *----------------------------------------###
   onAjaxyLinkClick: (e) =>
+    e.preventDefault()
+
+    if e.which is 2 or e.metaKey is true then return true
+
     $t = $(e.currentTarget)
 
     if $t.hasClass('selected') is true
       $t.removeClass('selected')
-      return false
+      @History.pushState(null, null, '/')
+    else
+      $('.ajaxy').removeClass('selected')
+      $t.addClass('selected')
+      @History.pushState(null, null, $t.attr('href'))
 
-    @$ajaxy.removeClass('selected')
-    $t.addClass('selected')
+  ###
+  *------------------------------------------*
+  | onAppStateChange:void (=)
+  | 
+  | App state (URL) has changed.
+  *----------------------------------------###
+  onAppStateChange: =>
+    @state = @History.getState()
+
+    url = @state.hash.replace(/^\/|\.|\#/g, '')
+    parts = url.split('/')
+
+    @route(parts)
+
+  ###
+  *------------------------------------------*
+  | route:void (-)
+  | 
+  | to:array - url parts
+  | 
+  | Route to the passed url.
+  *----------------------------------------###
+  route: (to) ->
+    switch to[0]
+      when ''
+        $('#detail-close-btn').css('margin-top', '-55px')
+        $('#related-drawer').css('margin-bottom', '-256px')
+        @$detail.fadeOut 'fast', ->
+          $('#detail-inner').removeClass('open')
+      when 'work'
+        if @$detail.is(':visible')
+          @openWork(to[1])
+        else
+          @openDetail(@openWork, to[1])
+      when 'world'
+        if @$detail.is(':visible')
+          @openWorld(to[1])
+        else
+          @openDetail(@openWorld, to[1])
+      when 'filter'
+        @openFilter(to[1])
+
+  ###
+  *------------------------------------------*
+  | openDetail:void (-)
+  | 
+  | callback:function - callback
+  | item:string - work/world id
+  | 
+  | Open the detail view.
+  *----------------------------------------###
+  openDetail: (callback, item) ->
+    detail_in = new Legwork.ImageSequence({
+      '$el': @$detail,
+      'imgs': Legwork.sequence_collections['detail_open']
+      'fps': 15
+    })
+
+    @$detail
+      .css('background-color', 'transparent')
+      .show()
+      .off('Legwork.sequence_complete')
+      .one 'Legwork.sequence_complete', (e) =>
+        detail_in.destroy()
+        $(e.currentTarget).css('background-color', '#000')
+
+        setTimeout ->
+          callback(item)
+        , 500
+
+        setTimeout =>
+          $('#detail-close-btn').animate
+            'margin-top': '0px'
+          ,
+            'duration': 500
+            'easing': 'easeInOutExpo'
+            'step': (now, fx) ->
+              $('#related-drawer').css('margin-bottom', -201 + now + 'px')
+        , 1000
+
+  ###
+  *------------------------------------------*
+  | openWork:void (-)
+  | 
+  | work:string - work id
+  | 
+  | Open a work detail.
+  *----------------------------------------###
+  openWork: (work) ->
+    $d = $('#detail-inner')
+
+    console.log($d.hasClass('open'))
+
+    if $d.hasClass('open')
+      $d.removeClass('open')
+      setTimeout ->
+        $d.addClass('open')
+      , 1000
+    else
+      $d.addClass('open')
+
+
+  ###
+  *------------------------------------------*
+  | openWorld:void (-)
+  | 
+  | world:string - world id
+  | 
+  | Open a world detail.
+  *----------------------------------------###
+  openWorld: (world) ->
+    $d = $('#detail-inner')
+
+    if $d.hasClass('open')
+      $d.removeClass('open')
+      setTimeout ->
+        $d.addClass('open')
+      , 1000
+    else
+      $d.addClass('open')
+
+  ###
+  *------------------------------------------*
+  | openFilter:void (-)
+  | 
+  | filter:string - filter id
+  | 
+  | Open a filter.
+  *----------------------------------------###
+  openFilter: (filter) ->
+    console.log('add 5 canvases and roll, son!')
 
 # Kick the tires and light the fires!
 $ ->

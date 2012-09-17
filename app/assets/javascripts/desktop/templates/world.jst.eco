@@ -4,4 +4,5 @@ background-image: url(<%= @thumbnail %>)">
     <h2><%= @title %></h2>
     <h3><%= @description %></h3>
   </div>
+  <a class="ajaxy" href="<%= @link %>"></a>
 </div>

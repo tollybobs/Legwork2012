@@ -1,0 +1,127 @@
+Legwork.work["wow"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work-wow.jpg' %>"
+		],
+		"videos": [],
+		"sequences": []
+	},
+
+	// project metadata
+	"client": "Wow Cable",
+	"project": "Now That's What I Call Tasty.",
+	"description_title": "Title",
+	"description": "Lorem ipsum.",
+	"url": "http://legworkstudio.com",
+	"thumbnail": "<%= asset_path 'desktop/work-wow.jpg' %>", // NOTE: 570 x 340
+	"background": {
+		// option 1
+		"type": "video",
+		"url": "<%= asset_path 'desktop/some-video' %>"
+
+		// option 2
+		/* 
+		"type": "image",
+		"url": "<%= asset_path 'desktop/some-image.jpg' %>"
+		*/
+	},
+
+	// services
+	"services": [
+		"Branding",
+		"Illustration",
+		"UX / UI",
+		"Web Development"
+	],
+
+	// recognition
+	"recognition": [
+		"FWA SOTD",
+		"CommArts Web Pick",
+		"SXSW Finalist",
+		"Webby Awards Honorable Mention"
+	],
+
+	// related
+	"related": [
+		"/work/this-thing",
+		"/work/that-thing",
+		"/world/other-thing"
+	],
+
+	// slides
+	"slides": [
+
+		// fullscreen
+		{
+			"type": "fullscreen",
+			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
+			"pan": true,
+			"size": [1000, 800]
+		},
+
+		// pull quote
+		{
+			"type": "pull_quote",
+			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
+			"quote": "I just went from six to midnight."
+		},
+
+		// text
+		{
+			"type": "text",
+			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
+			"pages": [
+				{
+					"title": "Some Title",
+					"text": "Lorem ipsum."
+				},
+				{
+					"title": "Some Title",
+					"text": "Lorem ipsum."
+				},
+				{
+					"title": "Some Title",
+					"text": "Lorem ipsum."
+				}
+			]
+		},
+
+		// media
+		{
+			"type": "media",
+			"title": "Some Title",
+			"text": "Lorem ipsum",
+			"asset": {
+				// option 1
+				"type": "vimeo",
+				"url": "vimeo_id"
+
+				// option 2
+				/*
+				"type": "image",
+				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
+				*/
+			}
+		},
+
+		// slideshow
+		{
+			"type": "slideshow",
+			"title": "Some Title",
+			"text": "Lorem ipsum",
+			"slides": [
+				{
+					"type": "vimeo",
+					"url": "vimeo_id"
+				},
+				{
+					"type": "image",
+					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
+				}
+			]
+		}
+	]
+}

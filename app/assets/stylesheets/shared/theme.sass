@@ -9,6 +9,7 @@ $nav_highlight:     #2e2e2e
 
 $yellow:            #EAE938
 $blue:              #9AD5F0
+$pink:              #f78ec6
 $hot:               #ff0090
 
 @mixin nav_shadow()
@@ -43,3 +44,17 @@ $hot:               #ff0090
   -ms-transform: rotate($d)
   -o-transform: rotate($d)
   transform: rotate($d)
+
+@mixin rounded($r)
+  -webkit-border-radius: $r
+  -moz-border-radius: $r
+  -ms-border-radius: $r
+  -o-border-radius: $r
+  border-radius: $r
+
+@mixin background_size($w, $h)
+  -webkit-background-size: $w $h
+  -moz-background-size: $w $h
+  -ms-background-size: $w $h
+  -o-background-size: $w $h
+  background-size: $w $h

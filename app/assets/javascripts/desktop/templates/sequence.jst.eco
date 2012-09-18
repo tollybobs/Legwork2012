@@ -1,0 +1,2 @@
+<div class="sequenced-inner" style="background-image: url(<%= @alt_content %>)">
+</div>

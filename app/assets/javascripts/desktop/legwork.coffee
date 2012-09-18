@@ -709,7 +709,7 @@ class Legwork.Application
     switch to[0]
       when ''
         @resetDetail()
-      when 'work' or 'world'
+      when 'work', 'world'
         if @$detail.is(':visible')
           @loadDetail(to)
         else

@@ -47,7 +47,7 @@ class Legwork.Loader
       Legwork.sequences[sequence.id].images = []
       for i in [0..(sequence.frames - 1)]
         num = if i < 10 then '0' + i else i.toString()
-        path = sequence.path.replace(/\d{1,2}/g, num)
+        path = sequence.path.replace(/\d{1,2}/, num)
         @assets.images.push(path)
         Legwork.sequences[sequence.id].images.push(path)
 

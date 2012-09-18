@@ -28,28 +28,22 @@ class Legwork.Loader
         return true
     )()
 
-    @expandSequences()
+    @addSequences()
 
-    @total = @assets.images.length + @assets.videos.length + 1
+    @total = @assets.images.length + @assets.videos.length + 1 # +1 for Twitter
 
     @build()
 
   ###
   *------------------------------------------*
-  | expandSequences:void (-)
+  | addSequences:void (-)
   |
-  | Expand image sequences and add them to
-  | the images array.
+  | Add sequences to the images array.
   *----------------------------------------###
-  expandSequences: ->
+  addSequences: ->
     for sequence in @assets.sequences
       Legwork.sequences[sequence.id] = sequence
-      Legwork.sequences[sequence.id].images = []
-      for i in [0..(sequence.frames - 1)]
-        num = if i < 10 then '0' + i else i.toString()
-        path = sequence.path.replace(/\d{1,2}/, num)
-        @assets.images.push(path)
-        Legwork.sequences[sequence.id].images.push(path)
+      @assets.images = _.union(@assets.images, sequence.frames)
 
   ###
   *------------------------------------------*

@@ -62,6 +62,12 @@ class Legwork.MainLoader extends Legwork.Loader
       @updateConversation()
     , 2000
 
+    setTimeout =>
+      @loadTwitter()
+      @loadImages()
+      @loadVideo()
+    , 1000
+
   ###
   *------------------------------------------*
   | override updateProgress:void (-)

@@ -33,9 +33,6 @@ class Legwork.Loader
     @total = @assets.images.length + @assets.videos.length + 1
 
     @build()
-    @loadTwitter()
-    @loadImages()
-    @loadVideo()
 
   ###
   *------------------------------------------*
@@ -46,12 +43,13 @@ class Legwork.Loader
   *----------------------------------------###
   expandSequences: ->
     for sequence in @assets.sequences
-      Legwork.sequence_collections[sequence.id] = []
+      Legwork.sequences[sequence.id] = sequence
+      Legwork.sequences[sequence.id].images = []
       for i in [0..(sequence.frames - 1)]
         num = if i < 10 then '0' + i else i.toString()
         path = sequence.path.replace(/\d{1,2}/g, num)
         @assets.images.push(path)
-        Legwork.sequence_collections[sequence.id].push(path)
+        Legwork.sequences[sequence.id].images.push(path)
 
   ###
   *------------------------------------------*
@@ -60,6 +58,9 @@ class Legwork.Loader
   | DOM manipulations, instantiations, etc.
   *----------------------------------------###
   build: ->
+    @loadTwitter()
+    @loadImages()
+    @loadVideo()
 
   ###
   *------------------------------------------*

@@ -14,16 +14,16 @@ class Legwork.ImageSequence
   |
   | Construct the fuggin' thing.
   *----------------------------------------###
-  constructor: (initOb) ->
+  constructor: (init_obj) ->
     # Class vars
-    @$el = initOb.$el
-    @img_arr = initOb.imgs
+    @$el = init_obj.$el
+    @img_arr = init_obj.settings.images
     @img_len = @img_arr.length
-    @fps = initOb.fps
-    @delay = if initOb.delay? then initOb.delay
+    @fps = init_obj.settings.fps
+    @delay = if init_obj.settings.delay? then init_obj.settings.delay
     @interval = Math.round(1000 / @fps)
-    @is_looping = initOb.isLooping or false
-    @loops = if initOb.loops? then initOb.loops
+    @is_looping = init_obj.settings.is_looping or false
+    @loops = if init_obj.settings.loops? then init_obj.settings.loops
     @current_frame = 0
     @current_loop = 0
 

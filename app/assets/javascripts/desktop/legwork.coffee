@@ -23,7 +23,7 @@ class Legwork.Application
     Legwork.$view = $('#legwork')
     Legwork.$footer = $('footer')
 
-    Legwork.sequence_collections = {}
+    Legwork.sequences = {}
 
     # Class vars
     @$menu_btn = $('#menu-btn')
@@ -34,6 +34,9 @@ class Legwork.Application
     @$stuff_wrap = $('#wrap-the-stuff')
     @$stuff_reveal = $('#reveal-the-stuff')
     @$detail = $('#detail')
+    @$detail_inner = $('#detail-inner')
+    @$detail_close = $('#detail-close-btn')
+    @$related_drawer = $('#related-drawer')
 
     @History = window.History
     @stuff = []
@@ -53,7 +56,27 @@ class Legwork.Application
   | Merge assets and preload.
   *----------------------------------------###
   preload: ->
-    @preloader = new Legwork.MainLoader({'$el': Legwork.$body, 'assets': Legwork.home.assets})
+    # Merge initial assets
+    # TODO: All or some?
+    home_assets = Legwork.home.assets
+    site_assets = {images:[], videos:[], sequences:[]}
+    main_assets = {images:[], videos:[], sequences:[]}
+
+    for id, work of Legwork.work
+      site_assets.images = _.union(site_assets.images, work.assets.images)
+      site_assets.videos = _.union(site_assets.videos, work.assets.videos)
+      site_assets.sequences = _.union(site_assets.sequences, work.assets.sequences)
+
+    for id, world of Legwork.world
+      site_assets.images = _.union(site_assets.images, world.assets.images)
+      site_assets.videos = _.union(site_assets.videos, world.assets.videos)
+      site_assets.sequences = _.union(site_assets.sequences, world.assets.sequences)
+
+    main_assets.images = _.union(home_assets.images, site_assets.images)
+    main_assets.videos = _.union(home_assets.videos, site_assets.videos)
+    main_assets.sequences = _.union(home_assets.sequences, site_assets.sequences)
+
+    @preloader = new Legwork.MainLoader({'$el': Legwork.$body, 'assets': main_assets})
 
     Legwork.$body
       .off('Legwork.loaded', @onLoadComplete)
@@ -685,20 +708,12 @@ class Legwork.Application
   route: (to) ->
     switch to[0]
       when ''
-        $('#detail-close-btn').css('margin-top', '-55px')
-        $('#related-drawer').css('margin-bottom', '-256px')
-        @$detail.fadeOut 'fast', ->
-          $('#detail-inner').removeClass('open')
-      when 'work'
+        @resetDetail()
+      when 'work' or 'world'
         if @$detail.is(':visible')
-          @openWork(to[1])
+          @loadDetail(to)
         else
-          @openDetail(@openWork, to[1])
-      when 'world'
-        if @$detail.is(':visible')
-          @openWorld(to[1])
-        else
-          @openDetail(@openWorld, to[1])
+          @openDetail(to)
       when 'filter'
         @openFilter(to[1])
 
@@ -711,11 +726,10 @@ class Legwork.Application
   | 
   | Open the detail view.
   *----------------------------------------###
-  openDetail: (callback, item) ->
+  openDetail: (item) ->
     detail_in = new Legwork.ImageSequence({
       '$el': @$detail,
-      'imgs': Legwork.sequence_collections['detail_open']
-      'fps': 15
+      'settings': Legwork.sequences['detail_open']
     })
 
     @$detail
@@ -724,62 +738,55 @@ class Legwork.Application
       .off('Legwork.sequence_complete')
       .one 'Legwork.sequence_complete', (e) =>
         detail_in.destroy()
-        $(e.currentTarget).css('background-color', '#000')
+        @$detail.css('background-color', '#000')
 
-        setTimeout ->
-          callback(item)
+        setTimeout =>
+          @loadDetail(item)
         , 500
 
         setTimeout =>
-          $('#detail-close-btn').animate
+          @$detail_close.animate
             'margin-top': '0px'
           ,
             'duration': 500
             'easing': 'easeInOutExpo'
-            'step': (now, fx) ->
-              $('#related-drawer').css('margin-bottom', -201 + now + 'px')
+            'step': (now, fx) =>
+              @$related_drawer.css('margin-bottom', -201 + now + 'px')
         , 1000
 
   ###
   *------------------------------------------*
   | openWork:void (-)
   | 
-  | work:string - work id
+  | item:array - type, id
   | 
-  | Open a work detail.
+  | Load a detail item.
   *----------------------------------------###
-  openWork: (work) ->
-    $d = $('#detail-inner')
+  loadDetail: (item) ->
+    if @$detail_inner.hasClass('open')
+      @$detail_inner.removeClass('open')
 
-    console.log($d.hasClass('open'))
-
-    if $d.hasClass('open')
-      $d.removeClass('open')
-      setTimeout ->
-        $d.addClass('open')
+      setTimeout =>
+        @loadDetail(item)
       , 1000
-    else
-      $d.addClass('open')
 
+      return false
+
+    # TODO: instantiate, load
+    # Note, unlike ParaNorman, detail views will be abstract
+    @$detail_inner.addClass('open')
 
   ###
   *------------------------------------------*
-  | openWorld:void (-)
+  | resetDetail:void (-)
   | 
-  | world:string - world id
-  | 
-  | Open a world detail.
+  | Reset the detail view.
   *----------------------------------------###
-  openWorld: (world) ->
-    $d = $('#detail-inner')
-
-    if $d.hasClass('open')
-      $d.removeClass('open')
-      setTimeout ->
-        $d.addClass('open')
-      , 1000
-    else
-      $d.addClass('open')
+  resetDetail: () ->
+    @$detail_close.css('margin-top', '-55px')
+    @$related_drawer.css('margin-bottom', '-256px')
+    @$detail.fadeOut 'fast', =>
+      @$detail_inner.removeClass('open')
 
   ###
   *------------------------------------------*

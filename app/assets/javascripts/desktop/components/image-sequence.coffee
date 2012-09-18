@@ -17,7 +17,7 @@ class Legwork.ImageSequence
   constructor: (init_obj) ->
     # Class vars
     @$el = init_obj.$el
-    @img_arr = init_obj.settings.images
+    @img_arr = init_obj.settings.frames
     @img_len = @img_arr.length
     @fps = init_obj.settings.fps
     @delay = if init_obj.settings.delay? then init_obj.settings.delay

@@ -77,7 +77,7 @@ class Legwork.Loader
   loadTwitter: () ->
     # TODO: cache this shit on our side
     # TODO: in case of failure?
-    $.getJSON 'https://twitter.com/statuses/user_timeline.json?screen_name=legwork&trim_user=true&count=50&exclude_replies=true&callback=?', (data) =>
+    $.getJSON 'https://api.twitter.com/1/statuses/user_timeline/Legwork.json?&trim_user=true&count=50&exclude_replies=true&callback=?', (data) =>
       Legwork.twitter = data
       
       # filter replies, could be done server side

@@ -369,6 +369,7 @@
       left: 0px
       width: 100%
       height: 100%
+      // border-top: 4px solid $less_black
       z-index: 1337
       display: none
       overflow: hidden
@@ -389,21 +390,275 @@
           background-repeat: no-repeat
           @include background_size(100%, 100%)
 
+      &:after
+        content: ''
+        position: absolute
+        top: 0px
+        left: 0px
+        width: 100%
+        height: 4px
+        background-color: $less_black
+
       #detail-inner
         position: absolute
         top: 0px
         left: 0px
         width: 100%
         height: 100%
-        background-color: #666
-        opacity: 0
-        -webkit-transform: rotateX(3deg) scale(0.9)
-        -webkit-transform-origin: 50% 50%
-        -webkit-transition: opacity 333ms ease-out, -webkit-transform 333ms ease-out
+        overflow: hidden
 
-      #detail-inner.open
-        opacity: 1
-        -webkit-transform: rotateX(0deg) scale(1)
+        .slides-wrapper
+          position: absolute
+          top: 0px
+          left: 0px
+          width: 100%
+          height: 100%
+          overflow: hidden
+          opacity: 0
+          -webkit-transform: rotateX(3deg) scale(0.9)
+          -webkit-transform-origin: 50% 50%
+          -webkit-transition: opacity 333ms ease-out, -webkit-transform 333ms ease-out
+
+          .slides
+            position: absolute
+            top: 0px
+            left: 0px
+            width: 100%
+            height: 100%
+            overflow: hidden
+
+            .slide
+              position: absolute
+              top: 0px
+              left: 100%
+              width: 100%
+              height: 100%
+              background-color: $yellow
+              overflow: hidden
+
+              .slide-inner
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 100%
+                height: 100%
+                overflow: auto
+                display: table
+
+                .slide-inner-content
+                  width: 100%
+                  vertical-align: middle
+                  display: table-cell
+
+            // title screen slide
+            .title-screen
+              background-repeat: no-repeat
+              background-position: 50% 50%
+              -webkit-background-size: cover
+              -moz-background-size: cover
+              -o-background-size: cover
+              background-size: cover
+
+              h2
+                margin: 0 0 0 26px
+                font: normal normal normal 36px/36px "MuseoSlab700", Verdana, sans-serif
+                text-transform: uppercase
+                color: $white
+
+              h3
+                margin: 0 0 0 26px
+                font: normal normal normal 14px/14px Helvetica, Arial, sans-serif
+                color: $white
+
+            // panning slide
+            .panning
+              background-repeat: no-repeat
+              background-position: 50% 50%
+              -webkit-background-size: cover
+              -moz-background-size: cover
+              -o-background-size: cover
+              background-size: cover
+
+              .pan-image
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 2300px
+                height: 2244px
+                cursor: move
+
+              .pan-image.constrain
+                -webkit-transition: all ease-out .2s
+                -moz-transition: all ease-out .2s
+                -o-transition: all ease-out .2s
+                transition: all ease-out .2s
+
+            // pull quote slide
+            .pull-quote
+              h1
+                margin: 0 26px
+                font: normal normal normal 45px/60px "MuseoSlab700", Verdana, sans-serif
+                color: $less_black
+
+            // media slide
+            .media
+              .media-content
+                position: relative
+                float: left
+                width: 40%
+              
+                .media-text
+                  max-width: 360px
+                  margin: 0 26px
+
+                  h4
+                    margin: 0
+                    font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
+                    color: $white
+
+                  p
+                    margin: 25px 0 0
+                    font: normal normal normal 12px/20px Helvetica, Arial, sans-serif
+                    color: $white
+
+                .media-holder
+                  position: relative
+                  margin: 0 70px 0 0
+                  max-width: 730px
+                  display: block
+
+                  .media-holder-inner
+                    position: relative
+                    width: 100%
+                    height: 0
+                    padding-bottom: 56.25%
+                    overflow: hidden
+                    display: block
+
+                    img,
+                    iframe
+                      position: absolute
+                      top: 0px
+                      left: 0px
+                      width: 100%
+                      height: 100%
+
+                &:last-child
+                  width: 60%
+
+            // full screen slide
+            .full-screen
+              background-repeat: no-repeat
+              background-position: 50% 50%
+              -webkit-background-size: cover
+              -moz-background-size: cover
+              -o-background-size: cover
+              background-size: cover
+
+              iframe
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 100%
+                height: 100%
+
+          .slide-controls
+            position: absolute
+            top: 50%
+            right: 0px
+            width: 100px
+            height: 50px
+            margin: -25px 0 0
+            cursor: pointer
+
+            .slide-controls-tab
+              position: absolute
+              top: 0px
+              right: 0px
+              width: 50px
+              height: 50px
+              background-color: $white
+              @include nav_shadow
+              @include transition(width, 150ms, ease-out)
+
+              .slide-counter
+                position: absolute
+                top: 0px
+                right: 0px
+                width: 30px
+                height: 30px
+                border: 10px solid $white
+                background-color: $white
+
+                span
+                  position: absolute
+                  top: 2px
+                  left: 2px
+                  font: bold normal normal 9px/9px Helvetica, Arial, sans-serif
+                  color: $less_black
+
+                  &:last-child
+                    top: auto
+                    left: auto
+                    right: 2px
+                    bottom: 0px
+
+                &:after
+                  content: ''
+                  position: absolute
+                  top: 50%
+                  left: 50%
+                  width: 1px
+                  height: 32px
+                  margin: -16px 0 0
+                  background-color: $less_black
+                  opacity: 0.5
+                  -webkit-transform: rotate(45deg)
+                  -moz-transform: rotate(45deg)
+                  -ms-transform: rotate(45deg)
+                  -o-transform: rotate(45deg)
+                  transform: rotate(45deg)
+
+              .slide-next
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 50px
+                height: 50px
+                opacity: 0
+                @include transition(opacity, 50ms, ease-in-out)
+
+                &:after
+                  content: ''
+                  position: absolute
+                  top: 50%
+                  left: 50%
+                  width: 8px
+                  height: 8px
+                  margin: -6px 0 0 -9px
+                  border-top: 4px solid $less_black
+                  border-right: 4px solid $less_black
+                  -webkit-transform: rotate(45deg)
+                  -moz-transform: rotate(45deg)
+                  -ms-transform: rotate(45deg)
+                  -o-transform: rotate(45deg)
+                  transform: rotate(45deg)
+
+          .slide-controls:hover
+            .slide-controls-tab
+              width: 100px
+
+              .slide-next
+                opacity: 1
+                @include transition(opacity, 150ms, ease-in-out)
+
+        .slides-wrapper.world
+          .slide
+            background-color: $blue
+
+        .slides-wrapper.open
+          opacity: 1
+          -webkit-transform: rotateX(0deg) scale(1)
 
       #detail-close-btn
         position: absolute
@@ -432,6 +687,65 @@
 
       #related-drawer
         display: none
+
+      #detail-pro-tip
+        position: absolute
+        top: 50%
+        left: 50%
+        width: 320px
+        height: 151px
+        margin: -75px 0 0 -160px
+        text-align: center
+        opacity: 0
+        @include scale(0.6)
+        @include transition(all, 333ms, ease-out)
+
+        h2
+          position: absolute
+          top: 0px
+          left: 0px
+          width: 100%
+          height: 75px
+          color: $white
+          font: normal normal normal 16px/75px "MuseoSlab700", Verdana, sans-serif
+          background-color: $less_black
+          @include nav_shadow
+
+        .pro-tip-opts
+          position: absolute
+          bottom: 0px
+          left: 0px
+          width: 160px
+          height: 75px
+          background-color: $less_black
+          @include nav_shadow
+
+          h4
+            margin: 45px 0 0
+            color: $white
+            font: bold normal normal 10px/10px Helvetica, Arial, sans-serif
+
+            &:after
+              content: ''
+              position: absolute
+              top: 18px
+              left: 0px
+              width: 100%
+              height: 15px
+              background: asset-url("desktop/pro-tip-icons.gif", image) no-repeat center 0px
+              overflow: hidden
+
+          &:last-child
+            left: auto
+            right: 0px
+            width: 159px
+
+            h4:after
+              background: asset-url("desktop/pro-tip-icons.gif", image) no-repeat center -15px
+
+      #detail-pro-tip.instructor
+        opacity: 1
+        @include scale(1.0)
 
     // footer
     footer

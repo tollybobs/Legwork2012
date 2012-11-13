@@ -1,0 +1,7 @@
+<div class="slide pull-quote">
+  <div class="slide-inner">
+    <div class="slide-inner-content">
+      <h1><%= @quote %></h1>
+    </div>
+  </div>
+</div>

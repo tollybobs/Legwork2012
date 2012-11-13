@@ -24,6 +24,13 @@ class Legwork.Application
     Legwork.$footer = $('footer')
 
     Legwork.sequences = {}
+    Legwork.slide_controllers = {}
+    Legwork.current_slides_controller = null
+
+    Legwork.pro_tip = true
+    Legwork.touchstart = 'touchstart'
+
+    if !Modernizr.touch then Legwork.touchstart = 'click'
 
     # Class vars
     @$menu_btn = $('#menu-btn')
@@ -763,18 +770,19 @@ class Legwork.Application
   | Load a detail item.
   *----------------------------------------###
   loadDetail: (item) ->
-    if @$detail_inner.hasClass('open')
-      @$detail_inner.removeClass('open')
+    if Legwork.slide_controllers[item[1]]?
+      controller = Legwork.slide_controllers[item[1]]
+    else
+      controller = Legwork.slide_controllers[item[1]] = new Legwork.Controllers.SlidesController
+        model: Legwork[item[0]][item[1]]
+        zone: item[0]
+        slug: item[1]
 
-      setTimeout =>
-        @loadDetail(item)
-      , 1000
+      @$detail_inner.append controller.build()
+      controller.initialize()
 
-      return false
-
-    # TODO: instantiate, load
-    # Note, unlike ParaNorman, detail views will be abstract
-    @$detail_inner.addClass('open')
+    controller.activate()
+    Legwork.current_slides_controller = controller
 
   ###
   *------------------------------------------*
@@ -786,7 +794,7 @@ class Legwork.Application
     @$detail_close.css('margin-top', '-55px')
     @$related_drawer.css('margin-bottom', '-256px')
     @$detail.fadeOut 'fast', =>
-      @$detail_inner.removeClass('open')
+      Legwork.current_slides_controller.deactivate()
 
   ###
   *------------------------------------------*

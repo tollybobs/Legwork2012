@@ -11,6 +11,9 @@
 // Legwork 2012
 //= require shared/namespaces
 //
+// Slides
+//= require_tree ./desktop/slides
+//
 // Data
 //= require_tree ./desktop/data
 //
@@ -28,3 +31,6 @@
 //
 // Main
 //= require desktop/legwork
+//
+// Controllers
+//= require_tree ./desktop/controllers

@@ -1,0 +1,21 @@
+<div class="slides-wrapper <%= @zone %>" id="<%= @slug %>-slides">
+  <div class="slides">
+    <div class="slide title-screen" style="background-image: url(<%= @model.background.url %>)">
+      <div class="slide-inner">
+        <div class="slide-inner-content">
+          <h2><%= @model.client %></h2>
+          <h3><%= @model.project %></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-controls">
+    <div class="slide-controls-tab">
+      <div class="slide-next"></div>
+      <div class="slide-counter">
+        <span class="current-cnt"></span>
+        <span class="total-cnt"></span>
+      </div>
+    </div>
+  </div>
+</div>

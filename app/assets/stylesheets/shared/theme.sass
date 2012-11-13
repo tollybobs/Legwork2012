@@ -45,6 +45,13 @@ $hot:               #ff0090
   -o-transform: rotate($d)
   transform: rotate($d)
 
+@mixin scale($s)
+  -webkit-transform: scale($s)
+  -moz-transform: scale($s)
+  -ms-transform: scale($s)
+  -o-transform: scale($s)
+  transform: scale($s)
+
 @mixin rounded($r)
   -webkit-border-radius: $r
   -moz-border-radius: $r

@@ -18,14 +18,14 @@ Legwork.work["diesel-denim-2011"] = {
 	"thumbnail": "<%= asset_path 'desktop/work-diesel.jpg' %>", // NOTE: 570 x 340
 	"background": {
 		// option 1
-		"type": "video",
-		"url": "<%= asset_path 'desktop/some-video' %>"
+		// "type": "video",
+		// "url": "<%= asset_path 'desktop/some-video' %>"
 
 		// option 2
-		/* 
+		 
 		"type": "image",
-		"url": "<%= asset_path 'desktop/some-image.jpg' %>"
-		*/
+		"url": "<%= asset_path 'desktop/title-screen-fpo.jpg' %>"
+		
 	},
 
 	// services
@@ -54,74 +54,106 @@ Legwork.work["diesel-denim-2011"] = {
 	// slides
 	"slides": [
 
-		// fullscreen
+		// panning
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
+			"type": Legwork.Slides.PanningSlide,
+			"images": {
+				"background": "<%= asset_path 'desktop/work/diesel-denim-2011/panning-bg.jpg' %>",
+				"pan_img": "<%= asset_path 'desktop/work/diesel-denim-2011/panning-sketches.png' %>"
+			}
 		},
 
 		// pull quote
 		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
+			"type": Legwork.Slides.PullQuote,
 			"quote": "I just went from six to midnight."
 		},
 
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
+		// media (w/ vimeo)
+		// {
+		// 	"type": Legwork.Slides.Media,
+		// 	"background_color": "#89af60",
+		// 	"title": "Legwork Reel 2012",
+		// 	"text": [
+		// 		"A boy with a speech impediment and his friend try to cook something using a gas stove. It immediately catches fire. Blowtorch appears amid the plumes of smoke with a shout of \"Porkchop sandwiches!\" and then urges them to \"Get the fuck out! Whaddaya doing? We're all fucking dead! Moooove!\"",
+		// 		"The kids run outside, where Blowtorch catches up with them while the fire trucks arrive.",
+		// 		"\"My God, that smelled good,\" he says, then gives the camera a sparkly white smile."
+		// 	],
+		// 	"media": {
+		// 		"type": "vimeo",
+		// 		"id": "46114711"
+		// 	}
+		// },
 
-		// media
+		// media (w/ image)
 		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
+			"type": Legwork.Slides.Media,
+			"background_color": "#89af60",
+			"title": "Diesel Denim 2011",
+			"text": [
+				"A boy with a speech impediment and his friend try to cook something using a gas stove. It immediately catches fire. Blowtorch appears amid the plumes of smoke with a shout of \"PORKCHOP SANDWICHES!\" and then urges them to \"GET THE FUCK OUT! WHADDAYA DOING? WE'RE ALL FUCKING DEAD! MOOOOVE!\"",
+				"The kids run outside, where Blowtorch catches up with them while the fire trucks arrive.",
+				"\"My God, that smelled good,\" he says, then gives the camera a sparkly white smile."
+			],
+			"media": {
 				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+				"url": "<%= asset_path 'desktop/work-diesel.jpg' %>"
 			}
 		},
 
-		// slideshow
+		// full screen (w/ vimeo)
+		// {
+		// 	"type": Legwork.Slides.FullScreen,
+		// 	"media": {
+		// 		"type": "vimeo",
+		// 		"id": "15621741"
+		// 	}
+		// },
+
+		// full screen (w/ image)
 		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
+			"type": Legwork.Slides.FullScreen,
+			"media": {
+				"type": "image",
+				"url": "<%= asset_path 'desktop/work-airwalk-motion.jpg' %>"
+			}
 		}
+
+		// 		// text
+		// 		{
+		// 			"type": "text",
+		// 			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
+		// 			"pages": [
+		// 				{
+		// 					"title": "Some Title",
+		// 					"text": "Lorem ipsum."
+		// 				},
+		// 				{
+		// 					"title": "Some Title",
+		// 					"text": "Lorem ipsum."
+		// 				},
+		// 				{
+		// 					"title": "Some Title",
+		// 					"text": "Lorem ipsum."
+		// 				}
+		// 			]
+		// 		},
+		// 
+		// 		// slideshow
+		// 		{
+		// 			"type": "slideshow",
+		// 			"title": "Some Title",
+		// 			"text": "Lorem ipsum",
+		// 			"slides": [
+		// 				{
+		// 					"type": "vimeo",
+		// 					"url": "vimeo_id"
+		// 				},
+		// 				{
+		// 					"type": "image",
+		// 					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
+		// 				}
+		// 			]
+		// 		}
 	]
 }

@@ -31,11 +31,14 @@ class Legwork.Controllers.SlidesController
   *----------------------------------------###
   build: ->
     @$el = $(JST["desktop/templates/#{@zone}-detail"]({model: @model, slug: @slug, zone: @zone}))
-    $slides = @$el.find('.slides')
+    @$slides = @$el.find('.slides')
 
+    title_screen = new Legwork.Slides.TitleScreen({model: @model})
+    @slide_views.push(title_screen)
+    
     for slide in @model.slides
       slide_view = new slide.type({model: slide})
-      $slides.append slide_view.build()
+      @$slides.append slide_view.build()
       @slide_views.push(slide_view)
 
     @$ctrl = @$el.find('.slide-controls')
@@ -61,7 +64,7 @@ class Legwork.Controllers.SlidesController
   | Shows the element
   *----------------------------------------###
   activate: ->
-    @reset()
+    @resetSlides()
 
     setTimeout =>
       @$el.addClass('open')
@@ -81,6 +84,12 @@ class Legwork.Controllers.SlidesController
     @$ctrl.off Legwork.touchstart, @nextSlide
     Legwork.$doc.off 'keyup.slider', @handleArrowKeys
 
+  ###
+  *------------------------------------------*
+  | showProTip:void (-)
+  |
+  | Show Pro Tip once
+  *----------------------------------------###
   showProTip: ->
     if Legwork.pro_tip is true
       $('#detail-pro-tip').addClass('instructor')
@@ -90,6 +99,12 @@ class Legwork.Controllers.SlidesController
 
       @protime = setTimeout(@removeProTip, 6000)
 
+  ###
+  *------------------------------------------*
+  | removeProTip:void (-)
+  |
+  | Remove Pro Tip after used once
+  *----------------------------------------###
   removeProTip: ->
     if Legwork.pro_tip is true
       Legwork.pro_tip = false
@@ -103,12 +118,12 @@ class Legwork.Controllers.SlidesController
 
   ###
   *------------------------------------------*
-  | reset:void (-)
+  | resetSlides:void (-)
   |
   | Reset the slides so that the
   | title-screen slide is first/current
   *----------------------------------------###
-  reset: ->
+  resetSlides: ->
     $s = @$el.find('.slide')
     $sf = $s.first()
     total_cnt = $s.length
@@ -133,16 +148,21 @@ class Legwork.Controllers.SlidesController
     $slide_current = @$el.find('.slide.current')
     $slide_first = @$el.find('.slide').first()
     $slide_next = if $slide_current.next().length then $slide_current.next() else $slide_first
+    @current_index = $slide_current.index()
+    next_index = $slide_next.index()
 
-    $slide_current.removeClass('current').css('left', '0%').stop().animate
+    @slide_views[next_index].activate()
+
+    @$el.find('.current-cnt').text(next_index + 1)
+
+    @$el.find('.slide').css('left','100%')
+    $slide_next.addClass('current').css({'left': '0%', 'z-index': '1'})
+    $slide_current.removeClass('current').css({'left':'0%', 'z-index':'2'}).stop().animate
       left: '-100%'
-    , 666, 'easeInOutExpo'
-
-    $slide_next.addClass('current').css('left', '100%').stop().animate
-      left: '0%'
     , 666, 'easeInOutExpo', =>
       @$ctrl.on Legwork.touchstart, @nextSlide
       Legwork.$doc.on 'keyup.slider', @handleArrowKeys
+      @slide_views[@current_index].deactivate()
 
   ###
   *------------------------------------------*
@@ -155,18 +175,23 @@ class Legwork.Controllers.SlidesController
     Legwork.$doc.off 'keyup.slider', @handleArrowKeys
 
     $slide_current = @$el.find('.slide.current')
-    $sl = @$el.find('.slide').last()
-    $slide_prior = if $slide_current.prev().length then $slide_current.prev() else $sl
+    $slide_last = @$el.find('.slide').last()
+    $slide_prior = if $slide_current.prev().length then $slide_current.prev() else $slide_last
+    @current_index = $slide_current.index()
+    prior_index = $slide_prior.index()
 
-    $slide_current.removeClass('current').css('left', '0%').stop().animate
-      left: '100%'
-    , 666, 'easeInOutExpo'
+    @slide_views[prior_index].activate()
 
-    $slide_prior.addClass('current').css('left', '-100%').stop().animate
+    @$el.find('.current-cnt').text(prior_index + 1)
+
+    @$el.find('.slide').css('left','100%')
+    $slide_current.removeClass('current').css({'left':'0%', 'z-index':'1'})
+    $slide_prior.addClass('current').css({'left': '-100%', 'z-index': '2'}).stop().animate
       left: '0%'
     , 666, 'easeInOutExpo', =>
       @$ctrl.on Legwork.touchstart, @nextSlide
       Legwork.$doc.on 'keyup.slider', @handleArrowKeys
+      @slide_views[@current_index].deactivate()
 
   ###
   *------------------------------------------*

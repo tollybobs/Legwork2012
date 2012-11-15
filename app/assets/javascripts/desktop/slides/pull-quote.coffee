@@ -32,6 +32,24 @@ class Legwork.Slides.PullQuote extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
+  | activate:void (-)
+  |
+  | Activate new/current slide
+  *----------------------------------------###
+  activate: ->
+    console.log('Legwork.Slides.PullQuote :: activate')
+
+  ###
+  *------------------------------------------*
+  | deactivate:void (-)
+  |
+  | Deactivate old slide
+  *----------------------------------------###
+  deactivate: ->
+    console.log('Legwork.Slides.PullQuote :: deactivate')
+
+  ###
+  *------------------------------------------*
   |
   | Private Methods
   |

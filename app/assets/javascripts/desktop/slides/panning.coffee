@@ -19,10 +19,6 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   constructor: (options) ->
     # POWERFUL!
     super(options)
-    
-    # Class vars
-    # @$bounds = @$el
-    # @$pan_image = $('img', @$el)
 
   ###
   *------------------------------------------*
@@ -41,13 +37,46 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   | See Legwork.Slides.Slide
   *----------------------------------------###
   initialize: ->
+    @initPanning()
+
+  ###
+  *------------------------------------------*
+  | activate:void (-)
+  |
+  | Activate new/current slide
+  *----------------------------------------###
+  activate: ->
+    console.log('Legwork.Slides.PanningSlide :: activate')
+
+  ###
+  *------------------------------------------*
+  | deactivate:void (-)
+  |
+  | Deactivate old slide
+  *----------------------------------------###
+  deactivate: ->
+    console.log('Legwork.Slides.PanningSlide :: deactivate')
+
+  ###
+  *------------------------------------------*
+  | 
+  | Private Methods
+  |
+  *----------------------------------------###
+  initPanning: =>
     @$bounds = Legwork.$wn
     @$pan_image = $('.pan-image', @$el)
-    
+    @pw = @$pan_image.width()
+    @ph = @$pan_image.height()
+    @bw = @$bounds.width()
+    @bh = @$bounds.height()
+    @horz_center = (@bw / 2) - (@pw / 2)
+    @vert_center = (@bh / 2) - (@ph / 2)
+
     @$pan_image
       .css
-        'top': -((@$pan_image.height() - @$bounds.height()) / 2) + 'px'
-        'left': -((@$pan_image.width() - @$bounds.width()) / 2) + 'px'
+        'top': @vert_center + 'px'
+        'left':  @horz_center + 'px'
       .on 'mousedown', (e) =>
         $t = $(e.currentTarget)
         
@@ -61,12 +90,6 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
         Legwork.$doc.one('mouseup', @_constrainDrag)
         e.preventDefault()
 
-  ###
-  *------------------------------------------*
-  | 
-  | Private Methods
-  |
-  *----------------------------------------###
   _clickedDrag: (e) =>
     data = $(e.currentTarget).data('pan')
     deltaX = e.pageX - data.iMouseX
@@ -74,16 +97,16 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
     normalX = deltaX + data.iPosX
     normalY = deltaY + data.iPosY
 
-    @$pan_image.css(
-      'top': normalY + 'px'
-      'left': normalX + 'px'
-    )
+    @$pan_image
+      .css
+        'top': normalY + 'px'
+        'left': normalX + 'px'
 
-  _constrainDrag: () =>
+  _constrainDrag: =>
     pX = @$pan_image.position().left
     pY = @$pan_image.position().top
-    bX = @$bounds.width() - @$pan_image.width()
-    bY = @$bounds.height() - @$pan_image.height()
+    bX = @bw - @pw
+    bY = @bh - @ph
     x = pX
     y = pY
 
@@ -93,8 +116,10 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
     if pY > 0 then y = 0
     if pX < bX then x = bX
     if pY < bY then y = bY
+    if @bw >= @pw then x = @horz_center
+    if @bh >= @ph then y = @vert_center
 
-    @$pan_image.css(
-      'top': y + 'px'
-      'left': x + 'px'
-    )
+    @$pan_image
+      .css
+        'top': y + 'px'
+        'left': x + 'px'

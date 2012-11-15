@@ -434,6 +434,7 @@
               width: 100%
               height: 100%
               background-color: $yellow
+              z-index: 1
               overflow: hidden
 
               .slide-inner
@@ -483,8 +484,8 @@
                 position: absolute
                 top: 0px
                 left: 0px
-                width: 2300px
-                height: 2244px
+                width: 1006px
+                height: 980px
                 cursor: move
 
               .pan-image.constrain
@@ -570,6 +571,7 @@
             height: 50px
             margin: -25px 0 0
             cursor: pointer
+            z-index: 3
 
             .slide-controls-tab
               position: absolute
@@ -585,23 +587,22 @@
                 position: absolute
                 top: 0px
                 right: 0px
-                width: 30px
-                height: 30px
-                border: 10px solid $white
+                width: 50px
+                height: 50px
                 background-color: $white
 
                 span
                   position: absolute
-                  top: 2px
-                  left: 2px
+                  top: 12px
+                  left: 12px
                   font: bold normal normal 9px/9px Helvetica, Arial, sans-serif
                   color: $less_black
 
                   &:last-child
                     top: auto
                     left: auto
-                    right: 2px
-                    bottom: 0px
+                    right: 12px
+                    bottom: 10px
 
                 &:after
                   content: ''

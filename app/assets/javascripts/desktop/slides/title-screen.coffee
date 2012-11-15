@@ -6,7 +6,7 @@ Copyright (c) 2012 Legwork Studio. All Rights Reserved. Your wife is still hot.
 
 #= require ./slide
 
-class Legwork.Slides.Media extends Legwork.Slides.Slide
+class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
@@ -27,7 +27,7 @@ class Legwork.Slides.Media extends Legwork.Slides.Slide
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/slides/media"](@model))
+    @$el = $('.title-screen')
     return @$el
 
   ###
@@ -37,7 +37,7 @@ class Legwork.Slides.Media extends Legwork.Slides.Slide
   | Activate new/current slide
   *----------------------------------------###
   activate: ->
-    console.log('Legwork.Slides.Media :: activate')
+    console.log('Legwork.Slides.TitleScreen :: activate')
 
   ###
   *------------------------------------------*
@@ -46,11 +46,4 @@ class Legwork.Slides.Media extends Legwork.Slides.Slide
   | Deactivate old slide
   *----------------------------------------###
   deactivate: ->
-    console.log('Legwork.Slides.Media :: deactivate')
-
-  ###
-  *------------------------------------------*
-  |
-  | Private Methods
-  |
-  *----------------------------------------###
+    console.log('Legwork.Slides.TitleScreen :: deactivate')

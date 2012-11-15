@@ -32,7 +32,19 @@ class Legwork.Slides.FullScreen extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
+  | activate:void (-)
   |
-  | Private Methods
-  |
+  | Activate new/current slide
   *----------------------------------------###
+  activate: ->
+    console.log('Legwork.Slides.FullScreen :: activate')
+
+  ###
+  *------------------------------------------*
+  | deactivate:void (-)
+  |
+  | Deactivate old slide
+  *----------------------------------------###
+  deactivate: ->
+    console.log('Legwork.Slides.FullScreen :: deactivate')
+  

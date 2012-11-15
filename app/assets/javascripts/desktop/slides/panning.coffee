@@ -37,7 +37,9 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   | See Legwork.Slides.Slide
   *----------------------------------------###
   initialize: ->
-    @initPanning()
+    @$pan_image = $('.pan-image', @$el)
+    @pw = @$pan_image.width()
+    @ph = @$pan_image.height()
 
   ###
   *------------------------------------------*
@@ -46,6 +48,8 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   | Activate new/current slide
   *----------------------------------------###
   activate: ->
+    Legwork.$wn.trigger('resize')
+    @$pan_image.removeClass('constrain')
     console.log('Legwork.Slides.PanningSlide :: activate')
 
   ###
@@ -59,20 +63,28 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
+  | onResize:void (=)
+  |
+  | w:number - window width
+  | h:number - window height
+  |
+  | Handle window resize
+  *----------------------------------------###
+  resize: (w, h) =>
+    @bw = w
+    @bh = h
+    @horz_center = (@bw / 2) - (@pw / 2)
+    @vert_center = (@bh / 2) - (@ph / 2)
+
+    @initPanning()
+
+  ###
+  *------------------------------------------*
   | 
   | Private Methods
   |
   *----------------------------------------###
   initPanning: =>
-    @$bounds = Legwork.$wn
-    @$pan_image = $('.pan-image', @$el)
-    @pw = @$pan_image.width()
-    @ph = @$pan_image.height()
-    @bw = @$bounds.width()
-    @bh = @$bounds.height()
-    @horz_center = (@bw / 2) - (@pw / 2)
-    @vert_center = (@bh / 2) - (@ph / 2)
-
     @$pan_image
       .css
         'top': @vert_center + 'px'

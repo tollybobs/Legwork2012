@@ -18,6 +18,7 @@ class Legwork.Slides.Slide
     # Class vars
     @options = options
     @model = options.model
+    @$el = options.$el
 
   ###
   *------------------------------------------*
@@ -50,3 +51,16 @@ class Legwork.Slides.Slide
   | Deactivate the slide
   *----------------------------------------###
   deactivate: ->
+
+  ###
+  *------------------------------------------*
+  | onResize:void (-)
+  |
+  | w:number - window width
+  | h:number - window height
+  |
+  | Handle window resize
+  *----------------------------------------###
+  resize: (w, h) ->
+    console.log('Legwork.Slides.Slide :: resize', w, h)
+

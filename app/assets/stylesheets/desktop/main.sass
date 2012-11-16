@@ -453,6 +453,7 @@
 
             // title screen slide
             .title-screen
+              color: $white
               background-repeat: no-repeat
               background-position: 50% 50%
               -webkit-background-size: cover
@@ -460,16 +461,26 @@
               -o-background-size: cover
               background-size: cover
 
-              h2
-                margin: 0 0 0 26px
-                font: normal normal normal 36px/36px "MuseoSlab700", Verdana, sans-serif
-                text-transform: uppercase
-                color: $white
+              .project-title
+                position: absolute
+                top: 50%
+                left: 26px
+                height: 50px
+                margin: -25px 0 0
 
-              h3
-                margin: 0 0 0 26px
-                font: normal normal normal 14px/14px Helvetica, Arial, sans-serif
-                color: $white
+                h2
+                  margin: 0
+                  font: normal normal normal 36px/36px "MuseoSlab700", Verdana, sans-serif
+                  text-transform: uppercase
+
+                h3
+                  margin: 0
+                  font: normal normal normal 14px/14px Helvetica, Arial, sans-serif
+
+              .project-info
+                position: relative
+                width: 320px
+                margin: 0 auto
 
             // panning slide
             .panning
@@ -503,7 +514,7 @@
             // pull quote slide
             .pull-quote
               h1
-                margin: 0 26px
+                margin: 0 52px 0 26px
                 font: normal normal normal 45px/60px "MuseoSlab700", Verdana, sans-serif
                 color: $less_black
 
@@ -512,11 +523,11 @@
               .media-content
                 position: relative
                 float: left
+                max-width: 360px
                 width: 40%
               
                 .media-text
-                  max-width: 360px
-                  margin: 0 26px
+                  margin: 0 52px 0 26px
 
                   h4
                     margin: 0
@@ -531,7 +542,6 @@
                 .media-holder
                   position: relative
                   margin: 0 70px 0 0
-                  max-width: 730px
                   display: block
 
                   .media-holder-inner
@@ -544,12 +554,43 @@
                     display: block
 
                     .vimeo-iframe
+                      position: absolute
+                      top: 0px
+                      left: 0px
+                      width: 100%
+                      height: 100%
+
                     .vimeo-poster
                       position: absolute
                       top: 0px
                       left: 0px
                       width: 100%
                       height: 100%
+                      cursor: pointer
+
+                      .vimeo-play-btn
+                        position: absolute
+                        top: 50%
+                        left: 50%
+                        width: 50px
+                        height: 50px
+                        margin: -25px 0 0 -25px
+                        background-color: #fff
+                        opacity: 0.6
+                        @include nav_shadow
+                        @include transition(opacity, 150ms, ease-out)
+
+                        &:after
+                          content: ''
+                          position: absolute
+                          top: 50%
+                          left: 50%
+                          width: 0
+                          height: 0
+                          margin: -10px 0 0 -8px
+                          border-top: 10px solid transparent
+                          border-bottom: 10px solid transparent
+                          border-left: 18px solid $less_black
 
                       img
                         position: absolute
@@ -557,6 +598,10 @@
                         left: 0px
                         width: 100%
                         height: 100%
+
+                    .vimeo-poster:hover
+                      .vimeo-play-btn
+                        opacity: 1
 
                     img,
                     iframe
@@ -568,6 +613,7 @@
 
                 &:last-child
                   width: 60%
+                  max-width: 960px
 
             // full screen slide
             .full-screen

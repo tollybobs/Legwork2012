@@ -3,8 +3,21 @@
     <div class="slide title-screen" style="background-image: url(<%= @model.background.url %>)">
       <div class="slide-inner">
         <div class="slide-inner-content">
-          <h2><%= @model.client %></h2>
-          <h3><%= @model.project %></h3>
+          <div class="project-title">
+            <h2><%= @model.client %></h2>
+            <h3><%= @model.project %></h3>
+          </div>
+          <div class="project-info">
+            <h4><%= @model.tagline %></h4>
+            <p><%= @model.overview %></p>
+            <% if @model.credits: %>
+              <ul>
+                <% for credit in @model.credits: %>
+                  <li><%= credit %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

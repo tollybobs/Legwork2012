@@ -62,7 +62,8 @@ class Legwork.Slides.Media extends Legwork.Slides.Slide
   | Deactivate old slide
   *----------------------------------------###
   deactivate: ->
-    @$vimeo.empty()
+    if @model.media.type is 'vimeo'
+      @$vimeo.empty()
 
   ###
   *------------------------------------------*
@@ -72,7 +73,7 @@ class Legwork.Slides.Media extends Legwork.Slides.Slide
   *----------------------------------------###
   fetchPosterImage: =>
     $.getJSON "http://www.vimeo.com/api/v2/video/#{@id}.json?callback=?", {format: "json"}, (data) =>
-      @$poster.append("<img src='#{data[0].thumbnail_large}' alt='' />")
+      @$poster.append("<img src='#{data[0].thumbnail_large}' alt='' /><div class='vimeo-play-btn'></div>")
 
   playVimeo: =>
     @$vimeo.empty().append("<iframe src='http://player.vimeo.com/video/#{@id}?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff&amp;autoplay=1' width='730' height='411' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>")

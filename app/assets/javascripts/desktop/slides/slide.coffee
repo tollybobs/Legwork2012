@@ -62,5 +62,4 @@ class Legwork.Slides.Slide
   | Handle window resize
   *----------------------------------------###
   resize: (w, h) ->
-    console.log('Legwork.Slides.Slide :: resize', w, h)
 

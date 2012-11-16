@@ -27,7 +27,6 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   | Activate new/current slide
   *----------------------------------------###
   activate: ->
-    console.log('Legwork.Slides.TitleScreen :: activate')
 
   ###
   *------------------------------------------*
@@ -36,4 +35,3 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   | Deactivate old slide
   *----------------------------------------###
   deactivate: ->
-    console.log('Legwork.Slides.TitleScreen :: deactivate')

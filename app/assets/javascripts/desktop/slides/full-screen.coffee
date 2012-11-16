@@ -37,7 +37,6 @@ class Legwork.Slides.FullScreen extends Legwork.Slides.Slide
   | Activate new/current slide
   *----------------------------------------###
   activate: ->
-    console.log('Legwork.Slides.FullScreen :: activate')
 
   ###
   *------------------------------------------*
@@ -46,5 +45,4 @@ class Legwork.Slides.FullScreen extends Legwork.Slides.Slide
   | Deactivate old slide
   *----------------------------------------###
   deactivate: ->
-    console.log('Legwork.Slides.FullScreen :: deactivate')
   

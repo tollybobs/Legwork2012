@@ -37,7 +37,6 @@ class Legwork.Slides.PullQuote extends Legwork.Slides.Slide
   | Activate new/current slide
   *----------------------------------------###
   activate: ->
-    console.log('Legwork.Slides.PullQuote :: activate')
 
   ###
   *------------------------------------------*
@@ -46,7 +45,6 @@ class Legwork.Slides.PullQuote extends Legwork.Slides.Slide
   | Deactivate old slide
   *----------------------------------------###
   deactivate: ->
-    console.log('Legwork.Slides.PullQuote :: deactivate')
 
   ###
   *------------------------------------------*

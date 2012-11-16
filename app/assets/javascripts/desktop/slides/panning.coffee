@@ -50,7 +50,6 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   activate: ->
     Legwork.$wn.trigger('resize')
     @$pan_image.removeClass('constrain')
-    console.log('Legwork.Slides.PanningSlide :: activate')
 
   ###
   *------------------------------------------*
@@ -59,7 +58,6 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   | Deactivate old slide
   *----------------------------------------###
   deactivate: ->
-    console.log('Legwork.Slides.PanningSlide :: deactivate')
 
   ###
   *------------------------------------------*
@@ -89,17 +87,17 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
       .css
         'top': @vert_center + 'px'
         'left':  @horz_center + 'px'
-      .on 'mousedown', (e) =>
+      .on Legwork.mousedown, (e) =>
         $t = $(e.currentTarget)
         
-        $t.removeClass('constrain').data('pan', 
+        $t.removeClass('constrain').addClass('grabbing').data('pan', 
           'iMouseX': e.pageX
           'iMouseY': e.pageY
           'iPosX': $t.position().left
           'iPosY': $t.position().top
-        ).on('mousemove', @_clickedDrag)
+        ).on(Legwork.mousemove, @_clickedDrag)
         
-        Legwork.$doc.one('mouseup', @_constrainDrag)
+        Legwork.$doc.one(Legwork.mouseup, @_constrainDrag)
         e.preventDefault()
 
   _clickedDrag: (e) =>
@@ -122,7 +120,7 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
     x = pX
     y = pY
 
-    @$pan_image.unbind('mousemove', @_clickedDrag).addClass('constrain')
+    @$pan_image.unbind(Legwork.mousemove, @_clickedDrag).addClass('constrain').removeClass('grabbing')
 
     if pX > 0 then x = 0
     if pY > 0 then y = 0

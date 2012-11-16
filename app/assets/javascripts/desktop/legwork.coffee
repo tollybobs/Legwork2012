@@ -28,9 +28,15 @@ class Legwork.Application
     Legwork.current_slides_controller = null
 
     Legwork.pro_tip = true
-    Legwork.touchstart = 'touchstart'
+    Legwork.click = 'click'
+    Legwork.mousedown = 'mousedown'
+    Legwork.mouseup = 'mouseup'
+    Legwork.mousemove = 'mousemove'
 
-    if !Modernizr.touch then Legwork.touchstart = 'click'
+    if Modernizr.touch then Legwork.click = 'touchstart'
+    if Modernizr.touch then Legwork.mousedown = 'touchstart'
+    if Modernizr.touch then Legwork.mouseup = 'touchend'
+    if Modernizr.touch then Legwork.mousemove = 'touchmove'
 
     # Class vars
     @$menu_btn = $('#menu-btn')
@@ -327,14 +333,14 @@ class Legwork.Application
   | Get the next Tweet.
   *----------------------------------------###
   getNextTweet: ->
-    tweet = Legwork.twitter[@twitter_index]
-    text = tweet.text
-    timestamp = tweet.created_at
+    tweet = '0' #Legwork.twitter[@twitter_index]
+    text = '' #tweet.text
+    timestamp = 'now' #tweet.created_at
     date = ''
-    source = tweet.source
+    source = 'source' #tweet.source
 
     # test
-    #text = 'This rad tweet is custom built for testing a #hashtag and a @mention of someone and is exactly 140 characters long. <a href="legworkstudio.com" target="_new">http://legworkstudio.com</a>'
+    text = 'This rad tweet is custom built for testing a #hashtag and a @mention of someone and is exactly 140 characters long. <a href="legworkstudio.com" target="_new">http://legworkstudio.com</a>'
 
     @twitter_index++
 

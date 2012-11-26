@@ -41,7 +41,7 @@ class Legwork.Slides.Media extends Legwork.Slides.Slide
       @id = @model.media.id
       @$poster = $('.vimeo-poster', @$el)
       @$vimeo = $('.vimeo-iframe', @$el)
-      @fetchPosterImage()
+      @fetchVimeoThumbnail()
 
   ###
   *------------------------------------------*
@@ -64,6 +64,9 @@ class Legwork.Slides.Media extends Legwork.Slides.Slide
   deactivate: ->
     if @model.media.type is 'vimeo'
       @$vimeo.empty()
+      @$poster
+        .hide()
+        .off Legwork.click, @playVimeo
 
   ###
   *------------------------------------------*
@@ -71,7 +74,7 @@ class Legwork.Slides.Media extends Legwork.Slides.Slide
   | Private Methods
   |
   *----------------------------------------###
-  fetchPosterImage: =>
+  fetchVimeoThumbnail: =>
     $.getJSON "http://www.vimeo.com/api/v2/video/#{@id}.json?callback=?", {format: "json"}, (data) =>
       @$poster.append("<img src='#{data[0].thumbnail_large}' alt='' /><div class='vimeo-play-btn'></div>")
 

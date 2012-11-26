@@ -1,0 +1,37 @@
+<div class="slide media" style="background-color: <%= @background_color %>">
+  <div class="slide-inner">
+    <div class="slide-inner-content">
+      <div class="media-content">
+        <div class="media-text">
+          <h4><%= @title %></h4>
+          <% for item in @text: %>
+            <p><%= item %></p>
+          <% end %>
+        </div>
+      </div>
+      <div class="media-content">
+        <div class="media-holder">
+          <div class="media-holder-inner slideshow">
+            <% for item in @slides: %>
+              <% if item.type is 'vimeo': %>
+                <div class="ss-slide vimeo-slide" data-vimeo="<%= item.id %>">
+                  <div class="vimeo-iframe"></div>
+                  <div class="vimeo-poster"></div>
+                </div>
+              <% else: %>
+                <div class="ss-slide">
+                  <img src="<%= item.url %>" alt="" />
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="progress">
+            <div class="progress-track">
+              <div class="progress-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

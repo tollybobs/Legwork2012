@@ -12,17 +12,41 @@
             <p><%= @model.overview %></p>
             <% if @model.credits: %>
               <ul>
-                <% for credit in @model.credits: %>
-                  <li><%= credit %></li>
+                <% for item in @model.credits: %>
+                  <li><%= item %></li>
                 <% end %>
               </ul>
             <% end %>
+            <ul class="services">
+              <li>Services</li>
+              <% for item in @model.services: %>
+                <li><%= item %></li>
+              <% end %>
+            </ul>
+            <ul class="recognition">
+              <li>Recognition</li>
+              <% for item in @model.recognition: %>
+                <li><%= item %></li>
+              <% end %>
+            </ul>
+            <div class="project-callouts">
+              <% if @model.url: %>
+                <div class="project-btn">
+                  <div class="btn-fill"></div>
+                  <a href="<%= @model.url %>" target="_blank"><span>Launch Project</span></a>
+                </div>
+              <% end %>
+              <div class="project-btn next-slide-btn">
+                <div class="btn-fill"></div>
+                <span>Project Details</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="slide-controls">
+  <div class="slide-controls next-slide-btn">
     <div class="slide-controls-tab">
       <div class="slide-next"></div>
       <div class="slide-counter">

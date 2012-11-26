@@ -32,7 +32,7 @@ class Legwork.Controllers.SlidesController
   build: ->
     @$el = $(JST["desktop/templates/#{@zone}-detail"]({model: @model, slug: @slug, zone: @zone}))
     $slides_wrap = @$el.find('.slides')
-    @$ctrl = @$el.find('.slide-controls')
+    @$next_btn = @$el.find('.next-slide-btn')
     @$current_cnt = @$el.find('.current-cnt')
 
     title_screen = new Legwork.Slides.TitleScreen({model: @model, $el: $('.title-screen', @$el)})
@@ -72,7 +72,7 @@ class Legwork.Controllers.SlidesController
       @$el.addClass('open')
     , 0
 
-    @$ctrl.on Legwork.click, @nextSlide
+    @$next_btn.on Legwork.click, @nextSlide
     Legwork.$doc.on 'keyup.slider', @handleArrowKeys
     
     @onResize = _.debounce(@afterResize, 300)
@@ -88,7 +88,7 @@ class Legwork.Controllers.SlidesController
     @$el.removeClass('open')
     @current_slide_view.deactivate()
 
-    @$ctrl.off Legwork.click, @nextSlide
+    @$next_btn.off Legwork.click, @nextSlide
     Legwork.$doc.off 'keyup.slider', @handleArrowKeys
 
     Legwork.$wn.off('resize', @onResize)
@@ -160,7 +160,7 @@ class Legwork.Controllers.SlidesController
   | Next. Next slide.
   *----------------------------------------###
   nextSlide: =>
-    @$ctrl.off Legwork.click, @nextSlide
+    @$next_btn.off Legwork.click, @nextSlide
     Legwork.$doc.off 'keyup.slider', @handleArrowKeys
 
     @old_slide_index = @current_slide_index
@@ -177,7 +177,7 @@ class Legwork.Controllers.SlidesController
     @old_slide_view.$el.removeClass('current').css({'left':'0%', 'z-index':'2'}).stop().animate
       left: '-100%'
     , 666, 'easeInOutExpo', =>
-      @$ctrl.on Legwork.click, @nextSlide
+      @$next_btn.on Legwork.click, @nextSlide
       Legwork.$doc.on 'keyup.slider', @handleArrowKeys
       @old_slide_view.deactivate()
 
@@ -188,7 +188,7 @@ class Legwork.Controllers.SlidesController
   | Prior. Prior slide.
   *----------------------------------------###
   priorSlide: =>
-    @$ctrl.off Legwork.click, @nextSlide
+    @$next_btn.off Legwork.click, @nextSlide
     Legwork.$doc.off 'keyup.slider', @handleArrowKeys
 
     @old_slide_index = @current_slide_index
@@ -205,7 +205,7 @@ class Legwork.Controllers.SlidesController
     @current_slide_view.$el.addClass('current').css({'left':'-100%', 'z-index':'2'}).stop().animate
       left: '-0%'
     , 666, 'easeInOutExpo', =>
-      @$ctrl.on Legwork.click, @nextSlide
+      @$next_btn.on Legwork.click, @nextSlide
       Legwork.$doc.on 'keyup.slider', @handleArrowKeys
       @old_slide_view.deactivate()
 

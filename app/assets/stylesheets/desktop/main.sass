@@ -1872,24 +1872,35 @@
             background: asset-url("desktop/social-icons@2x.gif", image) no-repeat 0 0
             background-size: 16px 16px
 
-    // detail
-    #detail
-      #detail-inner
-        .slides-wrapper
-          .slides
-            .media
-              .media-content
-                .media-holder
+// OVERRIDES: fingers over mouse
+html.touch
 
-                  // slideshow progress
-                  .progress
-                    height: 12px
+  // detail
+  #detail
+    #detail-inner
+      .slides-wrapper
+        .slides
+          .media
+            .media-content
+              .media-holder
 
-                    .progress-track
-                      .progress-bar
-                        padding-right: 25%
-                        @include transition (width, 666ms, ease-out)
+                // slideshow progress
+                .progress
+                  height: 20px
 
+                  .progress-track
+                    height: 16px
+
+                    .progress-bar
+                      padding-right: 25%
+                      @include transition (width, 666ms, ease-out)
+
+        .slide-controls
+          .slide-controls-tab
+            width: 100px
+
+            .slide-next
+              opacity: 1
 
 
 

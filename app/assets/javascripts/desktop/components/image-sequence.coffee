@@ -83,8 +83,8 @@ class Legwork.ImageSequence
   | Continue to the next frame.
   *----------------------------------------###
   continue: =>
-    @$imgs.hide()
-    @$imgs.eq(@current_frame - 1).show()
+    @$imgs.css('visibility', 'hidden')
+    @$imgs.eq(@current_frame - 1).css('visibility', 'visible')
 
     @img_timeout = setTimeout(@play, @interval)
 
@@ -95,6 +95,7 @@ class Legwork.ImageSequence
   | Stop the sequence.
   *----------------------------------------###
   stop: ->
+    @$imgs.css('visibility', 'hidden')
     clearTimeout(@img_timeout)
 
   ###

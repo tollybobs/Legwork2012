@@ -236,7 +236,7 @@ class Legwork.Application
     @line_ctx.translate(0, -Legwork.$wn.scrollTop())
 
     for key, value of @lifelines
-      @lines(value, 1, 3)
+      @lines(value, 1.25, 3)
 
   ###
   *------------------------------------------*
@@ -463,7 +463,7 @@ class Legwork.Application
   finishLayout: ->
     @$lines
       .attr('width', Legwork.app_width)
-      .attr('height', Math.floor(Legwork.$wn.height() / 2))
+      .attr('height', Math.floor(Legwork.$wn.height() * 0.66))
 
     @$canvas_wrap.show()
 
@@ -529,7 +529,7 @@ class Legwork.Application
     clearTimeout(@scroll_timeout)
     @scroll_timeout = setTimeout(@onScrollComplete, 333)
 
-    Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() / 2)) + 34
+    Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() * 0.666)) + 34
 
     if Legwork.app_width >= 1025
       @doLines()

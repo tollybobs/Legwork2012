@@ -1,2 +1,3 @@
 <div class="sequenced-inner" style="background-image: url(<%= @alt_content %>)">
+  <h1>Q: DUDES, WHAT KIND OF MUSIC DO YOU LIKE? A: STRAIGHT FUCKING METAL.</h1>
 </div>

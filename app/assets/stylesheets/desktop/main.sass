@@ -217,8 +217,8 @@
       height: 100%
 
       #wrap-the-background
-        height: 200px
-        padding: 70px 20px 20px
+        height: auto
+        padding: 90px 20px 20px
 
         .sequenced.stuff,
         .animated.stuff
@@ -227,14 +227,18 @@
         .sequenced.stuff:first-child
           display: block
           width: 100%
-          height: 100%
+          height: auto
 
           .sequenced-inner
             width: 100%
-            height: 100%
-            background-position: 50% 50%
+            height: auto
+            padding-bottom: 300px
+            background-position: 50% 100%
             background-repeat: no-repeat
-            @include background_size(auto, 100%)
+            @include background_size(300px, 300px)
+
+            h1
+              font: normal normal normal 20px/24px "MuseoSlab700", Verdana, sans-serif
 
         .sequenced.stuff
           .sequenced-inner
@@ -1128,7 +1132,13 @@
       height: 100%
 
       #wrap-the-background
-        height: 320px
+        width: 440px
+        margin: auto
+
+        .sequenced.stuff:first-child
+          .sequenced-inner
+            padding-bottom: 400px
+            @include background_size(400px, 400px)
 
       #wrap-the-stuff
         padding: 0px 0px 20px
@@ -1269,7 +1279,7 @@
       #wrap-the-background
         display: block
         position: absolute
-        top: 54px
+        top: 74px
         left: 0px
         width: 100%
         height: auto
@@ -1282,9 +1292,6 @@
           height: 0%
           @include transition(top, 100ms, linear)
 
-          .marker
-            display: none
-
           .activate-it
             display: block
 
@@ -1292,30 +1299,49 @@
           display: block
           position: absolute
           top: 0px
-          width: 56%
+          left: 0px
+          width: 100%
           height: 0%
-          padding-top: 38%
-
-        .sequenced.stuff
-          display: block
-          position: absolute
-          top: 0px
-          width: 56%
-          height: 0%
-          padding-top: 38%
+          padding-top: 40%
 
           .sequenced-inner
             position: absolute
             top: 0px
             width: 100%
             height: 100%
-            background-position: top left
+            padding: 0px
+            background-position: 5% 0%
+            @include background_size(auto, 100%)
+
+            h1
+              font: normal normal normal 28px/32px "MuseoSlab700", Verdana, sans-serif
+
+        .sequenced.stuff
+          display: block
+          position: absolute
+          top: 0px
+          left: 0px
+          width: 100%
+          height: 0%
+          padding-top: 40%
+          background: #f0f
+
+          .sequenced-inner
+            position: absolute
+            top: 0px
+            width: 100%
+            height: 100%
+            padding: 0px
+            background-position: 5% 0%
             background-repeat: no-repeat
             @include background_size(auto, 100%)
 
+            h1
+              font: normal normal normal 28px/32px "MuseoSlab700", Verdana, sans-serif
+
         .right.sequenced.stuff
           .sequenced-inner
-            background-position: top right
+            background-position: 95% 0%
 
         .animated.stuff
           display: block
@@ -1344,7 +1370,16 @@
         position: fixed
         top: 74px
         width: 100%
-        height: 50%
+        height: 66%
+
+        #lines-leader
+          position: absolute
+          bottom: 0px
+          left: 0px
+          width: 100%
+          height: 80px
+          background: asset-url("desktop/lines-leader.png", image) no-repeat bottom left
+          background-size: 100% 100%
 
       #wrap-the-stuff
         position: absolute
@@ -1361,22 +1396,6 @@
           height: 0%
           @include transition(top, 100ms, linear)
 
-          .marker
-            display: block
-            position: absolute
-            top: -6px
-            left: 0px
-            width: 2px
-            height: 14px
-
-          .marker:after
-            content: ""
-            position: absolute
-            top: 6px
-            left: -6px
-            width: 14px
-            height: 2px
-
           .activate-it
             display: block
 
@@ -1391,16 +1410,6 @@
 
               h3
                 font: normal normal normal 10px/10px Helvetica, Arial, sans-serif
-
-        .work.stuff
-          .marker,
-          .marker:after
-            background-color: $yellow
-
-        .world.stuff
-          .marker,
-          .marker:after
-            background-color: $blue
 
         .big.stuff
           width: 41%

@@ -123,26 +123,38 @@ class Legwork.Application
   | Build the lifelines object.
   *----------------------------------------###
   getLifelines: ->
-    obj = {
-      'twitter': {
-        'color': 'rgba(247, 142, 198, 1)',
-        'coords': []
-      },
-      'work': {
-        'color': 'rgba(234, 233, 56, 1)',
-        'coords': []
-      },
-      'world': {
-        'color': 'rgba(151, 213, 242, 1)',
-        'coords': []
-      }
-    }
+    levels = 8
+    side = 'l'
+    colors = [
+      'rgba(234, 233, 56, 0.0375)',
+      'rgba(151, 213, 242, 0.0375)'
+    ]
+    obj = []
+
+    for item, i in colors
+      for j in [0..(levels - 1)]
+        line = {
+          'color': colors[i],
+          'coords': [],
+          'tightness': (Math.random() * 1 + (i * 0.5)) + 2,
+          'weight': (Math.random() * 50) + (j * 12)
+        }
+
+        obj.push(line)
 
     for stuff, id in Legwork.home.layout
-      category = @getStuffType(stuff.type).replace(/animated|sequenced/g, '')
-      
-      if category isnt ''
-        obj[category].coords.push({'x':stuff.position[1], 'y':stuff.position[0]})
+      if @getStuffType(stuff.type) is 'sequenced'
+        for item, i in obj
+          if i % 8 is 0
+            xpos = (Math.random() * 0.5)
+            ypos = stuff.position[0] + ((Math.random() / 4) + 0.1)
+
+            if side is 'r'
+              xpos += 0.5
+
+          item.coords.push({'x':xpos, 'y':ypos})
+
+        side = if side is 'r' then 'l' else 'r'
 
     return obj
 
@@ -171,12 +183,13 @@ class Legwork.Application
   | Couldn't have done this without
   | http://bit.ly/tvuzR4. Thanks CBH!
   *----------------------------------------###
-  lines: (obj, width, tightness) ->
+  lines: (obj) ->
     p = 0
     points = obj.coords
+    tightness = obj.tightness
 
     @line_ctx.strokeStyle = obj.color
-    @line_ctx.lineWidth = width
+    @line_ctx.lineWidth = obj.weight + Math.round(Math.random() * 20)
 
     @line_ctx.beginPath()
     @line_ctx.moveTo(@getOffset(points[0].x), @getOffset(points[0].y))
@@ -236,7 +249,7 @@ class Legwork.Application
     @line_ctx.translate(0, -Legwork.$wn.scrollTop())
 
     for key, value of @lifelines
-      @lines(value, 1.25, 3)
+      @lines(value)
 
   ###
   *------------------------------------------*
@@ -450,7 +463,7 @@ class Legwork.Application
       $t.css(pos)
 
       if (+pos.top.replace(/px/, '')) < Legwork.$wn.height()
-        $t.addClass('ignore')
+        #$t.addClass('ignore')
       else
         $t.removeClass('ignore')
 
@@ -547,7 +560,7 @@ class Legwork.Application
       .one('scroll', @onScrollStart)
 
     if Legwork.app_width >= 1025
-      @$canvas_wrap.stop(true, false).animate({'opacity':0.25}, 250, 'linear')
+      @$canvas_wrap.stop(true, false).animate({'opacity':0.666}, 250, 'linear')
 
   ###
   *------------------------------------------*
@@ -630,7 +643,7 @@ class Legwork.Application
     if category is 'sequenced'
       @playSequence($t, 'in')
     else
-      $t.find('.activate-it').fadeIn(250)
+      #$t.find('.activate-it').fadeIn(250)
 
     $t.one('Legwork.deactivate', @onStuffDeactivate)
 

@@ -40,20 +40,17 @@ class Legwork.Application
 
     # Class vars
     @$menu_btn = $('#menu-btn')
-    @$bg_wrap = $('#wrap-the-background')
     @$canvas_wrap = $('#wrap-the-canvas')
     @$lines = $('#lines')
-    @$line_wrap = $('#wrap-the-lines')
     @$stuff_wrap = $('#wrap-the-stuff')
     @$stuff_reveal = $('#reveal-the-stuff')
     @$detail = $('#detail')
     @$detail_inner = $('#detail-inner')
     @$detail_close = $('#detail-close-btn')
-    @$related_drawer = $('#related-drawer')
 
     @History = window.History
     @stuff = []
-    @lifelines = @getLifelines()
+    @lifelines = []
     @line_ctx = @$lines[0].getContext('2d')
     @twitter_index = 0
     @scroll_timeout = 0
@@ -105,6 +102,7 @@ class Legwork.Application
   *----------------------------------------###
   onLoadComplete: (e) =>
     @build()
+    @lifelines = @getLifelines()
 
     @$stuff_reveal.delay(111).animate
       'width':'0%'
@@ -126,7 +124,6 @@ class Legwork.Application
     levels = 8
     side = 'l'
     colors = [
-      'rgba(234, 233, 56, 0.0375)',
       'rgba(151, 213, 242, 0.0375)'
     ]
     obj = []
@@ -137,7 +134,7 @@ class Legwork.Application
           'color': colors[i],
           'coords': [],
           'tightness': (Math.random() * 1 + (i * 0.5)) + 2,
-          'weight': (Math.random() * 50) + (j * 12)
+          'weight': (Math.random() * 50) + (j * 20)
         }
 
         obj.push(line)
@@ -281,16 +278,16 @@ class Legwork.Application
       # Container
       $container = $(JST['desktop/templates/stuff'](stuff))
       $content = ''
-      $parent = if category is 'sequenced' or category is 'animated' then @$bg_wrap else @$stuff_wrap
 
       # Content
       switch category
         when 'sequenced'
           $content = $(JST['desktop/templates/sequence'](stuff))
-          $('#' + stuff.content[0]).addClass('video-in').appendTo($content)
-          $('#' + stuff.content[1]).addClass('video-out').appendTo($content)
-        when 'animated'
-          $content = $(JST['desktop/templates/animation'](stuff))
+
+          $vid_wrap = $content.find('.sequenced-content-wrap')
+
+          $('#' + stuff.content[0]).addClass('video-in').appendTo($vid_wrap)
+          $('#' + stuff.content[1]).addClass('video-out').appendTo($vid_wrap)
         when 'twitter'
           $content = $(JST['desktop/templates/twitter'](@getNextTweet()))
         when 'work'
@@ -303,7 +300,7 @@ class Legwork.Application
           $content = $(JST['desktop/templates/world'](data))
 
       # Append to DOM
-      $container.append($content).appendTo($parent)
+      $container.append($content).appendTo(@$stuff_wrap)
 
       # Initial Event
       $container
@@ -323,7 +320,7 @@ class Legwork.Application
   | What type of stuff are we dealing with?
   *----------------------------------------###
   getStuffType: (t) ->
-    return t.replace(/\s|big|small|left|right|stuff|ignore/g, '')
+    return t.replace(/\s|cf|left|right|stuff/g, '')
 
   ###
   *------------------------------------------*
@@ -337,7 +334,7 @@ class Legwork.Application
       if $t.offset().top < Legwork.event_horizon
         $t.trigger('Legwork.activate')
       else
-        $t.not('.ignore').trigger('Legwork.deactivate')
+        $t.trigger('Legwork.deactivate')
 
   ###
   *------------------------------------------*
@@ -348,9 +345,9 @@ class Legwork.Application
   getNextTweet: ->
     tweet = '0' #Legwork.twitter[@twitter_index]
     text = '' #tweet.text
-    timestamp = 'now' #tweet.created_at
+    timestamp = 0 #tweet.created_at
     date = ''
-    source = 'source' #tweet.source
+    source = '' #tweet.source
 
     # test
     text = 'This rad tweet is custom built for testing a #hashtag and a @mention of someone and is exactly 140 characters long. <a href="legworkstudio.com" target="_new">http://legworkstudio.com</a>'
@@ -396,8 +393,7 @@ class Legwork.Application
 
     return {
       'text': text,
-      'date': date,
-      'source': source
+      'details': '10 years ago via a fax machine' #date + source
     }
 
   ###
@@ -458,14 +454,6 @@ class Legwork.Application
   | Compute layout for current window width.
   *----------------------------------------###
   layout: ->
-    for $t, index in @stuff
-      pos = @getLayoutOffset($t.data('position'), Legwork.app_width)
-      $t.css(pos)
-
-      if (+pos.top.replace(/px/, '')) < Legwork.$wn.height()
-        #$t.addClass('ignore')
-      else
-        $t.removeClass('ignore')
 
   ###
   *------------------------------------------*
@@ -476,23 +464,11 @@ class Legwork.Application
   finishLayout: ->
     @$lines
       .attr('width', Legwork.app_width)
-      .attr('height', Math.floor(Legwork.$wn.height() * 0.66))
+      .attr('height', Math.floor(Legwork.$wn.height() * 0.56))
 
     @$canvas_wrap.show()
 
     Legwork.$wn.trigger('scroll')
-
-  ###
-  *------------------------------------------*
-  | getLayoutOffset:object (-)
-  |
-  | p:array - [top, left]
-  | w:number - current container width
-  |
-  | Get the position for the passed coords.
-  *----------------------------------------###
-  getLayoutOffset: (p, w) ->
-    return {'top': Math.floor(w * p[0]) + 'px'}
 
   ###
   *------------------------------------------*
@@ -542,7 +518,7 @@ class Legwork.Application
     clearTimeout(@scroll_timeout)
     @scroll_timeout = setTimeout(@onScrollComplete, 333)
 
-    Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() * 0.666)) + 34
+    Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() * 0.56)) + 54
 
     if Legwork.app_width >= 1025
       @doLines()
@@ -597,12 +573,8 @@ class Legwork.Application
 
     if Legwork.app_width < 1025
       $('.sequenced-inner').find('video').hide()
-      $('.activate-it').css('display', '')
 
     if Legwork.app_width < 740
-      $('.stuff').addClass('no-position')
-    else
-      $('.stuff').removeClass('no-position')
       @layout()
 
   ###
@@ -662,7 +634,7 @@ class Legwork.Application
     if category is 'sequenced'
       @playSequence($t, 'out')
     else
-      $t.find('.activate-it').fadeOut(250)
+      #$t.find('.activate-it').fadeOut(250)
 
     $t.one('Legwork.activate', @onStuffActivate)
 

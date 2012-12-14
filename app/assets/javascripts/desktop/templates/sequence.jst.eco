@@ -1,3 +1,7 @@
-<div class="sequenced-inner" style="background-image: url(<%= @alt_content %>)">
-  <h1>Q: DUDES, WHAT KIND OF MUSIC DO YOU LIKE? A: STRAIGHT FUCKING METAL.</h1>
+<div class="sequenced-inner">
+  <div class="sequenced-content-wrap" style="background-image: url(<%= @alt_content %>)">
+    <div class="sequenced-title-wrap">
+      <h1><%- @title %></h1>
+    </div>
+  </div>
 </div>

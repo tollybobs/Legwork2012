@@ -1,8 +1,10 @@
 <div class="twitter-inner activate-it">
-  <div class="twitter-details">
-    <h2><%= @date %></h2>
-    <h3>Via <%= @source %></h3>
+  <div class="tweet-one">
+    <p><%- @text %></p>
+    <span class="twitter-details"><%= @details %></span>
   </div>
-  <div class="twitter-logo"></div>
-  <p><%- @text %></p>
+  <div class="tweet-two">
+    <p><%- @text %></p>
+    <span class="twitter-details"><%= @details %></span>
+  </div>
 </div>

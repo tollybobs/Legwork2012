@@ -12,163 +12,53 @@ Legwork.work["diesel-denim-2011"] = {
 	// project metadata
 	"client": "Diesel",
 	"project": "Fall / Winter 2011",
-	"description_title": "Title",
-	"description": "Lorem ipsum.",
-	"url": "http://legworkstudio.com",
 	"thumbnail": "<%= asset_path 'desktop/work-diesel.jpg' %>", // NOTE: 570 x 340
-	"background": {
-		// option 1
-		// "type": "video",
-		// "url": "<%= asset_path 'desktop/some-video' %>"
-
-		// option 2
-		 
-		"type": "image",
-		"url": "<%= asset_path 'desktop/title-screen-fpo.jpg' %>"
-		
-	},
-	"tagline": "X Marks the Spot",
-	"overview": "We took Diesel's island themed denim catalog and turned it into a digital experience built with HTML5 that takes advantage of the newest capabilities of modern browsers on the desktop and devices.",
-	
-	// additional overview (credits)
-	"credits": [
-		"Wieden+Kennedy",
-		"Modeset"
-	],
-
-	// services
-	"services": [
-		"Branding",
-		"Illustration",
-		"UX / UI",
-		"Web Development"
-	],
-
-	// recognition
-	"recognition": [
-		"FWA SOTD",
-		"CommArts Web Pick",
-		"SXSW Finalist",
-		"Webby Awards Honorable Mention"
-	],
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
 
 	// slides
 	"slides": [
-
-		// panning
+		// title screen
 		{
-			"type": Legwork.Slides.PanningSlide,
-			"images": {
-				"background": "<%= asset_path 'desktop/work/diesel-denim-2011/panning-bg.jpg' %>",
-				"pan_img": "<%= asset_path 'desktop/work/diesel-denim-2011/panning-sketches.png' %>"
-			}
-		},
+			"type": Legwork.Slides.TitleScreen,
+			"client": "Diesel",
+			"project": "Fall / Winter 2011",
+			
+			"tagline": "X Marks the Spot",
+			"overview": "We took Diesel's island themed denim catalog and turned it into a digital experience built with HTML5 that takes advantage of the newest capabilities of modern browsers on the desktop and devices.",
 
-		// pull quote
-		{
-			"type": Legwork.Slides.PullQuote,
-			"quote": "By trusting our approach Airwalk traffic has increased over 100%. Within a year, more people will have visited this site than the entire population of San Antonio, TX, the seventh largest city in the US."
-		},
-
-		// media (w/ vimeo)
-		{
-			"type": Legwork.Slides.Media,
-			"background_color": "#89af60",
-			"title": "Climate Reality Project",
-			"text": [
-				"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
-				"Created a comprehensive illustration library (elements, characters, homes)",
-				"2D and 3D styles composited for final animation",
-				"Custom music and sound design"
+			// additional overview (credits)
+			"credits": [
+				"Wieden+Kennedy",
+				"Modeset"
 			],
-			"media": {
-				"type": "vimeo",
-				"id": "53487338"
-			}
-		},
 
-		// media (w/ image)
-		{
-			"type": Legwork.Slides.Media,
-			"background_color": "#9AD5F0",
-			"title": "Diesel Denim 2011",
-			"text": [
-				"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
-				"Created a comprehensive illustration library (elements, characters, homes)",
-				"2D and 3D styles composited for final animation",
-				"Custom music and sound design"
+			// services
+			"services": [
+				"Branding",
+				"Illustration",
+				"UX / UI",
+				"Web Development"
 			],
-			"media": {
+
+			// recognition
+			"recognition": [
+				"FWA SOTD",
+				"CommArts Web Pick",
+				"SXSW Finalist",
+				"Webby Awards Honorable Mention"
+			],
+			// option 1 - Launch project in new tab
+			"url": "http://diesel.legworkstudio.com",
+			// option 2 - Callout to trigger next slide
+			//"callout": "Details",
+			
+			"background": {
+				// option 1
+				// "type": "video",
+				// "url": "<%= asset_path 'desktop/some-video' %>"
+				// option 2
 				"type": "image",
-				"url": "<%= asset_path 'desktop/work-diesel.jpg' %>"
+				"url": "<%= asset_path 'desktop/title-screen-fpo.jpg' %>"
 			}
-		},
-
-		// full screen (w/ image)
-		{
-			"type": Legwork.Slides.FullScreen,
-			"media": {
-				"type": "image",
-				"url": "<%= asset_path 'desktop/work-airwalk-motion.jpg' %>"
-			}
-		},
-
-		// slideshow
-		{
-			"type": Legwork.Slides.Slideshow,
-			"background_color": "#89af60",
-			"title": "Photoshop Magic",
-			"text": [
-				"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
-				"Created a comprehensive illustration library (elements, characters, homes)",
-				"2D and 3D styles composited for final animation",
-				"Custom music and sound design"
-			],
-			"slides": [
-				{
-					"type": "vimeo",
-					"id": "52264316"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/work-diesel.jpg' %>"
-				},
-				{
-					"type": "vimeo",
-					"id": "53487338"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/work-diesel.jpg' %>"
-				}
-			]
 		}
-
-//	// text
-//	{
-//		"type": "text",
-//		"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-//		"pages": [
-//			{
-//				"title": "Some Title",
-//				"text": "Lorem ipsum."
-//			},
-//			{
-//				"title": "Some Title",
-//				"text": "Lorem ipsum."
-//			},
-//			{
-//				"title": "Some Title",
-//				"text": "Lorem ipsum."
-//			}
-//		]
-//	}
 	]
 }

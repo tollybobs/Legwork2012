@@ -22,6 +22,16 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
+  | build:$el (-)
+  |
+  | Build DOM based on model.
+  *----------------------------------------###
+  build: ->
+    @$el = $(JST["desktop/templates/slides/title-screen"](@model))
+    return @$el
+
+  ###
+  *------------------------------------------*
   | activate:void (-)
   |
   | Activate new/current slide

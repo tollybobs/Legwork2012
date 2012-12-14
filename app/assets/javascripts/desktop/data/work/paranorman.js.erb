@@ -12,120 +12,135 @@ Legwork.work["paranorman"] = {
 	// project metadata
 	"client": "Paranorman",
 	"project": "Fuggin' Website Bro",
-	"description_title": "Title",
-	"description": "Lorem ipsum.",
-	"url": "http://legworkstudio.com",
 	"thumbnail": "<%= asset_path 'desktop/work-paranorman.jpg' %>", // NOTE: 570 x 340
-	"background": {
-		// option 1
-		"type": "video",
-		"url": "<%= asset_path 'desktop/some-video' %>"
-
-		// option 2
-		/* 
-		"type": "image",
-		"url": "<%= asset_path 'desktop/some-image.jpg' %>"
-		*/
-	},
-
-	// services
-	"services": [
-		"Branding",
-		"Illustration",
-		"UX / UI",
-		"Web Development"
-	],
-
-	// recognition
-	"recognition": [
-		"FWA SOTD",
-		"CommArts Web Pick",
-		"SXSW Finalist",
-		"Webby Awards Honorable Mention"
-	],
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
 
 	// slides
 	"slides": [
 
 		// title screen
 		{
-			"type": "title-screen",
-			"background": "<%= asset_path 'desktop/title-screen-fpo-2.jpg' %>"
+			"type": Legwork.Slides.TitleScreen,
+			"client": "Paranorman",
+			"project": "Fuggin' Website Bro",
+			
+			"tagline": "X Marks the Spot",
+			"overview": "We took Paranorman and turned it into a digital experience built with HTML5 that takes advantage of the newest capabilities of modern browsers on the desktop and devices.",
+
+			// services
+			"services": [
+				"Branding",
+				"Illustration",
+				"UX / UI",
+				"Web Development"
+			],
+
+			// recognition
+			"recognition": [
+				"FWA SOTD",
+				"CommArts Web Pick",
+				"SXSW Finalist",
+				"Webby Awards Honorable Mention"
+			],
+			// option 1 - Launch project in new tab
+			//"url": "http://paranorman.com",
+			// option 2 - Callout to trigger next slide
+			"callout": "Details",
+			
+			"background": {
+				// option 1
+				// "type": "video",
+				// "url": "<%= asset_path 'desktop/some-video' %>"
+				// option 2
+				"type": "image",
+				"url": "<%= asset_path 'desktop/title-screen-fpo-2.jpg' %>"
+			}
 		},
 
-		// fullscreen
+		// panning
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
+			"type": Legwork.Slides.PanningSlide,
+			"images": {
+				"background": "<%= asset_path 'desktop/work/paranorman-2012/panning-bg.jpg' %>",
+				"pan_img": "<%= asset_path 'desktop/work/paranorman-2012/panning-sketches.png' %>"
+			}
 		},
 
 		// pull quote
 		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
+			"type": Legwork.Slides.PullQuote,
+			"quote": "By trusting our approach Airwalk traffic has increased over 100%. Within a year, more people will have visited this site than the entire population of San Antonio, TX, the seventh largest city in the US."
 		},
 
-		// text
+		// media (w/ vimeo)
 		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
-
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
+			"type": Legwork.Slides.Media,
+			"background_color": "#89af60",
+			"title": "Paranorman Walk Through",
+			"text": [
+				"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
+				"Created a comprehensive illustration library (elements, characters, homes)",
+				"2D and 3D styles composited for final animation",
+				"Custom music and sound design"
+			],
+			"media": {
 				"type": "vimeo",
-				"url": "vimeo_id"
+				"id": "49792510"
+			}
+		},
 
-				// option 2
-				/*
+		// media (w/ image)
+		{
+			"type": Legwork.Slides.Media,
+			"background_color": "#9AD5F0",
+			"title": "Paranorman 2012",
+			"text": [
+				"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
+				"Created a comprehensive illustration library (elements, characters, homes)",
+				"2D and 3D styles composited for final animation",
+				"Custom music and sound design"
+			],
+			"media": {
 				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+				"url": "<%= asset_path 'desktop/work-paranorman.jpg' %>"
+			}
+		},
+
+		// full screen (w/ image)
+		{
+			"type": Legwork.Slides.FullScreen,
+			"media": {
+				"type": "image",
+				"url": "<%= asset_path 'desktop/title-screen-fpo-2.jpg' %>"
 			}
 		},
 
 		// slideshow
 		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
+			"type": Legwork.Slides.Slideshow,
+			"background_color": "#89af60",
+			"title": "Random Slides of Stuff",
+			"text": [
+				"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
+				"Created a comprehensive illustration library (elements, characters, homes)",
+				"2D and 3D styles composited for final animation",
+				"Custom music and sound design"
+			],
 			"slides": [
 				{
 					"type": "vimeo",
-					"url": "vimeo_id"
+					"id": "52264316"
 				},
 				{
 					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
+					"url": "<%= asset_path 'desktop/work/paranorman-2012/slideshow-fpo.jpg' %>"
+				},
+				{
+					"type": "vimeo",
+					"id": "53487338"
+				},
+				{
+					"type": "image",
+					"url": "<%= asset_path 'desktop/work-paranorman.jpg' %>"
 				}
 			]
 		}

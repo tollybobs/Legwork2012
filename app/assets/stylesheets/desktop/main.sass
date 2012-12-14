@@ -515,72 +515,47 @@
                     margin: 0 0 15px
                     font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
 
-                .project-callouts
-                  position: relative
-                  clear: both
+                ul.project-callouts
                   margin: 0
-                  width: 100%
-                  height: 50px
-                  border: 2px solid $white
+                  padding: 30px 0 0
+                  border-top: 2px solid $white
                   display: block
+                  clear: both
 
-                  .project-btn
-                    position: absolute
-                    top: 0px
-                    left: 0px
-                    width: 50%
-                    height: 100%
-                    cursor: pointer
+                  li
+                    position: relative
+                    height: 20px
+                    display: block
 
-                    .btn-fill
-                      position: absolute
-                      top: 0px
-                      left: 0px
-                      width: 0%
-                      height: 100%
-                      background-color: $less_black
-                      @include transition(width, 150ms, ease-out)
-
-                    a
-                      position: absolute
-                      top: 0px
-                      left: 0px
-                      width: 100%
-                      height: 100%
+                    a, h4
+                      position: relative
+                      padding: 0 28px 0 0
                       text-decoration: none
+                      font: normal normal normal 14px/20px "MuseoSlab700", Verdana, sans-serif
                       color: $white
-                      display: block
+                      cursor: pointer
+                      display: inline-block
 
-                    span
+                    &:nth-child(2)
+                      margin: 10px 0 0
+
+                  li
+                    a span, h4 span
                       position: absolute
-                      top: 0px
-                      left: 0px
-                      height: 100%
-                      padding-left: 48px
-                      font: bold normal normal 12px/50px Helvetica, Arial, sans-serif
+                      top: 50%
+                      right: 4px
+                      width: 15px
+                      height: 15px
+                      margin: -8px 0 0
+                      background: asset-url("desktop/work/callout-icons.png", image) no-repeat
+                      @include transition(right, 150ms, ease-out)
 
-                      &:after
-                        content: ''
-                        position: absolute
-                        top: 50%
-                        left: 18px
-                        width: 14px
-                        height: 14px
-                        margin: -7px 0 0
-                        background-color: $white
-                        @include rounded(14px)
+                    h4 span
+                      background: asset-url("desktop/work/callout-icons.png", image) no-repeat 0px -30px
 
-                  .project-btn:hover
-                    .btn-fill
-                      width: 100%
-
-                  .project-btn:nth-child(2)
-                    left: auto
-                    right: 0px
-                    border-left: 1px solid $white
-
-                  .project-btn:only-child
-                    width: 100%
+                  li
+                    a:hover span, h4:hover span
+                      right: 0px
 
             // panning slide
             .panning
@@ -919,9 +894,6 @@
 
       #detail-close-btn:after
         @include rotate(-45deg)
-
-      #related-drawer
-        display: none
 
       #detail-pro-tip
         position: absolute
@@ -1449,67 +1421,6 @@
     #detail
       #detail-close-btn
         left: 26px
-
-      #related-drawer
-        display: block
-        position: absolute
-        bottom: 0px
-        left: 0px
-        width: 100%
-        height: 200px
-        margin-bottom: -251px
-
-        #related-btn
-          position: absolute
-          top: -51px
-          left: 26px
-          width: auto
-          height: 50px
-
-          #related-btn-icon
-            position: absolute
-            top: 0px
-            left: 0px
-            width: 50px
-            height: 50px
-            background-color: $black
-            @include nav_shadow
-
-          #related-btn-icon:before,
-          #related-btn-icon:after
-            content: ""
-            position: absolute
-            top: 17px
-            left: 20px
-            width: 5px
-            height: 5px
-            border-top: 3px solid $white
-            border-left: 3px solid $white
-            @include rotate(45deg)
-
-          #related-btn-icon:after
-            top: 27px
-            @include rotate(225deg)
-
-          #related-btn-label
-            display: block
-            position: absolute
-            top: 0px
-            left: 51px
-            width: auto
-            height: 50px
-            padding: 0 20px
-            font: normal normal bold 12px/50px Helvetica, Arial, sans-serif
-            color: $white
-            white-space: nowrap
-            background-color: $black
-            @include nav_shadow
-
-        #related-inner
-          width: 100%
-          height: 200px
-          background-color: $black
-          @include nav_shadow
 
     // footer
     footer

@@ -3,8 +3,7 @@
 Copyright (c) 2012 Legwork Studio. All Rights Reserved. Your wife is hot.
 
 ###
-
-class Legwork.Controllers.SlidesController
+class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
@@ -15,11 +14,9 @@ class Legwork.Controllers.SlidesController
   | Construct the fuggin' thing.
   *----------------------------------------###
   constructor: (options) ->
+    super(options)
+
     # Class vars
-    @options = options
-    @model = options.model
-    @zone = options.zone
-    @slug = options.slug
     @slide_views = []
     @protime
 
@@ -30,13 +27,14 @@ class Legwork.Controllers.SlidesController
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/#{@zone}-detail"]({model: @model, slug: @slug, zone: @zone}))
+    super()
+
     $slides_wrap = @$el.find('.slides')
     @$next_btn = @$el.find('.next-slide-btn')
     @$current_cnt = @$el.find('.current-cnt')
 
-    title_screen = new Legwork.Slides.TitleScreen({model: @model, $el: $('.title-screen', @$el)})
-    @slide_views.push(title_screen)
+    # title_screen = new Legwork.Slides.TitleScreen({model: @model, $el: $('.title-screen', @$el)})
+    # @slide_views.push(title_screen)
     
     for slide in @model.slides
       slide_view = new slide.type({model: slide})
@@ -44,7 +42,6 @@ class Legwork.Controllers.SlidesController
       @slide_views.push(slide_view)
 
     @$slides = @$el.find('.slide')
-
     if Legwork.pro_tip is true then @showProTip()
 
     return @$el
@@ -66,14 +63,15 @@ class Legwork.Controllers.SlidesController
   | Shows the element
   *----------------------------------------###
   activate: ->
-    @resetSlides()
+    super()
 
-    setTimeout =>
-      @$el.addClass('open')
-    , 0
+    @resetSlides()
 
     @$next_btn.on Legwork.click, @nextSlide
     Legwork.$doc.on 'keyup.slider', @handleArrowKeys
+    
+    @$el.find('.project-callouts h4').on Legwork.click, =>
+      @$next_btn.trigger Legwork.click
     
     @onResize = _.debounce(@afterResize, 300)
     Legwork.$wn.on('resize', @onResize)
@@ -85,13 +83,31 @@ class Legwork.Controllers.SlidesController
   | Hides the element
   *----------------------------------------###
   deactivate: ->
-    @$el.removeClass('open')
+    super()
+
     @current_slide_view.deactivate()
 
     @$next_btn.off Legwork.click, @nextSlide
     Legwork.$doc.off 'keyup.slider', @handleArrowKeys
 
     Legwork.$wn.off('resize', @onResize)
+
+  ###
+  *------------------------------------------*
+  | resetSlides:void (-)
+  |
+  | Reset the slides so that the
+  | title-screen slide is first/current
+  *----------------------------------------###
+  resetSlides: ->
+    @current_slide_view = @slide_views[0]
+    @current_slide_index = 0
+
+    @$slides.removeClass('current').css('left', '100%')
+    @$slides.eq(@current_slide_index).addClass('current').css('left', '0%')
+
+    @$current_cnt.text(@current_slide_index + 1)
+    @$el.find('.total-cnt').text(@slide_views.length)
 
   ###
   *------------------------------------------*
@@ -135,23 +151,6 @@ class Legwork.Controllers.SlidesController
       setTimeout =>
         $('#detail-pro-tip').remove()
       , 333
-
-  ###
-  *------------------------------------------*
-  | resetSlides:void (-)
-  |
-  | Reset the slides so that the
-  | title-screen slide is first/current
-  *----------------------------------------###
-  resetSlides: ->
-    @current_slide_view = @slide_views[0]
-    @current_slide_index = 0
-
-    @$slides.removeClass('current').css('left', '100%')
-    @$slides.eq(@current_slide_index).addClass('current').css('left', '0%')
-
-    @$current_cnt.text(@current_slide_index + 1)
-    @$el.find('.total-cnt').text(@slide_views.length)
 
   ###
   *------------------------------------------*
@@ -219,11 +218,8 @@ class Legwork.Controllers.SlidesController
   handleArrowKeys: (e) =>
     kc = e.keyCode
 
-    if kc is 39
-      @nextSlide()
-
-    if kc is 37
-      @priorSlide()
+    if kc is 39 then @nextSlide()
+    if kc is 37 then @priorSlide()
 
 
 
@@ -233,4 +229,3 @@ class Legwork.Controllers.SlidesController
 
 
 
-    

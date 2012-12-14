@@ -1,50 +1,5 @@
 <div class="slides-wrapper <%= @zone %>" id="<%= @slug %>-slides">
   <div class="slides">
-    <div class="slide title-screen" style="background-image: url(<%= @model.background.url %>)">
-      <div class="slide-inner">
-        <div class="slide-inner-content">
-          <div class="project-title">
-            <h2><%= @model.client %></h2>
-            <h3><%= @model.project %></h3>
-          </div>
-          <div class="project-info">
-            <h4><%= @model.tagline %></h4>
-            <p><%= @model.overview %></p>
-            <% if @model.credits: %>
-              <ul>
-                <% for item in @model.credits: %>
-                  <li><%= item %></li>
-                <% end %>
-              </ul>
-            <% end %>
-            <ul class="services">
-              <li>Services</li>
-              <% for item in @model.services: %>
-                <li><%= item %></li>
-              <% end %>
-            </ul>
-            <ul class="recognition">
-              <li>Recognition</li>
-              <% for item in @model.recognition: %>
-                <li><%= item %></li>
-              <% end %>
-            </ul>
-            <div class="project-callouts">
-              <% if @model.url: %>
-                <div class="project-btn">
-                  <div class="btn-fill"></div>
-                  <a href="<%= @model.url %>" target="_blank"><span>Launch Project</span></a>
-                </div>
-              <% end %>
-              <div class="project-btn next-slide-btn">
-                <div class="btn-fill"></div>
-                <span>Project Details</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   <div class="slide-controls next-slide-btn">
     <div class="slide-controls-tab">

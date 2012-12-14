@@ -25,9 +25,8 @@ class Legwork.Application
 
     Legwork.sequences = {}
     Legwork.slide_controllers = {}
-    Legwork.current_slides_controller = null
+    Legwork.current_detail_controller = null
 
-    Legwork.pro_tip = true
     Legwork.click = 'click'
     Legwork.mousedown = 'mousedown'
     Legwork.mouseup = 'mouseup'
@@ -748,8 +747,6 @@ class Legwork.Application
           ,
             'duration': 500
             'easing': 'easeInOutExpo'
-            'step': (now, fx) =>
-              @$related_drawer.css('margin-bottom', -201 + now + 'px')
         , 1000
 
   ###
@@ -761,19 +758,27 @@ class Legwork.Application
   | Load a detail item.
   *----------------------------------------###
   loadDetail: (item) ->
+    model = Legwork[item[0]][item[1]]
+
     if Legwork.slide_controllers[item[1]]?
       controller = Legwork.slide_controllers[item[1]]
     else
-      controller = Legwork.slide_controllers[item[1]] = new Legwork.Controllers.SlidesController
-        model: Legwork[item[0]][item[1]]
-        zone: item[0]
-        slug: item[1]
+      if model.slides.length > 1
+        controller = Legwork.slide_controllers[item[1]] = new Legwork.CaseStudyDetail
+          model: model
+          zone: item[0]
+          slug: item[1]
+      else
+        controller = Legwork.slide_controllers[item[1]] = new Legwork.WorkDetail
+          model: model
+          zone: item[0]
+          slug: item[1]
 
       @$detail_inner.append controller.build()
       controller.initialize()
 
     controller.activate()
-    Legwork.current_slides_controller = controller
+    Legwork.current_detail_controller = controller
 
   ###
   *------------------------------------------*
@@ -783,9 +788,8 @@ class Legwork.Application
   *----------------------------------------###
   resetDetail: () ->
     @$detail_close.css('margin-top', '-55px')
-    @$related_drawer.css('margin-bottom', '-256px')
     @$detail.fadeOut 'fast', =>
-      Legwork.current_slides_controller.deactivate()
+      Legwork.current_detail_controller.deactivate()
 
   ###
   *------------------------------------------*

@@ -1,1 +1,1 @@
-<div class="<%= @type %> stuff" data-position="[<%= @position[0] %>, <%= @position[1] %>]"></div>
+<div class="<%= @type %> stuff cf"></div>

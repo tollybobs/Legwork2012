@@ -18,7 +18,6 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     # Class vars
     @slide_views = []
-    @protime
 
   ###
   *------------------------------------------*
@@ -33,16 +32,12 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     @$next_btn = @$el.find('.next-slide-btn')
     @$current_cnt = @$el.find('.current-cnt')
 
-    # title_screen = new Legwork.Slides.TitleScreen({model: @model, $el: $('.title-screen', @$el)})
-    # @slide_views.push(title_screen)
-    
     for slide in @model.slides
       slide_view = new slide.type({model: slide})
       $slides_wrap.append slide_view.build()
       @slide_views.push(slide_view)
 
     @$slides = @$el.find('.slide')
-    if Legwork.pro_tip is true then @showProTip()
 
     return @$el
 
@@ -69,10 +64,10 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     @$next_btn.on Legwork.click, @nextSlide
     Legwork.$doc.on 'keyup.slider', @handleArrowKeys
-    
+
     @$el.find('.project-callouts h4').on Legwork.click, =>
       @$next_btn.trigger Legwork.click
-    
+
     @onResize = _.debounce(@afterResize, 300)
     Legwork.$wn.on('resize', @onResize)
 
@@ -122,38 +117,6 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
-  | showProTip:void (-)
-  |
-  | Show Pro Tip once
-  *----------------------------------------###
-  showProTip: ->
-    if Legwork.pro_tip is true
-      $('#detail-pro-tip').addClass('instructor')
-
-      Legwork.$doc.one Legwork.click, @removeProTip
-      Legwork.$doc.one 'keyup.protip', @removeProTip
-
-      @protime = setTimeout(@removeProTip, 6000)
-
-  ###
-  *------------------------------------------*
-  | removeProTip:void (-)
-  |
-  | Remove Pro Tip after used once
-  *----------------------------------------###
-  removeProTip: ->
-    if Legwork.pro_tip is true
-      Legwork.pro_tip = false
-
-      clearTimeout(@protime)
-      $('#detail-pro-tip').removeClass('instructor')
-
-      setTimeout =>
-        $('#detail-pro-tip').remove()
-      , 333
-
-  ###
-  *------------------------------------------*
   | nextSlide:void (=)
   |
   | Next. Next slide.
@@ -164,7 +127,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     @old_slide_index = @current_slide_index
     @old_slide_view = @current_slide_view
-    
+
     @current_slide_index = if @current_slide_index < @slide_views.length - 1 then @current_slide_index + 1 else 0
     @current_slide_view = @slide_views[@current_slide_index]
     @current_slide_view.activate()

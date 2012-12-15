@@ -21,6 +21,7 @@ class Legwork.Controllers.BaseDetail
     @zone = options.zone
     @slug = options.slug
     @pro_tip = true
+    @protime
 
   ###
   *------------------------------------------*
@@ -45,7 +46,10 @@ class Legwork.Controllers.BaseDetail
   |
   | Shows the element
   *----------------------------------------###
-  activate: ->
+  activate: =>
+    @pro_tip = true
+    @showProTip()
+
     @$el.show()
     setTimeout =>
       @$el.addClass('open')
@@ -57,13 +61,42 @@ class Legwork.Controllers.BaseDetail
   |
   | Hides the element
   *----------------------------------------###
-  deactivate: ->
+  deactivate: =>
     @$el.removeClass('open')
     setTimeout =>
+      if @pro_tip is true then @removeProTip()
       @$el.hide()
     , 333
 
+  ###
+  *------------------------------------------*
+  | showProTip:void (-)
+  |
+  | Show Pro Tip once
+  *----------------------------------------###
+  showProTip: =>
+    $('#detail-pro-tip').show().addClass('instructor')
 
+    Legwork.$doc.one Legwork.click, @removeProTip
+    Legwork.$doc.one 'keyup.protip', @removeProTip
+
+    @protime = setTimeout(@removeProTip, 6666)
+
+  ###
+  *------------------------------------------*
+  | removeProTip:void (-)
+  |
+  | Remove Pro Tip after used once
+  *----------------------------------------###
+  removeProTip: =>
+    @pro_tip = false
+
+    clearTimeout(@protime)
+    $('#detail-pro-tip').removeClass('instructor')
+
+    setTimeout =>
+      $('#detail-pro-tip').hide()
+    , 333
 
 
 

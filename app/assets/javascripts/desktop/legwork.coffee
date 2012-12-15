@@ -796,7 +796,7 @@ class Legwork.Application
           zone: item[0]
           slug: item[1]
       else
-        controller = Legwork.slide_controllers[item[1]] = new Legwork.WorkDetail
+        controller = Legwork.slide_controllers[item[1]] = new Legwork.SingleDetail
           model: model
           zone: item[0]
           slug: item[1]

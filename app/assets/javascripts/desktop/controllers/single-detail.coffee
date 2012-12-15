@@ -4,7 +4,7 @@ Copyright (c) 2012 Legwork Studio. All Rights Reserved. Your wife is hot.
 
 ###
 
-class Legwork.WorkDetail extends Legwork.Controllers.BaseDetail
+class Legwork.SingleDetail extends Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
@@ -19,7 +19,6 @@ class Legwork.WorkDetail extends Legwork.Controllers.BaseDetail
 
     # Class vars
     @slide_views = []
-    @protime
 
   ###
   *------------------------------------------*
@@ -30,9 +29,6 @@ class Legwork.WorkDetail extends Legwork.Controllers.BaseDetail
   build: ->
     super()
 
-    # title_screen = new Legwork.Slides.TitleScreen({model: @model, $el: $('.title-screen', @$el)})
-    # @slide_views.push(title_screen)
-
     $slides_wrap = @$el.find('.slides')
 
     for slide in @model.slides
@@ -40,7 +36,7 @@ class Legwork.WorkDetail extends Legwork.Controllers.BaseDetail
       $slides_wrap.append slide_view.build()
       @slide_views.push(slide_view)
 
-    if Legwork.pro_tip is true then @showProTip()
+    @$slides = @$el.find('.slide')
 
     return @$el
 
@@ -66,11 +62,11 @@ class Legwork.WorkDetail extends Legwork.Controllers.BaseDetail
     @current_slide_view = @slide_views[0]
     @current_slide_view.activate()
 
-    @$el.find('.title-screen').css('left','0%')
+    @$slides.first().css('left','0%')
     @$el.find('.next-slide-btn').remove()
 
-    # @onResize = _.debounce(@afterResize, 300)
-    # Legwork.$wn.on('resize', @onResize)
+    @onResize = _.debounce(@afterResize, 300)
+    Legwork.$wn.on('resize', @onResize)
 
   ###
   *------------------------------------------*
@@ -83,8 +79,8 @@ class Legwork.WorkDetail extends Legwork.Controllers.BaseDetail
 
     @current_slide_view.deactivate()
 
-    @$el.find('.title-screen').css('left','100%')
-    # Legwork.$wn.off('resize', @onResize)
+    @$slides.first().css('left','100%')
+    Legwork.$wn.off('resize', @onResize)
 
   ###
   *------------------------------------------*
@@ -92,42 +88,10 @@ class Legwork.WorkDetail extends Legwork.Controllers.BaseDetail
   |
   | Call after resize complete
   *----------------------------------------###
-  # afterResize: =>
-  #   w = Legwork.$wn.width()
-  #   h = Legwork.$wn.height()
-  #   @current_slide_view.resize(w, h)
-
-  ###
-  *------------------------------------------*
-  | showProTip:void (-)
-  |
-  | Show Pro Tip once
-  *----------------------------------------###
-  showProTip: ->
-    if Legwork.pro_tip is true
-      $('#detail-pro-tip').addClass('instructor')
-
-      Legwork.$doc.one Legwork.click, @removeProTip
-      Legwork.$doc.one 'keyup.protip', @removeProTip
-
-      @protime = setTimeout(@removeProTip, 6000)
-
-  ###
-  *------------------------------------------*
-  | removeProTip:void (-)
-  |
-  | Remove Pro Tip after used once
-  *----------------------------------------###
-  removeProTip: ->
-    if Legwork.pro_tip is true
-      Legwork.pro_tip = false
-
-      clearTimeout(@protime)
-      $('#detail-pro-tip').removeClass('instructor')
-
-      setTimeout =>
-        $('#detail-pro-tip').remove()
-      , 333
+  afterResize: =>
+    w = Legwork.$wn.width()
+    h = Legwork.$wn.height()
+    @current_slide_view.resize(w, h)
 
 
 

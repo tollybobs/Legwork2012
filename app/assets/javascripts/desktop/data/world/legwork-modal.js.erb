@@ -14,84 +14,24 @@ Legwork.world["legwork-modal"] = {
 	"description": "They have magic powers.",
 	"thumbnail": "<%= asset_path 'desktop/world-code.jpg' %>", // NOTE: 570 x 340
 
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
-
 	// slides
 	"slides": [
 
-		// fullscreen
+		// media (w/ image)
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
-		},
-
-		// pull quote
-		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
-
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
-
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
+			"type": Legwork.Slides.Media,
+			"background_color": "#9AD5F0",
+			"title": "Legwork Modal v1.2",
+			"text": [
+				"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
+				"Created a comprehensive illustration library (elements, characters, homes)",
+				"2D and 3D styles composited for final animation",
+				"Custom music and sound design"
+			],
+			"media": {
 				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+				"url": "<%= asset_path 'desktop/world-code.jpg' %>"
 			}
-		},
-
-		// slideshow
-		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
 		}
 	]
 }

@@ -101,6 +101,8 @@ class Legwork.Application
   *----------------------------------------###
   onLoadComplete: (e) =>
     @build()
+
+    @$sequence = $('.sequenced')
     @lifelines = @getLifelines()
 
     @$stuff_reveal.delay(111).animate
@@ -123,6 +125,7 @@ class Legwork.Application
     levels = 8
     side = 'l'
     colors = [
+      #'rgba(234, 233, 56, 0.0375)',
       'rgba(151, 213, 242, 0.0375)'
     ]
     obj = []
@@ -138,19 +141,18 @@ class Legwork.Application
 
         obj.push(line)
 
-    for stuff, id in Legwork.home.layout
-      if @getStuffType(stuff.type) is 'sequenced'
-        for item, i in obj
-          if i % 8 is 0
-            xpos = (Math.random() * 0.5)
-            ypos = stuff.position[0] + ((Math.random() / 4) + 0.1)
+    @$sequence.each (index, elm)->
+      for item, i in obj
+        if i % levels is 0
+          xpos = (Math.random() * (Legwork.$wn.width() * 0.4))
+          ypos = $(elm).offset().top + (Math.random() * 300)
 
-            if side is 'r'
-              xpos += 0.5
+          if side is 'r'
+            xpos = Legwork.$wn.width() - xpos
 
-          item.coords.push({'x':xpos, 'y':ypos})
+        item.coords.push({'x':xpos, 'y':ypos})
 
-        side = if side is 'r' then 'l' else 'r'
+      side = if side is 'r' then 'l' else 'r'
 
     return obj
 
@@ -188,27 +190,27 @@ class Legwork.Application
     @line_ctx.lineWidth = obj.weight + Math.round(Math.random() * 20)
 
     @line_ctx.beginPath()
-    @line_ctx.moveTo(@getOffset(points[0].x), @getOffset(points[0].y))
+    @line_ctx.moveTo(points[0].x, points[0].y)
 
     for p in [1..(points.length - 1)]
 
       # For the second point set the it's control points
       if p is 1
-        points[p].c1x = @getOffset(points[p - 1].x)
-        points[p].c1y = @getOffset(points[p - 1].y)
+        points[p].c1x = points[p - 1].x
+        points[p].c1y = points[p - 1].y
 
       # For the penultimate point set the it's control points
       if p is (points.length - 1)
-        points[p].c2x = @getOffset(points[p].x)
-        points[p].c2y = @getOffset(points[p].y)
+        points[p].c2x = points[p].x
+        points[p].c2y = points[p].y
       else
 
         # Thanks to JORIKI and Pumbaa80 at stackexchange for all the help with this next bit!
 
         # Set some aliases for the previous, current and next points
-        a = [@getOffset(points[p - 1].x), @getOffset(points[p - 1].y)]
-        b = [@getOffset(points[p].x), @getOffset(points[p].y)]
-        c = [@getOffset(points[p + 1].x), @getOffset(points[p + 1].y)]
+        a = [points[p - 1].x, points[p - 1].y]
+        b = [points[p].x, points[p].y]
+        c = [points[p + 1].x, points[p + 1].y]
 
         # Get the change in the vectors
         delta_a = @vector_utils.subtract(b, a)
@@ -228,7 +230,7 @@ class Legwork.Application
         points[p + 1].c1y = b[1] + ((Math.sqrt(@vector_utils.sqr(delta_c[0]) + @vector_utils.sqr(delta_c[1])) / tightness) * mc[1])
 
       # lines
-      @line_ctx.bezierCurveTo(points[p].c1x, points[p].c1y, points[p].c2x, points[p].c2y, @getOffset(points[p].x), @getOffset(points[p].y))
+      @line_ctx.bezierCurveTo(points[p].c1x, points[p].c1y, points[p].c2x, points[p].c2y, points[p].x, points[p].y)
 
     @line_ctx.stroke()
 
@@ -246,18 +248,6 @@ class Legwork.Application
 
     for key, value of @lifelines
       @lines(value)
-
-  ###
-  *------------------------------------------*
-  | getOffset:void (-)
-  |
-  | v:number - value as % of width
-  |
-  | Get the offset of the passed val for
-  | the current app size.
-  *----------------------------------------###
-  getOffset: (v) ->
-    return (Math.floor(v * Legwork.app_width) + 1)
 
   ###
   *------------------------------------------*
@@ -465,6 +455,7 @@ class Legwork.Application
       .attr('width', Legwork.app_width)
       .attr('height', Math.floor(Legwork.$wn.height() * 0.56))
 
+    @lifelines = @getLifelines()
     @$canvas_wrap.show()
 
     Legwork.$wn.trigger('scroll')

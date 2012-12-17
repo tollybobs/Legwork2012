@@ -440,96 +440,105 @@
               background-size: cover
 
               .project-title
-                position: absolute
-                top: 50%
-                left: 26px
-                height: 50px
-                margin: -26px 0 0
+                margin: 0 50px 90px 26px
+                display: block
 
                 h2
                   margin: 0
                   font: normal normal normal 36px/36px "MuseoSlab700", Verdana, sans-serif
                   text-transform: uppercase
 
-                h3
+                h4
                   margin: 0
-                  font: normal normal normal 14px/14px Helvetica, Arial, sans-serif
+                  font: normal normal normal 12px/12px Helvetica, Arial, sans-serif
 
               .project-info
                 position: relative
-                width: 320px
-                margin: 0 auto
-
-                h4
-                  margin: 0
-                  font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
-
-                p
-                  margin: 15px 0 0
-                  font: normal normal normal 12px/20px Helvetica, Arial, sans-serif
+                margin: 0 50px 0 26px
+                display: block
 
                 ul
-                  margin: 15px 0 0
+                  float: left
+                  width: 17%
+                  margin: 0
                   list-style-type: none
                   display: block
 
                   li
-                    margin: 0
+                    margin: 0 40px 0 0
                     list-style-type: none
                     font: normal normal normal 12px/20px Helvetica, Arial, sans-serif
                     display: block
 
-                ul.services,
-                ul.recognition
-                  float: left
-                  margin: 30px 0
-                  width: 50%
+                    &:first-child
+                      margin: 0 0 15px
+                      font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
 
-                  li:first-child
-                    margin: 0 0 15px
-                    font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
+                  &:last-child
+                    width: 32%
 
-                ul.project-callouts
-                  margin: 0
-                  padding: 30px 0 0
-                  border-top: 2px solid $white
-                  display: block
+                &:after
+                  content: ''
                   clear: both
+                  height: 0
+                  margin: 0
+                  display: block
 
-                  li
+              .project-callouts
+                margin: 90px 50px 0 26px
+                list-style-type: none
+                display: block
+
+                li
+                  position: relative
+                  float: left
+                  height: 20px
+                  margin: 0
+                  padding: 0 0 0 30px
+                  display: block
+
+                  a, h4
                     position: relative
-                    height: 20px
+                    padding: 0 2px 3px
+                    text-decoration: none
+                    font: normal normal normal 14px/20px "MuseoSlab700", Verdana, sans-serif
+                    color: $white
+                    cursor: pointer
                     display: block
 
-                    a, h4
-                      position: relative
-                      padding: 0 28px 0 0
-                      text-decoration: none
-                      font: normal normal normal 14px/20px "MuseoSlab700", Verdana, sans-serif
-                      color: $white
-                      cursor: pointer
-                      display: inline-block
-
-                    &:nth-child(2)
-                      margin: 10px 0 0
-
-                  li
-                    a span, h4 span
+                    span
+                      content: ''
                       position: absolute
-                      top: 50%
-                      right: 4px
-                      width: 15px
-                      height: 15px
-                      margin: -8px 0 0
-                      background: asset-url("desktop/work/callout-icons.png", image) no-repeat
-                      @include transition(right, 150ms, ease-out)
+                      bottom: 0px
+                      left: 2px
+                      right: 2px
+                      height: 2px
+                      background-color: $white
+                      @include transition(all, 150ms, ease-out)
 
-                    h4 span
-                      background: asset-url("desktop/work/callout-icons.png", image) no-repeat 0px -30px
+                  &:before
+                    content: '/'
+                    position: absolute
+                    top: 0px
+                    left: 0px
+                    width: 30px
+                    height: 20px
+                    margin: 0
+                    font: normal normal normal 18px/20px Helvetica, Arial, sans-serif
+                    text-align: center
+                    display: block
 
-                  li
-                    a:hover span, h4:hover span
-                      right: 0px
+                li:first-child
+                  margin-left: -2px
+                  padding: 0
+
+                  &:before
+                    display: none
+
+                li
+                  a:hover span, h4:hover span
+                    right: 0px
+                    left: 0px
 
             // panning slide
             .panning
@@ -869,49 +878,49 @@
       #detail-close-btn:after
         @include rotate(-45deg)
 
-      #detail-pro-tip
+      #related-btn
         position: absolute
-        bottom: 13px
+        bottom: 0px
         left: 26px
-        width: 100px
-        height: 40px
-        opacity: 0
-        @include transition(opacity, 333ms, ease-out)
+        height: 50px
+        margin: 0 0 -55px
+        cursor: pointer
+        overflow: hidden
 
-        .pro-tip-opts
-          position: absolute
-          top: 0px
-          left: 0px
+        span
+          position: relative
+          float: left
           width: 50px
-          height: 40px
+          height: 50px
+          background-color: $black
+          @include nav_shadow
 
-          h4
+          &:after
+            content: ''
             position: absolute
-            bottom: 0px
-            left: 0px
-            width: 100%
-            font: bold normal normal 10px/20px Helvetica, Arial, sans-serif
-            color: $white
-            text-align: center
+            top: 50%
+            left: 50%
+            width: 8px
+            height: 8px
+            margin: -8px 0 0 -6px
+            border-left: 4px solid $white
+            border-bottom: 4px solid $white
+            -webkit-transform: rotate(-45deg)
+            -moz-transform: rotate(-45deg)
+            -ms-transform: rotate(-45deg)
+            -o-transform: rotate(-45deg)
+            transform: rotate(-45deg)
 
-        .pro-tip-opts:after
-          content: ''
-          position: absolute
-          top: 0px
-          left: 0px
-          width: 100%
-          height: 15px
-          background: asset-url("desktop/pro-tip-icons.png", image) no-repeat center 0px
-          overflow: hidden
-
-        .pro-tip-opts:nth-child(2)
-          left: 50px
-
-        .pro-tip-opts:nth-child(2):after
-          background: asset-url("desktop/pro-tip-icons.png", image) no-repeat center -15px
-
-      #detail-pro-tip.instructor
-        opacity: 1
+        h4
+          float: left
+          height: 50px
+          margin: 0 0 0 1px
+          padding: 0 20px
+          font: bold normal normal 12px/50px Helvetica, Arial, sans-serif
+          color: $white
+          text-align: center
+          background-color: $black
+          @include nav_shadow
 
     // footer
     footer

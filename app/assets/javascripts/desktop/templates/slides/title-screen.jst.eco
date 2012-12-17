@@ -3,39 +3,38 @@
     <div class="slide-inner-content">
       <div class="project-title">
         <h2><%= @client %></h2>
-        <h3><%= @project %></h3>
+        <h4><%= @project %></h4>
       </div>
       <div class="project-info">
-        <h4><%= @tagline %></h4>
-        <p><%= @overview %></p>
-        <% if @credits: %>
+        <% if @services: %>
           <ul>
-            <% for item in @credits: %>
+            <li>Services</li>
+            <% for item in @services: %>
               <li><%= item %></li>
             <% end %>
           </ul>
         <% end %>
-        <ul class="services">
-          <li>Services</li>
-          <% for item in @services: %>
-            <li><%= item %></li>
-          <% end %>
-        </ul>
-        <ul class="recognition">
-          <li>Recognition</li>
-          <% for item in @recognition: %>
-            <li><%= item %></li>
-          <% end %>
-        </ul>
-        <ul class="project-callouts">
-          <% if @url: %>
-            <li><a href="<%= @url %>" target="_blank">Launch Project<span></span></a></li>
-          <% end %>
-          <% if @callout: %>
-            <li><h4><%= @callout %><span></span></h4></li>
-          <% end %>
+        <% if @recognition: %>
+          <ul>
+            <li>Recognition</li>
+            <% for item in @recognition: %>
+              <li><%= item %></li>
+            <% end %>
+          </ul>
+        <% end %>
+        <ul>
+          <li>Overview</li>
+          <li><%= @overview %></li>
         </ul>
       </div>
+      <ul class="project-callouts">
+        <% if @url: %>
+          <li><a href="<%= @url %>" target="_blank">Launch Project<span></span></a></li>
+        <% end %>
+        <% if @callout: %>
+          <li><h4><%= @callout %><span></span></h4></li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>

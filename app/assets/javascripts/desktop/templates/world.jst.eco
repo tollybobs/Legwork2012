@@ -1,3 +1,7 @@
+<div class="ww-hover">
+  <div class="ww-hover-inner">
+  </div>
+</div>
 <div class="ww-inner activate-it" style="background-position: 0px 0px; background-repeat: no-repeat; 
 background-image: url(<%= @thumbnail %>)">
 </div>

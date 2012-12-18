@@ -495,6 +495,15 @@ class Legwork.Application
     if Legwork.app_width >= 1025
       @$canvas_wrap.stop(true, false).css('opacity', 1)
 
+    if @cell_over?
+      @cell_over.destroy()
+
+    $('.ww-hover-inner').css('background-color', 'transparent')
+
+    @$stuff_wrap
+      .off('mousemove')
+      .off('mouseleave')
+
   ###
   *------------------------------------------*
   | onScroll:void (=)
@@ -527,6 +536,12 @@ class Legwork.Application
 
     if Legwork.app_width >= 1025
       @$canvas_wrap.stop(true, false).animate({'opacity':0.666}, 250, 'linear')
+
+    @$stuff_wrap
+      .off('mousemove')
+      .off('mouseleave')
+      .one('mousemove', '.work, .world', @onStuffOver)
+      .on('mouseleave', '.work, .world', @onStuffOut)
 
   ###
   *------------------------------------------*
@@ -627,6 +642,64 @@ class Legwork.Application
       #$t.find('.activate-it').fadeOut(250)
 
     $t.one('Legwork.activate', @onStuffActivate)
+
+  ###
+  *------------------------------------------*
+  | onStuffOver:void (=)
+  | 
+  | e:object - event object
+  | 
+  | This stuff got moused.
+  *----------------------------------------###
+  onStuffOver: (e) =>
+    $t = $(e.currentTarget)
+    $w = $t.find('.ww-hover-inner')
+    w = $t.outerWidth()
+    h = $t.outerHeight()
+    x = e.pageX
+    y = Math.round(e.pageY - $t.offset().top)
+    category = @getStuffType($t.attr('class'))
+
+    $w
+      .css({
+        'top': y + 'px',
+        'left': x + 'px',
+        'width': (w * 2) + 'px',
+        'height': Math.round((w * 2) * 0.36) + 'px',
+        'margin-top': -Math.round(w * 0.36) + 'px',
+        'margin-left': -w + 'px'
+      })
+      .off('Legwork.sequence_complete')
+      .one 'Legwork.sequence_complete', (e) =>
+        if category is 'world'
+          $w.css('background-color', '#9AD5F0')
+        else
+          $w.css('background-color', '#EAE938')
+        @cell_over.destroy()
+
+    @cell_over = new Legwork.ImageSequence({
+      '$el': $w,
+      'settings': Legwork.sequences[category + '_hover']
+    })
+
+  ###
+  *------------------------------------------*
+  | onStuffOut:void (=)
+  | 
+  | e:object - event object
+  | 
+  | This stuff got unmoused.
+  *----------------------------------------###
+  onStuffOut: (e) =>
+    $t = $(e.currentTarget)
+    $w = $t.find('.ww-hover-inner')
+
+    @cell_over.destroy()
+    $w.css('background-color', 'transparent')
+
+    @$stuff_wrap
+      .off('mousemove')
+      .one('mousemove', '.work, .world', @onStuffOver)
 
   ###
   *------------------------------------------*

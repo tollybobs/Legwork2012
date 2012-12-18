@@ -46,6 +46,7 @@ class Legwork.Application
     @$detail = $('#detail')
     @$detail_inner = $('#detail-inner')
     @$detail_close = $('#detail-close-btn')
+    @$related_btn = $('#related-btn')
 
     @History = window.History
     @stuff = []
@@ -811,6 +812,8 @@ class Legwork.Application
           ,
             'duration': 500
             'easing': 'easeInOutExpo'
+            'step': (now, fx) =>
+              @$related_btn.css('margin-bottom', now + 'px')
         , 1000
 
   ###
@@ -852,6 +855,7 @@ class Legwork.Application
   *----------------------------------------###
   resetDetail: () ->
     @$detail_close.css('margin-top', '-55px')
+    @$related_btn.css('margin-bottom', '-55px')
     @$detail.fadeOut 'fast', =>
       Legwork.current_detail_controller.deactivate()
 

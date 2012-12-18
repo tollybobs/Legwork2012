@@ -347,7 +347,6 @@
       left: 0px
       width: 100%
       height: 100%
-      // border-top: 4px solid $less_black
       z-index: 1337
       display: none
       overflow: hidden
@@ -421,7 +420,7 @@
                 left: 0px
                 width: 100%
                 height: 100%
-                overflow: auto
+                overflow: hidden
                 display: table
 
                 .slide-inner-content
@@ -440,7 +439,7 @@
               background-size: cover
 
               .project-title
-                margin: 0 50px 90px 26px
+                margin: 0 20px 40px
                 display: block
 
                 h2
@@ -450,32 +449,35 @@
 
                 h4
                   margin: 0
-                  font: normal normal normal 12px/12px Helvetica, Arial, sans-serif
+                  font: normal normal normal 12px/18px Helvetica, Arial, sans-serif
 
               .project-info
                 position: relative
-                margin: 0 50px 0 26px
+                margin: 0 20px
                 display: block
 
                 ul
                   float: left
-                  width: 17%
+                  width: 90%
                   margin: 0
                   list-style-type: none
-                  display: block
+                  display: none
 
                   li
-                    margin: 0 40px 0 0
+                    margin: 0 20px 0 0
                     list-style-type: none
                     font: normal normal normal 12px/20px Helvetica, Arial, sans-serif
                     display: block
 
                     &:first-child
-                      margin: 0 0 15px
+                      margin: 0 0 10px
                       font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
 
-                  &:last-child
-                    width: 32%
+                ul:last-child
+                  display: block
+
+                  li
+                    margin: 0
 
                 &:after
                   content: ''
@@ -485,7 +487,7 @@
                   display: block
 
               .project-callouts
-                margin: 90px 50px 0 26px
+                margin: 40px 20px 0
                 list-style-type: none
                 display: block
 
@@ -572,8 +574,8 @@
             // pull quote slide
             .pull-quote
               h1
-                margin: 0 52px 0 26px
-                font: normal normal normal 45px/60px "MuseoSlab700", Verdana, sans-serif
+                margin: 0 20px
+                font: normal normal normal 22px/28px "MuseoSlab700", Verdana, sans-serif
                 color: $less_black
 
             // media slide
@@ -581,11 +583,11 @@
               .media-content
                 position: relative
                 float: left
-                max-width: 360px
-                width: 40%
-              
+                width: 100%
+                display: none
+
                 .media-text
-                  margin: 0 52px 0 26px
+                  margin: 0 20px
 
                   h4
                     margin: 0
@@ -599,7 +601,7 @@
 
                 .media-holder
                   position: relative
-                  margin: 0 70px 0 0
+                  margin: 0 20px
                   display: block
 
                   .media-holder-inner
@@ -736,8 +738,7 @@
                       height: 12px
 
                 &:last-child
-                  width: 60%
-                  max-width: 960px
+                  display: block
 
             // full screen slide
             .full-screen
@@ -757,11 +758,11 @@
 
           .slide-controls
             position: absolute
-            top: 50%
-            right: 0px
+            top: 0px
+            left: 70px
             width: 100px
             height: 50px
-            margin: -25px 0 0
+            margin: 0
             cursor: pointer
             z-index: 3
 
@@ -769,7 +770,7 @@
               position: absolute
               top: 0px
               right: 0px
-              width: 50px
+              width: 100px
               height: 50px
               background-color: $white
               @include nav_shadow
@@ -785,7 +786,7 @@
 
                 span
                   position: absolute
-                  top: 12px
+                  top: 14px
                   left: 12px
                   font: bold normal normal 9px/9px Helvetica, Arial, sans-serif
                   color: $less_black
@@ -794,7 +795,7 @@
                     top: auto
                     left: auto
                     right: 12px
-                    bottom: 10px
+                    bottom: 8px
 
                 &:after
                   content: ''
@@ -803,7 +804,7 @@
                   left: 50%
                   width: 1px
                   height: 32px
-                  margin: -16px 0 0
+                  margin: -14px 0 0
                   background-color: $less_black
                   opacity: 0.5
                   -webkit-transform: rotate(45deg)
@@ -818,7 +819,7 @@
                 left: 0px
                 width: 50px
                 height: 50px
-                opacity: 0
+                opacity: 1
                 @include transition(opacity, 50ms, ease-in-out)
 
                 &:after
@@ -826,24 +827,16 @@
                   position: absolute
                   top: 50%
                   left: 50%
-                  width: 8px
-                  height: 8px
-                  margin: -6px 0 0 -9px
-                  border-top: 4px solid $less_black
-                  border-right: 4px solid $less_black
+                  width: 7px
+                  height: 7px
+                  margin: -5px 0 0 -8px
+                  border-top: 3px solid $less_black
+                  border-right: 3px solid $less_black
                   -webkit-transform: rotate(45deg)
                   -moz-transform: rotate(45deg)
                   -ms-transform: rotate(45deg)
                   -o-transform: rotate(45deg)
                   transform: rotate(45deg)
-
-          .slide-controls:hover
-            .slide-controls-tab
-              width: 100px
-
-              .slide-next
-                opacity: 1
-                @include transition(opacity, 150ms, ease-in-out)
 
         .slides-wrapper.world
           .slide
@@ -881,9 +874,10 @@
       #related-btn
         position: absolute
         bottom: 0px
-        left: 26px
+        left: 20px
         height: 50px
         margin: 0 0 -55px
+        background-color: $black
         cursor: pointer
         overflow: hidden
 
@@ -1393,6 +1387,70 @@
       #detail-close-btn
         left: 26px
 
+      #detail-inner
+        .slides-wrapper
+
+          .slides
+            // title screen slide
+            .title-screen
+              .project-title
+                margin: 0 50px 90px 26px
+
+              .project-info
+                margin: 0 50px 0 26px
+
+                ul
+                  width: 24%
+                  display: block
+
+                  li
+                    margin: 0 40px 0 0
+
+                    &:first-child
+                      margin: 0 0 15px
+
+                ul:last-child
+                  width: 46%
+
+              .project-callouts
+                margin: 90px 50px 0 26px
+
+            // pull quote slide
+            .pull-quote
+              h1
+                margin: 0 50px 0 26px
+                font: normal normal normal 36px/48px "MuseoSlab700", Verdana, sans-serif
+
+            // media slide
+            .media
+              .media-content
+                .media-holder
+                  margin: 0 70px 0 26px
+
+          .slide-controls
+            top: 50%
+            left: auto
+            right: 0px
+            margin: -25px 0 0
+
+            .slide-controls-tab
+              width: 50px
+
+              .slide-next
+                opacity: 0
+
+          .slide-controls:hover
+            .slide-controls-tab
+              width: 100px
+
+              .slide-next
+                opacity: 1
+                @include transition(opacity, 150ms, ease-in-out)
+
+      #related-btn
+        left: 26px
+        background-color: transparent
+
     // footer
     footer
       display: block
@@ -1628,6 +1686,44 @@
 
               .twitter-details
                 font: normal normal normal 14px/14px Helvetica, Arial, sans-serif
+
+    // detail
+    #detail
+      #detail-inner
+        .slides-wrapper
+
+          .slides
+
+            // title screen slide
+            .title-screen
+              .project-info
+                ul
+                  width: 17%
+
+                ul:last-child
+                  width: 36%
+
+            // pull quote slide
+            .pull-quote
+              h1
+                font: normal normal normal 45px/60px "MuseoSlab700", Verdana, sans-serif
+
+            // media slide
+            .media
+              .media-content
+                max-width: 360px
+                width: 40%
+                display: block
+
+                .media-text
+                  margin: 0 50px 0 26px
+
+                .media-holder
+                  margin: 0 70px 0 0
+
+                &:last-child
+                  width: 60%
+                  max-width: 960px
 
     // footer
     footer

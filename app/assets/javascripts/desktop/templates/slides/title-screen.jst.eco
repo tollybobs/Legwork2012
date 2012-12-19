@@ -2,8 +2,8 @@
   <div class="slide-inner">
     <div class="slide-inner-content">
       <div class="project-title">
-        <h2><%= @client %></h2>
-        <h4><%= @project %></h4>
+        <h2><%= @title %></h2>
+        <h4><%= @summary %></h4>
       </div>
       <div class="project-info">
         <% if @services: %>

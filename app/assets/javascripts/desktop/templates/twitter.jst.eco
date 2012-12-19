@@ -1,10 +1,12 @@
-<div class="twitter-inner activate-it">
-  <div class="tweet-one">
-    <p><%- @text %></p>
-    <span class="twitter-details"><%= @details %></span>
-  </div>
-  <div class="tweet-two">
-    <p><%- @text %></p>
-    <span class="twitter-details"><%= @details %></span>
+<div class="<%= @type %> stuff cf">
+  <div class="twitter-inner">
+    <div class="tweet-one">
+      <p><%- @text %></p>
+      <span class="twitter-details"><%= @details %></span>
+    </div>
+    <div class="tweet-two">
+      <p><%- @text %></p>
+      <span class="twitter-details"><%= @details %></span>
+    </div>
   </div>
 </div>

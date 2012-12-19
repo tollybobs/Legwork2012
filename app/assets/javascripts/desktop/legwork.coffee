@@ -103,6 +103,7 @@ class Legwork.Application
   onLoadComplete: (e) =>
     @build()
 
+    @$launch = $('.launch-btn')
     @$sequence = $('.sequenced')
     @lifelines = @getLifelines()
 
@@ -110,6 +111,7 @@ class Legwork.Application
       'width':'0%'
     , 666, 'easeInOutExpo', =>
       @$stuff_reveal.remove()
+      @observeSomeSweetEvents()
 
       Legwork.$header.find('h1')
         .animate
@@ -265,10 +267,6 @@ class Legwork.Application
     for stuff, id in Legwork.home.layout
       category = @getStuffType(stuff.type)
 
-      # Container
-      $container = $(JST['desktop/templates/stuff'](stuff))
-      $content = ''
-
       # Content
       switch category
         when 'sequenced'
@@ -280,26 +278,21 @@ class Legwork.Application
           $('#' + stuff.content[1]).addClass('video-out').appendTo($vid_wrap)
         when 'twitter'
           $content = $(JST['desktop/templates/twitter'](@getNextTweet()))
-        when 'work'
-          data = Legwork.work[stuff.content]
-          data.link = '/work/' + stuff.content
-          $content = $(JST['desktop/templates/work'](data))
-        when 'world'
-          data = Legwork.world[stuff.content]
-          data.link = '/world/' + stuff.content
-          $content = $(JST['desktop/templates/world'](data))
+        when 'work', 'world'
+          data = Legwork[stuff.type][stuff.content]
+          data.type = stuff.type
+          data.link = '/' + stuff.type + '/' + stuff.content
+          $content = $(JST['desktop/templates/ww'](data))
 
       # Append to DOM
-      $container.append($content).appendTo(@$stuff_wrap)
+      $content.appendTo(@$stuff_wrap)
 
       # Initial Event
-      $container
+      $content
         .one('Legwork.activate', @onStuffActivate)
 
       # Collect
-      @stuff.push($container)
-
-    @observeSomeSweetEvents()
+      @stuff.push($content)
 
   ###
   *------------------------------------------*
@@ -382,6 +375,7 @@ class Legwork.Application
     source = source.replace(/web/, 'twitter.com')
 
     return {
+      'type': 'twitter'
       'text': text,
       'details': '10 years ago via a fax machine' #date + source
     }
@@ -454,7 +448,7 @@ class Legwork.Application
   finishLayout: ->
     @$lines
       .attr('width', Legwork.app_width)
-      .attr('height', Math.floor(Legwork.$wn.height() * 0.56))
+      .attr('height', Math.floor(Legwork.$wn.height() * 0.50))
 
     @lifelines = @getLifelines()
     @$canvas_wrap.show()
@@ -484,6 +478,12 @@ class Legwork.Application
     Legwork.$body
       .on('click', '.ajaxy', @onAjaxyLinkClick)
 
+    @$launch
+      .on('mouseenter', @onStuffHover)
+      .on('mouseleave', @onStuffHover)
+
+    return false
+
   ###
   *------------------------------------------*
   | onScrollStart:void (=)
@@ -495,15 +495,6 @@ class Legwork.Application
   onScrollStart: (e) =>
     if Legwork.app_width >= 1025
       @$canvas_wrap.stop(true, false).css('opacity', 1)
-
-    if @cell_over?
-      @cell_over.destroy()
-
-    $('.ww-hover-inner').css('background-color', 'transparent')
-
-    @$stuff_wrap
-      .off('mousemove')
-      .off('mouseleave')
 
   ###
   *------------------------------------------*
@@ -518,7 +509,7 @@ class Legwork.Application
     clearTimeout(@scroll_timeout)
     @scroll_timeout = setTimeout(@onScrollComplete, 333)
 
-    Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() * 0.56)) + 54
+    Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() * 0.50))
 
     if Legwork.app_width >= 1025
       @doLines()
@@ -537,12 +528,6 @@ class Legwork.Application
 
     if Legwork.app_width >= 1025
       @$canvas_wrap.stop(true, false).animate({'opacity':0.666}, 250, 'linear')
-
-    @$stuff_wrap
-      .off('mousemove')
-      .off('mouseleave')
-      .one('mousemove', '.work, .world', @onStuffOver)
-      .on('mouseleave', '.work, .world', @onStuffOut)
 
   ###
   *------------------------------------------*
@@ -646,61 +631,42 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
-  | onStuffOver:void (=)
+  | onStuffHover:void (=)
   | 
   | e:object - event object
   | 
-  | This stuff got moused.
+  | This stuff got moused with. Get it?
   *----------------------------------------###
-  onStuffOver: (e) =>
+  onStuffHover: (e) =>
+    if @cell_over?
+      @cell_over.destroy()
+
     $t = $(e.currentTarget)
-    $w = $t.find('.ww-hover-inner')
-    w = $t.outerWidth()
-    h = $t.outerHeight()
-    x = e.pageX
+    $w = $t.find('.ww-hover')
+    x = Math.round(e.pageX - $t.offset().left)
     y = Math.round(e.pageY - $t.offset().top)
-    category = @getStuffType($t.attr('class'))
+    w = $t.outerWidth()
+    category = @getStuffType($t.parents('.stuff').attr('class'))
+    sequence = if e.type is 'mouseenter' then 'ww_hover' else category + '_out'
+
+    x = Math.max(Math.min(x, w), 0)
+    y = Math.max(Math.min(y, 46), 0)
 
     $w
       .css({
         'top': y + 'px',
         'left': x + 'px',
-        'width': (w * 2) + 'px',
-        'height': Math.round((w * 2) * 0.36) + 'px',
-        'margin-top': -Math.round(w * 0.36) + 'px',
         'margin-left': -w + 'px'
       })
       .off('Legwork.sequence_complete')
       .one 'Legwork.sequence_complete', (e) =>
-        if category is 'world'
-          $w.css('background-color', '#9AD5F0')
-        else
-          $w.css('background-color', '#EAE938')
+        $t.toggleClass('over')
         @cell_over.destroy()
 
     @cell_over = new Legwork.ImageSequence({
       '$el': $w,
-      'settings': Legwork.sequences[category + '_hover']
+      'settings': Legwork.sequences[sequence]
     })
-
-  ###
-  *------------------------------------------*
-  | onStuffOut:void (=)
-  | 
-  | e:object - event object
-  | 
-  | This stuff got unmoused.
-  *----------------------------------------###
-  onStuffOut: (e) =>
-    $t = $(e.currentTarget)
-    $w = $t.find('.ww-hover-inner')
-
-    @cell_over.destroy()
-    $w.css('background-color', 'transparent')
-
-    @$stuff_wrap
-      .off('mousemove')
-      .one('mousemove', '.work, .world', @onStuffOver)
 
   ###
   *------------------------------------------*

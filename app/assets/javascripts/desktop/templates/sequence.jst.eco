@@ -1,7 +1,9 @@
-<div class="sequenced-inner">
-  <div class="sequenced-content-wrap" style="background-image: url(<%= @alt_content %>)">
-    <div class="sequenced-title-wrap">
-      <h1><%- @title %></h1>
+<div class="<%= @type %> stuff cf">
+  <div class="sequenced-inner">
+    <div class="sequenced-content-wrap" style="background-image: url(<%= @alt_content %>)">
+      <div class="sequenced-title-wrap">
+        <h1><%- @title %></h1>
+      </div>
     </div>
   </div>
 </div>

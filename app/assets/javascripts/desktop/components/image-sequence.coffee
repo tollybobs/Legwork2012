@@ -50,7 +50,7 @@ class Legwork.ImageSequence
 
   ###
   *------------------------------------------*
-  | play:void (-)
+  | play:void (=)
   |
   | Play the sequence.
   *----------------------------------------###
@@ -78,7 +78,7 @@ class Legwork.ImageSequence
 
   ###
   *------------------------------------------*
-  | continue:void (-)
+  | continue:void (=)
   |
   | Continue to the next frame.
   *----------------------------------------###
@@ -86,13 +86,16 @@ class Legwork.ImageSequence
     @$imgs.css('visibility', 'hidden')
     @$imgs.eq(@current_frame - 1).css('visibility', 'visible')
 
+    # Trigger frame event
+    @$el.trigger('Legwork.sequence_frame')
+
     @img_timeout = setTimeout(@play, @interval)
 
   ###
   *------------------------------------------*
   | stop:void (-)
   |
-  | Stop the sequence.
+  | Staaaaahp.
   *----------------------------------------###
   stop: ->
     @$imgs.css('visibility', 'hidden')

@@ -285,13 +285,26 @@
                   h3
                     font: normal normal normal 11px/11px Helvetica, Arial, sans-serif
 
-          a
-            display: block
-            position: absolute
-            top: 0px
-            left: 0px
-            width: 100%
-            height: 100%
+                  .launch-btn
+                    position: absolute
+                    top: 0px
+                    left: 0px
+                    width: 100%
+                    height: 100%
+
+                    .ww-hover
+                      display: none
+
+                    a
+                      display: block
+                      width: 100%
+                      height: 100%
+
+                      .label
+                        display: none
+
+                      .icon
+                        display: none
 
         .twitter.stuff
           height: auto
@@ -1215,7 +1228,7 @@
         position: fixed
         top: 74px
         width: 100%
-        height: 56%
+        height: 50%
 
         #lines-leader
           position: absolute
@@ -1279,33 +1292,6 @@
           position: relative
           padding: 5%
 
-          .ww-hover
-            position: absolute
-            top: 0px
-            left: 0px
-            width: 100%
-            height: 100%
-            overflow: hidden
-            opacity: 0.45
-
-            .ww-hover-inner
-              position: absolute
-
-              .image-sequence-wrap
-                position: relative
-                width: 100%
-                height: 100%
-
-                .image-sequence-item
-                  position: absolute
-                  top: 0px
-                  left: 0px
-                  width: 100%
-                  height: 100%
-                  background-position: 50% 50%
-                  background-repeat: no-repeat
-                  @include background_size(100%, 100%)
-
           .ww-inner
             position: relative
             float: right
@@ -1341,6 +1327,94 @@
 
                   h3
                     font: normal normal normal 12px/12px Helvetica, Arial, sans-serif
+                    margin-bottom: 32px
+
+                  .launch-btn
+                    position: relative
+                    display: inline-block
+                    width: auto
+                    height: 46px
+                    background-color: $yellow
+                    overflow: hidden
+
+                    .ww-hover
+                      display: block
+                      position: absolute
+                      width: 200%
+                      height: 92px
+                      margin-top: -46px
+
+                      .image-sequence-wrap
+                        position: relative
+                        width: 100%
+                        height: 100%
+
+                        .image-sequence-item
+                          position: absolute
+                          top: 0px
+                          left: 0px
+                          width: 100%
+                          height: 100%
+                          background-color: transparent
+                          background-position: 50% 50%
+                          background-repeat: no-repeat
+                          @include background_size(100%, 100%)
+
+                    a
+                      position: relative
+                      display: block
+                      width: auto
+                      height: 100%
+                      padding: 0 48px 0 20px
+                      text-decoration: none
+
+                      .label
+                        display: block
+                        font: normal normal bold 12px/46px Helvetica, Arial, sans-serif
+                        color: $black
+                        white-space: nowrap
+                        @include transition(color, 250ms, linear)
+
+                      .icon
+                        display: block
+                        position: absolute
+                        top: 18px
+                        right: 22px
+                        width: 7px
+                        height: 7px
+                        border-top: 3px solid $black
+                        border-right: 3px solid $black
+                        @include rotate(45deg)
+                        @include transition(border-color, 250ms, linear)
+
+                  .launch-btn:hover
+                    a
+                      .label
+                        color: $yellow
+
+                      .icon
+                        border-top: 3px solid $yellow
+                        border-right: 3px solid $yellow
+
+                  .launch-btn.over
+                    background-color: $black
+
+        .world.stuff
+          .ww-details
+            .ww-details-inner
+              .ww-details-title
+                .ww-details-title-inner
+                  .launch-btn
+                    background-color: $blue
+
+                  .launch-btn:hover
+                    a
+                      .label
+                        color: $blue
+
+                      .icon
+                        border-top: 3px solid $blue
+                        border-right: 3px solid $blue
 
         .twitter.stuff
           height: auto
@@ -1617,6 +1691,11 @@
 
                   h3
                     font: normal normal normal 14px/14px Helvetica, Arial, sans-serif
+
+                  .launch-btn
+                    a
+                      .label
+                        font: normal normal bold 14px/46px Helvetica, Arial, sans-serif
 
         .twitter.stuff
           .twitter-inner

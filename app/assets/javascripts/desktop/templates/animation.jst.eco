@@ -1,2 +1,0 @@
-<div class="animated-inner activate-it" style="background-image: url(<%= @content %>)">
-</div>

@@ -1,0 +1,22 @@
+<div class="<%= @type %> stuff cf">
+  <div class="ww-inner" style="background-position: 0px 0px; background-repeat: no-repeat; 
+  background-image: url(<%= @thumbnail %>)">
+  </div>
+  <div class="ww-details">
+    <div class="ww-details-inner">
+      <div class="ww-details-title">
+        <div class="ww-details-title-inner">
+          <h2><%= @title %></h2>
+          <h3><%= @description %></h3>
+          <div class="launch-btn">
+            <div class="ww-hover"></div>
+            <a class="ajaxy" href="<%= @link %>">
+              <span class="label">Project Details</span>
+              <span class="icon"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

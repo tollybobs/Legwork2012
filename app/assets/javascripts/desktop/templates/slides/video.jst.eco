@@ -1,0 +1,12 @@
+<div class="slide video-slide" style="background-color: <%= @background_color %>">
+  <div class="slide-inner">
+    <div class="slide-inner-content">
+      <div class="video-holder">
+        <div class="video-holder-inner">
+          <div class="vimeo-iframe"></div>
+          <div class="vimeo-poster"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

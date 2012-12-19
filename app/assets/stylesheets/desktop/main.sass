@@ -542,6 +542,50 @@
                     right: 0px
                     left: 0px
 
+            // video slide
+            .video-slide
+              .video-holder
+                position: relative
+                margin: 0 20px
+                display: block
+
+                .video-holder-inner
+                  position: relative
+                  width: 100%
+                  height: 0
+                  padding-bottom: 56.25%
+                  background-color: $more_black
+                  overflow: hidden
+                  display: block
+
+                  .vimeo-iframe
+                    position: absolute
+                    top: 0px
+                    left: 0px
+                    width: 100%
+                    height: 100%
+
+                  .vimeo-poster
+                    position: absolute
+                    top: 0px
+                    left: 0px
+                    width: 100%
+                    height: 100%
+
+                    img
+                      position: absolute
+                      top: 0px
+                      left: 0px
+                      width: 100%
+                      height: 100%
+
+                  iframe
+                    position: absolute
+                    top: 0px
+                    left: 0px
+                    width: 100%
+                    height: 100%
+
             // panning slide
             .panning
               background-repeat: no-repeat
@@ -1415,6 +1459,11 @@
               .project-callouts
                 margin: 90px 50px 0 26px
 
+            // video slide
+            .video-slide
+              .video-holder
+                margin: 0 76px 0 26px
+
             // pull quote slide
             .pull-quote
               h1
@@ -1425,7 +1474,7 @@
             .media
               .media-content
                 .media-holder
-                  margin: 0 70px 0 26px
+                  margin: 0 76px 0 26px
 
           .slide-controls
             top: 50%
@@ -1703,6 +1752,11 @@
                 ul:last-child
                   width: 36%
 
+            // video slide
+            .video-slide
+              .video-holder
+                margin: 0 126px
+
             // pull quote slide
             .pull-quote
               h1
@@ -1719,7 +1773,7 @@
                   margin: 0 50px 0 26px
 
                 .media-holder
-                  margin: 0 70px 0 0
+                  margin: 0 76px 0 0
 
                 &:last-child
                   width: 60%

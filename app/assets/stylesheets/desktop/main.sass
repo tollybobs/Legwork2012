@@ -1411,7 +1411,6 @@
                         font: normal normal bold 12px/46px Helvetica, Arial, sans-serif
                         color: $black
                         white-space: nowrap
-                        //@include transition(color, 250ms, linear)
 
                       .icon
                         display: block
@@ -1423,19 +1422,6 @@
                         border-top: 3px solid $black
                         border-right: 3px solid $black
                         @include rotate(45deg)
-                        //@include transition(border-color, 250ms, linear)
-
-                  .launch-btn:hover
-                    a
-                      .label
-                        color: $yellow
-
-                      .icon
-                        border-top: 3px solid $yellow
-                        border-right: 3px solid $yellow
-
-                  .launch-btn.over
-                    background-color: $black
 
         .world.stuff
           .ww-details
@@ -1444,15 +1430,6 @@
                 .ww-details-title-inner
                   .launch-btn
                     background-color: $blue
-
-                  .launch-btn:hover
-                    a
-                      .label
-                        color: $blue
-
-                      .icon
-                        border-top: 3px solid $blue
-                        border-right: 3px solid $blue
 
         .twitter.stuff
           height: auto
@@ -1803,6 +1780,32 @@
                     a
                       .label
                         font: normal normal bold 14px/46px Helvetica, Arial, sans-serif
+
+                  .launch-btn:hover
+                    a
+                      .label
+                        color: $yellow
+
+                      .icon
+                        border-top: 3px solid $yellow
+                        border-right: 3px solid $yellow
+
+                  .launch-btn.over
+                    background-color: $black
+
+        .world.stuff
+          .ww-details
+            .ww-details-inner
+              .ww-details-title
+                .ww-details-title-inner
+                  .launch-btn:hover
+                    a
+                      .label
+                        color: $blue
+
+                      .icon
+                        border-top: 3px solid $blue
+                        border-right: 3px solid $blue
 
         .twitter.stuff
           .twitter-inner

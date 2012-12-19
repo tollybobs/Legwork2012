@@ -478,10 +478,6 @@ class Legwork.Application
     Legwork.$body
       .on('click', '.ajaxy', @onAjaxyLinkClick)
 
-    @$launch
-      .on('mouseenter', @onStuffHover)
-      .on('mouseleave', @onStuffHover)
-
     return false
 
   ###
@@ -536,6 +532,9 @@ class Legwork.Application
   | Resize has started.
   *----------------------------------------###
   onResizeStart: (e) =>
+    @$launch
+      .off('mouseenter mouseleave')
+
     if Legwork.app_width >= 740
       @startLayout()
 
@@ -585,9 +584,13 @@ class Legwork.Application
     if Legwork.app_width >= 1025
       for $t, index in @stuff
         $t
-          .off('Legwork.activate')
-          .off('Legwork.deactivate')
+          .off('Legwork.activate Legwork.deactivate')
           .one('Legwork.activate', @onStuffActivate)
+
+      @$launch
+        .off('mouseenter mouseleave')
+        .on('mouseenter', @onStuffHover)
+        .on('mouseleave', @onStuffHover)
 
       Legwork.$wn.trigger('scroll')
 

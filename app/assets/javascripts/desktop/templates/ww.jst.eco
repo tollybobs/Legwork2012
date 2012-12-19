@@ -7,7 +7,7 @@
       <div class="ww-details-title">
         <div class="ww-details-title-inner">
           <h2><%= @title %></h2>
-          <h3><%= @description %></h3>
+          <h3><%= @summary %></h3>
           <div class="launch-btn">
             <div class="ww-hover"></div>
             <a class="ajaxy" href="<%= @link %>">

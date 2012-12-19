@@ -638,16 +638,14 @@ class Legwork.Application
   | This stuff got moused with. Get it?
   *----------------------------------------###
   onStuffHover: (e) =>
-    if @cell_over?
-      @cell_over.destroy()
-
     $t = $(e.currentTarget)
     $w = $t.find('.ww-hover')
     x = Math.round(e.pageX - $t.offset().left)
     y = Math.round(e.pageY - $t.offset().top)
     w = $t.outerWidth()
     category = @getStuffType($t.parents('.stuff').attr('class'))
-    sequence = if e.type is 'mouseenter' then 'ww_hover' else category + '_out'
+    type = e.type
+    sequence = if type is 'mouseenter' then 'ww_hover' else category + '_out'
 
     x = Math.max(Math.min(x, w), 0)
     y = Math.max(Math.min(y, 46), 0)
@@ -660,8 +658,20 @@ class Legwork.Application
       })
       .off('Legwork.sequence_complete')
       .one 'Legwork.sequence_complete', (e) =>
-        $t.toggleClass('over')
+        if type is 'mouseenter'
+          $t.addClass('over')
+        else
+          $t.removeClass('over')
+
         @cell_over.destroy()
+
+    if @cell_over?
+      @cell_over.destroy()
+
+      if type is 'mouseenter'
+        $t.removeClass('over')
+      else
+        $t.addClass('over')
 
     @cell_over = new Legwork.ImageSequence({
       '$el': $w,

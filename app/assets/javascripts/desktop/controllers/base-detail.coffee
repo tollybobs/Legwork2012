@@ -28,7 +28,7 @@ class Legwork.Controllers.BaseDetail
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/#{@zone}-detail"]({model: @model, slug: @slug, zone: @zone}))
+    @$el = $(JST["desktop/templates/base-detail"]({model: @model, slug: @slug, zone: @zone}))
 
   ###
   *------------------------------------------*

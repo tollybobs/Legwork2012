@@ -353,6 +353,21 @@
         height: 100%
         background-color: $white
 
+        .image-sequence-wrap
+          position: relative
+          width: 100%
+          height: 100%
+
+          .image-sequence-item
+            position: absolute
+            top: 0px
+            left: 0px
+            width: 100%
+            height: 100%
+            background-position: 50% 50%
+            background-repeat: no-repeat
+            @include background_size(100%, 100%)
+
     // detail
     #detail
       position: fixed

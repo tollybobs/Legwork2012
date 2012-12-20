@@ -110,7 +110,14 @@ class Legwork.Application
     @$stuff_reveal.delay(111).animate
       'width':'0%'
     , 666, 'easeInOutExpo', =>
-      @$stuff_reveal.remove()
+      @$stuff_reveal
+        .hide()
+        .css({
+          'position': 'fixed',
+          'width': '100%',
+          'background-color': 'transparent'
+        })
+
       @observeSomeSweetEvents()
 
       Legwork.$header.find('h1')
@@ -749,14 +756,23 @@ class Legwork.Application
   route: (to) ->
     switch to[0]
       when ''
-        @resetDetail()
+        if @previous_state is 'detail'
+          @resetDetail()
+
+        if @previous_state is 'filter'
+          @resetFilter()
+
+        @previous_state = ''
       when 'work', 'world'
         if @$detail.is(':visible')
           @loadDetail(to)
         else
           @openDetail(to)
+
+        @previous_state = 'detail'
       when 'filter'
         @openFilter(to[1])
+        @previous_state = 'filter'
 
   ###
   *------------------------------------------*
@@ -847,7 +863,29 @@ class Legwork.Application
   | Open a filter.
   *----------------------------------------###
   openFilter: (filter) ->
-    console.log('add 5 canvases and roll, son!')
+    erase = new Legwork.ImageSequence({
+      '$el': @$stuff_reveal,
+      'settings': Legwork.sequences['erase_two']
+    })
+
+    @$stuff_reveal
+      .show()
+      .off('Legwork.sequence_complete')
+      .one 'Legwork.sequence_complete', (e) =>
+        @$stuff_reveal.hide()
+        @$canvas_wrap.hide()
+        @$stuff_wrap.hide()
+        erase.destroy()
+
+  ###
+  *------------------------------------------*
+  | resetFilter:void (-)
+  | 
+  | Reset a filter.
+  *----------------------------------------###
+  resetFilter: () ->
+    @$canvas_wrap.show()
+    @$stuff_wrap.show()
 
 # Kick the tires and light the fires!
 $ ->

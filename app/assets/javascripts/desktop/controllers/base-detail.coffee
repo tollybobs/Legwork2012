@@ -29,6 +29,7 @@ class Legwork.Controllers.BaseDetail
   *----------------------------------------###
   build: ->
     @$el = $(JST["desktop/templates/base-detail"]({model: @model, slug: @slug, zone: @zone}))
+    @$related = $('#related-btn')
 
   ###
   *------------------------------------------*
@@ -40,7 +41,7 @@ class Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
-  | activate:void (-)
+  | activate:void (=)
   |
   | Shows the element
   *----------------------------------------###
@@ -48,11 +49,13 @@ class Legwork.Controllers.BaseDetail
     @$el.show()
     setTimeout =>
       @$el.addClass('open')
-    , 0
+    , 333
+
+    @$related.on Legwork.click, @jumpToRelatedProject
 
   ###
   *------------------------------------------*
-  | deactivate:void (-)
+  | deactivate:void (=)
   |
   | Hides the element
   *----------------------------------------###
@@ -62,6 +65,19 @@ class Legwork.Controllers.BaseDetail
       @$el.hide()
     , 333
 
+    @$related.off Legwork.click
+
+  ###
+  *------------------------------------------*
+  | jumpToRelatedProject:void (=)
+  |
+  | Change url to show next related project
+  *----------------------------------------###
+  jumpToRelatedProject: =>
+    related = @model.related
+    href = "/#{@zone}/#{related}"
+
+    History.pushState(null, null, href)
 
 
 

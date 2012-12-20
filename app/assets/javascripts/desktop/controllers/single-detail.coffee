@@ -47,6 +47,8 @@ class Legwork.SingleDetail extends Legwork.Controllers.BaseDetail
   | Initialize slides after build
   *----------------------------------------###
   initialize: ->
+    super()
+
     for view in @slide_views
       view.initialize()
 
@@ -84,7 +86,7 @@ class Legwork.SingleDetail extends Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
-  | afterResize:void (-)
+  | afterResize:void (=)
   |
   | Call after resize complete
   *----------------------------------------###

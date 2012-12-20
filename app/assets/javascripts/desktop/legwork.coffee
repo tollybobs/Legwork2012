@@ -765,6 +765,7 @@ class Legwork.Application
         @previous_state = ''
       when 'work', 'world'
         if @$detail.is(':visible')
+          Legwork.current_detail_controller.deactivate()
           @loadDetail(to)
         else
           @openDetail(to)
@@ -799,7 +800,7 @@ class Legwork.Application
 
         setTimeout =>
           @loadDetail(item)
-        , 500
+        , 333
 
         setTimeout =>
           @$detail_close.animate
@@ -809,7 +810,7 @@ class Legwork.Application
             'easing': 'easeInOutExpo'
             'step': (now, fx) =>
               @$related_btn.css('margin-bottom', now + 'px')
-        , 1000
+        , 666
 
   ###
   *------------------------------------------*

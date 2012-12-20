@@ -11,7 +11,7 @@
   body
     background: $white
     -webkit-text-size-adjust: none
-    -webkit-font-smoothing: subpixel-antialiased
+    //-webkit-font-smoothing: subpixel-antialiased
 
   #wrapper
     width: 100%
@@ -219,7 +219,8 @@
       #wrap-the-canvas
         display: none
 
-      #wrap-the-stuff
+      #wrap-the-stuff,
+      #wrap-the-filter
         padding-top: 70px
 
         .stuff
@@ -344,6 +345,15 @@
 
             .tweet-one
               border-bottom: 1px solid $light_gray
+
+      #wrap-the-filter
+        display: none
+        height: 8000px
+        background-color: #ccc
+
+        h1
+          font: normal normal normal 72px/800px "MuseoSlab700", Verdana, sans-serif
+          text-align: center
 
       #reveal-the-stuff
         position: absolute
@@ -1137,7 +1147,8 @@
       width: 100%
       height: 100%
 
-      #wrap-the-stuff
+      #wrap-the-stuff,
+      #wrap-the-filter
         .sequenced.stuff:first-child
           .sequenced-inner
             .sequenced-content-wrap
@@ -1292,7 +1303,8 @@
           background: asset-url("desktop/lines-leader.png", image) no-repeat bottom left
           background-size: 100% 100%
 
-      #wrap-the-stuff
+      #wrap-the-stuff,
+      #wrap-the-filter
         padding-top: 94px
 
         .sequenced.stuff,
@@ -1746,7 +1758,8 @@
       #wrap-the-canvas
         top: 54px
 
-      #wrap-the-stuff
+      #wrap-the-stuff,
+      #wrap-the-filter
         padding-top: 54px
 
         .sequenced.stuff,

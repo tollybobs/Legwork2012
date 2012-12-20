@@ -42,6 +42,7 @@ class Legwork.Application
     @$canvas_wrap = $('#wrap-the-canvas')
     @$lines = $('#lines')
     @$stuff_wrap = $('#wrap-the-stuff')
+    @$filter_wrap = $('#wrap-the-filter')
     @$stuff_reveal = $('#reveal-the-stuff')
     @$detail = $('#detail')
     @$detail_inner = $('#detail-inner')
@@ -114,8 +115,7 @@ class Legwork.Application
         .hide()
         .css({
           'position': 'fixed',
-          'width': '100%',
-          'background-color': 'transparent'
+          'width': '100%'
         })
 
       @observeSomeSweetEvents()
@@ -760,7 +760,7 @@ class Legwork.Application
           @resetDetail()
 
         if @previous_state is 'filter'
-          @resetFilter()
+          @openFilter('')
 
         @previous_state = ''
       when 'work', 'world'
@@ -866,17 +866,43 @@ class Legwork.Application
   openFilter: (filter) ->
     erase = new Legwork.ImageSequence({
       '$el': @$stuff_reveal,
-      'settings': Legwork.sequences['erase_two']
+      'settings': Legwork.sequences['erase']
     })
 
     @$stuff_reveal
+      .css('background-color', 'transparent')
       .show()
       .off('Legwork.sequence_complete')
       .one 'Legwork.sequence_complete', (e) =>
-        @$stuff_reveal.hide()
-        @$canvas_wrap.hide()
-        @$stuff_wrap.hide()
+        @$stuff_reveal.css('background-color', '#fff')
+        Legwork.$wn.scrollTop(0)
         erase.destroy()
+
+        if filter isnt ''
+          @loadFilter(filter)
+        else
+          @resetFilter()
+
+  loadFilter: () ->
+    @$canvas_wrap.hide()
+    @$stuff_wrap.hide()
+    @$filter_wrap.show()
+
+    reveal = new Legwork.ImageSequence({
+      '$el': @$stuff_reveal,
+      'settings': Legwork.sequences['reveal']
+    })
+
+    @$stuff_reveal
+      .off('Legwork.sequence_frame')
+      .one 'Legwork.sequence_frame', (e) =>
+        setTimeout =>
+          @$stuff_reveal.css('background-color', 'transparent')
+        , 100
+      .off('Legwork.sequence_complete')
+      .one 'Legwork.sequence_complete', (e) =>
+        @$stuff_reveal.hide()
+        reveal.destroy()
 
   ###
   *------------------------------------------*
@@ -885,8 +911,25 @@ class Legwork.Application
   | Reset a filter.
   *----------------------------------------###
   resetFilter: () ->
+    @$filter_wrap.hide()
     @$canvas_wrap.show()
     @$stuff_wrap.show()
+
+    reveal = new Legwork.ImageSequence({
+      '$el': @$stuff_reveal,
+      'settings': Legwork.sequences['reveal']
+    })
+
+    @$stuff_reveal
+      .off('Legwork.sequence_frame')
+      .one 'Legwork.sequence_frame', (e) =>
+        setTimeout =>
+          @$stuff_reveal.css('background-color', 'transparent')
+        , 100
+      .off('Legwork.sequence_complete')
+      .one 'Legwork.sequence_complete', (e) =>
+        @$stuff_reveal.hide()
+        reveal.destroy()
 
 # Kick the tires and light the fires!
 $ ->

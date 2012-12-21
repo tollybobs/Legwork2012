@@ -797,10 +797,7 @@ class Legwork.Application
       .one 'Legwork.sequence_complete', (e) =>
         detail_in.destroy()
         @$detail.css('background-color', '#000')
-
-        setTimeout =>
-          @loadDetail(item)
-        , 333
+        @loadDetail(item)
 
         setTimeout =>
           @$detail_close.animate

@@ -81,7 +81,6 @@ class Legwork.SingleDetail extends Legwork.Controllers.BaseDetail
 
     @current_slide_view.deactivate()
 
-    @$slides.first().css('left','100%')
     Legwork.$wn.off('resize', @onResize)
 
   ###

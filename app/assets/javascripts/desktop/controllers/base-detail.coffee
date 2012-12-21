@@ -30,6 +30,7 @@ class Legwork.Controllers.BaseDetail
   build: ->
     @$el = $(JST["desktop/templates/base-detail"]({model: @model, slug: @slug, zone: @zone}))
     @$related = $('#related-btn')
+    @rel = @model.related
 
   ###
   *------------------------------------------*
@@ -49,9 +50,11 @@ class Legwork.Controllers.BaseDetail
     @$el.show()
     setTimeout =>
       @$el.addClass('open')
+      @$related.on Legwork.click, @switchProjects
+      Legwork.$doc.on 'keyup.switch', @handleArrowKey
     , 333
 
-    @$related.on Legwork.click, @jumpToRelatedProject
+    @$related.text(@model.upnext)
 
   ###
   *------------------------------------------*
@@ -66,19 +69,25 @@ class Legwork.Controllers.BaseDetail
     , 333
 
     @$related.off Legwork.click
+    Legwork.$doc.off 'keyup.switch', @handleArrowKey
 
   ###
   *------------------------------------------*
-  | jumpToRelatedProject:void (=)
+  | switchProjects:void (=)
   |
   | Change url to show next related project
   *----------------------------------------###
-  jumpToRelatedProject: =>
-    related = @model.related
-    href = "/#{@zone}/#{related}"
+  switchProjects: =>
+    History.pushState(null, null, "/#{@zone}/#{@rel}")
 
-    History.pushState(null, null, href)
-
+  ###
+  *------------------------------------------*
+  | handleArrowKeys:void (=)
+  |
+  | if down, go to next project
+  *----------------------------------------###
+  handleArrowKey: (e) =>
+    if e.keyCode is 40 then @switchProjects()
 
 
 

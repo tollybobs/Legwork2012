@@ -961,44 +961,14 @@
         left: 20px
         height: 50px
         margin: 0 0 -55px
+        padding: 0 20px
+        font: bold normal normal 12px/50px Helvetica, Arial, sans-serif
+        color: $white
+        text-align: center
         background-color: $black
         cursor: pointer
         overflow: hidden
-
-        span
-          position: relative
-          float: left
-          width: 50px
-          height: 50px
-          background-color: $black
-          @include nav_shadow
-
-          &:after
-            content: ''
-            position: absolute
-            top: 50%
-            left: 50%
-            width: 7px
-            height: 7px
-            margin: -7px 0 0 -5px
-            border-left: 3px solid $white
-            border-bottom: 3px solid $white
-            -webkit-transform: rotate(-45deg)
-            -moz-transform: rotate(-45deg)
-            -ms-transform: rotate(-45deg)
-            -o-transform: rotate(-45deg)
-            transform: rotate(-45deg)
-
-        h4
-          float: left
-          height: 50px
-          margin: 0 0 0 1px
-          padding: 0 20px
-          font: bold normal normal 12px/50px Helvetica, Arial, sans-serif
-          color: $white
-          text-align: center
-          background-color: $black
-          @include nav_shadow
+        @include nav_shadow
 
     // footer
     footer
@@ -1575,10 +1545,6 @@
               .slide-next
                 opacity: 1
                 @include transition(opacity, 150ms, ease-in-out)
-
-      #related-btn
-        left: 26px
-        background-color: transparent
 
     // footer
     footer

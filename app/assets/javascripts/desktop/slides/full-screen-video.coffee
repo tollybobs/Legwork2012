@@ -6,7 +6,7 @@ Copyright (c) 2012 Legwork Studio. All Rights Reserved. Your wife is still hot.
 
 #= require ./slide
 
-class Legwork.Slides.Video extends Legwork.Slides.Slide
+class Legwork.Slides.FullScreenVideo extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
@@ -27,7 +27,7 @@ class Legwork.Slides.Video extends Legwork.Slides.Slide
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/slides/video"](@model))
+    @$el = $(JST["desktop/templates/slides/full-screen-video"](@model))
     return @$el
 
   ###
@@ -37,10 +37,10 @@ class Legwork.Slides.Video extends Legwork.Slides.Slide
   | See Legwork.Slides.Slide initilaize
   *----------------------------------------###
   initialize: ->
+    @ratio = 9 / 16
     @id = @model.id
-    @$poster = $('.vimeo-poster', @$el)
-    @$vimeo = $('.vimeo-iframe', @$el)
-    @fetchVimeoThumbnail()
+    @$poster = $('.fs-poster', @$el)
+    @$vimeo = $('.fs-iframe', @$el)
 
   ###
   *------------------------------------------*
@@ -53,6 +53,7 @@ class Legwork.Slides.Video extends Legwork.Slides.Slide
       .show()
 
     setTimeout =>
+      Legwork.$wn.trigger('resize')
       @playVimeo()
     , 666
 
@@ -69,18 +70,31 @@ class Legwork.Slides.Video extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
+  | onResize:void (=)
+  |
+  | w:number - window width
+  | h:number - window height
+  |
+  | Handle window resize
+  *----------------------------------------###
+  resize: (w, h) =>
+    if (h / w) > @ratio
+      @$vimeo.height h
+      @$vimeo.width h / @ratio
+    else
+      @$vimeo.width w
+      @$vimeo.height w * @ratio
+
+    @$vimeo.css 'left', (w - @$vimeo.width()) / 2
+    @$vimeo.css 'top', (h - @$vimeo.height()) / 2
+
+  ###
+  *------------------------------------------*
   |
   | Private Methods
   |
   *----------------------------------------###
-  fetchVimeoThumbnail: =>
-    $.getJSON "http://www.vimeo.com/api/v2/video/#{@id}.json?callback=?", {format: "json"}, (data) =>
-      @$poster.append("<img src='#{data[0].thumbnail_large}' alt='' />")
-
   playVimeo: =>
-    @$vimeo.empty().append("<iframe src='http://player.vimeo.com/video/#{@id}?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff&amp;autoplay=1' width='730' height='411' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>")
+    @$vimeo.empty().append("<iframe src='http://player.vimeo.com/video/#{@id}?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff&amp;autoplay=1' width='960' height='540' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>")
 
     @$poster.delay(333).fadeOut(666)
-
-
-

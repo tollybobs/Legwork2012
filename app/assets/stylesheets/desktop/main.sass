@@ -441,7 +441,7 @@
             left: 0px
             width: 100%
             height: 100%
-            background-color: $blue
+            background-color: $more_black
             overflow: hidden
 
             .slide
@@ -450,7 +450,6 @@
               left: 0%
               width: 100%
               height: 100%
-              background-color: $yellow
               z-index: 1
               overflow: hidden
 
@@ -605,6 +604,13 @@
                     width: 100%
                     height: 100%
 
+                    iframe
+                      position: absolute
+                      top: 0px
+                      left: 0px
+                      width: 100%
+                      height: 100%
+
                   .vimeo-poster
                     position: absolute
                     top: 0px
@@ -618,13 +624,6 @@
                       left: 0px
                       width: 100%
                       height: 100%
-
-                  iframe
-                    position: absolute
-                    top: 0px
-                    left: 0px
-                    width: 100%
-                    height: 100%
 
             // panning slide
             .panning
@@ -824,8 +823,8 @@
                 &:last-child
                   display: block
 
-            // full screen slide
-            .full-screen
+            // full screen image slide
+            .full-screen-image
               background-repeat: no-repeat
               background-position: 50% 50%
               -webkit-background-size: cover
@@ -839,6 +838,37 @@
                 left: 0px
                 width: 100%
                 height: 100%
+
+            // full screen video slide
+            .full-screen-video
+              background-color: $more_black
+
+              .fs-iframe
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 100%
+                height: 100%
+
+                iframe
+                  position: absolute
+                  top: 0px
+                  left: 0px
+                  width: 100%
+                  height: 100%
+
+              .fs-poster
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 100%
+                height: 100%
+                background-repeat: no-repeat
+                background-position: 50% 50%
+                -webkit-background-size: cover
+                -moz-background-size: cover
+                -o-background-size: cover
+                background-size: cover
 
           .slide-controls
             position: absolute
@@ -921,10 +951,6 @@
                   -ms-transform: rotate(45deg)
                   -o-transform: rotate(45deg)
                   transform: rotate(45deg)
-
-        .slides-wrapper.world
-          .slide
-            background-color: $blue
 
         .slides-wrapper.open
           opacity: 1

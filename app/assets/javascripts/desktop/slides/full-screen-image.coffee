@@ -6,7 +6,7 @@ Copyright (c) 2012 Legwork Studio. All Rights Reserved. Your wife is still hot.
 
 #= require ./slide
 
-class Legwork.Slides.FullScreen extends Legwork.Slides.Slide
+class Legwork.Slides.FullScreenImage extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
@@ -27,7 +27,7 @@ class Legwork.Slides.FullScreen extends Legwork.Slides.Slide
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/slides/full-screen"](@model))
+    @$el = $(JST["desktop/templates/slides/full-screen-image"](@model))
     return @$el
 
   ###

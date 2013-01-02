@@ -13,7 +13,7 @@ class ExternalDataController < ApplicationController
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         request = Net::HTTP::Get.new(uri.request_uri)
         response = http.request(request)
-        Rails.cache.write('tweetno'. response.body)
+        Rails.cache.write('tweetno', response.body)
         response.body
       end
       render :json => JSON.parse(data)

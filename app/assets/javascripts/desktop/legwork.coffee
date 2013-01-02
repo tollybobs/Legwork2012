@@ -52,7 +52,7 @@ class Legwork.Application
     @$related_btn = $('#related-btn')
 
     @History = window.History
-    @stuff = []
+    @sequenced_stuff = []
     @lifelines = []
     @line_ctx = @$lines[0].getContext('2d')
     @twitter_index = 0
@@ -285,28 +285,23 @@ class Legwork.Application
 
           $('#' + stuff.content[0]).addClass('video-in').appendTo($vid_wrap)
           $('#' + stuff.content[1]).addClass('video-out').appendTo($vid_wrap)
+
+          # Collect
+          @sequenced_stuff.push($content)
         when 'twitter'
-          $content = $(JST['desktop/templates/twitter'](@getNextTweet()))
-        when 'work'
-          data = Legwork.Work[stuff.content]
+          data = {
+            tweets: [@getNextTweet(), @getNextTweet()]
+          }
           data.type = category
-          data.link = '/' + stuff.content
-          $content = $(JST['desktop/templates/ww'](data))
-        when 'world'
-          data = Legwork.World[stuff.content]
+          $content = $(JST['desktop/templates/twitter'](data))
+        when 'work', 'world'
+          data = Legwork.Work[stuff.content] or Legwork.World[stuff.content]
           data.type = category
           data.link = '/' + stuff.content
           $content = $(JST['desktop/templates/ww'](data))
 
       # Append to DOM
       $content.appendTo(@$stuff_wrap)
-
-      # Initial Event
-      $content
-        .one('Legwork.activate', @onStuffActivate)
-
-      # Collect
-      @stuff.push($content)
 
   ###
   *------------------------------------------*
@@ -327,11 +322,11 @@ class Legwork.Application
   | on scroll position.
   *----------------------------------------###
   doStuff: ->
-    for $t, index in @stuff
+    for $t, index in @sequenced_stuff
       if $t.offset().top < Legwork.event_horizon
-        $t.trigger('Legwork.activate')
+        $t.trigger('activate')
       else
-        $t.trigger('Legwork.deactivate')
+        $t.trigger('deactivate')
 
   ###
   *------------------------------------------*
@@ -389,7 +384,6 @@ class Legwork.Application
     source = source.replace(/web/, 'twitter.com')
 
     return {
-      'type': 'twitter'
       'text': text,
       'details': date + ' via ' + source
     }
@@ -596,10 +590,10 @@ class Legwork.Application
       @finishLayout()
 
     if Legwork.app_width >= 1025
-      for $t, index in @stuff
+      for $t, index in @sequenced_stuff
         $t
-          .off('Legwork.activate Legwork.deactivate')
-          .one('Legwork.activate', @onStuffActivate)
+          .off('activate deactivate')
+          .one('activate', @onStuffActivate)
 
       @$launch
         .off('mouseenter mouseleave')
@@ -614,37 +608,17 @@ class Legwork.Application
   | 
   | e:object - event object
   | 
-  | This stuff got activated.
+  | This stuff got activated/deactivated.
   *----------------------------------------###
   onStuffActivate: (e) =>
     $t = $(e.currentTarget)
-    category = @getStuffType($t.attr('class'))
 
-    if category is 'sequenced'
+    if e.type is 'activate'
       @playSequence($t, 'in')
+      $t.one('deactivate', @onStuffActivate)
     else
-      #$t.find('.activate-it').fadeIn(250)
-
-    $t.one('Legwork.deactivate', @onStuffDeactivate)
-
-  ###
-  *------------------------------------------*
-  | onStuffDeactivate:void (=)
-  | 
-  | e:object - event object
-  | 
-  | This stuff got deactivated.
-  *----------------------------------------###
-  onStuffDeactivate: (e) =>
-    $t = $(e.currentTarget)
-    category = @getStuffType($t.attr('class'))
-
-    if category is 'sequenced'
       @playSequence($t, 'out')
-    else
-      #$t.find('.activate-it').fadeOut(250)
-
-    $t.one('Legwork.activate', @onStuffActivate)
+      $t.one('activate', @onStuffActivate)
 
   ###
   *------------------------------------------*
@@ -673,8 +647,8 @@ class Legwork.Application
         'left': x + 'px',
         'margin-left': -w + 'px'
       })
-      .off('Legwork.sequence_complete')
-      .one 'Legwork.sequence_complete', (e) =>
+      .off('sequence_complete')
+      .one 'sequence_complete', (e) =>
         if type is 'mouseenter'
           $t.addClass('over')
         else
@@ -797,8 +771,8 @@ class Legwork.Application
     @$detail
       .css('background-color', 'transparent')
       .show()
-      .off('Legwork.sequence_complete')
-      .one 'Legwork.sequence_complete', (e) =>
+      .off('sequence_complete')
+      .one 'sequence_complete', (e) =>
         detail_in.destroy()
         @$detail.css('background-color', '#000')
         @loadDetail(item)
@@ -871,8 +845,8 @@ class Legwork.Application
     @$stuff_reveal
       .css('background-color', 'transparent')
       .show()
-      .off('Legwork.sequence_complete')
-      .one 'Legwork.sequence_complete', (e) =>
+      .off('sequence_complete')
+      .one 'sequence_complete', (e) =>
         @$stuff_reveal.css('background-color', '#fff')
         Legwork.$wn.scrollTop(0)
         erase.destroy()
@@ -899,13 +873,13 @@ class Legwork.Application
     })
 
     @$stuff_reveal
-      .off('Legwork.sequence_frame')
-      .one 'Legwork.sequence_frame', (e) =>
+      .off('sequence_frame')
+      .one 'sequence_frame', (e) =>
         setTimeout =>
           @$stuff_reveal.css('background-color', 'transparent')
         , 100
-      .off('Legwork.sequence_complete')
-      .one 'Legwork.sequence_complete', (e) =>
+      .off('sequence_complete')
+      .one 'sequence_complete', (e) =>
         @$stuff_reveal.hide()
         reveal.destroy()
 
@@ -926,13 +900,13 @@ class Legwork.Application
     })
 
     @$stuff_reveal
-      .off('Legwork.sequence_frame')
-      .one 'Legwork.sequence_frame', (e) =>
+      .off('sequence_frame')
+      .one 'sequence_frame', (e) =>
         setTimeout =>
           @$stuff_reveal.css('background-color', 'transparent')
         , 100
-      .off('Legwork.sequence_complete')
-      .one 'Legwork.sequence_complete', (e) =>
+      .off('sequence_complete')
+      .one 'sequence_complete', (e) =>
         @$stuff_reveal.hide()
         reveal.destroy()
 

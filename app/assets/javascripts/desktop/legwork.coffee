@@ -23,6 +23,8 @@ class Legwork.Application
     Legwork.$view = $('#legwork')
     Legwork.$footer = $('footer')
 
+    Legwork.filters = ['interactive', 'motion', 'illustration', 'about-us', 'open-source', 'extracurricular']
+
     Legwork.sequences = {}
     Legwork.slide_controllers = {}
     Legwork.current_detail_controller = null
@@ -69,16 +71,16 @@ class Legwork.Application
   preload: ->
     # Merge initial assets
     # TODO: All or some?
-    home_assets = Legwork.home.assets
+    home_assets = Legwork.Home.assets
     site_assets = {images:[], videos:[], sequences:[]}
     main_assets = {images:[], videos:[], sequences:[]}
 
-    for id, work of Legwork.work
+    for id, work of Legwork.Work
       site_assets.images = _.union(site_assets.images, work.assets.images)
       site_assets.videos = _.union(site_assets.videos, work.assets.videos)
       site_assets.sequences = _.union(site_assets.sequences, work.assets.sequences)
 
-    for id, world of Legwork.world
+    for id, world of Legwork.World
       site_assets.images = _.union(site_assets.images, world.assets.images)
       site_assets.videos = _.union(site_assets.videos, world.assets.videos)
       site_assets.sequences = _.union(site_assets.sequences, world.assets.sequences)
@@ -271,7 +273,7 @@ class Legwork.Application
       @mobile_menu = new Legwork.MobileMenu()
 
     # Add the stuff
-    for stuff, id in Legwork.home.layout
+    for stuff, id in Legwork.Home.layout
       category = @getStuffType(stuff.type)
 
       # Content
@@ -285,10 +287,15 @@ class Legwork.Application
           $('#' + stuff.content[1]).addClass('video-out').appendTo($vid_wrap)
         when 'twitter'
           $content = $(JST['desktop/templates/twitter'](@getNextTweet()))
-        when 'work', 'world'
-          data = Legwork[stuff.type][stuff.content]
-          data.type = stuff.type
-          data.link = '/' + stuff.type + '/' + stuff.content
+        when 'work'
+          data = Legwork.Work[stuff.content]
+          data.type = category
+          data.link = '/' + stuff.content
+          $content = $(JST['desktop/templates/ww'](data))
+        when 'world'
+          data = Legwork.World[stuff.content]
+          data.type = category
+          data.link = '/' + stuff.content
           $content = $(JST['desktop/templates/ww'](data))
 
       # Append to DOM
@@ -303,7 +310,7 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
-  | getStuffType:void (-)
+  | getStuffType:string (-)
   |
   | t:string - type/class string
   |
@@ -741,9 +748,8 @@ class Legwork.Application
     @state = @History.getState()
 
     url = @state.hash.replace(/^\/|\.|\#/g, '')
-    parts = url.split('/')
 
-    @route(parts)
+    @route(url)
 
   ###
   *------------------------------------------*
@@ -754,32 +760,30 @@ class Legwork.Application
   | Route to the passed url.
   *----------------------------------------###
   route: (to) ->
-    switch to[0]
-      when ''
-        if @previous_state is 'detail'
-          @resetDetail()
+    if to is ''
+      if @previous_state is 'detail'
+        @resetDetail()
 
-        if @previous_state is 'filter'
-          @openFilter('')
+      if @previous_state is 'filter'
+        @openFilter('')
 
-        @previous_state = ''
-      when 'work', 'world'
-        if @$detail.is(':visible')
-          Legwork.current_detail_controller.deactivate()
-          @loadDetail(to)
-        else
-          @openDetail(to)
+      @previous_state = ''
+    else if to in Legwork.filters
+      @openFilter(to)
+      @previous_state = 'filter'
+    else 
+      if @$detail.is(':visible')
+        Legwork.current_detail_controller.deactivate()
+        @loadDetail(to)
+      else
+        @openDetail(to)
 
-        @previous_state = 'detail'
-      when 'filter'
-        @openFilter(to[1])
-        @previous_state = 'filter'
+      @previous_state = 'detail'
 
   ###
   *------------------------------------------*
   | openDetail:void (-)
   | 
-  | callback:function - callback
   | item:string - work/world id
   | 
   | Open the detail view.
@@ -811,28 +815,26 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
-  | openWork:void (-)
+  | loadDetail:void (-)
   | 
-  | item:array - type, id
+  | item:string - work/world id
   | 
   | Load a detail item.
   *----------------------------------------###
   loadDetail: (item) ->
-    model = Legwork[item[0]][item[1]]
+    model = Legwork.Work[item] or Legwork.World[item]
 
-    if Legwork.slide_controllers[item[1]]?
-      controller = Legwork.slide_controllers[item[1]]
+    if Legwork.slide_controllers[item]?
+      controller = Legwork.slide_controllers[item]
     else
       if model.slides.length > 1
-        controller = Legwork.slide_controllers[item[1]] = new Legwork.CaseStudyDetail
+        controller = Legwork.slide_controllers[item] = new Legwork.CaseStudyDetail
           model: model
-          zone: item[0]
-          slug: item[1]
+          slug: item
       else
-        controller = Legwork.slide_controllers[item[1]] = new Legwork.SingleDetail
+        controller = Legwork.slide_controllers[item] = new Legwork.SingleDetail
           model: model
-          zone: item[0]
-          slug: item[1]
+          slug: item
 
       @$detail_inner.append controller.build()
       controller.initialize()
@@ -880,6 +882,12 @@ class Legwork.Application
         else
           @resetFilter()
 
+  ###
+  *------------------------------------------*
+  | loadFilter:void (-)
+  | 
+  | Load a filter.
+  *----------------------------------------###
   loadFilter: () ->
     @$canvas_wrap.hide()
     @$stuff_wrap.hide()
@@ -905,7 +913,7 @@ class Legwork.Application
   *------------------------------------------*
   | resetFilter:void (-)
   | 
-  | Reset a filter.
+  | Back to the initial view.
   *----------------------------------------###
   resetFilter: () ->
     @$filter_wrap.hide()

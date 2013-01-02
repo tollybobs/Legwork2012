@@ -1,5 +1,12 @@
+# Main
 window.Legwork ?= {}
+
+# Detail
 window.Legwork.Controllers ?= {}
 window.Legwork.Slides ?= {}
-window.Legwork.work ?= {}
-window.Legwork.world ?= {}
+
+# Work
+window.Legwork.Work ?= {}
+
+# World
+window.Legwork.World ?= {}

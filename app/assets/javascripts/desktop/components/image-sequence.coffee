@@ -46,7 +46,7 @@ class Legwork.ImageSequence
     @$imgs = @$el.find('.image-sequence-item')
 
     # Trigger init event
-    @$el.trigger('Legwork.sequence_init')
+    @$el.trigger('sequence_init')
 
   ###
   *------------------------------------------*
@@ -74,7 +74,7 @@ class Legwork.ImageSequence
       if @delay? then setTimeout(@continue, @delay) else @continue()
     else
       # Trigger complete event
-      @$el.trigger('Legwork.sequence_complete')
+      @$el.trigger('sequence_complete')
 
   ###
   *------------------------------------------*
@@ -87,7 +87,7 @@ class Legwork.ImageSequence
     @$imgs.eq(@current_frame - 1).css('visibility', 'visible')
 
     # Trigger frame event
-    @$el.trigger('Legwork.sequence_frame')
+    @$el.trigger('sequence_frame')
 
     @img_timeout = setTimeout(@play, @interval)
 

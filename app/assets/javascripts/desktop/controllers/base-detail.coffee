@@ -88,6 +88,7 @@ class Legwork.Controllers.BaseDetail
   *----------------------------------------###
   handleArrowKey: (e) =>
     if e.keyCode is 40 then @switchProjects()
+    if e.keyCode is 27 then $('#detail-close-btn').trigger(Legwork.click)
 
 
 

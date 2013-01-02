@@ -255,9 +255,23 @@
                 width: 100%
                 height: auto
 
-                h1
-                  font: normal normal normal 20px/20px "MuseoSlab700", Verdana, sans-serif
-                  text-transform: uppercase
+                .sequenced-tagline
+                  position: relative
+                  display: block
+
+                  h1
+                    position: relative
+                    padding-bottom: 20px
+                    font: normal normal normal 20px/20px "MuseoSlab700", Verdana, sans-serif
+
+                    &:after
+                      content: ''
+                      position: absolute
+                      bottom: 0px
+                      left: 0px
+                      width: 100px
+                      height: 3px
+                      background-color: $less_black
 
         .sequenced.stuff
           .sequenced-inner
@@ -1154,8 +1168,9 @@
               @include background_size(400px, 400px)
 
               .sequenced-title-wrap
-                h1
-                  font: normal normal normal 24px/24px "MuseoSlab700", Verdana, sans-serif
+                .sequenced-tagline
+                  h1
+                    font: normal normal normal 24px/24px "MuseoSlab700", Verdana, sans-serif
 
   // main preloader
   #main-loader
@@ -1336,11 +1351,24 @@
                 width: 45%
                 height: 100%
 
-                h1
-                  display: table-cell
+                .sequenced-tagline
+                  position: relative
                   vertical-align: middle
-                  font: normal normal normal 24px/24px "MuseoSlab700", Verdana, sans-serif
-                  text-transform: uppercase
+                  display: table-cell
+
+                  h1
+                    position: relative
+                    padding-bottom: 40px
+                    font: normal normal normal 24px/24px "MuseoSlab700", Verdana, sans-serif
+
+                    &:after
+                      content: ''
+                      position: absolute
+                      bottom: 0px
+                      left: 0px
+                      width: 100px
+                      height: 3px
+                      background-color: $less_black
 
         .right.sequenced.stuff
           .sequenced-inner
@@ -1769,8 +1797,9 @@
                 display: none
 
               .sequenced-title-wrap
-                h1
-                  font: normal normal normal 30px/30px "MuseoSlab700", Verdana, sans-serif
+                .sequenced-tagline
+                  h1
+                    font: normal normal normal 32px/32px "MuseoSlab700", Verdana, sans-serif
 
         .right.sequenced.stuff
           .sequenced-inner
@@ -1793,7 +1822,7 @@
                 .ww-details-title-inner
 
                   h2
-                    font: normal normal normal 30px/30px "MuseoSlab700", Verdana, sans-serif
+                    font: normal normal normal 32px/32px "MuseoSlab700", Verdana, sans-serif
 
                   h3
                     font: normal normal normal 14px/14px Helvetica, Arial, sans-serif

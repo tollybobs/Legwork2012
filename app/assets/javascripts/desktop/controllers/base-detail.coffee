@@ -18,7 +18,6 @@ class Legwork.Controllers.BaseDetail
     # Class vars
     @options = options
     @model = options.model
-    @zone = options.zone
     @slug = options.slug
 
   ###
@@ -28,7 +27,7 @@ class Legwork.Controllers.BaseDetail
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/base-detail"]({model: @model, slug: @slug, zone: @zone}))
+    @$el = $(JST["desktop/templates/base-detail"]({model: @model, slug: @slug}))
     @$related = $('#related-btn')
     @rel = @model.related
 
@@ -78,7 +77,7 @@ class Legwork.Controllers.BaseDetail
   | Change url to show next related project
   *----------------------------------------###
   switchProjects: =>
-    History.pushState(null, null, "/#{@zone}/#{@rel}")
+    History.pushState(null, null, "/#{@rel}")
 
   ###
   *------------------------------------------*

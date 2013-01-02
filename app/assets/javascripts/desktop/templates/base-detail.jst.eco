@@ -1,4 +1,4 @@
-<div class="slides-wrapper <%= @zone %>" id="<%= @slug %>-slides">
+<div class="slides-wrapper" id="<%= @slug %>-slides">
   <div class="slides">
   </div>
   <div class="slide-controls next-slide-btn">

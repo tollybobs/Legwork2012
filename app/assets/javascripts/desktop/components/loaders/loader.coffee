@@ -77,16 +77,16 @@ class Legwork.Loader
   loadTwitter: () ->
     # TODO: cache this shit on our side
     # TODO: in case of failure?
-    # $.getJSON 'https://api.twitter.com/1/statuses/user_timeline/Legwork.json?&trim_user=true&count=50&exclude_replies=true&callback=?', (data) =>
-    #   Legwork.twitter = data
-    #   
-    #   # filter replies, could be done server side
-    #   for tweet, index in Legwork.twitter
-    #     if ///^(@|\s@|\s\s@|.@|.\s@)///.test(tweet.text) is true
-    #       Legwork.twitter = _.without(Legwork.twitter, tweet)
+    $.getJSON 'https://api.twitter.com/1/statuses/user_timeline/Legwork.json?&trim_user=true&count=50&exclude_replies=true&callback=?', (data) =>
+      Legwork.twitter = data
 
-    @loaded++
-    @updateProgress()
+      # filter replies, could be done server side
+      for tweet, index in Legwork.twitter
+        if ///^(@|\s@|\s\s@|.@|.\s@)///.test(tweet.text) is true
+          Legwork.twitter = _.without(Legwork.twitter, tweet)
+
+        @loaded++
+        @updateProgress()
 
   ###
   *------------------------------------------*

@@ -333,14 +333,14 @@ class Legwork.Application
   | Get the next Tweet.
   *----------------------------------------###
   getNextTweet: ->
-    tweet = '0' #Legwork.twitter[@twitter_index]
-    text = '' #tweet.text
-    timestamp = 0 #tweet.created_at
+    tweet = Legwork.twitter[@twitter_index]
+    text = tweet.text
+    timestamp = tweet.created_at
     date = ''
-    source = '' #tweet.source
+    source = tweet.source
 
-    # test
-    text = 'This rad tweet is custom built for testing a #hashtag and a @mention of someone and is exactly 140 characters long. <a href="legworkstudio.com" target="_new">http://legworkstudio.com</a>'
+    # TODO: remove this test text once Twitter is caching and good to go
+    # text = 'This rad tweet is custom built for testing a #hashtag and a @mention of someone and is exactly 140 characters long. <a href="legworkstudio.com" target="_new">http://legworkstudio.com</a>'
 
     @twitter_index++
 
@@ -374,7 +374,7 @@ class Legwork.Application
       date = @toWords(Math.round(time_since_tweet / 86400)) + " days ago"
     else if time_since_tweet <= 777600
       date = "One week ago"
-    else if time_since_tweet <= 1000000
+    else
       date = "In ancient times"
 
     # prepare source
@@ -384,7 +384,7 @@ class Legwork.Application
     return {
       'type': 'twitter'
       'text': text,
-      'details': '10 years ago via a fax machine' #date + source
+      'details': date + ' via ' + source
     }
 
   ###

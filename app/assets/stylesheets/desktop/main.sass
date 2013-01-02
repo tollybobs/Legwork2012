@@ -1822,7 +1822,7 @@
                 .ww-details-title-inner
 
                   h2
-                    font: normal normal normal 32px/32px "MuseoSlab700", Verdana, sans-serif
+                    font: normal normal normal 28px/28px "MuseoSlab700", Verdana, sans-serif
 
                   h3
                     font: normal normal normal 14px/14px Helvetica, Arial, sans-serif
@@ -2011,6 +2011,34 @@
       background-color: $nav_bg
       border-top: 4px solid #4d4d4d
       @include nav_shadow
+
+// OVERRIDES: 1280 and up (big honkin' screens)
+@media screen and (min-width: 1280px)
+  #wrapper
+
+    // main
+    #legwork
+      #wrap-the-stuff,
+      #wrap-the-filter
+        .sequenced.stuff,
+        .sequenced.stuff:first-child
+          .sequenced-inner
+            .sequenced-content-wrap
+              .sequenced-title-wrap
+                .sequenced-tagline
+                  h1
+                    font: normal normal normal 38px/38px "MuseoSlab700", Verdana, sans-serif
+
+        .work.stuff,
+        .world.stuff
+          .ww-inner
+          .ww-details
+            .ww-details-inner
+              .ww-details-title
+                .ww-details-title-inner
+
+                  h2
+                    font: normal normal normal 32px/32px "MuseoSlab700", Verdana, sans-serif
 
 // OVERRIDES: retina display
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)

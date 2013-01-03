@@ -137,21 +137,23 @@ class Legwork.Application
     levels = 8
     side = 'l'
     colors = [
-      #'rgba(234, 233, 56, 0.0375)',
-      'rgba(151, 213, 242, 0.0375)'
+      'rgba(234, 233, 56, 0.0375)',
+      'rgba(151, 213, 242, 0.0375)',
+      'rgba(247, 142, 198, 0.0375)',
+      'rgba(179, 227, 148, 0.0375)'
     ]
+    color = colors[Math.floor(Math.random() * colors.length)]
     obj = []
 
-    for item, i in colors
-      for j in [0..(levels - 1)]
-        line = {
-          'color': colors[i],
-          'coords': [],
-          'tightness': (Math.random() * 1 + (i * 0.5)) + 2,
-          'weight': (Math.random() * 50) + (j * 20)
-        }
+    for j in [0..(levels - 1)]
+      line = {
+        'color': color,
+        'coords': [],
+        'tightness': (Math.random() * 2) + 2,
+        'weight': (Math.random() * 50) + (j * 20)
+      }
 
-        obj.push(line)
+      obj.push(line)
 
     @$sequence.each (index, elm)->
       for item, i in obj
@@ -599,8 +601,8 @@ class Legwork.Application
 
       @$launch
         .off('mouseenter mouseleave')
-        .on('mouseenter', @onStuffHover)
-        .on('mouseleave', @onStuffHover)
+        .live('mouseenter', @onStuffHover)
+        .live('mouseleave', @onStuffHover)
 
       Legwork.$wn.trigger('scroll')
 
@@ -869,20 +871,30 @@ class Legwork.Application
   loadFilter: (filter) ->
     @$canvas_wrap.hide()
     @$stuff_wrap.hide()
-    @$filter_wrap.show()
+    @$filter_wrap
+      .empty()
+      .show()
 
-    # TODO
-    ###
-    for each work or world
-      if filter in filter tags
-        data = Legwork.Work[stuff.content] or Legwork.World[stuff.content]
-        data.type = category
-        data.link = '/' + stuff.content
-        $content += $(JST['desktop/templates/ww'](data))
+    content = ''
+
+    # Search work
+    for id, work of Legwork.Work
+      if filter in work.tags
+        data = work
+        data.type = 'work'
+        data.link = '/' + id
+        content += JST['desktop/templates/ww'](data)
+
+    # Search world
+    for id, world of Legwork.World
+      if filter in world.tags
+        data = world
+        data.type = 'world'
+        data.link = '/' + id
+        content += JST['desktop/templates/ww'](data)
 
     # Append to DOM
-    $content.appendTo(@$filter_wrap)
-    ###
+    @$filter_wrap.append(content)
 
     reveal = new Legwork.ImageSequence({
       '$el': @$stuff_reveal,

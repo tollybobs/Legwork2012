@@ -342,19 +342,16 @@
                 margin-bottom: 10px
 
                 a
-                  color: #999
+                  color: $black
                   text-decoration: none
-
-                .tweet-at
-                  color: #999
-                  text-decoration: none
+                  border-bottom: 2px solid $light_gray
 
                 .tweet-hash
-                  color: #999
+                  color: $light_gray
                   text-decoration: none
 
               .twitter-details
-                color: #999
+                color: #666
                 font: normal normal normal 11px/11px Helvetica, Arial, sans-serif
 
             .tweet-one
@@ -1501,27 +1498,7 @@
 
               p
                 font: normal normal normal 16px/22px "MuseoSlab700", Verdana, sans-serif
-                color: $black
-                -webkit-hyphens: auto
-                -moz-hyphens: auto
-                hyphens: auto
                 margin-bottom: 10px
-
-                a
-                  color: #999
-                  text-decoration: none
-
-                .tweet-at
-                  color: #999
-                  text-decoration: none
-
-                .tweet-hash
-                  color: #999
-                  text-decoration: none
-
-              .twitter-details
-                color: #999
-                font: normal normal normal 11px/11px Helvetica, Arial, sans-serif
 
             .tweet-one
               border-bottom: 0px
@@ -1775,7 +1752,6 @@
 
     // main
     #legwork
-      max-width: 1500px
       margin: 0px auto
 
       #wrap-the-canvas
@@ -1866,6 +1842,13 @@
               p
                 font: normal normal normal 24px/30px "MuseoSlab700", Verdana, sans-serif
                 margin-bottom: 20px
+
+                a
+                  border-bottom: 2px solid $light_gray
+                  @include transition(border-bottom, 250ms, linear)
+
+                  &:hover
+                    border-bottom: 2px solid $black
 
               .twitter-details
                 font: normal normal normal 14px/14px Helvetica, Arial, sans-serif

@@ -349,10 +349,12 @@ class Legwork.Application
     @twitter_index++
 
     # format mentions, hashes and links
-    text = text.replace(/(^|\s)(#\w+)\b/g, ' <span class="tweet-hash">$2</span>')
     text = text.replace(/([A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+)/g, '<a href="$1" target="_new">$1</a>')
     text = text.replace(/(^|\s)(@\w+)\b/g, (match, p1, p2, offset, string) ->
       return ' <a href="http://twitter.com/' + p2.replace(/@/, '') + '" target="_new">' + p2 + '</a>'
+    )
+    text = text.replace(/(^|\s)(#\w+)\b/g, (match, p1, p2, offset, string) ->
+      return ' <a class="tweet-hash" href="http://twitter.com/search?q=' + p2.replace(/#/, '') + '" target="_new">' + p2 + '</a>'
     )
 
     # format date

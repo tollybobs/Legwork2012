@@ -347,9 +347,11 @@ class Legwork.Application
     @twitter_index++
 
     # format mentions, hashes and links
-    text = text.replace(/(^|\s)(@\w+)\b/g, ' <span class="tweet-at">$2</span>')
     text = text.replace(/(^|\s)(#\w+)\b/g, ' <span class="tweet-hash">$2</span>')
     text = text.replace(/([A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+)/g, '<a href="$1" target="_new">$1</a>')
+    text = text.replace(/(^|\s)(@\w+)\b/g, (match, p1, p2, offset, string) ->
+      return ' <a href="http://twitter.com/' + p2.replace(/@/, '') + '" target="_new">' + p2 + '</a>'
+    )
 
     # format date
     time_since_tweet = Math.floor((new Date() - new Date(Date.parse(timestamp))) / 1000)
@@ -860,12 +862,27 @@ class Legwork.Application
   *------------------------------------------*
   | loadFilter:void (-)
   | 
+  | filter:string - filter id
+  |
   | Load a filter.
   *----------------------------------------###
-  loadFilter: () ->
+  loadFilter: (filter) ->
     @$canvas_wrap.hide()
     @$stuff_wrap.hide()
     @$filter_wrap.show()
+
+    # TODO
+    ###
+    for each work or world
+      if filter in filter tags
+        data = Legwork.Work[stuff.content] or Legwork.World[stuff.content]
+        data.type = category
+        data.link = '/' + stuff.content
+        $content += $(JST['desktop/templates/ww'](data))
+
+    # Append to DOM
+    $content.appendTo(@$filter_wrap)
+    ###
 
     reveal = new Legwork.ImageSequence({
       '$el': @$stuff_reveal,

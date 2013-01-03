@@ -904,7 +904,7 @@ class Legwork.Application
       .one 'sequence_frame', (e) =>
         setTimeout =>
           @$stuff_reveal.css('background-color', 'transparent')
-        , 100
+        , 250
       .off('sequence_complete')
       .one 'sequence_complete', (e) =>
         @$stuff_reveal.hide()

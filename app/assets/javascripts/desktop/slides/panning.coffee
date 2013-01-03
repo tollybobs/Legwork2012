@@ -69,6 +69,8 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   | Handle window resize
   *----------------------------------------###
   resize: (w, h) =>
+    super(w, h)
+
     @bw = w
     @bh = h
     @horz_center = (@bw / 2) - (@pw / 2)

@@ -61,14 +61,14 @@ class Legwork.SingleDetail extends Legwork.Controllers.BaseDetail
   activate: ->
     super()
 
+    @onResize = _.debounce(@afterResize, 300)
+    Legwork.$wn.on('resize', @onResize)
+
     @current_slide_view = @slide_views[0]
     @current_slide_view.activate()
 
     @$slides.first().css('left','0%')
     @$el.find('.next-slide-btn').remove()
-
-    @onResize = _.debounce(@afterResize, 300)
-    Legwork.$wn.on('resize', @onResize)
 
   ###
   *------------------------------------------*

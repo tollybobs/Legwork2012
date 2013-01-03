@@ -62,6 +62,13 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   activate: ->
     super()
 
+    @onResize = _.debounce(@afterResize, 300)
+    Legwork.$wn.on('resize', @onResize)
+
+    @current_slide_view = @slide_views[0]
+    @current_slide_index = 0
+    @current_slide_view.activate()
+
     @resetSlides()
 
     @$next_btn.on Legwork.click, @nextSlide
@@ -69,9 +76,6 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     @$el.find('.project-callouts h4').on Legwork.click, =>
       @$next_btn.trigger Legwork.click
-
-    @onResize = _.debounce(@afterResize, 300)
-    Legwork.$wn.on('resize', @onResize)
 
   ###
   *------------------------------------------*
@@ -97,9 +101,6 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   | title-screen slide is first/current
   *----------------------------------------###
   resetSlides: ->
-    @current_slide_view = @slide_views[0]
-    @current_slide_index = 0
-
     @$slides.removeClass('current').css('left', '100%')
     @$slides.eq(@current_slide_index).addClass('current').css('left', '0%')
 

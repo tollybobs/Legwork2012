@@ -1,4 +1,13 @@
-<div class="slide title-screen" style="background-image: url(<%= @background.url %>)">
+<div class="slide title-screen" <% if @background.type == 'image': %>style="background-image: url(<%= @background.url %>)"<% end %>>
+  <% if @background.type == 'video': %>
+    <div class="bg-project-video">
+      <video width="960" height="540" autobuffer preload="auto" autoplay="autoplay" loop="loop">
+        <source src="<%= @background.src %>.mp4" type="video/mp4; codecs="avc1.42E01E, mp4a.40.2"" />
+        <source src="<%= @background.src %>.webm" type="video/webm; codecs="vp8, vorbis"" />
+        <source src="<%= @background.src %>.ogv" type="video/ogg; codecs="theora, vorbis"" />
+      </video>
+    </div>
+  <% end %>
   <div class="slide-inner">
     <div class="slide-inner-content">
       <div class="project-title">

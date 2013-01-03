@@ -52,8 +52,9 @@ class Legwork.Slides.FullScreenVideo extends Legwork.Slides.Slide
     @$poster
       .show()
 
+    Legwork.$wn.trigger('resize')
+
     setTimeout =>
-      Legwork.$wn.trigger('resize')
       @playVimeo()
     , 666
 
@@ -78,6 +79,8 @@ class Legwork.Slides.FullScreenVideo extends Legwork.Slides.Slide
   | Handle window resize
   *----------------------------------------###
   resize: (w, h) =>
+    super()
+
     if (h / w) > @ratio
       @$vimeo.height h
       @$vimeo.width h / @ratio

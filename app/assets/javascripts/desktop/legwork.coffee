@@ -149,7 +149,7 @@ class Legwork.Application
       line = {
         'color': color,
         'coords': [],
-        'tightness': (Math.random() * 2) + 2,
+        'tightness': (Math.random() * 1) + 3,
         'weight': (Math.random() * 50) + (j * 20)
       }
 
@@ -303,6 +303,7 @@ class Legwork.Application
           $content = $(JST['desktop/templates/ww'](data))
 
       # Append to DOM
+      # TODO: append all at once?
       $content.appendTo(@$stuff_wrap)
 
   ###
@@ -877,23 +878,22 @@ class Legwork.Application
       .empty()
       .show()
 
+    manifest = Legwork[filter]
     content = ''
 
     # Search work
-    for id, work of Legwork.Work
-      if filter in work.tags
-        data = work
-        data.type = 'work'
-        data.link = '/' + id
-        content += JST['desktop/templates/ww'](data)
+    for stuff, id in manifest.layout
+      category = @getStuffType(stuff.type)
 
-    # Search world
-    for id, world of Legwork.World
-      if filter in world.tags
-        data = world
-        data.type = 'world'
-        data.link = '/' + id
-        content += JST['desktop/templates/ww'](data)
+      # Content
+      switch category
+        when 'sequenced'
+          content += JST['desktop/templates/sequence'](stuff)
+        when 'work', 'world'
+          data = Legwork.Work[stuff.content] or Legwork.World[stuff.content]
+          data.type = category
+          data.link = '/' + stuff.content
+          content += JST['desktop/templates/ww'](data)
 
     # Append to DOM
     @$filter_wrap.append(content)

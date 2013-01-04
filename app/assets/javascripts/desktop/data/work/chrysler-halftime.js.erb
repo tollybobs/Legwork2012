@@ -5,7 +5,12 @@ Legwork.Work["chrysler-halftime"] = {
 		"images": [
 			"<%= asset_path 'desktop/work-halftime.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "chrysler-halftime-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
@@ -43,14 +48,10 @@ Legwork.Work["chrysler-halftime"] = {
 			],
 			
 			"url": "http://www.youtube.com/user/chrysler/halftime-in-america",
-			
+
 			"background": {
-				// option 1
-				// "type": "video",
-				// "url": "<%= asset_path 'desktop/some-video' %>"
-				// option 2
-				"type": "image",
-				"url": "<%= asset_path 'desktop/work-halftime.jpg' %>"
+				"type": "video",
+				"id": "chrysler-halftime-loop"
 			}
 		}
 	]

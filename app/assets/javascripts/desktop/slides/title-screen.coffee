@@ -28,6 +28,10 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   *----------------------------------------###
   build: ->
     @$el = $(JST["desktop/templates/slides/title-screen"](@model))
+    @$bgvid = $('.bg-project-video', @$el)
+    @$v = $('#' + @model.background.id)
+    @$bgvid.append(@$v)
+
     return @$el
 
   ###
@@ -38,9 +42,6 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   *----------------------------------------###
   initialize: ->
     @ratio = 9 / 16
-    @$v = $('#' + @model.background.id)
-    @$bgvid = $('.bg-project-video', @$el)
-    @$bgvid.append(@$v)
 
   ###
   *------------------------------------------*
@@ -51,8 +52,10 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   activate: ->
     Legwork.$wn.trigger('resize')
 
-    # @$v[0].addEventListener 'canplaythrough', @playVideo, false
-    # @$v[0].addEventListener 'ended', @videoEnded, false
+    if @$bgvid.length > 0
+      @$v[0].load()
+      @$v[0].addEventListener 'canplaythrough', @playVideo, false
+      @$v[0].addEventListener 'ended', @videoEnded, false
 
   ###
   *------------------------------------------*
@@ -61,6 +64,9 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   | Deactivate old slide
   *----------------------------------------###
   deactivate: ->
+    if @$bgvid.length > 0
+      @$v[0].removeEventListener 'canplaythrough', @playVideo, false
+      @$v[0].removeEventListener 'ended', @videoEnded, false
 
   ###
   *------------------------------------------*
@@ -90,15 +96,10 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   | Private Methods
   |
   *----------------------------------------###
-  # playVideo: =>
-  #   @$v[0].play()
-  #   console.log('video play' + @$v[0].currentTime)
-  # 
-  # videoEnded: =>
-  #   @$v[0].pause()
-  #   @$v[0].currentTime = 0
-  #   console.log('ended, start over')
-  #   @playVideo()
+  playVideo: =>
+    @$v[0].currentTime = 0
+    @$v[0].play()
 
-
+  videoEnded: =>
+    @playVideo()
 

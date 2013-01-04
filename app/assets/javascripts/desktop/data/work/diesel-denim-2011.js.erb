@@ -5,7 +5,12 @@ Legwork.Work["diesel-denim-2011"] = {
 		"images": [
 			"<%= asset_path 'desktop/work-diesel.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "diesel-denim-2011-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
@@ -43,14 +48,10 @@ Legwork.Work["diesel-denim-2011"] = {
 			],
 
 			"url": "http://diesel.legworkstudio.com",
-			
+
 			"background": {
-				// option 1
-				// "type": "video",
-				// "url": "<%= asset_path 'desktop/some-video' %>"
-				// option 2
-				"type": "image",
-				"url": "<%= asset_path 'desktop/title-screen-fpo.jpg' %>"
+				"type": "video",
+				"id": "diesel-denim-2011-loop"
 			}
 		}
 	]

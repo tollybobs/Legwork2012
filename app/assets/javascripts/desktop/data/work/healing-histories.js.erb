@@ -5,7 +5,12 @@ Legwork.Work["healing-histories"] = {
 		"images": [
 			"<%= asset_path 'desktop/work-hh.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "healing-histories-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
@@ -45,12 +50,8 @@ Legwork.Work["healing-histories"] = {
 			"url": "http://healinghistories.com",
 			
 			"background": {
-				// option 1
-				// "type": "video",
-				// "url": "<%= asset_path 'desktop/some-video' %>"
-				// option 2
-				"type": "image",
-				"url": "<%= asset_path 'desktop/work-hh.jpg' %>"
+				"type": "video",
+				"id": "healing-histories-loop"
 			}
 		}
 	]

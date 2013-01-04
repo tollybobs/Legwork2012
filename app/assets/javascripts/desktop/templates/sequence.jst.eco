@@ -4,6 +4,16 @@
       <div class="sequenced-title-wrap">
         <div class="sequenced-tagline">
           <h1><%- @title %></h1>
+          <% if @services?: %>
+            <% for index, list of @services: %>
+              <ul class="services-list cf">
+                <li><b><%- index %></b></li>
+                <% for item, i in list: %>
+                  <li><%- item %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>

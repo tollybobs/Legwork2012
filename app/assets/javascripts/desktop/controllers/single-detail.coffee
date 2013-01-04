@@ -32,7 +32,7 @@ class Legwork.SingleDetail extends Legwork.Controllers.BaseDetail
     $slides_wrap = @$el.find('.slides')
 
     for slide in @model.slides
-      slide_view = new slide.type({model: slide})
+      slide_view = new Legwork.Slides[slide.type]({model: slide})
       $slides_wrap.append slide_view.build()
       @slide_views.push(slide_view)
 

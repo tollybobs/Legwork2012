@@ -362,9 +362,8 @@
       #wrap-the-filter
         display: none
 
-        h1
-          font: normal normal normal 72px/800px "MuseoSlab700", Verdana, sans-serif
-          text-align: center
+        .services-list
+          display: none
 
       #reveal-the-stuff
         position: absolute
@@ -1519,6 +1518,27 @@
               width: 40%
               padding-right: 0%
 
+      #wrap-the-filter
+        .services-list
+          display: block
+          float: left
+          width: 30%
+          list-style: none
+          padding-top: 32px
+          margin-right: 3%
+
+          li
+            display: block
+            height: 10px
+            font: normal normal normal 10px/10px Helvetica, Arial, sans-serif
+            margin-bottom: 4px
+
+            b
+              font-weight: bold
+
+          li:first-child
+            margin-bottom: 7px
+
     // detail
     #detail
       #detail-close-btn
@@ -1776,8 +1796,6 @@
         .sequenced.stuff:first-child
           .sequenced-inner
             .sequenced-content-wrap
-              background: #fff !important
-
               video
                 position: absolute
                 height: 100%
@@ -1866,6 +1884,34 @@
 
               .twitter-details
                 font: normal normal normal 14px/14px Helvetica, Arial, sans-serif
+
+      #wrap-the-stuff
+        .sequenced.stuff,
+        .sequenced.stuff:first-child
+          .sequenced-inner
+            .sequenced-content-wrap
+              background: #fff !important
+
+      #wrap-the-filter
+        .services-list
+          display: block
+          float: left
+          width: 30%
+          list-style: none
+          padding-top: 32px
+          margin-right: 3%
+
+          li
+            display: block
+            height: 12px
+            font: normal normal normal 12px/12px Helvetica, Arial, sans-serif
+            margin-bottom: 6px
+
+            b
+              font-weight: bold
+
+          li:first-child
+            margin-bottom: 9px
 
     // detail
     #detail

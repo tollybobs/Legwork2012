@@ -176,7 +176,7 @@ class Legwork.Application
   |
   | cnv:dom - canvas
   |
-  | Clear the canvas.
+  | Clear the canvas. Now you've done it.
   *----------------------------------------###
   clear: (cnv) ->
     ctx = cnv.getContext('2d')
@@ -335,7 +335,7 @@ class Legwork.Application
   *------------------------------------------*
   | getNextTweet:object (-)
   |
-  | Get the next Tweet.
+  | Get the next Tweet. Go ahead, get 'er.
   *----------------------------------------###
   getNextTweet: ->
     tweet = Legwork.twitter[@twitter_index]
@@ -392,7 +392,7 @@ class Legwork.Application
 
     return {
       'text': text,
-      'details': date + ' via ' + source
+      'details': date.charAt(0).toUpperCase() + date.slice(1) + ' via ' + source
     }
 
   ###

@@ -5,7 +5,12 @@ Legwork.Work["paranorman"] = {
 		"images": [
 			"<%= asset_path 'desktop/work-paranorman.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "paranorman-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
@@ -53,7 +58,7 @@ Legwork.Work["paranorman"] = {
 			"background": {
 				// option 1
 				"type": "video",
-				"src": "<%= asset_path 'desktop/work/paranorman-2012/paranorman-loop' %>"
+				"id": "paranorman-loop"
 				// option 2
 				// "type": "image",
 				// "url": "<%= asset_path 'desktop/title-screen-fpo-2.jpg' %>"

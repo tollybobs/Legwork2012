@@ -38,7 +38,9 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   *----------------------------------------###
   initialize: ->
     @ratio = 9 / 16
+    @$v = $('#' + @model.background.id)
     @$bgvid = $('.bg-project-video', @$el)
+    @$bgvid.append(@$v)
 
   ###
   *------------------------------------------*
@@ -48,6 +50,9 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   *----------------------------------------###
   activate: ->
     Legwork.$wn.trigger('resize')
+
+    # @$v[0].addEventListener 'canplaythrough', @playVideo, false
+    # @$v[0].addEventListener 'ended', @videoEnded, false
 
   ###
   *------------------------------------------*
@@ -78,3 +83,22 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
 
     @$bgvid.css 'left', (w - @$bgvid.width()) / 2
     @$bgvid.css 'top', (h - @$bgvid.height()) / 2
+
+  ###
+  *------------------------------------------*
+  | 
+  | Private Methods
+  |
+  *----------------------------------------###
+  # playVideo: =>
+  #   @$v[0].play()
+  #   console.log('video play' + @$v[0].currentTime)
+  # 
+  # videoEnded: =>
+  #   @$v[0].pause()
+  #   @$v[0].currentTime = 0
+  #   console.log('ended, start over')
+  #   @playVideo()
+
+
+

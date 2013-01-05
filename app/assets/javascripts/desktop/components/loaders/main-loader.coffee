@@ -55,7 +55,6 @@ class Legwork.MainLoader extends Legwork.Loader
     @$status = @$view.find('#loader-status')
     @$bros = @$view.find('#loader-bros')
     @$speech_bubble = @$view.find('#loader-speech-bubble')
-    @$bands = @$view.find('#loader-bands')
 
     # Talk
     @talk = setTimeout =>
@@ -143,12 +142,5 @@ class Legwork.MainLoader extends Legwork.Loader
           @$status.css
             'opacity':1 - p
         'complete': (e) =>
-          @$bands.animate
-            'width':'100%'
-          , 333, 'easeInExpo', =>
-            @$el.trigger('Legwork.loaded')
-
-            @$view.animate
-              'width':'0%'
-            , 333, 'easeOutExpo', ->
-              $(this).remove()
+          @$el.trigger('Legwork.loaded')
+          @$view.remove()

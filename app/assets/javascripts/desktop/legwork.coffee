@@ -110,9 +110,33 @@ class Legwork.Application
     @$sequence = $('.sequenced')
     @lifelines = @getLifelines()
 
-    @$stuff_reveal.delay(111).animate
-      'width':'0%'
-    , 666, 'easeInOutExpo', =>
+    @observeSomeSweetEvents()
+
+    # Check initial url and set state
+    @state = @History.getState()
+    url = @state.hash.replace(/^\/|\.|\#/g, '')
+
+    if url is ''
+      @current_state = ''
+      @homeTransition()
+    else if url in Legwork.filters
+      @$canvas_wrap.hide()
+      @$stuff_wrap.hide()
+      @$filter_wrap.show()
+      @buildFilter(url)
+
+      # Set filter button
+      Legwork.$header.find('a[id$="-' + url + '"]').addClass('selected')
+
+      @current_state = 'filter'
+      @homeTransition()
+    else
+      # TODO: try catch here and serve 404 if needed
+
+      @$detail
+        .show()
+        .css('background-color', '#000')
+
       @$stuff_reveal
         .hide()
         .css({
@@ -120,10 +144,40 @@ class Legwork.Application
           'width': '100%'
         })
 
-      @observeSomeSweetEvents()
-
       Legwork.$header.find('h1')
-        .animate
+        .css('margin-bottom', '0px')
+
+      @loadDetail(url)
+      @detailControlsIn()
+
+      @current_state = 'detail'
+
+  ###
+  *------------------------------------------*
+  | homeTransition:void (-)
+  |
+  | Transition the home or filter view in.
+  *----------------------------------------###
+  homeTransition: ->
+    # TODO: drop menus in
+
+    reveal = new Legwork.ImageSequence({
+      '$el': @$stuff_reveal,
+      'settings': Legwork.sequences['reveal']
+    })
+
+    @$stuff_reveal
+      .off('sequence_frame')
+      .one 'sequence_frame', (e) =>
+        setTimeout =>
+          @$stuff_reveal.css('background-color', 'transparent')
+        , 250
+      .off('sequence_complete')
+      .one 'sequence_complete', (e) =>
+        @$stuff_reveal.hide()
+        reveal.destroy()
+
+        Legwork.$header.find('h1').animate
           'margin-bottom':'0px'
         , 666, 'easeInOutExpo'
 
@@ -384,7 +438,7 @@ class Legwork.Application
     else if time_since_tweet <= 777600
       date = "One week ago"
     else
-      date = "In ancient times"
+      date = "In the ancient times"
 
     # prepare source
     source = source.replace(/(^<.+>)(.+)(<.+>$)/, '$2')
@@ -466,7 +520,9 @@ class Legwork.Application
       .attr('height', Math.floor(Legwork.$wn.height() * 0.50))
 
     @lifelines = @getLifelines()
-    @$canvas_wrap.show()
+
+    if @current_state is ''
+      @$canvas_wrap.show()
 
     Legwork.$wn.trigger('scroll')
 
@@ -487,7 +543,6 @@ class Legwork.Application
       .one('scroll', @onScrollStart)
       .on('scroll', @onScroll)
       .trigger('resize')
-      .trigger('scroll')
 
     # Ajaxy
     Legwork.$body
@@ -579,8 +634,8 @@ class Legwork.Application
     if Legwork.app_width < 1025
       $('.sequenced-inner').find('video').hide()
 
-    if Legwork.app_width < 740
-      @layout()
+    #if Legwork.app_width < 740
+      #@layout()
 
   ###
   *------------------------------------------*
@@ -742,16 +797,16 @@ class Legwork.Application
   *----------------------------------------###
   route: (to) ->
     if to is ''
-      if @previous_state is 'detail'
+      if @current_state is 'detail'
         @resetDetail()
 
-      if @previous_state is 'filter'
+      if @current_state is 'filter'
         @openFilter('')
 
-      @previous_state = ''
+      @current_state = ''
     else if to in Legwork.filters
       @openFilter(to)
-      @previous_state = 'filter'
+      @current_state = 'filter'
     else 
       if @$detail.is(':visible')
         Legwork.current_detail_controller.deactivate()
@@ -759,7 +814,7 @@ class Legwork.Application
       else
         @openDetail(to)
 
-      @previous_state = 'detail'
+      @current_state = 'detail'
 
   ###
   *------------------------------------------*
@@ -783,16 +838,24 @@ class Legwork.Application
         detail_in.destroy()
         @$detail.css('background-color', '#000')
         @loadDetail(item)
+        @detailControlsIn()
 
-        setTimeout =>
-          @$detail_close.animate
-            'margin-top': '0px'
-          ,
-            'duration': 500
-            'easing': 'easeInOutExpo'
-            'step': (now, fx) =>
-              @$related_btn.css('margin-bottom', now + 'px')
-        , 666
+  ###
+  *------------------------------------------*
+  | detailControlsIn:void (-)
+  | 
+  | Transition the detail controls in.
+  *----------------------------------------###
+  detailControlsIn: ()->
+    setTimeout =>
+      @$detail_close.animate
+        'margin-top': '0px'
+      ,
+        'duration': 500
+        'easing': 'easeInOutExpo'
+        'step': (now, fx) =>
+          @$related_btn.css('margin-bottom', now + 'px')
+    , 666
 
   ###
   *------------------------------------------*
@@ -878,25 +941,7 @@ class Legwork.Application
       .empty()
       .show()
 
-    manifest = Legwork[filter]
-    content = ''
-
-    # Search work
-    for stuff, id in manifest.layout
-      category = @getStuffType(stuff.type)
-
-      # Content
-      switch category
-        when 'sequenced'
-          content += JST['desktop/templates/sequence'](stuff)
-        when 'work', 'world'
-          data = Legwork.Work[stuff.content] or Legwork.World[stuff.content]
-          data.type = category
-          data.link = '/' + stuff.content
-          content += JST['desktop/templates/ww'](data)
-
-    # Append to DOM
-    @$filter_wrap.append(content)
+    @buildFilter(filter)
 
     reveal = new Legwork.ImageSequence({
       '$el': @$stuff_reveal,
@@ -916,6 +961,34 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
+  | buildFilter:void (-)
+  | 
+  | filter:string - filter id
+  |
+  | Build a filter.
+  *----------------------------------------###
+  buildFilter: (filter)->
+    manifest = Legwork[filter]
+    content = ''
+
+    for stuff, id in manifest.layout
+      category = @getStuffType(stuff.type)
+
+      # Content
+      switch category
+        when 'sequenced'
+          content += JST['desktop/templates/sequence'](stuff)
+        when 'work', 'world'
+          data = Legwork.Work[stuff.content] or Legwork.World[stuff.content]
+          data.type = category
+          data.link = '/' + stuff.content
+          content += JST['desktop/templates/ww'](data)
+
+    # Append to DOM
+    @$filter_wrap.append(content)
+
+  ###
+  *------------------------------------------*
   | resetFilter:void (-)
   | 
   | Back to the initial view.
@@ -924,6 +997,7 @@ class Legwork.Application
     @$filter_wrap.hide()
     @$canvas_wrap.show()
     @$stuff_wrap.show()
+    @finishLayout()
 
     reveal = new Legwork.ImageSequence({
       '$el': @$stuff_reveal,

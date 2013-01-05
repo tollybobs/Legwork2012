@@ -1093,24 +1093,6 @@
       margin: 0 0 -5px -50px
       background-position: -100px 0px
 
-    #loader-bands
-      position: absolute
-      top: 0px
-      left: 0px
-      width: 0%
-      height: 100%
-
-    #loader-bands:before
-      content: ""
-      position: absolute
-      top: 0px
-      left: 0px
-      width: 100%
-      height: 46px
-      background-color: $nav_bg
-      border-top: 4px solid $black
-      @include nav_shadow
-
   #ye-olde-hidden-video-holder
     position: fixed
     top: 0px
@@ -1690,28 +1672,6 @@
       margin: 0 0 -5px -95px
       background-position: -200px 0px
 
-    #loader-bands:before
-      content: ""
-      position: absolute
-      top: 0px
-      left: 0px
-      width: 100%
-      height: 70px
-      background-color: $nav_bg
-      border-top: 4px solid $black
-      @include nav_shadow
-
-    #loader-bands:after
-      content: ""
-      position: absolute
-      bottom: 0px
-      left: 0px
-      width: 100%
-      height: 46px
-      background-color: $nav_bg
-      border-top: 4px solid #4d4d4d
-      @include nav_shadow
-
 // OVERRIDES: 1025 and up (desktop)
 @media screen and (min-width: 1025px)
   #wrapper
@@ -2032,29 +1992,6 @@
             -webkit-border-bottom-right-radius: 5px
             -moz-border-radius-bottomright: 5px
             border-bottom-right-radius: 5px
-
-  #main-loader
-    #loader-bands:before
-      content: ""
-      position: absolute
-      top: 0px
-      left: 0px
-      width: 100%
-      height: 50px
-      background-color: $nav_bg
-      border-top: 4px solid $black
-      @include nav_shadow
-
-    #loader-bands:after
-      content: ""
-      position: absolute
-      bottom: 0px
-      left: 0px
-      width: 100%
-      height: 46px
-      background-color: $nav_bg
-      border-top: 4px solid #4d4d4d
-      @include nav_shadow
 
 // OVERRIDES: 1280 and up (big honkin' screens)
 @media screen and (min-width: 1280px)

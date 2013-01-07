@@ -58,100 +58,128 @@ Legwork.Work["paranorman"] = {
 			}
 		},
 
-		// video
+		// full screen (w/ image)
 		{
-			"type": "Video",
-			"background_color": "#89af60",
-			"id": "49792510"
-		},
-
-		// panning
-		{
-			"type": "PanningSlide",
-			"images": {
-				"background": "<%= asset_path 'desktop/work/paranorman-2012/panning-bg.jpg' %>",
-				"pan_img": "<%= asset_path 'desktop/work/paranorman-2012/panning-sketches.png' %>"
-			}
-		},
-
-		// pull quote
-		{
-			"type": "PullQuote",
-			"quote": "By trusting our approach Airwalk traffic has increased over 100%. Within a year, more people will have visited this site than the entire population of San Antonio, TX, the seventh largest city in the US."
-		},
-
-		// media (w/ vimeo)
-		{
-			"type": "Media",
-			"background_color": "#89af60",
-			"title": "Paranorman Walk Through",
-			"text": [
-				"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
-				"Created a comprehensive illustration library (elements, characters, homes)",
-				"2D and 3D styles composited for final animation",
-				"Custom music and sound design"
-			],
-			"media": {
-				"type": "vimeo",
-				"id": "49792510"
-			}
-		},
-
-		// media (w/ image)
-		{
-			"type": "Media",
-			"background_color": "#9AD5F0",
-			"title": "Paranorman 2012",
-			"text": [
-				"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
-				"Created a comprehensive illustration library (elements, characters, homes)",
-				"2D and 3D styles composited for final animation",
-				"Custom music and sound design"
-			],
-			"media": {
-				"type": "image",
-				"url": "<%= asset_path 'desktop/work-paranorman.jpg' %>"
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-prototypes.jpg' %>",
+			"sidebar": {
+				"title": "Process",
+				"text": "<p>Our friends at Wieden+Kennedy came to us with a really solid concept of what they were looking for. The only thing was, it included a lot of ideas we weren't sure would be possible in the browsers we had to support. So, we focused a lot of our time up front to ensure we were all on the same page and prototyped the interactions we weren't sure about to understand their limitations before we started on the visual design. From their we prioritized features, created, revised and create more until we reached our deadline.</p><p><a href='http://test.legworkstudio.com/paranorman/desktop/' target='_new'>View Desktop Prototypes</a></p><p><a href='http://test.legworkstudio.com/paranorman/mobile/' target='_new'>View Mobile Prototypes</a></p>"
 			}
 		},
 
 		// full screen (w/ image)
 		{
 			"type": "FullScreenImage",
-			"media": {
-				"type": "image",
-				"url": "<%= asset_path 'desktop/title-screen-fpo-2.jpg' %>"
-			}
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-styleguide.jpg' %>"
 		},
 
-		// slideshow
+		// pull quote
 		{
-			"type": "Slideshow",
-			"background_color": "#89af60",
-			"title": "Random Slides of Stuff",
-			"text": [
-				"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
-				"Created a comprehensive illustration library (elements, characters, homes)",
-				"2D and 3D styles composited for final animation",
-				"Custom music and sound design"
-			],
-			"slides": [
-				{
-					"type": "vimeo",
-					"id": "52264316"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/work/paranorman-2012/slideshow-fpo.jpg' %>"
-				},
-				{
-					"type": "vimeo",
-					"id": "53487338"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/work-paranorman.jpg' %>"
-				}
-			]
+			"type": "PullQuote",
+			"background": "<%= asset_path 'desktop/work/paranorman/paranorman-craft.jpg' %>",
+			"color": "#c2d94f",
+			"quote": "To create the visuals for each scene we took plates from the movie or digital photographs for specific requests and constructed custom experiences with them. Sometimes this was pretty simple, like cutting out a character to separate them from a background, and other times it got pretty intense, like creating a photorealistic shower curtain out of nothing.<br><br>The following slides show a few examples of the image production we undertook."
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-before.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-after.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-before-2.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-after-2.jpg' %>"
+		},
+
+		// panning
+		{
+			"type": "PanningSlide",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-cutout.jpg' %>",
+			"width": "2500",
+			"height": "1830"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-organization.jpg' %>",
+			"sidebar": {
+				"title": "Obsessive Compulsive Disorder",
+				"text": "<p>The same effort was going on behind the scenes. In order to make it easy for anyone to jump in and out of the project with little effort, we took great care to ensure even our source files were cleaned up and well constructed. And by sharing all of our files on Dropbox and Github, geography never got in the way. We take great pride in every detail of our craft.</p>"
+			}
 		}
+
+		// The following are other slide types
+		// we can use too...
+
+		// video (this is just a demo slide)
+		// {
+		// 	"type": "Video",
+		// 	"background_color": "#89af60",
+		// 	"id": "49792510"
+		// },
+
+		// media (w/ vimeo)  (this is just a demo slide)
+		// {
+		// 	"type": "Media",
+		// 	"background_color": "#89af60",
+		// 	"title": "Paranorman Walk Through",
+		// 	"text": [
+		// 		"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
+		// 		"Created a comprehensive illustration library (elements, characters, homes)",
+		// 		"2D and 3D styles composited for final animation",
+		// 		"Custom music and sound design"
+		// 	],
+		// 	"media": {
+		// 		"type": "vimeo",
+		// 		"id": "49792510"
+		// 	}
+		// },
+
+		// slideshow
+		// {
+		// 	"type": "Slideshow",
+		// 	"background_color": "#89af60",
+		// 	"title": "Random Slides of Stuff",
+		// 	"text": [
+		// 		"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
+		// 		"Created a comprehensive illustration library (elements, characters, homes)",
+		// 		"2D and 3D styles composited for final animation",
+		// 		"Custom music and sound design"
+		// 	],
+		// 	"slides": [
+		// 		{
+		// 			"type": "vimeo",
+		// 			"id": "52264316"
+		// 		},
+		// 		{
+		// 			"type": "image",
+		// 			"url": "<%= asset_path 'desktop/work/paranorman/slideshow-fpo.jpg' %>"
+		// 		},
+		// 		{
+		// 			"type": "vimeo",
+		// 			"id": "53487338"
+		// 		},
+		// 		{
+		// 			"type": "image",
+		// 			"url": "<%= asset_path 'desktop/work-paranorman.jpg' %>"
+		// 		}
+		// 	]
+		// }
 	]
 }

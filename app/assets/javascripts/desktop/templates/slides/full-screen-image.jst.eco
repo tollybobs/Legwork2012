@@ -1,1 +1,16 @@
-<div class="slide full-screen-image" style="background-image: url(<%= @media.url %>)"></div>
+<% if @sidebar: %>
+<div class="slide full-screen-image">
+  <div class="sidebar">
+    <div class="sidebar-inner">
+      <div class="overview">
+        <h4><%= @sidebar.title %></h4>
+        <%- @sidebar.text %>
+      </div>
+    </div>
+  </div>
+  <div class="image-stage" style="background-image: url(<%= @image %>)"></div>
+</div>
+<% else: %>
+<div class="slide full-screen-image" style="background-image: url(<%= @image %>)">
+</div>
+<% end %>

@@ -5,13 +5,18 @@ Legwork.Work["colorado-lottery-dad"] = {
 		"images": [
 			"<%= asset_path 'desktop/work-dad.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "colorado-lottery-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
 	// project metadata
-	"title": "Colorado Lottery",
-	"summary": "A motion piece for the Colorado Lottery",
+	"title": "The Legend of Your Dad",
+	"summary": "A video for Colorado Lottery with Cactus.",
 	"thumbnail": "<%= asset_path 'desktop/work-dad.jpg' %>", // NOTE: 960x540
 	"related": "new-york-times-obama-vs-boehner",
 	"upnext": "Up Next: New York Times",
@@ -21,45 +26,53 @@ Legwork.Work["colorado-lottery-dad"] = {
 		// title screen
 		{
 			"type": "TitleScreen",
-			"title": "Colorado Lottery",
-			"summary": "A motion piece for the Colorado Lottery",
+			"title": "The Legend of Your Dad",
+			"summary": "A video for Colorado Lottery with Cactus.",
 
 			// services
 			"services": [
-				"Branding",
-				"Illustration",
-				"UX / UI",
-				"Web Development"
+				"?"
 			],
 
-			// recognition
-			"recognition": [
-				"FWA SOTD",
-				"CommArts",
-				"SXSW Finalist",
-				"Webby Awards"
-			],
-			
 			"overview": [
-				"Ah bra, it's just like, dude you get the best barrels ever dude. It's just like you pull in and just get spit right out of them. And you just drop in and just smack the lip. Whuppah! Jus-drop down, send it baahhahhh! And then after that you just drop in and just ride the barrel and get pitted, so pitted like that."
+				"Cactus Advertising approached Legwork to produce an animated spot for their Colorado Lottery Fathers Day promotion. We took their written script and pushed it as far as we could within the quick timeline, the end result is a visually exciting and humorous take on the World's Best Dad."
 			],
+
 			"callout": "Watch Video",
 			
 			"background": {
-				// option 1
-				// "type": "video",
-				// "url": "<%= asset_path 'desktop/some-video' %>"
-				// option 2
-				"type": "image",
-				"url": "<%= asset_path 'desktop/work-dad.jpg' %>"
+				"type": "video",
+				"id": "colorado-lottery-loop"
 			}
 		},
 
 		// video
 		{
 			"type": "Video",
-			"background_color": "#89af60",
+			"background_color": "#91583b",
 			"id": "24807761"
+		},
+
+		// full screen (w/ video)
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/colorado-lottery/colorado-lottery-breakdown.jpg' %>",
+			"id": "57012031"
+		},
+
+		// panning
+		{
+			"type": "PanningSlide",
+			"image": "<%= asset_path 'desktop/work/colorado-lottery/colorado-lottery-storyboards.jpg' %>",
+			"width": "2500",
+			"height": "2500"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/colorado-lottery/colorado-lottery-styleframes.jpg' %>"
 		}
+		
 	]
 }

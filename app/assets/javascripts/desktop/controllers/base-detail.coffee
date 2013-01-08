@@ -38,6 +38,8 @@ class Legwork.Controllers.BaseDetail
   | Initialize slides after build
   *----------------------------------------###
   initialize: ->
+    if @model.related then @$related.show()
+    else @$related.hide()
 
   ###
   *------------------------------------------*
@@ -49,11 +51,13 @@ class Legwork.Controllers.BaseDetail
     @$el.show()
     setTimeout =>
       @$el.addClass('open')
-      @$related.on Legwork.click, @switchProjects
-      Legwork.$doc.on 'keyup.switch', @handleArrowKey
+      
+      if @model.related
+        @$related.on Legwork.click, @switchProjects
+        Legwork.$doc.on 'keyup.switch', @handleArrowKey
     , 333
 
-    @$related.text(@model.upnext)
+    if @model.related then @$related.text(@model.upnext)
 
   ###
   *------------------------------------------*
@@ -67,8 +71,9 @@ class Legwork.Controllers.BaseDetail
       @$el.hide()
     , 333
 
-    @$related.off Legwork.click
-    Legwork.$doc.off 'keyup.switch', @handleArrowKey
+    if @model.related
+      @$related.off Legwork.click
+      Legwork.$doc.off 'keyup.switch', @handleArrowKey
 
   ###
   *------------------------------------------*

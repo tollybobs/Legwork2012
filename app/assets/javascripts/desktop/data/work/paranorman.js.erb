@@ -16,10 +16,10 @@ Legwork.Work["paranorman"] = {
 
 	// project metadata
 	"title": "Paranorman",
-	"summary": "A website for Laika with Wieden+Kennedy and Mode Set",
+	"summary": "A website for Laika with Wieden+Kennedy and Mode Set.",
 	"thumbnail": "<%= asset_path 'desktop/work-paranorman.jpg' %>", // NOTE: 960x540
-	"related": "union-station",
-	"upnext": "Up Next: Union Station",
+	"related": "toyota-owners",
+	"upnext": "Up Next: Toyota Owners",
 
 	// slides
 	"slides": [
@@ -27,26 +27,27 @@ Legwork.Work["paranorman"] = {
 		{
 			"type": "TitleScreen",
 			"title": "Paranorman",
-			"summary": "A website for Laika with Wieden+Kennedy and Mode Set",
+			"summary": "A website for Laika with Wieden+Kennedy and Mode Set.",
 
 			// services
 			"services": [
-				"Branding",
-				"Illustration",
-				"UX / UI",
-				"Web Development"
+				"User Experience",
+				"Visual Design",
+				"Image Retouch/Manipulation",
+				"Development",
+				"Server Configuration"
 			],
 
 			// recognition
 			"recognition": [
-				"FWA SOTD",
-				"Communication Arts",
-				"SXSW Finalist",
-				"Webby Awards"
+				"FWA",
+				"Adobe Cutting Edge",
+				"CommArts",
+				"Awwwards"
 			],
 
 			"overview": [
-				"We took Paranorman and turned it into a digital experience built with HTML5 that takes advantage of the newest capabilities of modern browsers on the desktop and devices."
+				"Laika, the makers of ParaNorman, know a little something about attention to detail. They put so much energy into making this beautiful world, that the last thing we wanted to do was sell the visual aspect of the movie short. So, we set out to replicate the stunning world that Laika created with custom content and scoring, creating device specific experiences, and peppering hidden worlds and behind the scenes content throughout the site."
 			],
 
 			"url": "http://paranorman.com",
@@ -64,7 +65,7 @@ Legwork.Work["paranorman"] = {
 			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-prototypes.jpg' %>",
 			"sidebar": {
 				"title": "Process",
-				"text": "<p>Our friends at Wieden+Kennedy came to us with a really solid concept of what they were looking for. The only thing was, it included a lot of ideas we weren't sure would be possible in the browsers we had to support. So, we focused a lot of our time up front to ensure we were all on the same page and prototyped the interactions we weren't sure about to understand their limitations before we started on the visual design. From their we prioritized features, created, revised and create more until we reached our deadline.</p><p><a href='http://test.legworkstudio.com/paranorman/desktop/' target='_new'>View Desktop Prototypes</a></p><p><a href='http://test.legworkstudio.com/paranorman/mobile/' target='_new'>View Mobile Prototypes</a></p>"
+				"text": "<p>Our friends at Wieden+Kennedy came to us with a really solid concept of what they were looking for. The only thing was, it included a lot of ideas we weren't sure would be possible in the browsers we had to support. So, we focused a lot of our time upfront to ensure we were all on the same page and prototyped the interactions we weren't sure about to understand their limitations before we started on the visual design. From their we prioritized features, created, revised and create more until we reached our deadline.</p><p><a href='http://test.legworkstudio.com/paranorman/desktop/' target='_new'>View Desktop Prototypes</a></p><p><a href='http://test.legworkstudio.com/paranorman/mobile/' target='_new'>View Mobile Prototypes</a></p>"
 			}
 		},
 
@@ -77,9 +78,12 @@ Legwork.Work["paranorman"] = {
 		// pull quote
 		{
 			"type": "PullQuote",
-			"background": "<%= asset_path 'desktop/work/paranorman/paranorman-craft.jpg' %>",
+			"background": {
+				"type": "image",
+				"url": "<%= asset_path 'desktop/work/paranorman/paranorman-craft.jpg' %>"
+			},
 			"color": "#c2d94f",
-			"quote": "To create the visuals for each scene we took plates from the movie or digital photographs for specific requests and constructed custom experiences with them. Sometimes this was pretty simple, like cutting out a character to separate them from a background, and other times it got pretty intense, like creating a photorealistic shower curtain out of nothing.<br><br>The following slides show a few examples of the image production we undertook."
+			"quote": "To create the visuals for each scene we took plates from the movie or digital photographs for specific requests and constructed custom experiences with them. Sometimes this was pretty simple, like cutting out a character to separate them from a scene, and other times (with the help of our friend Tom Hamilton) it got pretty intense, like creating a photorealistic shower curtain out of nothing.<br><br>The following slides show a few examples of the image production we undertook."
 		},
 
 		// full screen (w/ image)
@@ -117,12 +121,22 @@ Legwork.Work["paranorman"] = {
 		// full screen (w/ image)
 		{
 			"type": "FullScreenImage",
-			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-organization.jpg' %>",
+			"image": "<%= asset_path 'desktop/world-code.jpg' %>",
 			"sidebar": {
-				"title": "Obsessive Compulsive Disorder",
-				"text": "<p>The same effort was going on behind the scenes. In order to make it easy for anyone to jump in and out of the project with little effort, we took great care to ensure even our source files were cleaned up and well constructed. And by sharing all of our files on Dropbox and Github, geography never got in the way. We take great pride in every detail of our craft.</p>"
+				"title": "A Targeted Experience",
+				"text": "<p>There was some serious technical powerlifting required to ensure this site was performant. We took full advantage of each targeted devices strong suites without sacrificing any of the content. Check it out on your desktop, tablet and phone to see what we mean. We took advantage of hardware acceleration to scroll through the 3d worlds, the accelerometer to unlock content by spinning your phone around and much, much more.</p>"
 			}
 		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-organization.jpg' %>",
+			"sidebar": {
+				"title": "Organization",
+				"text": "<p>We take great pride in every detail of our craft, even how we organize our files. In order to make it easy for anyone to jump in and out of the project with little effort, we took great care to ensure even our source files were cleaned up and well constructed. We're big believers in proper <a href='http://photoshopetiquette.com' target='_new'>Photoshop Etiquette</a>. And by sharing all of our files on <a href='http://dropbox.com' target='_new'>Dropbox</a> and <a href='http://github.com' target='_new'>Github</a>, geography never got in the way.</p>"
+			}
+		}
 
 		// The following are other slide types
 		// we can use too...
@@ -135,16 +149,16 @@ Legwork.Work["paranorman"] = {
 		// },
 
 		// media (w/ vimeo)  (this is just a demo slide)
-		{
-			"type": "Media",
-			"background_color": "#89af60",
-			"title": "Paranorman Walk Through",
-			"text": "<p>Ah bra, it's just like, dude you get the best barrels ever dude. It's just like you pull in and just get spit right out of them. And you just drop in and just smack the lip. Whuppah! Jus-drop down, send it baahhahhh! And then after that you just drop in and just ride the barrel and get pitted, so pitted like that.</p>",
-			"media": {
-				"type": "vimeo",
-				"id": "49792510"
-			}
-		}
+		// {
+		// 	"type": "Media",
+		// 	"background_color": "#89af60",
+		// 	"title": "Paranorman Walk Through",
+		// 	"text": "<p>Ah bra, it's just like, dude you get the best barrels ever dude. It's just like you pull in and just get spit right out of them. And you just drop in and just smack the lip. Whuppah! Jus-drop down, send it baahhahhh! And then after that you just drop in and just ride the barrel and get pitted, so pitted like that.</p>",
+		// 	"media": {
+		// 		"type": "vimeo",
+		// 		"id": "49792510"
+		// 	}
+		// }
 
 		// slideshow
 		// {

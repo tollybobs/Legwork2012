@@ -460,9 +460,10 @@
               left: 0%
               width: 100%
               height: 100%
-              background-color: $nav_bg
-              z-index: 1
+              color: $white
+              background-color: $less_black
               overflow: hidden
+              z-index: 1
 
               .slide-inner
                 position: absolute
@@ -480,7 +481,6 @@
 
             // title screen slide
             .title-screen
-              color: $white
               background-repeat: no-repeat
               background-position: 50% 50%
               -webkit-background-size: cover
@@ -646,22 +646,23 @@
 
             // panning slide
             .panning
-              background-repeat: no-repeat
-              background-position: 50% 50%
-              -webkit-background-size: cover
-              -moz-background-size: cover
-              -o-background-size: cover
-              background-size: cover
-
               .pan-image
                 position: absolute
                 top: 0px
                 left: 0px
-                width: 1006px
-                height: 980px
+                width: 0px
+                height: 0px
+                overflow: hidden
                 cursor: move
                 cursor: -webkit-grab
                 cursor: -moz-grab
+
+                img
+                  position: absolute
+                  top: 0px
+                  left: 0px
+                  width: 100%
+                  height: 100%
 
               .pan-image.grabbing
                 cursor: -webkit-grabbing
@@ -675,114 +676,134 @@
 
             // pull quote slide
             .pull-quote
+              background-repeat: no-repeat
+              background-position: 50% 50%
+              -webkit-background-size: cover
+              -moz-background-size: cover
+              -o-background-size: cover
+              background-size: cover
+
               h1
                 margin: 0 20px
-                font: normal normal normal 22px/28px "MuseoSlab700", Verdana, sans-serif
-                color: $white
+                font: normal normal normal 14px/20px "MuseoSlab700", Verdana, sans-serif
 
             // media slide
             .media
-              .media-content
-                position: relative
-                float: left
-                width: 100%
-                display: none
+              .sidebar
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 30%
+                height: 100%
+                background-color: $less_black
+                overflow: hidden
+                display: table
 
-                .media-text
-                  margin: 0 20px
+                .sidebar-inner
+                  width: 100%
+                  vertical-align: middle
+                  display: table-cell
 
-                  h4
-                    margin: 0
-                    font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
-                    color: $white
-
-                  p
-                    margin: 25px 0 0
-                    font: normal normal normal 12px/20px Helvetica, Arial, sans-serif
-                    color: $white
-
-                .media-holder
-                  position: relative
-                  margin: 0 20px
-                  display: block
-
-                  .media-holder-inner
-                    position: relative
-                    width: 100%
-                    height: 0
-                    padding-bottom: 56.25%
-                    background-color: $more_black
-                    overflow: hidden
+                  .overview
+                    max-width: 420px
+                    margin: 0 26px
                     display: block
 
-                    .vimeo-iframe
-                      position: absolute
-                      top: 0px
-                      left: 0px
+                    h4
+                      margin: 0
+                      font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
+
+                    p
+                      margin: 25px 0 0
+                      font: normal normal normal 12px/20px Helvetica, Arial, sans-serif
+
+                      a
+                        color: #fff
+                        text-decoration: none
+                        font: normal normal bold 12px/20px Helvetica, Arial, sans-serif
+                        border-bottom: 1px solid #8c8c8c
+                        @include transition(border-bottom, 250ms, linear)
+
+                      a:hover
+                        border-bottom: 1px solid #fff
+
+              .media-stage
+                position: absolute
+                top: 0px
+                left: 30%
+                width: 70%
+                height: 100%
+                overflow: hidden
+                display: table
+
+                .media-stage-inner
+                  width: 100%
+                  vertical-align: middle
+                  display: table-cell
+
+                  .media-holder
+                    position: relative
+                    margin: 0 25px
+                    display: block
+
+                    .media-holder-inner
+                      position: relative
                       width: 100%
-                      height: 100%
+                      height: 0
+                      padding-bottom: 56.25%
+                      background-color: $more_black
+                      overflow: hidden
+                      display: block
 
-                    .vimeo-poster
-                      position: absolute
-                      top: 0px
-                      left: 0px
-                      width: 100%
-                      height: 100%
-                      cursor: pointer
-
-                      .vimeo-play-btn
-                        position: absolute
-                        top: 50%
-                        left: 50%
-                        width: 50px
-                        height: 50px
-                        margin: -25px 0 0 -25px
-                        background-color: #fff
-                        opacity: 0.6
-                        @include nav_shadow
-                        @include transition(opacity, 150ms, ease-out)
-
-                        &:after
-                          content: ''
-                          position: absolute
-                          top: 50%
-                          left: 50%
-                          width: 0
-                          height: 0
-                          margin: -10px 0 0 -8px
-                          border-top: 10px solid transparent
-                          border-bottom: 10px solid transparent
-                          border-left: 18px solid $less_black
-
-                      img
+                      .vimeo-iframe
                         position: absolute
                         top: 0px
                         left: 0px
                         width: 100%
                         height: 100%
 
-                    .vimeo-poster:hover
-                      .vimeo-play-btn
-                        opacity: 1
+                      .vimeo-poster
+                        position: absolute
+                        top: 0px
+                        left: 0px
+                        width: 100%
+                        height: 100%
+                        cursor: pointer
 
-                    img,
-                    iframe
-                      position: absolute
-                      top: 0px
-                      left: 0px
-                      width: 100%
-                      height: 100%
+                        .vimeo-play-btn
+                          position: absolute
+                          top: 50%
+                          left: 50%
+                          width: 50px
+                          height: 50px
+                          margin: -25px 0 0 -25px
+                          background-color: #fff
+                          opacity: 0.6
+                          @include nav_shadow
+                          @include transition(opacity, 150ms, ease-out)
 
-                  // slideshow slide
-                  .slideshow
-                    .ss-slide
-                      position: absolute
-                      top: 0px
-                      left: 100%
-                      width: 100%
-                      height: 100%
-                      overflow: hidden
-                      z-index: 1
+                          &:after
+                            content: ''
+                            position: absolute
+                            top: 50%
+                            left: 50%
+                            width: 0
+                            height: 0
+                            margin: -10px 0 0 -8px
+                            border-top: 10px solid transparent
+                            border-bottom: 10px solid transparent
+                            border-left: 18px solid $less_black
+
+                        img
+                          position: absolute
+                          top: 0px
+                          left: 0px
+                          width: 100%
+                          height: 100%
+
+                      .vimeo-poster:hover
+                        .vimeo-play-btn
+                          opacity: 1
 
                       img,
                       iframe
@@ -792,55 +813,71 @@
                         width: 100%
                         height: 100%
 
-                  .progress
-                    position: relative
-                    width: 100%
-                    height: 16px
-                    cursor: pointer
-                    overflow: hidden
-                    display: block
-
-                    .progress-track
-                      position: absolute
-                      top: 4px
-                      left: 0px
-                      width: 100%
-                      height: 4px
-                      background-color: $white
-                      @include transition(height, 100ms, ease-out)
-
-                      .progress-bar
+                    // slideshow slide
+                    .slideshow
+                      .ss-slide
                         position: absolute
                         top: 0px
-                        left: 0px
-                        width: 0%
+                        left: 100%
+                        width: 100%
                         height: 100%
-                        background-color: $less_black
+                        overflow: hidden
+                        z-index: 1
 
-                      .panel
-                        position: absolute
-                        top: 0px
-                        left: 0%
-                        width: 0%
-                        height: 100%
-
-                        span
+                        img,
+                        iframe
                           position: absolute
                           top: 0px
-                          right: 0px
-                          width: 1px
+                          left: 0px
+                          width: 100%
                           height: 100%
 
-                      .panel:last-child
-                        span
-                          display: none
+                    .progress
+                      position: relative
+                      width: 100%
+                      height: 16px
+                      cursor: pointer
+                      overflow: hidden
+                      display: block
 
-                  .progress:hover
-                    .progress-track
-                      height: 12px
+                      .progress-track
+                        position: absolute
+                        top: 4px
+                        left: 0px
+                        width: 100%
+                        height: 4px
+                        background-color: $white
+                        @include transition(height, 100ms, ease-out)
 
-                &:last-child
-                  display: block
+                        .progress-bar
+                          position: absolute
+                          top: 0px
+                          left: 0px
+                          width: 0%
+                          height: 100%
+                          background-color: $less_black
+
+                        .panel
+                          position: absolute
+                          top: 0px
+                          left: 0%
+                          width: 0%
+                          height: 100%
+
+                          span
+                            position: absolute
+                            top: 0px
+                            right: 0px
+                            width: 1px
+                            height: 100%
+
+                        .panel:last-child
+                          span
+                            display: none
+
+                    .progress:hover
+                      .progress-track
+                        height: 12px
 
             // full screen image slide
             .full-screen-image
@@ -851,17 +888,61 @@
               -o-background-size: cover
               background-size: cover
 
-              iframe
+              .sidebar
                 position: absolute
                 top: 0px
                 left: 0px
-                width: 100%
+                width: 30%
                 height: 100%
+                background-color: $less_black
+                overflow: hidden
+                display: table
+
+                .sidebar-inner
+                  width: 100%
+                  vertical-align: middle
+                  display: table-cell
+
+                  .overview
+                    max-width: 420px
+                    margin: 0 26px
+                    display: block
+
+                    h4
+                      margin: 0
+                      font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
+
+                    p
+                      margin: 25px 0 0
+                      font: normal normal normal 12px/20px Helvetica, Arial, sans-serif
+
+                      a
+                        color: #fff
+                        text-decoration: none
+                        font: normal normal bold 12px/20px Helvetica, Arial, sans-serif
+                        border-bottom: 1px solid #8c8c8c
+                        @include transition(border-bottom, 250ms, linear)
+
+                      a:hover
+                        border-bottom: 1px solid #fff
+
+              .image-stage
+                position: absolute
+                top: 0px
+                left: 30%
+                width: 70%
+                height: 100%
+                overflow: hidden
+                display: table
+                background-repeat: no-repeat
+                background-position: 50% 50%
+                -webkit-background-size: cover
+                -moz-background-size: cover
+                -o-background-size: cover
+                background-size: cover
 
             // full screen video slide
             .full-screen-video
-              background-color: $more_black
-
               .fs-iframe
                 position: absolute
                 top: 0px
@@ -1562,14 +1643,14 @@
             // pull quote slide
             .pull-quote
               h1
-                margin: 0 50px 0 26px
-                font: normal normal normal 36px/48px "MuseoSlab700", Verdana, sans-serif
+                margin: 0 150px 0 76px
+                font: normal normal normal 18px/28px "MuseoSlab700", Verdana, sans-serif
 
             // media slide
-            .media
-              .media-content
-                .media-holder
-                  margin: 0 76px 0 26px
+            // .media
+            //   .media-content
+            //     .media-holder
+            //       margin: 0 76px 0 26px
 
           .slide-controls
             top: 50%
@@ -1897,24 +1978,25 @@
             // pull quote slide
             .pull-quote
               h1
-                font: normal normal normal 45px/60px "MuseoSlab700", Verdana, sans-serif
+                margin: 0 200px 0 176px
+                font: normal normal normal 28px/38px "MuseoSlab700", Verdana, sans-serif
 
             // media slide
-            .media
-              .media-content
-                max-width: 360px
-                width: 40%
-                display: block
-
-                .media-text
-                  margin: 0 50px 0 26px
-
-                .media-holder
-                  margin: 0 76px 0 0
-
-                &:last-child
-                  width: 60%
-                  max-width: 960px
+            // .media
+            //   .media-content
+            //     max-width: 360px
+            //     width: 40%
+            //     display: block
+            // 
+            //     .media-text
+            //       margin: 0 50px 0 26px
+            // 
+            //     .media-holder
+            //       margin: 0 76px 0 0
+            // 
+            //     &:last-child
+            //       width: 60%
+            //       max-width: 960px
 
     // footer
     footer

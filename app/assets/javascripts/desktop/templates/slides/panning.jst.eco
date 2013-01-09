@@ -1,3 +1,5 @@
-<div class="slide panning" style="background-image: url(<%= @images.background %>)">
-  <img class="pan-image" src="<%= @images.pan_img %>" alt="" />
+<div class="slide panning">
+  <div class="pan-image" style="width: <%= @width %>px; height: <%= @height %>px">
+    <img src="<%= @image %>" alt="" />
+  </div>
 </div>

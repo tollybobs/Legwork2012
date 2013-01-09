@@ -27,6 +27,7 @@ class Legwork.Application
 
     Legwork.sequences = {}
     Legwork.slide_controllers = {}
+    Legwork.open_detail_state = null
     Legwork.current_detail_controller = null
 
     Legwork.click = 'click'
@@ -147,6 +148,7 @@ class Legwork.Application
       Legwork.$header.find('h1')
         .css('margin-bottom', '0px')
 
+      Legwork.open_detail_state = url
       @loadDetail(url)
       @detailControlsIn()
 
@@ -825,6 +827,9 @@ class Legwork.Application
   | Open the detail view.
   *----------------------------------------###
   openDetail: (item) ->
+    # set reference to what you open on..
+    Legwork.open_detail_state = item
+
     detail_in = new Legwork.ImageSequence({
       '$el': @$detail,
       'settings': Legwork.sequences['detail_open']

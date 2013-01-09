@@ -28,6 +28,7 @@ class Legwork.Controllers.BaseDetail
   *----------------------------------------###
   build: ->
     @$el = $(JST["desktop/templates/base-detail"]({model: @model, slug: @slug}))
+    @$detail_inner = $('#detail-inner')
     @$related = $('#related-btn')
     @rel = @model.related
 
@@ -86,14 +87,33 @@ class Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
+  | switchProjects:void (=)
+  |
+  | Change url to show next related project
+  *----------------------------------------###
+  hintThereIsNoMore: =>
+    @$detail_inner.addClass('bump')
+
+    setTimeout =>
+      @$detail_inner.removeClass('bump')
+    , 150
+
+  ###
+  *------------------------------------------*
   | handleArrowKeys:void (=)
   |
   | if down, go to next project
   *----------------------------------------###
   handleArrowKey: (e) =>
-    if e.keyCode is 40 then @switchProjects()
     if e.keyCode is 27 then $('#detail-close-btn').trigger(Legwork.click)
+    if e.keyCode is 40 then @switchProjects()
+    if e.keyCode is 38
+      if @model.related
+        state = History.getState()
+        url = state.hash.replace(/^\/|\.|\#/g, '')
 
+        if url? and url is Legwork.open_detail_state then @hintThereIsNoMore()
+        else History.back()
 
 
 

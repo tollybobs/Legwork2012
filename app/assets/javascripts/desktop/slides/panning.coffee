@@ -41,6 +41,15 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
     @pw = @$pan_image.width()
     @ph = @$pan_image.height()
 
+    # reset image to center before triggering resize
+    # because the throttle delay is seen as you slide this into view..
+    @$pan_image
+      .css
+        'top': (Legwork.$wn.height() / 2) - (@ph / 2) + 'px'
+        'left':  (Legwork.$wn.width() / 2) - (@pw / 2) + 'px'
+
+    @initPanning()
+
   ###
   *------------------------------------------*
   | activate:void (-)
@@ -75,8 +84,7 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
     @bh = h
     @horz_center = (@bw / 2) - (@pw / 2)
     @vert_center = (@bh / 2) - (@ph / 2)
-
-    @initPanning()
+    @resetToCenter()
 
   ###
   *------------------------------------------*
@@ -84,11 +92,14 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   | Private Methods
   |
   *----------------------------------------###
-  initPanning: =>
+  resetToCenter: =>
     @$pan_image
       .css
         'top': @vert_center + 'px'
         'left':  @horz_center + 'px'
+
+  initPanning: =>
+    @$pan_image
       .on Legwork.mousedown, (e) =>
         $t = $(e.currentTarget)
         
@@ -108,6 +119,9 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
     deltaY = e.pageY - data.iMouseY
     normalX = deltaX + data.iPosX
     normalY = deltaY + data.iPosY
+
+    if @bw >= @pw then normalX = @horz_center + 'px'
+    if @bh >= @ph then normalY = @vert_center + 'px'
 
     @$pan_image
       .css

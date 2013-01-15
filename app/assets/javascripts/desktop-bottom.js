@@ -7,6 +7,7 @@
 //= require plugins/jquery.easing.1.3
 //= require plugins/jquery.mousewheel
 //= require plugins/jquery.scrollTo-1.4.2-min
+//= require plugins/raf
 //
 // Legwork 2012
 //= require shared/namespaces

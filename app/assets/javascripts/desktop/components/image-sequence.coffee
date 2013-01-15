@@ -20,12 +20,8 @@ class Legwork.ImageSequence
     @img_arr = init_obj.settings.frames
     @img_len = @img_arr.length
     @fps = init_obj.settings.fps
-    @delay = if init_obj.settings.delay? then init_obj.settings.delay
     @interval = Math.round(1000 / @fps)
-    @is_looping = init_obj.settings.is_looping or false
-    @loops = if init_obj.settings.loops? then init_obj.settings.loops
     @current_frame = 0
-    @current_loop = 0
 
     @build()
 
@@ -55,26 +51,12 @@ class Legwork.ImageSequence
   | Play the sequence.
   *----------------------------------------###
   play: =>
-    cont = true
-
     # Is it done yet, daaaaang
     if @current_frame is @img_len
-      if @is_looping is true
-        @current_frame = 0
-        if @loops?
-          @current_loop++
-          if @current_loop is @loops
-            @is_looping = false
-      else
-        cont = false
-    else 
-      @current_frame++
-
-    if cont is true
-      if @delay? then setTimeout(@continue, @delay) else @continue()
-    else
-      # Trigger complete event
       @$el.trigger('sequence_complete')
+    else
+      @current_frame++
+      @continue()
 
   ###
   *------------------------------------------*
@@ -83,8 +65,10 @@ class Legwork.ImageSequence
   | Continue to the next frame.
   *----------------------------------------###
   continue: =>
-    @$imgs.css('visibility', 'hidden')
-    @$imgs.eq(@current_frame - 1).css('visibility', 'visible')
+    #@$imgs.css('visibility', 'hidden')
+    #@$imgs.eq(@current_frame - 1).css('visibility', 'visible')
+
+    @$imgs.attr('src', @img_arr[@current_frame - 1])
 
     # Trigger frame event
     @$el.trigger('sequence_frame')

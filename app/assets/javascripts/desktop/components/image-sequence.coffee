@@ -62,10 +62,13 @@ class Legwork.ImageSequence
   |
   | Play the sequence.
   *----------------------------------------###
-  play: (time) =>
+  play: =>
+    time = @rightNow()
     delta = (time - @current_time) / 1000
     @current_frame += (delta * @fps)
     frame_num = Math.floor(@current_frame)
+
+    console.log(delta, frame_num)
 
     if frame_num >= @img_len
       @$el.trigger('sequence_complete')

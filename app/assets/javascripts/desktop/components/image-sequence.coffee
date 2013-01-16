@@ -20,13 +20,25 @@ class Legwork.ImageSequence
     @img_arr = init_obj.settings.frames
     @img_len = @img_arr.length
     @fps = init_obj.settings.fps
-    @interval = Math.round(1000 / @fps)
     @current_frame = 0
+    @current_time  = @rightNow()
 
     @build()
 
     # Fire it up
-    @img_timeout = setTimeout(@play, @interval)
+    @img_frame = requestAnimationFrame(@play)
+
+  ###
+  *------------------------------------------*
+  | build:void (-)
+  |
+  | Q: When is now? A: This is now.
+  *----------------------------------------###
+  rightNow: ->
+    if window['performance']? and window['performance']['now']?
+      return window['performance']['now']()
+    else
+      return +(new Date())
 
   ###
   *------------------------------------------*
@@ -50,30 +62,20 @@ class Legwork.ImageSequence
   |
   | Play the sequence.
   *----------------------------------------###
-  play: =>
-    # Is it done yet, daaaaang
-    if @current_frame is @img_len
+  play: (time) =>
+    delta = (time - @current_time) / 1000
+    @current_frame += (delta * @fps)
+    frame_num = Math.floor(@current_frame)
+
+    if frame_num >= @img_len
       @$el.trigger('sequence_complete')
     else
-      @current_frame++
-      @continue()
+      @$imgs.attr('src', @img_arr[frame_num - 1])
+      @$el.trigger('sequence_frame')
 
-  ###
-  *------------------------------------------*
-  | continue:void (=)
-  |
-  | Continue to the next frame.
-  *----------------------------------------###
-  continue: =>
-    #@$imgs.css('visibility', 'hidden')
-    #@$imgs.eq(@current_frame - 1).css('visibility', 'visible')
+      @img_frame = requestAnimationFrame(@play)
+      @current_time = time
 
-    @$imgs.attr('src', @img_arr[@current_frame - 1])
-
-    # Trigger frame event
-    @$el.trigger('sequence_frame')
-
-    @img_timeout = setTimeout(@play, @interval)
 
   ###
   *------------------------------------------*
@@ -82,8 +84,8 @@ class Legwork.ImageSequence
   | Staaaaahp.
   *----------------------------------------###
   stop: ->
-    @$imgs.css('visibility', 'hidden')
-    clearTimeout(@img_timeout)
+    @$imgs.attr('src', '')
+    cancelAnimationFrame(@img_frame)
 
   ###
   *------------------------------------------*

@@ -221,16 +221,18 @@
 
       #wrap-the-stuff,
       #wrap-the-filter
-        padding-top: 70px
+        padding: 70px 0 70px
 
         .stuff
           position: relative
           padding: 20px
-          border-bottom: 1px solid $light_gray
+          border-top: 1px solid $light_gray
+
+        .stuff:first-child
+          border-top: 0px
 
         .stuff:last-child
           margin-bottom: 0px
-          border-bottom: 0px
 
         .sequenced.stuff,
         .animated.stuff
@@ -1580,11 +1582,19 @@
 
             .tweet-one
               border-bottom: 0px
-              border-right: 1px solid $light_gray
 
             .tweet-two
               width: 40%
               padding-right: 0%
+
+        .twitter-inner:after
+          content: ''
+          position: absolute
+          top: 0px
+          left: 50%
+          width: 1px
+          height: 100%
+          background-color: $light_gray
 
       #wrap-the-filter
         .services-list
@@ -2036,6 +2046,7 @@
             height: 100%
             background: asset-url("desktop/social-icons.gif", image) no-repeat 0 0
             opacity: 0.75
+            text-decoration: none
             @include transition(opacity, 250ms, linear)
 
           a#social-github
@@ -2056,32 +2067,23 @@
             position: absolute
             top: -15px
             left: 8px
-            border-top: 10px solid $hot
+            border-top: 10px solid $more_black
             border-right: 10px solid transparent
 
           a:hover:after
             content: attr(data-tooltip)
             display: block
             position: absolute
-            top: -38px
+            top: -42px
             left: 8px
             width: auto
-            height: 23px
-            padding: 0 10px
-            font: normal normal normal 12px/24px Helvetica, Arial, sans-serif
+            height: 28px
+            padding: 0 12px
+            font: normal normal normal 12px/28px Helvetica, Arial, sans-serif
             color: $white
             white-space: nowrap
             -webkit-font-smoothing: subpixel-antialiased
-            background-color: $hot
-            -webkit-border-top-right-radius: 5px
-            -webkit-border-top-left-radius: 5px
-            -moz-border-radius-topright: 5px
-            -moz-border-radius-topleft: 5px
-            border-top-right-radius: 5px
-            border-top-left-radius: 5px
-            -webkit-border-bottom-right-radius: 5px
-            -moz-border-radius-bottomright: 5px
-            border-bottom-right-radius: 5px
+            background-color: $more_black
 
 // OVERRIDES: 1280 and up (big honkin' screens)
 @media screen and (min-width: 1280px)

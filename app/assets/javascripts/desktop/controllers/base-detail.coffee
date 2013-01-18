@@ -52,7 +52,7 @@ class Legwork.Controllers.BaseDetail
     @$el.show()
     setTimeout =>
       @$el.addClass('open')
-      
+
       if @model.related
         @$related.on Legwork.click, @switchProjects
         Legwork.$doc.on 'keyup.switch', @handleArrowKey
@@ -114,8 +114,3 @@ class Legwork.Controllers.BaseDetail
 
         if url? and url is Legwork.open_detail_state then @hintThereIsNoMore()
         else History.back()
-
-
-
-
-    

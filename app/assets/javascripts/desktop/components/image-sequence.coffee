@@ -68,8 +68,6 @@ class Legwork.ImageSequence
     @current_frame += (delta * @fps)
     frame_num = Math.floor(@current_frame)
 
-    console.log(delta, frame_num)
-
     if frame_num >= @img_len
       @$el.trigger('sequence_complete')
     else

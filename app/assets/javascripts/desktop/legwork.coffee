@@ -555,9 +555,9 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | onScrollStart:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | Window has started scrolling.
   *----------------------------------------###
   onScrollStart: (e) =>
@@ -567,9 +567,9 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | onScroll:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | Window is being scrolled.
   *----------------------------------------###
   onScroll: (e) =>
@@ -586,7 +586,7 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | onScrollComplete:void (=)
-  | 
+  |
   | Window is done being scrolled.
   *----------------------------------------###
   onScrollComplete: =>
@@ -599,8 +599,28 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
+  | turnScroll:void (-)
+  |
+  | s:string - 'on' or 'off'
+  |
+  | Switch scrolling on or off.
+  *----------------------------------------###
+  turnScroll: (s) ->
+    if s is 'off'
+      Legwork.$wn.on 'mousewheel', (e) =>
+        return false
+
+      Legwork.$doc.on 'keydown', (e) =>
+        if e.keyCode in [32..40]
+          return false
+    else
+      Legwork.$wn.off('mousewheel')
+      Legwork.$doc.off('keydown')
+
+  ###
+  *------------------------------------------*
   | onResizeStart:void (=)
-  | 
+  |
   | Resize has started.
   *----------------------------------------###
   onResizeStart: (e) =>
@@ -613,9 +633,9 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | onResize:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | Window is being resized.
   *----------------------------------------###
   onResize: (e) =>
@@ -636,13 +656,10 @@ class Legwork.Application
     if Legwork.app_width < 1025
       $('.sequenced-inner').find('video').hide()
 
-    #if Legwork.app_width < 740
-      #@layout()
-
   ###
   *------------------------------------------*
   | onResizeComplete:void (=)
-  | 
+  |
   | Resize is finished.
   *----------------------------------------###
   onResizeComplete: =>
@@ -669,9 +686,9 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | onStuffActivate:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | This stuff got activated/deactivated.
   *----------------------------------------###
   onStuffActivate: (e) =>
@@ -687,9 +704,9 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | onStuffHover:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | This stuff got moused with. Get it?
   *----------------------------------------###
   onStuffHover: (e) =>
@@ -736,10 +753,10 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | playSequence:void (-)
-  | 
+  |
   | $parent:dom - sequence container
   | type:string - in or out
-  | 
+  |
   | Play a sequence video.
   *----------------------------------------###
   playSequence: ($parent, type) ->
@@ -756,9 +773,9 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | onAjaxyLinkClick:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | User has clicked an ajaxy link.
   *----------------------------------------###
   onAjaxyLinkClick: (e) =>
@@ -768,23 +785,25 @@ class Legwork.Application
 
     $t = $(e.currentTarget)
 
-    if $t.hasClass('selected') is true
-      $t.removeClass('selected')
-      @History.pushState(null, null, '/')
+    if $t.hasClass('filter') is true
+      if $t.hasClass('selected') is true
+        $t.removeClass('selected')
+        @History.pushState(null, null, '/')
+      else
+        $('.filter').removeClass('selected')
+        $t.addClass('selected')
+        @History.pushState(null, null, $t.attr('href'))
     else
-      $('.ajaxy').removeClass('selected')
-      $t.addClass('selected')
       @History.pushState(null, null, $t.attr('href'))
 
   ###
   *------------------------------------------*
   | onAppStateChange:void (=)
-  | 
+  |
   | App state (URL) has changed.
   *----------------------------------------###
   onAppStateChange: =>
     @state = @History.getState()
-
     url = @state.hash.replace(/^\/|\.|\#/g, '')
 
     @route(url)
@@ -792,9 +811,9 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | route:void (-)
-  | 
+  |
   | to:array - url parts
-  | 
+  |
   | Route to the passed url.
   *----------------------------------------###
   route: (to) ->
@@ -805,11 +824,16 @@ class Legwork.Application
       if @current_state is 'filter'
         @openFilter('')
 
+      Legwork.$wn.trigger('resize')
       @current_state = ''
     else if to in Legwork.filters
-      @openFilter(to)
+      if @current_state is 'detail'
+        @resetDetail()
+      else
+        @openFilter(to)
+
       @current_state = 'filter'
-    else 
+    else
       if @$detail.is(':visible')
         Legwork.current_detail_controller.deactivate()
         @loadDetail(to)
@@ -821,13 +845,15 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | openDetail:void (-)
-  | 
+  |
   | item:string - work/world id
-  | 
+  |
   | Open the detail view.
   *----------------------------------------###
   openDetail: (item) ->
-    # set reference to what you open on..
+    @turnScroll('off')
+
+    # Set reference to what you open on
     Legwork.open_detail_state = item
 
     detail_in = new Legwork.ImageSequence({
@@ -848,7 +874,7 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | detailControlsIn:void (-)
-  | 
+  |
   | Transition the detail controls in.
   *----------------------------------------###
   detailControlsIn: ()->
@@ -865,9 +891,9 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | loadDetail:void (-)
-  | 
+  |
   | item:string - work/world id
-  | 
+  |
   | Load a detail item.
   *----------------------------------------###
   loadDetail: (item) ->
@@ -894,10 +920,11 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | resetDetail:void (-)
-  | 
+  |
   | Reset the detail view.
   *----------------------------------------###
   resetDetail: () ->
+    @turnScroll('on')
     @$detail_close.css('margin-top', '-55px')
     @$related_btn.css('margin-bottom', '-55px')
     @$detail.fadeOut 'fast', =>
@@ -906,12 +933,14 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | openFilter:void (-)
-  | 
+  |
   | filter:string - filter id
-  | 
+  |
   | Open a filter.
   *----------------------------------------###
   openFilter: (filter) ->
+    @$detail_close.attr('href', '/' + filter)
+
     erase = new Legwork.ImageSequence({
       '$el': @$stuff_reveal,
       'settings': Legwork.sequences['erase']
@@ -934,7 +963,7 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | loadFilter:void (-)
-  | 
+  |
   | filter:string - filter id
   |
   | Load a filter.
@@ -967,7 +996,7 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | buildFilter:void (-)
-  | 
+  |
   | filter:string - filter id
   |
   | Build a filter.
@@ -995,7 +1024,7 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | resetFilter:void (-)
-  | 
+  |
   | Back to the initial view.
   *----------------------------------------###
   resetFilter: () ->

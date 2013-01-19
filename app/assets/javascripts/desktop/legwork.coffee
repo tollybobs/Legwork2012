@@ -1029,9 +1029,11 @@ class Legwork.Application
   *----------------------------------------###
   resetFilter: () ->
     @$filter_wrap.hide()
-    @$canvas_wrap.show()
     @$stuff_wrap.show()
-    @finishLayout()
+
+    if Legwork.app_width >= 740
+      @$canvas_wrap.show()
+      @finishLayout()
 
     reveal = new Legwork.ImageSequence({
       '$el': @$stuff_reveal,

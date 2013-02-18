@@ -550,6 +550,11 @@ class Legwork.Application
     Legwork.$body
       .on('click', '.ajaxy', @onAjaxyLinkClick)
 
+    # Launch
+    Legwork.$body
+      .on('mouseenter', '.launch-btn', @onStuffHover)
+      .on('mouseleave', '.launch-btn', @onStuffHover)
+
     return false
 
   ###
@@ -675,11 +680,6 @@ class Legwork.Application
         $t
           .off('activate deactivate')
           .one('activate', @onStuffActivate)
-
-      @$launch
-        .off('mouseenter mouseleave')
-        .live('mouseenter', @onStuffHover)
-        .live('mouseleave', @onStuffHover)
 
       Legwork.$wn.trigger('scroll')
 

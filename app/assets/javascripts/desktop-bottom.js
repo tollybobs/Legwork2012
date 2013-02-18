@@ -1,5 +1,5 @@
 // Libs
-//= require lib/jquery-1.8.0.min
+//= require lib/jquery-1.9.1.min
 //= require lib/underscore-min
 //= require lib/jquery.history
 //

@@ -1,0 +1,88 @@
+Legwork.Work["clyfford-still"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work-clyfford-still.jpg' %>"
+		],
+		"videos": [
+			{
+				"path": "clyfford-still-loop",
+				"size": [960, 540]
+			}
+		],
+		"sequences": []
+	},
+
+	// project metadata
+	"title": "Clyfford Still",
+	"summary": "A projection mapping for a new museum.",
+	"thumbnail": "<%= asset_path 'desktop/work-clyfford-still.jpg' %>", // NOTE: 960x540
+	"related": "colorado-lottery-dad",
+	"upnext": "Up Next: Colorado Lottery",
+
+	// slides
+	"slides": [
+		// title screen
+		{
+			"type": "TitleScreen",
+			"title": "Clyfford Still",
+			"summary": "A projection mapping for a new museum.",
+
+			// services
+			"services": [
+				"Space Planning",
+				"Storyboarding",
+				"Asset Development",
+				"Animation"
+			],
+
+			"overview": [
+				"This project was unique both in terms of the content and environmental factors. we wanted to celebrate the building form itself as much as the art within it. Through visual manipulation, we placed emphasis on the subtle features of the architecture and building materials, at times defying physics to make the building appear to float and dissolve. All of the while enticing passerby to explore the art within by peeling away the exterior walls to reveal the experience within."
+			],
+
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "clyfford-still-loop"
+			}
+		},
+
+		// video
+		{
+			"type": "Video",
+			"background_color": "#191919",
+			"id": "33671603"
+		},
+
+		// full screen (w/ video)
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/clyfford-still/clyfford-still-breakdown.jpg' %>",
+			"id": "57016605"
+		},
+
+		// pull quote
+		{
+			"type": "PullQuote",
+			"background": {
+				"type": "image",
+				"url": "<%= asset_path 'desktop/work/clyfford-still/clyfford-still-pullquote.jpg' %>"
+			},
+			"color": "#ffffff",
+			"quote": "Ah bra, it's just like, dude you get the best barrels ever dude. It's just like you pull in and just get spit right out of them. And you just drop in and just smack the lip. Whuppah! Jus-drop down, send it baahhahhh! And then after that you just drop in and just ride the barrel and get pitted, so pitted like that."
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/clyfford-still/clyfford-still-dimensions.jpg' %>",
+			"sidebar": {
+				"title": "So Pitted",
+				"text": "<p>Ah bra, it's just like, dude you get the best barrels ever dude. It's just like you pull in and just get spit right out of them. And you just drop in and just smack the lip. Whuppah! Jus-drop down, send it baahhahhh! And then after that you just drop in and just ride the barrel and get pitted, so pitted like that.</p>"
+			}
+		}
+		
+	]
+}

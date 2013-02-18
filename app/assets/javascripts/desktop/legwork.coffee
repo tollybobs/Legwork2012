@@ -22,6 +22,7 @@ class Legwork.Application
     Legwork.$header = $('header')
     Legwork.$view = $('#legwork')
     Legwork.$footer = $('footer')
+    Legwork.$logo = $('h1', Legwork.$header)
 
     Legwork.filters = ['interactive', 'motion', 'illustration', 'about-us', 'open-source', 'extracurricular']
 
@@ -145,8 +146,9 @@ class Legwork.Application
           'width': '100%'
         })
 
-      Legwork.$header.find('h1')
-        .css('margin-bottom', '0px')
+      Legwork.$header.css 'margin-top','0px'
+      Legwork.$footer.css 'bottom','0px'
+      Legwork.$logo.css 'margin-bottom','0px'
 
       Legwork.open_detail_state = url
       @loadDetail(url)
@@ -162,26 +164,33 @@ class Legwork.Application
   *----------------------------------------###
   homeTransition: ->
     # TODO: drop menus in
-
-    reveal = new Legwork.ImageSequence({
-      '$el': @$stuff_reveal,
-      'settings': Legwork.sequences['reveal']
-    })
-
-    @$stuff_reveal
-      .off('sequence_frame')
-      .one 'sequence_frame', (e) =>
-        setTimeout =>
-          @$stuff_reveal.css('background-color', 'transparent')
-        , 250
-      .off('sequence_complete')
-      .one 'sequence_complete', (e) =>
-        @$stuff_reveal.hide()
-        reveal.destroy()
-
-        Legwork.$header.find('h1').animate
+    Legwork.$header.animate
+      'margin-top': '0px'
+    ,
+      'duration': 500
+      'easing': 'easeInOutExpo'
+      'step': (now, fx) =>
+        Legwork.$footer.css('bottom', now + 'px')
+      'complete': =>
+        Legwork.$logo.animate
           'margin-bottom':'0px'
-        , 666, 'easeInOutExpo'
+        , 500, 'easeInOutExpo'
+
+        reveal = new Legwork.ImageSequence({
+          '$el': @$stuff_reveal,
+          'settings': Legwork.sequences['reveal']
+        })
+
+        @$stuff_reveal
+          .off('sequence_frame')
+          .one 'sequence_frame', (e) =>
+            setTimeout =>
+              @$stuff_reveal.css('background-color', 'transparent')
+            , 250
+          .off('sequence_complete')
+          .one 'sequence_complete', (e) =>
+            @$stuff_reveal.hide()
+            reveal.destroy()
 
   ###
   *------------------------------------------*

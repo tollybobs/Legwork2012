@@ -27,7 +27,7 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/slides/title-screen"](@model))
+    @$el = @renderTemplate('title-screen', @model)
     @$bgvid = $('.bg-project-video', @$el)
     @$v = $('#' + @model.background.id)
     @$bgvid.append(@$v)

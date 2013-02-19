@@ -27,7 +27,7 @@ class Legwork.Slides.FullScreenVideo extends Legwork.Slides.Slide
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/slides/full-screen-video"](@model))
+    @$el = @renderTemplate('full-screen-video', @model)
     return @$el
 
   ###

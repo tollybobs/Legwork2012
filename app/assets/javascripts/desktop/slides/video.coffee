@@ -27,7 +27,7 @@ class Legwork.Slides.Video extends Legwork.Slides.Slide
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/slides/video"](@model))
+    @$el = @renderTemplate('video', @model)
     return @$el
 
   ###

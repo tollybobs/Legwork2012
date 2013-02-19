@@ -1,5 +1,5 @@
-<div class="slide title-screen" <% if @background.type == 'image': %>style="background-image: url(<%= @background.url %>)"<% end %>>
-  <% if @background.type == 'video': %>
+<div class="slide title-screen" <% if @background.type is 'image': %>style="background-image: url(<%= @background.url %>)"<% end %>>
+  <% if @background.type is 'video': %>
     <div class="bg-project-video">
     </div>
   <% end %>
@@ -10,7 +10,7 @@
         <h4><%= @summary %></h4>
       </div>
       <div class="project-info">
-        <% if @services: %>
+        <% if @services?: %>
           <ul>
             <li>Services</li>
             <% for item in @services: %>
@@ -18,7 +18,7 @@
             <% end %>
           </ul>
         <% end %>
-        <% if @recognition: %>
+        <% if @recognition?: %>
           <ul>
             <li>Recognition</li>
             <% for item in @recognition: %>
@@ -32,10 +32,10 @@
         </ul>
       </div>
       <ul class="project-callouts">
-        <% if @url: %>
+        <% if @url?: %>
           <li><a href="<%= @url %>" target="_blank">Launch Project<span></span></a></li>
         <% end %>
-        <% if @callout: %>
+        <% if @callout?: %>
           <li><h4><%= @callout %><span></span></h4></li>
         <% end %>
       </ul>

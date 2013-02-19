@@ -27,7 +27,7 @@ class Legwork.Slides.FullScreenImage extends Legwork.Slides.Slide
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/slides/full-screen-image"](@model))
+    @$el = $(JST["desktop/templates/slides/full-screen-image"](@model).replace(/^[\s]+/gm, ''))
     return @$el
 
   ###

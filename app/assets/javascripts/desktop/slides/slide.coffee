@@ -71,6 +71,6 @@ class Legwork.Slides.Slide
   | Clean white space to render templates
   *----------------------------------------###
   renderTemplate: (template, context) ->
-    $(JST["desktop/templates/slides/#{template}"](context).replace(/^[\s]+/gm, ''))
+    $.parseHTML((JST["desktop/templates/slides/#{template}"](context)))
 
 

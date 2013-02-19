@@ -1,4 +1,4 @@
-<div class="slide pull-quote" style="<% if @background.type == 'image': %>background-image: url(<%= @background.url %>);<% else: %>background-color: <%= @background.color %>;<% end %> color:<%= @color %>">
+<div class="slide pull-quote" style="<% if @background.type is 'image': %>background-image: url(<%= @background.url %>);<% else: %>background-color: <%= @background.color %>;<% end %> color:<%= @color %>">
   <div class="slide-inner">
     <div class="slide-inner-content">
       <h1><%- @quote %></h1>

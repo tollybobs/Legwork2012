@@ -9,7 +9,7 @@ class Legwork.MainLoader extends Legwork.Loader
   ###
   *------------------------------------------*
   | override constructor:void (-)
-  | 
+  |
   | initObj:object - items to load, etc.
   |
   | Construct the fuggin' thing.
@@ -64,6 +64,7 @@ class Legwork.MainLoader extends Legwork.Loader
     setTimeout =>
       @loadTwitter()
       @loadImages()
+      @loadSequences()
       @loadVideo()
     , 1000
 

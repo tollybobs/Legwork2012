@@ -9,7 +9,7 @@ class Legwork.Loader
   ###
   *------------------------------------------*
   | constructor:void (-)
-  | 
+  |
   | initObj:object - items to load, etc.
   |
   | Construct the fuggin' thing.
@@ -28,9 +28,10 @@ class Legwork.Loader
         return true
     )()
 
-    @addSequences()
-
     @total = @assets.images.length + @assets.videos.length + 1 # +1 for Twitter
+
+    for sequence in @assets.sequences
+      @total += sequence.frames.length
 
     @build()
 
@@ -54,6 +55,7 @@ class Legwork.Loader
   build: ->
     @loadTwitter()
     @loadImages()
+    @loadSequences()
     @loadVideo()
 
   ###
@@ -82,11 +84,29 @@ class Legwork.Loader
 
       # filter replies, could be done server side
       for tweet, index in Legwork.twitter
-        if ///^(@|\s@|\s\s@|.@|.\s@)///.test(tweet.text) is true
+        if /^(@|\s@|\s\s@|.@|.\s@)/.test(tweet.text) is true
           Legwork.twitter = _.without(Legwork.twitter, tweet)
 
         @loaded++
         @updateProgress()
+
+  ###
+  *------------------------------------------*
+  | loadOneImage:void (-)
+  |
+  | Load one image.
+  *----------------------------------------###
+  loadOneImage: (image) ->
+    $current = $('<img />').attr
+      'src': image
+    .one 'load', {'path': image}, (e) =>
+      @loaded++
+      @updateProgress()
+
+    if $current[0].complete is true
+      $current.trigger('load')
+
+    return $current[0]
 
   ###
   *------------------------------------------*
@@ -96,14 +116,25 @@ class Legwork.Loader
   *----------------------------------------###
   loadImages: ->
     for image in @assets.images
-      $current = $('<img />').attr
-        'src': image
-      .one 'load', {'path': image}, (e) =>
-        @loaded++
-        @updateProgress()
+      @loadOneImage(image)
 
-      if $current[0].complete is true
-        $current.trigger('load')
+    return false
+
+  ###
+  *------------------------------------------*
+  | loadSequences:void (-)
+  |
+  | Preload the specified sequences.
+  *----------------------------------------###
+  loadSequences: ->
+    for sequence in @assets.sequences
+      Legwork.sequences[sequence.id] = {
+        'fps': sequence.fps,
+        'frames': []
+      }
+
+      for image, index in sequence.frames
+        Legwork.sequences[sequence.id].frames.push(@loadOneImage(image))
 
     return false
 

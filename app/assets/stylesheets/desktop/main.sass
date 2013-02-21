@@ -380,7 +380,7 @@
           width: 100%
           height: 100%
 
-          .image-sequence-item
+          img, canvas
             display: block
             width: 100%
             height: 100%
@@ -398,19 +398,13 @@
       -webkit-perspective: 600
 
       .image-sequence-wrap
-        position: relative
         width: 100%
         height: 100%
 
-        .image-sequence-item
-          position: absolute
-          top: 0px
-          left: 0px
+        img, canvas
+          display: block
           width: 100%
           height: 100%
-          background-position: 50% 50%
-          background-repeat: no-repeat
-          @include background_size(100%, 100%)
 
       &:after
         content: ''
@@ -1515,20 +1509,13 @@
                       margin-top: -46px
 
                       .image-sequence-wrap
-                        position: relative
                         width: 100%
                         height: 100%
 
-                        .image-sequence-item
-                          position: absolute
-                          top: 0px
-                          left: 0px
+                        img, canvas
+                          display: block
                           width: 100%
                           height: 100%
-                          background-color: transparent
-                          background-position: 50% 50%
-                          background-repeat: no-repeat
-                          @include background_size(100%, 100%)
 
                     a
                       position: relative

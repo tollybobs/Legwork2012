@@ -27,7 +27,7 @@ class Legwork.Slides.Media extends Legwork.Slides.Slide
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/slides/media"](@model))
+    @$el = @renderTemplate('media', @model)
     return @$el
 
   ###

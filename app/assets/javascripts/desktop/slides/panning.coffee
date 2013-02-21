@@ -27,7 +27,7 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/slides/panning"](@model))
+    @$el = @renderTemplate('panning', @model)
     return @$el
 
   ###

@@ -27,7 +27,7 @@ class Legwork.Slides.Slideshow extends Legwork.Slides.Slide
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/slides/slideshow"](@model))
+    @$el = @renderTemplate('slideshow', @model)
 
     @$slideshow = $('.slideshow', @$el)
     @$ss = $('.ss-slide', @$el)

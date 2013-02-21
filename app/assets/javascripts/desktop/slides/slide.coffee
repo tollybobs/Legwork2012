@@ -63,3 +63,14 @@ class Legwork.Slides.Slide
   *----------------------------------------###
   resize: (w, h) ->
 
+
+  ###
+  *------------------------------------------*
+  | render template:void (-)
+  |
+  | Clean white space to render templates
+  *----------------------------------------###
+  renderTemplate: (template, context) ->
+    $.parseHTML((JST["desktop/templates/slides/#{template}"](context)))
+
+

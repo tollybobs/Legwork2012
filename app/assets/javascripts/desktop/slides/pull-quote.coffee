@@ -27,7 +27,7 @@ class Legwork.Slides.PullQuote extends Legwork.Slides.Slide
   | Build DOM based on model.
   *----------------------------------------###
   build: ->
-    @$el = $(JST["desktop/templates/slides/pull-quote"](@model))
+    @$el = @renderTemplate('pull-quote', @model)
     return @$el
 
   ###

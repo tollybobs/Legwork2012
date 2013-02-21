@@ -955,13 +955,15 @@ class Legwork.Application
       'settings': Legwork.sequences['erase']
     })
 
+    # TODO: animate?
+    Legwork.$wn.scrollTop(0)
+
     @$stuff_reveal
       .css('background-color', 'transparent')
       .show()
       .off('sequence_complete')
       .one 'sequence_complete', (e) =>
         @$stuff_reveal.css('background-color', '#fff')
-        Legwork.$wn.scrollTop(0)
         erase.destroy()
 
         if filter isnt ''

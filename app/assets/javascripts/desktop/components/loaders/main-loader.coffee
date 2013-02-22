@@ -47,6 +47,8 @@ class Legwork.MainLoader extends Legwork.Loader
   | DOM manipulations, instantiations, etc.
   *----------------------------------------###
   build: ->
+    alert(@supports_autoplay)
+
     @$view = $(JST['desktop/templates/main-loader']())
     @$el.append(@$view)
 

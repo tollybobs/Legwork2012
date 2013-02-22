@@ -20,31 +20,41 @@ class Legwork.Loader
     @loaded = 0
     @percent = 0
     @$video_stage = $('#ye-olde-hidden-video-holder')
-    @supports_autoplay = (->
-      # TODO: stronger test
-      if navigator.userAgent.match(/iPhone/i) or navigator.userAgent.match(/iPod/i) or navigator.userAgent.match(/iPad/i)
-        return false
-      else
-        return true
-    )()
+    @supports_autoplay = false
 
     @total = @assets.images.length + @assets.videos.length + 1 # +1 for Twitter
 
     for sequence in @assets.sequences
       @total += sequence.frames.length
 
-    @build()
+    # TODO: Failsafe?
+    @testAutoplay()
 
   ###
   *------------------------------------------*
-  | addSequences:void (-)
+  | testAutoplay:void (-)
   |
-  | Add sequences to the images array.
+  | Test autoplay capability.
   *----------------------------------------###
-  addSequences: ->
-    for sequence in @assets.sequences
-      Legwork.sequences[sequence.id] = sequence
-      @assets.images = _.union(@assets.images, sequence.frames)
+  testAutoplay: ->
+    $v = $(JST['desktop/templates/html5-video']({
+      'path': 'autoplay-test',
+      'size': [16, 16]
+    }))
+    $v.appendTo(@$video_stage)
+
+    $v[0].addEventListener 'canplaythrough', =>
+      $v[0].play()
+
+      setTimeout =>
+        if $v[0].currentTime? && $v[0].currentTime > 0
+          @supports_autoplay = true
+
+        $v.remove()
+        @build()
+      , 100
+
+    , false
 
   ###
   *------------------------------------------*

@@ -45,4 +45,3 @@ class Legwork.Slides.FullScreenImage extends Legwork.Slides.Slide
   | Deactivate old slide
   *----------------------------------------###
   deactivate: ->
-  

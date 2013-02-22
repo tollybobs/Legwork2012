@@ -47,6 +47,8 @@ class Legwork.Application
     @$lines = $('#lines')
     @$stuff_wrap = $('#wrap-the-stuff')
     @$filter_wrap = $('#wrap-the-filter')
+    @$filter = $('.filter')
+    @$404_wrap = $('#wrap-the-404')
     @$stuff_reveal = $('#reveal-the-stuff')
     @$detail = $('#detail')
     @$detail_inner = $('#detail-inner')
@@ -132,9 +134,7 @@ class Legwork.Application
 
       @current_state = 'filter'
       @homeTransition()
-    else
-      # TODO: try catch here and serve 404 if needed
-
+    else if Legwork.Work[url]? or Legwork.World[url]?
       @$detail
         .show()
         .css('background-color', '#000')
@@ -155,6 +155,14 @@ class Legwork.Application
       @detailControlsIn()
 
       @current_state = 'detail'
+    else
+      @$canvas_wrap.hide()
+      @$stuff_wrap.hide()
+      @$404_wrap.show()
+      @buildFourOhFour(url)
+
+      @current_state = '404'
+      @homeTransition()
 
   ###
   *------------------------------------------*
@@ -163,7 +171,6 @@ class Legwork.Application
   | Transition the home or filter view in.
   *----------------------------------------###
   homeTransition: ->
-    # TODO: drop menus in
     Legwork.$header.animate
       'margin-top': '0px'
     ,
@@ -176,21 +183,54 @@ class Legwork.Application
           'margin-bottom':'0px'
         , 500, 'easeInOutExpo'
 
-        reveal = new Legwork.ImageSequence({
-          '$el': @$stuff_reveal,
-          'settings': Legwork.sequences['reveal']
-        })
+        @reveal()
 
-        @$stuff_reveal
-          .off('sequence_frame')
-          .one 'sequence_frame', (e) =>
-            setTimeout =>
-              @$stuff_reveal.css('background-color', 'transparent')
-            , 250
-          .off('sequence_complete')
-          .one 'sequence_complete', (e) =>
-            @$stuff_reveal.hide()
-            reveal.destroy()
+  ###
+  *------------------------------------------*
+  | erase:void (-)
+  |
+  | callback:function - callback
+  |
+  | Erase the screen.
+  *----------------------------------------###
+  erase: (callback) ->
+    erase = new Legwork.ImageSequence({
+      '$el': @$stuff_reveal,
+      'settings': Legwork.sequences['erase']
+    })
+
+    @$stuff_reveal
+      .css('background-color', 'transparent')
+      .show()
+      .off('sequence_complete')
+      .one 'sequence_complete', (e) =>
+        @$stuff_reveal.css('background-color', '#fff')
+        erase.destroy()
+
+        callback()
+
+  ###
+  *------------------------------------------*
+  | reveal:void (-)
+  |
+  | Reveal the screen.
+  *----------------------------------------###
+  reveal: ->
+    reveal = new Legwork.ImageSequence({
+      '$el': @$stuff_reveal,
+      'settings': Legwork.sequences['reveal']
+    })
+
+    @$stuff_reveal
+      .off('sequence_frame')
+      .one 'sequence_frame', (e) =>
+        setTimeout =>
+          @$stuff_reveal.css('background-color', 'transparent')
+        , 100
+      .off('sequence_complete')
+      .one 'sequence_complete', (e) =>
+        @$stuff_reveal.hide()
+        reveal.destroy()
 
   ###
   *------------------------------------------*
@@ -633,6 +673,29 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
+  | scrollUp:void (-)
+  |
+  | callback:function - callback
+  |
+  | Back to the top.
+  *----------------------------------------###
+  scrollUp: (callback) ->
+    $({
+      'scroll': Legwork.$wn.scrollTop()
+    }).animate({
+      'scroll': 0
+    }, {
+      'duration': 1000,
+      'easing': 'easeInOutExpo',
+      'step': (now, fx) =>
+        Legwork.$wn.scrollTop(now)
+      ,
+      'complete': (e) =>
+        callback()
+    })
+
+  ###
+  *------------------------------------------*
   | onResizeStart:void (=)
   |
   | Resize has started.
@@ -799,7 +862,7 @@ class Legwork.Application
         $t.removeClass('selected')
         @History.pushState(null, null, '/')
       else
-        $('.filter').removeClass('selected')
+        @$filter.removeClass('selected')
         $t.addClass('selected')
         @History.pushState(null, null, $t.attr('href'))
     else
@@ -833,6 +896,9 @@ class Legwork.Application
       if @current_state is 'filter'
         @openFilter('')
 
+      if @current_state is '404'
+        @openFourOhFour('')
+
       Legwork.$wn.trigger('resize')
       @current_state = ''
     else if to in Legwork.filters
@@ -842,7 +908,7 @@ class Legwork.Application
         @openFilter(to)
 
       @current_state = 'filter'
-    else
+    else if Legwork.Work[to]? or Legwork.World[to]?
       if @$detail.is(':visible')
         Legwork.current_detail_controller.deactivate()
         @loadDetail(to)
@@ -850,6 +916,13 @@ class Legwork.Application
         @openDetail(to)
 
       @current_state = 'detail'
+    else
+      if @$404_wrap.is(':visible')
+        @buildFourOhFour(to)
+      else
+        @openFourOhFour(to)
+
+      @current_state = '404'
 
   ###
   *------------------------------------------*
@@ -948,28 +1021,17 @@ class Legwork.Application
   | Open a filter.
   *----------------------------------------###
   openFilter: (filter) ->
-    @$detail_close.attr('href', '/' + filter)
+    if Legwork.$wn.scrollTop() isnt 0
+      @scrollUp =>
+        @openFilter(filter)
+    else
+      @$detail_close.attr('href', '/' + filter)
 
-    erase = new Legwork.ImageSequence({
-      '$el': @$stuff_reveal,
-      'settings': Legwork.sequences['erase']
-    })
-
-    # TODO: animate?
-    Legwork.$wn.scrollTop(0)
-
-    @$stuff_reveal
-      .css('background-color', 'transparent')
-      .show()
-      .off('sequence_complete')
-      .one 'sequence_complete', (e) =>
-        @$stuff_reveal.css('background-color', '#fff')
-        erase.destroy()
-
+      @erase =>
         if filter isnt ''
           @loadFilter(filter)
         else
-          @resetFilter()
+          @reset()
 
   ###
   *------------------------------------------*
@@ -982,27 +1044,13 @@ class Legwork.Application
   loadFilter: (filter) ->
     @$canvas_wrap.hide()
     @$stuff_wrap.hide()
+    @$404_wrap.hide()
     @$filter_wrap
       .empty()
       .show()
 
     @buildFilter(filter)
-
-    reveal = new Legwork.ImageSequence({
-      '$el': @$stuff_reveal,
-      'settings': Legwork.sequences['reveal']
-    })
-
-    @$stuff_reveal
-      .off('sequence_frame')
-      .one 'sequence_frame', (e) =>
-        setTimeout =>
-          @$stuff_reveal.css('background-color', 'transparent')
-        , 100
-      .off('sequence_complete')
-      .one 'sequence_complete', (e) =>
-        @$stuff_reveal.hide()
-        reveal.destroy()
+    @reveal()
 
   ###
   *------------------------------------------*
@@ -1034,33 +1082,71 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
-  | resetFilter:void (-)
+  | openFourOhFour:void (-)
   |
-  | Back to the initial view.
+  | url:string - attempted url
+  |
+  | Now you've fuggin' done it.
   *----------------------------------------###
-  resetFilter: () ->
+  openFourOhFour: (url) ->
+    if Legwork.$wn.scrollTop() isnt 0
+      @scrollUp =>
+        @openFilter(filter)
+    else
+      @erase =>
+        if url isnt ''
+          @loadFourOhFour(url)
+        else
+          @reset()
+
+  ###
+  *------------------------------------------*
+  | loadFourOhFour:void (-)
+  |
+  | url:string - attempted url
+  |
+  | Load 404.
+  *----------------------------------------###
+  loadFourOhFour: (url) ->
+    @$canvas_wrap.hide()
+    @$stuff_wrap.hide()
     @$filter_wrap.hide()
+    @$filter.removeClass('selected')
+    @$404_wrap.show()
+
+    @buildFourOhFour(url)
+    @reveal()
+
+  ###
+  *------------------------------------------*
+  | buildFourOhFour:void (-)
+  |
+  | url:string - attempted url
+  |
+  | You did.
+  *----------------------------------------###
+  buildFourOhFour: (url) ->
+    content = '<h1>Hey bud, are you lost? No routes match "' + url.replace(/[^a-z0-9_-]+/gi, '') + '". <a class="ajaxy" href="/">Go home</a>.</h1>'
+
+    # Append to DOM
+    @$404_wrap.html(content)
+
+  ###
+  *------------------------------------------*
+  | reset:void (-)
+  |
+  | Get back on track.
+  *----------------------------------------###
+  reset: ->
+    @$filter_wrap.hide()
+    @$404_wrap.hide()
     @$stuff_wrap.show()
 
     if Legwork.app_width >= 740
       @$canvas_wrap.show()
       @finishLayout()
 
-    reveal = new Legwork.ImageSequence({
-      '$el': @$stuff_reveal,
-      'settings': Legwork.sequences['reveal']
-    })
-
-    @$stuff_reveal
-      .off('sequence_frame')
-      .one 'sequence_frame', (e) =>
-        setTimeout =>
-          @$stuff_reveal.css('background-color', 'transparent')
-        , 250
-      .off('sequence_complete')
-      .one 'sequence_complete', (e) =>
-        @$stuff_reveal.hide()
-        reveal.destroy()
+    @reveal()
 
 # Kick the tires and light the fires!
 $ ->

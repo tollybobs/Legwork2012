@@ -158,7 +158,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     @old_slide_index = @current_slide_index
     @old_slide_view = @current_slide_view
-    
+
     @current_slide_index = if @current_slide_index > 0 then @current_slide_index - 1 else @slide_views.length - 1
     @current_slide_view = @slide_views[@current_slide_index]
     @current_slide_view.activate()

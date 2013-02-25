@@ -96,8 +96,8 @@ class Legwork.Application
     @preloader = new Legwork.MainLoader({'$el': Legwork.$body, 'assets': main_assets})
 
     Legwork.$body
-      .off('Legwork.loaded', @onLoadComplete)
-      .one('Legwork.loaded', @onLoadComplete)
+      .off('legwork_load_complete', @onLoadComplete)
+      .one('legwork_load_complete', @onLoadComplete)
 
   ###
   *------------------------------------------*

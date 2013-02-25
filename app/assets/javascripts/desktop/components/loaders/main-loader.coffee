@@ -18,13 +18,13 @@ class Legwork.MainLoader extends Legwork.Loader
     @start = [
       'Hey.',
       'What are you doing here?',
-      'Well the fucking site is loading again.'
+      'Well, the site is loading again.'
     ]
 
     @random = [
       'These dudes suck at SEO<sup>TM</sup>.',
       'I hope they remembered thier meta keywords.',
-      'Shit, I don\'t think there is a fucking robots.txt file.',
+      'I don\'t think there is a robots.txt file.',
       'This page has too many http requests.',
       'Man, I hate preloaders. Want to get out of here?',
       'No support for IE8? Good luck getting customers.',
@@ -47,8 +47,6 @@ class Legwork.MainLoader extends Legwork.Loader
   | DOM manipulations, instantiations, etc.
   *----------------------------------------###
   build: ->
-    alert(@supports_autoplay)
-
     @$view = $(JST['desktop/templates/main-loader']())
     @$el.append(@$view)
 
@@ -63,12 +61,7 @@ class Legwork.MainLoader extends Legwork.Loader
       @updateConversation()
     , 2000
 
-    setTimeout =>
-      @loadTwitter()
-      @loadImages()
-      @loadSequences()
-      @loadVideo()
-    , 1000
+    super()
 
   ###
   *------------------------------------------*
@@ -145,5 +138,5 @@ class Legwork.MainLoader extends Legwork.Loader
           @$status.css
             'opacity':1 - p
         'complete': (e) =>
-          @$el.trigger('Legwork.loaded')
+          @$el.trigger('legwork_load_complete')
           @$view.remove()

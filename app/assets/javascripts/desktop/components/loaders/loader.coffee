@@ -27,8 +27,9 @@ class Legwork.Loader
     for sequence in @assets.sequences
       @total += sequence.frames.length
 
-    # TODO: Failsafe?
     @testAutoplay()
+    @build()
+
 
   ###
   *------------------------------------------*
@@ -37,24 +38,39 @@ class Legwork.Loader
   | Test autoplay capability.
   *----------------------------------------###
   testAutoplay: ->
+    success = 0
+    fail = 0
+    failed = false
+
     $v = $(JST['desktop/templates/html5-video']({
       'path': 'autoplay-test',
-      'size': [16, 16]
+      'size': [16, 16],
+      'preload': false
     }))
     $v.appendTo(@$video_stage)
 
-    $v[0].addEventListener 'canplaythrough', =>
-      $v[0].play()
+    # Fail
+    fail = setTimeout =>
+      failed = true
+      $v.remove()
+      @loadVideo()
+    , 500
 
-      setTimeout =>
-        if $v[0].currentTime? && $v[0].currentTime > 0
-          @supports_autoplay = true
+    # Succeed
+    $v[0].addEventListener 'loadstart', =>
+      b = new Date().getTime()
+      console.log(b - a)
 
+      clearTimeout(fail)
+
+      if failed is false
+        @supports_autoplay = true
         $v.remove()
-        @build()
-      , 100
-
+        @loadVideo()
     , false
+
+    a = new Date().getTime()
+    $v[0].load()
 
   ###
   *------------------------------------------*
@@ -66,7 +82,6 @@ class Legwork.Loader
     @loadTwitter()
     @loadImages()
     @loadSequences()
-    @loadVideo()
 
   ###
   *------------------------------------------*
@@ -182,7 +197,7 @@ class Legwork.Loader
     setTimeout =>
       @$view.fadeOut 600, =>
         @$view.remove()
-        @$el.trigger('Legwork.loaded')
+        @$el.trigger('legwork_load_complete')
     , 1000
 
   ###

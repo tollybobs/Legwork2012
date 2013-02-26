@@ -50,6 +50,10 @@ class Legwork.Loader
     $v.appendTo(@$video_stage)
 
     # Fail
+    # Note: I am seeing times consistently under 100ms
+    # for the loadstart event to fire. According to W3C,
+    # when this event fires shouldn't be bandwidth
+    # dependent. 500ms should cover almost any case.
     fail = setTimeout =>
       failed = true
       $v.remove()

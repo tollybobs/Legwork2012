@@ -1,6 +1,7 @@
 <div class="<%= @type %> stuff cf">
   <div class="ww-inner" style="background-position: 0px 0px; background-repeat: no-repeat; 
   background-image: url(<%= @thumbnail %>)">
+    <a class="ajaxy" href="<%= @link %>"></a>
   </div>
   <div class="ww-details">
     <div class="ww-details-inner">

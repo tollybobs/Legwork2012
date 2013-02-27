@@ -873,8 +873,8 @@ class Legwork.Application
         $t.removeClass('selected')
         @History.pushState(null, null, '/')
       else
-        @$filter.removeClass('selected')
-        $t.addClass('selected')
+        # @$filter.removeClass('selected')
+        # $t.addClass('selected')
         @History.pushState(null, null, $t.attr('href'))
     else
       @History.pushState(null, null, $t.attr('href'))
@@ -902,6 +902,7 @@ class Legwork.Application
   route: (to) ->
     
     @doc_title = to
+    @$filter.removeClass('selected')
 
     if to is ''
       if @current_state is 'detail'
@@ -921,6 +922,9 @@ class Legwork.Application
         @resetDetail()
       else
         @openFilter(to)
+
+      # Set filter button
+      Legwork.$header.find('a[id$="-' + to + '"]').addClass('selected')
 
       @current_state = 'filter'
     else if Legwork.Work[to]? or Legwork.World[to]?

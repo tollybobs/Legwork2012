@@ -2,6 +2,8 @@
   <% if @background.type is 'video': %>
     <div class="bg-project-video">
     </div>
+    <div class="bg-project-image" style="background-image: url(<%= @background.src %>)">
+    </div>
   <% end %>
   <div class="slide-inner">
     <div class="slide-inner-content">

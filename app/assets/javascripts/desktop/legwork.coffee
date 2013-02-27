@@ -56,6 +56,9 @@ class Legwork.Application
     @$related_btn = $('#related-btn')
 
     @History = window.History
+    @page_title = ''
+    @home_title = 'Creativity. Innovation. DIY Ethic.'
+    @lost_title = 'Hey bud, are you lost?'
     @sequenced_stuff = []
     @lifelines = []
     @line_ctx = @$lines[0].getContext('2d')
@@ -120,7 +123,10 @@ class Legwork.Application
     @state = @History.getState()
     url = @state.hash.replace(/^\/|\.|\#/g, '')
 
+    @page_title = url
+
     if url is ''
+      @page_title = @home_title
       @current_state = ''
       @homeTransition()
     else if url in Legwork.filters
@@ -161,8 +167,12 @@ class Legwork.Application
       @$404_wrap.show()
       @buildFourOhFour(url)
 
+      @page_title = @lost_title
       @current_state = '404'
       @homeTransition()
+
+    # Set page title in browser
+    @makeTitle(@page_title)
 
   ###
   *------------------------------------------*
@@ -889,6 +899,9 @@ class Legwork.Application
   | Route to the passed url.
   *----------------------------------------###
   route: (to) ->
+    
+    @page_title = to
+
     if to is ''
       if @current_state is 'detail'
         @resetDetail()
@@ -901,6 +914,7 @@ class Legwork.Application
 
       Legwork.$wn.trigger('resize')
       @current_state = ''
+      @page_title = @home_title
     else if to in Legwork.filters
       if @current_state is 'detail'
         @resetDetail()
@@ -922,7 +936,17 @@ class Legwork.Application
       else
         @openFourOhFour(to)
 
+      @page_title = @lost_title
       @current_state = '404'
+
+    @makeTitle(@page_title)
+
+  makeTitle: (@page_title) ->
+    if @page_title isnt @home_title or @page_title isnt @lost_title
+      @page_title = @page_title.replace(/-/g, ' ').replace(/\b[a-z]/g, (txt) ->
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+      )
+    document.title = 'Legwork Studio / ' + @page_title
 
   ###
   *------------------------------------------*

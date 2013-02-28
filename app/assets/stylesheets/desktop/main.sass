@@ -292,7 +292,7 @@
             width: 100%
             height: 0px
             padding-top: 56%
-            @include background_size(100%, 100%)
+            @include background_cover
 
             a
               display: none
@@ -547,10 +547,7 @@
             .title-screen
               background-repeat: no-repeat
               background-position: 50% 50%
-              -webkit-background-size: cover
-              -moz-background-size: cover
-              -o-background-size: cover
-              background-size: cover
+              @include background_cover
 
               .bg-project-video,
               .bg-project-video video,
@@ -568,11 +565,8 @@
               .bg-project-image
                 background-repeat: no-repeat
                 background-position: 50% 50%
-                -webkit-background-size: cover
-                -moz-background-size: cover
-                -o-background-size: cover
-                background-size: cover
                 display: block
+                @include background_cover
 
               .project-title
                 margin: 0 20px 40px
@@ -756,10 +750,7 @@
             .pull-quote
               background-repeat: no-repeat
               background-position: 50% 50%
-              -webkit-background-size: cover
-              -moz-background-size: cover
-              -o-background-size: cover
-              background-size: cover
+              @include background_cover
 
               h1
                 margin: 0 20px
@@ -923,10 +914,7 @@
             .full-screen-image
               background-repeat: no-repeat
               background-position: 50% 50%
-              -webkit-background-size: cover
-              -moz-background-size: cover
-              -o-background-size: cover
-              background-size: cover
+              @include background_cover
 
               .image-stage
                 position: absolute
@@ -938,10 +926,7 @@
                 display: table
                 background-repeat: no-repeat
                 background-position: 50% 50%
-                -webkit-background-size: cover
-                -moz-background-size: cover
-                -o-background-size: cover
-                background-size: cover
+                @include background_cover
 
             // full screen video slide
             .full-screen-video
@@ -967,10 +952,7 @@
                 height: 100%
                 background-repeat: no-repeat
                 background-position: 50% 50%
-                -webkit-background-size: cover
-                -moz-background-size: cover
-                -o-background-size: cover
-                background-size: cover
+                @include background_cover
 
           .slide-controls
             position: absolute
@@ -981,6 +963,8 @@
             margin: 0
             cursor: pointer
             z-index: 3
+
+            -webkit-transform: translate3d(0,0,0)
 
             .slide-controls-tab
               position: absolute
@@ -999,6 +983,8 @@
                 width: 50px
                 height: 50px
                 background-color: $white
+                
+                -webkit-transform: translate3d(0,0,0)
 
                 span
                   position: absolute
@@ -1146,7 +1132,7 @@
       height: 163px
       margin-left: -107px
       background: asset-url("desktop/bros.png", image) no-repeat top left
-      background-size: cover
+      @include background_cover
 
     #loader-speech-bubble
       position: absolute
@@ -1156,7 +1142,7 @@
       height: 51px
       padding: 4px 7px
       background: asset-url("desktop/speech-bubbles.png", image) no-repeat 0px 0px
-      background-size: cover
+      @include background_cover
 
       #loader-speech-bubble-inner
         display: table
@@ -1393,7 +1379,7 @@
           width: 100%
           height: 80px
           background: asset-url("desktop/lines-leader.png", image) no-repeat bottom left
-          background-size: 100% 100%
+          @include background_size(100%, 100%)
 
       #wrap-the-stuff,
       #wrap-the-filter
@@ -2148,11 +2134,11 @@
           li
             a
               background-image: asset-url("desktop/mobile-icons@2x.png", image)
-              background-size: 37px 540px
+              @include background_size(37px, 540px)
 
       h1
         background-image: asset-url("desktop/bigger-logo@2x.gif", image)
-        background-size: 70px 70px
+        @include background_size(70px, 70px)
 
     // footer
     footer
@@ -2160,7 +2146,7 @@
         li
           a
             background: asset-url("desktop/social-icons@2x.gif", image) no-repeat 0 0
-            background-size: 16px 16px
+            @include background_size(16px, 16px)
 
 // OVERRIDES: fingers over mouse
 html.touch

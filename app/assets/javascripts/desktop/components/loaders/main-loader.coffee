@@ -32,11 +32,15 @@ class Legwork.MainLoader extends Legwork.Loader
 
     # Loader view DOM refs
     @$fill = $('#loader-fill', @$view)
+    @$gif = $('.gif', @$view)
 
     # wait for img to be preloaded
-    $('img', @$view).load =>
-      $('#loader-gif').fadeIn 666, =>
+    @$gif.one 'load', (e) =>
+      $('#loader-content').fadeIn 666, =>
         super()
+
+    if @$gif[0].complete is true
+      @$gif.trigger('load')
 
   ###
   *------------------------------------------*
@@ -58,7 +62,7 @@ class Legwork.MainLoader extends Legwork.Loader
   loadComplete: ->
     setTimeout =>
       Legwork.$wrapper.show()
-      
+
       @$view.stop().animate
         'opacity':0
       , 666, =>

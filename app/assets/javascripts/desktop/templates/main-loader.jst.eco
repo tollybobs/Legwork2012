@@ -1,7 +1,7 @@
 <div id="main-loader">
   <div id="loader-holder">
-  	<div id="loader-gif">
-  		<img src="<%= @image %>" alt="" />
+  	<div id="loader-content">
+  		<img class="gif" src="<%= @image %>" alt="" />
   		<div id="loader-status">
   			<span id="loader-fill"></span>
   		</div>

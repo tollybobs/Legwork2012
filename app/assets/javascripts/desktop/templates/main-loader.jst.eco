@@ -1,10 +1,10 @@
 <div id="main-loader">
-  <div id="loader-fill"></div>
-  <div id="loader-status"></div>
-  <div id="loader-bros"></div>
-  <div id="loader-speech-bubble" class="left">
-    <div id="loader-speech-bubble-inner">
-      <span>Hey bro.</span>
-    </div>
+  <div id="loader-holder">
+  	<div id="loader-gif">
+  		<img src="<%= @image %>" alt="" />
+  		<div id="loader-status">
+  			<span id="loader-fill"></span>
+  		</div>
+  	</div>
   </div>
 </div>

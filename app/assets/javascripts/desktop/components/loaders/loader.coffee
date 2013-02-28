@@ -63,8 +63,6 @@ class Legwork.Loader
     # Succeed
     $v[0].addEventListener 'loadstart', =>
       b = new Date().getTime()
-      console.log(b - a)
-
       clearTimeout(fail)
 
       if failed is false
@@ -95,7 +93,6 @@ class Legwork.Loader
   *----------------------------------------###
   updateProgress: () ->
     @percent = Math.round((@loaded / @total) * 100)
-
     if @loaded is @total
       @loadComplete()
 
@@ -111,13 +108,13 @@ class Legwork.Loader
     $.getJSON '/tweetyeah', (data) =>
       Legwork.twitter = data
 
+      @loaded++
+      @updateProgress()
+
       # filter replies, could be done server side
       for tweet, index in Legwork.twitter
         if /^(@|\s@|\s\s@|.@|.\s@)/.test(tweet.text) is true
           Legwork.twitter = _.without(Legwork.twitter, tweet)
-
-        @loaded++
-        @updateProgress()
 
   ###
   *------------------------------------------*

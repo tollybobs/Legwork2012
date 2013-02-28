@@ -983,7 +983,7 @@
                 width: 50px
                 height: 50px
                 background-color: $white
-                
+
                 -webkit-transform: translate3d(0,0,0)
 
                 span
@@ -1100,73 +1100,46 @@
   #main-loader
     position: absolute
     top: 0px
-    right: 0px
+    left: 0px
     width: 100%
     height: 100%
-    background-color: #eee
+    background-color: $white
+    display: table
     z-index: 999
+    opacity: 1
 
-    #loader-fill
-      position: absolute
-      bottom: 0px
-      left: 0px
-      width: 100%
-      height: 0%
-      background-color: $white
-      @include transition(height, 150ms, ease-out)
-
-    #loader-status
-      position: absolute
-      top: 0px
-      left: 0px
+    #loader-holder
       width: 100%
       height: 100%
-      background: asset-url("desktop/status.png", image) no-repeat 50% 50%
-      @include background_size(100%, auto)
+      vertical-align: middle
+      display: table-cell
 
-    #loader-bros
-      position: absolute
-      bottom: 0px
-      left: 50%
-      width: 215px
-      height: 163px
-      margin-left: -107px
-      background: asset-url("desktop/bros.png", image) no-repeat top left
-      @include background_cover
+    #loader-gif
+      position: relative
+      width: 100%
+      max-width: 450px
+      margin: 0 auto
+      display: none
 
-    #loader-speech-bubble
-      position: absolute
-      bottom: 170px
-      left: 50%
-      width: 86px
-      height: 51px
-      padding: 4px 7px
-      background: asset-url("desktop/speech-bubbles.png", image) no-repeat 0px 0px
-      @include background_cover
-
-      #loader-speech-bubble-inner
-        display: table
+      img
         width: 100%
-        height: 36px
+        vertical-align: middle
+        display: block
 
-        span
-          display: table-cell
-          width: 100%
-          height: 100%
-          vertical-align: middle
-          font: normal normal bold 9px/12px 'Helvetica Neue', Helvetica, Arial, sans-serif
-          text-align: center
-          color: $white
+    #loader-status
+      position: relative
+      margin: 0 20px
+      height: 40px
+      display: block
+      -webkit-box-shadow: inset 0px 0px 1px $blue
 
-          sup
-            display: none
-
-    #loader-speech-bubble.left
-      margin-left: -50px
-
-    #loader-speech-bubble.right
-      margin: 0 0 -5px -50px
-      background-position: -100px 0px
+      #loader-fill
+        position: absolute
+        top: 0px
+        left: 0px
+        width: 0%
+        height: 100%
+        background-color: $blue
 
   #ye-olde-hidden-video-holder
     position: fixed

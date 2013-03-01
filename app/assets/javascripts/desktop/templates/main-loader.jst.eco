@@ -1,9 +1,9 @@
 <div id="main-loader">
   <div id="loader-holder">
   	<div id="loader-content">
-  		<img class="gif" src="<%= @image %>" alt="" />
-  		<div id="loader-status">
-  			<span id="loader-fill"></span>
+  		<img class="gif" src="<%= @image.src %>" alt="" data-rgba="<%= @image.rgba %>" />
+  		<div id="loader-circle">
+  			<canvas id="canvas-fill"></canvas>
   		</div>
   	</div>
   </div>

@@ -38,8 +38,8 @@ class Legwork.MainLoader extends Legwork.Loader
     # wait for img to be preloaded
     @$gif.one 'load', (e) =>
       @$loader.fadeIn 666, =>
-        @initCanvas()
         super()
+        @initCanvas()
 
     if @$gif[0].complete is true
       @$gif.trigger('load')
@@ -65,52 +65,48 @@ class Legwork.MainLoader extends Legwork.Loader
   *----------------------------------------###
   initCanvas: () =>
     @canvas = document.getElementById('canvas-fill')
-    @canvas.width = @$loader.innerWidth()
-    @canvas.height = @$loader.innerHeight()
-    @cw = @canvas.width
-    @ch = @canvas.height
-
     @ctx = @canvas.getContext('2d')
-    @ctx.strokeStyle = "rgba(238,238,238,0.73)"
-    @ctx.lineWidth = 4
+    @step = 0
+    @fill_percent = 0
 
-    @ctx.drawImage(@canvas, 0, 0)
+    @canvas.width = @$loader.width()
+    @canvas.height = @$loader.height()
+    @ctx.strokeStyle = "#eeeeee"
+    @ctx.lineWidth = 5
 
-    @sectors = Math.PI * @$loader.width()
-    @current_sector = 0
+    window.requestAnimationFrame(@render);
+    setTimeout @updateProgress, 100
 
-    @radians = (deg) =>
-      return (Math.PI / 180) * deg
+  render: () =>
+    @step += 0.01
 
-    @get_tick = (num) =>
-      @tick = @radians(360) / @sectors
-      return @tick * num
-
-    @sector = (start, end) =>
-      start = @get_tick(@current_sector)
-      end = @get_tick(@current_sector + 1)
+    if @step >= 1.01
+      # load complete
+      @loadComplete()
+    else if @step >= @fill_percent
+      # nothing is cool
+      @step -= 0.01
+      window.requestAnimationFrame(@render)
+    else
+      # get rad
+      rad = ((360 * @step) * (Math.PI / 180))
+      x = (@canvas.width / 2) + ((@canvas.width / 2) - 20) * Math.cos(rad)
+      y = (@canvas.height / 2) + ((@canvas.width / 2) - 20) * Math.sin(rad)
+      i = 0
+      
       @ctx.clearRect(0, 0, @canvas.width, @canvas.height)
-      @ctx.drawImage(@canvas, 0, 0)
-      @ctx.beginPath()
-      @ctx.lineWidth = (Math.random() * 4) + 4
-      @ctx.arc(@cw / 2, @ch / 2, (@cw / 2) - 5, 0, end)
-      @ctx.stroke()
-      @ctx.closePath()
+      while i < 20
+        @ctx.lineTo (x + Math.round((Math.random() * 20) - 10)), (y + Math.round((Math.random() * 20) - 10))
+        @ctx.stroke()
+        i++
 
-    @fill_time = setInterval(@updateCanvasFill, 16)
+      window.requestAnimationFrame(@render)
 
-  ###
-  *------------------------------------------*
-  | updateCanvasFill:void (=)
-  |
-  | Update the canvas fill.
-  *----------------------------------------###
-  updateCanvasFill: =>
-    if @current_sector < @destination
-      @current_sector += 16
-      @sector(@current_sector, @destination)
-    if @current_sector is @destination
-      clearInterval(@fill_time)
+  updateProgress: () =>
+    @fill_percent += 0.01
+    
+    if @fill_percent < 1
+      setTimeout @updateProgress, 100
 
   ###
   *------------------------------------------*
@@ -120,7 +116,6 @@ class Legwork.MainLoader extends Legwork.Loader
   | dispatch Legwork.loaded back to $el
   *----------------------------------------###
   loadComplete: ->
-    clearInterval(@fill_time)
     setTimeout =>
       Legwork.$wrapper.show()
 
@@ -129,6 +124,6 @@ class Legwork.MainLoader extends Legwork.Loader
       , 666, =>
         @$el.trigger('legwork_load_complete')
         @$view.remove()
-    , 666
+    , 333
 
 

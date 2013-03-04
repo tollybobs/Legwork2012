@@ -1104,7 +1104,6 @@
     width: 100%
     height: 100%
     background-color: $white
-    display: table
     z-index: 999
     opacity: 1
 
@@ -1112,9 +1111,12 @@
       position: absolute
       top: 50%
       left: 50%
-      width: 300px
-      height: 300px
-      margin: -150px 0 0 -150px
+      width: 450px
+      height: 450px
+      margin: -225px 0 0 -225px
+      display: none
+
+      @include scale(0.6)
 
       #loader-circle,
       canvas,
@@ -1193,14 +1195,6 @@
                 .sequenced-tagline
                   h1
                     font: normal normal normal 24px/24px "MuseoSlab700", Verdana, sans-serif
-
-  // main preloader
-  #main-loader
-    #loader-bros
-      bottom: -100px
-
-    #loader-speech-bubble
-      bottom: 70px
 
 // OVERRIDES: 740 and up (tablet)
 @media screen and (min-width: 740px)
@@ -1699,39 +1693,8 @@
 
   // main preloader
   #main-loader
-    #loader-bros
-      bottom: 0px
-      width: 430px
-      height: 325px
-      margin: -163px 0 0 -215px
-
-    #loader-speech-bubble
-      bottom: 335px
-      width: 172px
-      height: 89px
-      padding: 14px
-
-      #loader-speech-bubble-inner
-        display: table
-        width: 100%
-        height: 60px
-
-        span
-          font: normal normal bold 14px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif
-
-          sup
-            display: inline
-            position: relative
-            top: -0.9em
-            font: normal normal normal 8px/0 'Helvetica Neue', Helvetica, Arial, sans-serif
-            vertical-align: baseline
-
-    #loader-speech-bubble.left
-      margin-left: -105px
-
-    #loader-speech-bubble.right
-      margin: 0 0 -5px -95px
-      background-position: -200px 0px
+    #loader-holder
+      @include scale(1.0)
 
 // OVERRIDES: 1025 and up (desktop)
 @media screen and (min-width: 1025px)

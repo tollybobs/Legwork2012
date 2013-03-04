@@ -31,11 +31,9 @@ class Legwork.MainLoader extends Legwork.Loader
     @$el.append(@$view)
 
     # Loader view DOM refs
-    @$loader = $('#loader-content', @$view)
+    @$loader = $('#loader-holder', @$view)
     @$gif = $('.gif', @$view)
     @fill_time
-    @rgba = @$gif.data('rgba')
-    console.log(@rgba)
 
     # wait for img to be preloaded
     @$gif.one 'load', (e) =>
@@ -58,8 +56,13 @@ class Legwork.MainLoader extends Legwork.Loader
     @destination = Math.ceil(@sectors * (@percent / 100))
     @updateCanvasFill()
 
-
-
+  ###
+  *------------------------------------------*
+  | initCanvas:void (=)
+  |
+  | Set up canvas to draw a circle
+  | based on percent loaded
+  *----------------------------------------###
   initCanvas: () =>
     @canvas = document.getElementById('canvas-fill')
     @canvas.width = @$loader.innerWidth()
@@ -68,19 +71,18 @@ class Legwork.MainLoader extends Legwork.Loader
     @ch = @canvas.height
 
     @ctx = @canvas.getContext('2d')
-    @ctx.strokeStyle = "rgba(#{@rgba})"
+    @ctx.strokeStyle = "rgba(238,238,238,0.73)"
     @ctx.lineWidth = 4
 
     @ctx.drawImage(@canvas, 0, 0)
 
-    @sectors = Math.PI * @$loader.width() # 1400
+    @sectors = Math.PI * @$loader.width()
     @current_sector = 0
 
     @radians = (deg) =>
       return (Math.PI / 180) * deg
 
     @get_tick = (num) =>
-      console.log(num)
       @tick = @radians(360) / @sectors
       return @tick * num
 
@@ -90,26 +92,25 @@ class Legwork.MainLoader extends Legwork.Loader
       @ctx.clearRect(0, 0, @canvas.width, @canvas.height)
       @ctx.drawImage(@canvas, 0, 0)
       @ctx.beginPath()
-      @ctx.lineWidth = (Math.random() * 3) + 4
-      @ctx.arc(@cw / 2, @ch / 2, (@cw / 2) - 10, 0, end)
+      @ctx.lineWidth = (Math.random() * 4) + 4
+      @ctx.arc(@cw / 2, @ch / 2, (@cw / 2) - 5, 0, end)
       @ctx.stroke()
       @ctx.closePath()
 
     @fill_time = setInterval(@updateCanvasFill, 16)
 
+  ###
+  *------------------------------------------*
+  | updateCanvasFill:void (=)
+  |
+  | Update the canvas fill.
+  *----------------------------------------###
   updateCanvasFill: =>
     if @current_sector < @destination
       @current_sector += 16
       @sector(@current_sector, @destination)
     if @current_sector is @destination
       clearInterval(@fill_time)
-
-    
-
-
-    # console.log(@current_sector, @destination, @percent)
-
-
 
   ###
   *------------------------------------------*

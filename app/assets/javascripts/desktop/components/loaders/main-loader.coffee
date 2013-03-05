@@ -96,7 +96,7 @@ class Legwork.MainLoader extends Legwork.Loader
       
       @ctx.clearRect(0, 0, @canvas.width, @canvas.height)
       while i < 20
-        @ctx.lineTo (x + Math.round((Math.random() * 20) - 10)), (y + Math.round((Math.random() * 20) - 10))
+        @ctx.lineTo (x + Math.round((Math.random() * 16) - 6)), (y + Math.round((Math.random() * 16) - 6))
         @ctx.stroke()
         i++
 

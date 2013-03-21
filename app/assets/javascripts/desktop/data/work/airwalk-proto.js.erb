@@ -1,0 +1,74 @@
+Legwork.Work["airwalk-proto"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work-airwalk-proto.jpg' %>"
+		],
+		"videos": [
+			{
+				"path": "airwalk-proto",
+				"size": [960, 540]
+			}
+		],
+		"sequences": []
+	},
+
+	// project metadata
+	"title": "The Airwalk Proto",
+	"summary": "A video for Airwalk.",
+	"thumbnail": "<%= asset_path 'desktop/work-airwalk-proto.jpg' %>", // NOTE: 960x540
+	"related": "airwalk-jim",
+	"upnext": "Up Next: Airwalk Jim",
+
+	// slides
+	"slides": [
+		// title screen
+		{
+			"type": "TitleScreen",
+			"title": "Airwalk Jim",
+			"summary": "A video for BrightNest.",
+
+			// services
+			"services": [
+				"Illustration",
+				"2D / 3D composition",
+				"Sound Design"
+			],
+			
+			"overview": [
+				"Like so many service based startups, BrightNest wanted to humanize their new product. With no real assets existing, we created a character-driven story to help make a very deep and somewhat complicated business model seem approachable and necessary for homeowners everywhere."
+			],
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "airwalk-proto"
+			}
+		},
+
+		// video
+		{
+			"type": "Video",
+			"background_color": "#191919",
+			"id": "15621741"
+		},
+
+		// full screen (w/ video)
+		// {
+		// 	"type": "FullScreenVideo",
+		// 	"url": "<%= asset_path 'desktop/work/brightnest/brightnest-breakdown.jpg' %>",
+		// 	"id": "57025460"
+		// },
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/airwalk-proto/airwalk-proto-compositions.jpg' %>",
+			"sidebar": {
+				"title": "So Pitted",
+				"text": "<p>Ah bra, it's just like, dude you get the best barrels ever dude. It's just like you pull in and just get spit right out of them. And you just drop in and just smack the lip. Whuppah! Jus-drop down, send it baahhahhh! And then after that you just drop in and just ride the barrel and get pitted, so pitted like that.</p>"
+			}
+		}
+	]
+}

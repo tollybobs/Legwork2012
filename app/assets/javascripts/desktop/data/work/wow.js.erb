@@ -5,7 +5,12 @@ Legwork.Work["wow"] = {
 		"images": [
 			"<%= asset_path 'desktop/work-wow.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "wow-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
@@ -50,8 +55,8 @@ Legwork.Work["wow"] = {
 				// "type": "video",
 				// "url": "<%= asset_path 'desktop/some-video' %>"
 				// option 2
-				"type": "image",
-				"url": "<%= asset_path 'desktop/work-wow.jpg' %>"
+				"type": "video",
+				"id": "wow-loop"
 			}
 		},
 
@@ -60,6 +65,35 @@ Legwork.Work["wow"] = {
 			"type": "Video",
 			"background_color": "#89af60",
 			"id": "39001482"
-		}
+		},
+
+		// panning
+		{
+			"type": "PanningSlide",
+			"image": "<%= asset_path 'desktop/work/wow/wow-panning.jpg' %>",
+			"width": "2500",
+			"height": "1540"
+		},
+
+		// full screen (w/ video)
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/wow/wow-1.jpg' %>",
+			"id": "39000479"
+		},
+
+		// full screen (w/ video)
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/wow/wow-2.jpg' %>",
+			"id": "38999759"
+		},
+
+		// full screen (w/ video)
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/brightnest/brightnest-breakdown.jpg' %>", // Need Image
+			"id": "57015356"
+		},
 	]
 }

@@ -1,0 +1,64 @@
+Legwork.Work["stapleton"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work-stapleton.jpg' %>"
+		],
+		"videos": [
+			{
+				"path": "stapleton",
+				"size": [960, 540]
+			}
+		],
+		"sequences": []
+	},
+
+	// project metadata
+	"title": "Stapleton - What's Next",
+	"summary": "A video for Airwalk.",
+	"thumbnail": "<%= asset_path 'desktop/work-stapleton.jpg' %>", // NOTE: 960x540
+	"related": "clyfford-still",
+	"upnext": "Up Next: Clyfford Still",
+
+	// slides
+	"slides": [
+		// title screen
+		{
+			"type": "TitleScreen",
+			"title": "stapleton",
+			"summary": "A video for BrightNest.",
+
+			// services
+			"services": [
+				"Illustration",
+				"2D / 3D composition",
+				"Sound Design"
+			],
+			
+			"overview": [
+				"Like so many service based startups, BrightNest wanted to humanize their new product. With no real assets existing, we created a character-driven story to help make a very deep and somewhat complicated business model seem approachable and necessary for homeowners everywhere."
+			],
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "stapleton"
+			}
+		},
+
+		// video
+		{
+			"type": "Video",
+			"background_color": "#191919",
+			"id": "52264316"
+		},
+
+		// full screen (w/ video)
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/brightnest/brightnest-breakdown.jpg' %>",
+			"id": "57018313"
+		},
+	]
+}

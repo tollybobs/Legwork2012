@@ -5,7 +5,12 @@ Legwork.Work["new-york-times-obama-vs-boehner"] = {
 		"images": [
 			"<%= asset_path 'desktop/work-nyt.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "nyt-debt-deal",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
@@ -41,15 +46,14 @@ Legwork.Work["new-york-times-obama-vs-boehner"] = {
 			"callout": "Watch Video",
 			
 			"background": {
-				"type": "image",
-				"url": "<%= asset_path 'desktop/work-nyt.jpg' %>"
+				"type": "video",
+				"id": "nyt-debt-deal"
 			}
 		},
 
 		// video
 		{
 			"type": "Video",
-			"background_color": "#89af60",
 			"id": "39365605"
 		}
 	]

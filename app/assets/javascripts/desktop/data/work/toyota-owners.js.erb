@@ -5,7 +5,12 @@ Legwork.Work["toyota-owners"] = {
 		"images": [
 			"<%= asset_path 'desktop/work-toyota-owners.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "toyota-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
@@ -39,8 +44,8 @@ Legwork.Work["toyota-owners"] = {
 			"callout": "Details",
 			
 			"background": {
-				"type": "image",
-				"url": "<%= asset_path 'desktop/work/toyota-owners/toyota-loop-fpo.jpg' %>"
+				"type": "video",
+				"id": "toyota-loop"
 			}
 		},
 

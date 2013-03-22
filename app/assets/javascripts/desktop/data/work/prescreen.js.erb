@@ -1,13 +1,13 @@
-Legwork.Work["stapleton"] = {
+Legwork.Work["prescreen"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work-stapleton.jpg' %>"
+			"<%= asset_path 'desktop/work-prescreen.jpg' %>"
 		],
 		"videos": [
 			{
-				"path": "stapleton",
+				"path": "prescreen-loop",
 				"size": [960, 540]
 			}
 		],
@@ -15,19 +15,19 @@ Legwork.Work["stapleton"] = {
 	},
 
 	// project metadata
-	"title": "Stapleton - What's Next",
-	"summary": "A video for Airwalk.",
-	"thumbnail": "<%= asset_path 'desktop/work-stapleton.jpg' %>", // NOTE: 960x540
+	"title": "Prescreen",
+	"summary": "Pre before you screen",
+	"thumbnail": "<%= asset_path 'desktop/work-prescreen.jpg' %>", // NOTE: 960x540
 	"related": "clyfford-still",
 	"upnext": "Up Next: Clyfford Still",
 
 	// slides
 	"slides": [
-		// title screen
+		// title screen 
 		{
 			"type": "TitleScreen",
-			"title": "stapleton",
-			"summary": "A video for BrightNest.",
+			"title": "Prescreen",
+			"summary": "Pre before you screen",
 
 			// services
 			"services": [
@@ -43,7 +43,7 @@ Legwork.Work["stapleton"] = {
 			
 			"background": {
 				"type": "video",
-				"id": "stapleton"
+				"id": "prescreen-loop"
 			}
 		},
 
@@ -51,14 +51,13 @@ Legwork.Work["stapleton"] = {
 		{
 			"type": "Video",
 			"background_color": "#191919",
-			"id": "52264316"
+			"id": "29389202"
 		},
 
-		// full screen (w/ video)
+		// full screen (w/ image)
 		{
-			"type": "FullScreenVideo",
-			"url": "<%= asset_path 'desktop/work/stapleton/stapleton-breakdown.jpg' %>",
-			"id": "57018313"
-		},
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/prescreen/prescreen-icons.jpg' %>",
+		}
 	]
 }

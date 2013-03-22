@@ -5,7 +5,12 @@ Legwork.Work["chrysler-test-of-ownership"] = {
 		"images": [
 			"<%= asset_path 'desktop/work-minivan.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "ownership-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
@@ -44,8 +49,8 @@ Legwork.Work["chrysler-test-of-ownership"] = {
 			"url": "http://testofownership.com",
 			
 			"background": {
-				"type": "image",
-				"url": "<%= asset_path 'desktop/work-minivan.jpg' %>"
+				"type": "video",
+				"id": "ownership-loop"
 			}
 		}
 	]

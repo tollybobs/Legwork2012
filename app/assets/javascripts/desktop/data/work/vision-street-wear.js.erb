@@ -5,7 +5,12 @@ Legwork.Work["vision-street-wear"] = {
 		"images": [
 			"<%= asset_path 'desktop/work-vision-street-wear.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "vision-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
@@ -40,8 +45,8 @@ Legwork.Work["vision-street-wear"] = {
 			"url": "http://visionstreetwear.com",
 			
 			"background": {
-				"type": "image",
-				"url": "<%= asset_path 'desktop/work-vision-street-wear.jpg' %>"
+				"type": "video",
+				"id": "vision-loop"
 			}
 		}
 	]

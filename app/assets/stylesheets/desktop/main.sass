@@ -492,6 +492,7 @@
               color: $white
               background-color: $less_black
               overflow: hidden
+              display: none
               z-index: 1
 
               .slide-inner
@@ -550,6 +551,7 @@
             .title-screen
               background-repeat: no-repeat
               background-position: 50% 50%
+              display: block
               @include background_cover
 
               .bg-project-video,
@@ -630,7 +632,7 @@
                   height: 20px
                   margin: 0
                   padding: 0 0 0 30px
-                  display: block
+                  display: none
 
                   a, h4
                     position: relative
@@ -666,6 +668,7 @@
                 li:first-child
                   margin-left: -2px
                   padding: 0
+                  display: block
 
                   &:before
                     display: none
@@ -677,6 +680,8 @@
 
             // video slide
             .video-slide
+              display: block
+
               .video-holder
                 position: relative
                 margin: 0 20px
@@ -958,90 +963,36 @@
                 @include background_cover
 
           .slide-controls
+            display: none
+
+          #back-slide-btn
             position: absolute
-            top: 0px
+            top: -50px
             left: 70px
-            width: 100px
+            width: 50px
             height: 50px
-            margin: 0
+            background-color: $white
+            display: block
             cursor: pointer
             z-index: 3
+            @include nav_shadow
+            @include transition(top, 150ms, ease-out)
 
-            -webkit-transform: translate3d(0,0,0)
-
-            .slide-controls-tab
+            &:after
+              content: ''
               position: absolute
-              top: 0px
-              right: 0px
-              width: 100px
-              height: 50px
-              background-color: $white
-              @include nav_shadow
-              @include transition(width, 150ms, ease-out)
-
-              .slide-counter
-                position: absolute
-                top: 0px
-                right: 0px
-                width: 50px
-                height: 50px
-                background-color: $white
-
-                -webkit-transform: translate3d(0,0,0)
-
-                span
-                  position: absolute
-                  top: 14px
-                  left: 12px
-                  font: bold normal normal 9px/9px 'Helvetica Neue', Helvetica, Arial, sans-serif
-                  color: $less_black
-
-                  &:last-child
-                    top: auto
-                    left: auto
-                    right: 12px
-                    bottom: 8px
-
-                &:after
-                  content: ''
-                  position: absolute
-                  top: 50%
-                  left: 50%
-                  width: 1px
-                  height: 32px
-                  margin: -14px 0 0
-                  background-color: $less_black
-                  opacity: 0.5
-                  -webkit-transform: rotate(45deg)
-                  -moz-transform: rotate(45deg)
-                  -ms-transform: rotate(45deg)
-                  -o-transform: rotate(45deg)
-                  transform: rotate(45deg)
-
-              .slide-next
-                position: absolute
-                top: 0px
-                left: 0px
-                width: 50px
-                height: 50px
-                opacity: 1
-                @include transition(opacity, 50ms, ease-in-out)
-
-                &:after
-                  content: ''
-                  position: absolute
-                  top: 50%
-                  left: 50%
-                  width: 7px
-                  height: 7px
-                  margin: -5px 0 0 -8px
-                  border-top: 3px solid $less_black
-                  border-right: 3px solid $less_black
-                  -webkit-transform: rotate(45deg)
-                  -moz-transform: rotate(45deg)
-                  -ms-transform: rotate(45deg)
-                  -o-transform: rotate(45deg)
-                  transform: rotate(45deg)
+              top: 50%
+              left: 50%
+              width: 7px
+              height: 7px
+              margin: -3px 0 0 -4px
+              border-top: 3px solid $less_black
+              border-right: 3px solid $less_black
+              -webkit-transform: rotate(-135deg)
+              -moz-transform: rotate(-135deg)
+              -ms-transform: rotate(-135deg)
+              -o-transform: rotate(-135deg)
+              transform: rotate(-135deg)
 
         .slides-wrapper.open
           opacity: 1
@@ -1063,31 +1014,32 @@
         background-color: $black
         @include nav_shadow
 
-      #detail-close-btn:before,
-      #detail-close-btn:after
-        content: ""
-        position: absolute
-        top: 17px
-        left: 23px
-        width: 3px
-        height: 15px
-        border: 0px
-        background-color: $white
-        @include rotate(45deg)
+        &:before,
+        &:after
+          content: ""
+          position: absolute
+          top: 20px
+          left: 23px
+          width: 3px
+          height: 15px
+          border: 0px
+          background-color: $white
+          @include rotate(45deg)
 
-      #detail-close-btn:after
-        @include rotate(-45deg)
+        &:after
+          @include rotate(-45deg)
 
       #related-btn
         position: absolute
         bottom: 0px
         left: 20px
+        right: 20px
         height: 50px
         margin: 0 0 -55px
         padding: 0 20px
         font: bold normal normal 12px/50px 'Helvetica Neue', Helvetica, Arial, sans-serif
         color: $white
-        text-align: center
+        text-align: left
         background-color: $black
         cursor: pointer
         overflow: hidden
@@ -1573,8 +1525,11 @@
 
           .slides
             .slide
+              display: block
+
               .sidebar
                 display: table
+
             // title screen slide
             .title-screen
               .project-title
@@ -1602,6 +1557,9 @@
               .project-callouts
                 margin: 90px 50px 0 26px
 
+                li
+                  display: block
+
             // video slide
             .video-slide
               .video-holder
@@ -1613,11 +1571,6 @@
                 margin: 0 150px 0 76px
                 font: normal normal normal 18px/28px "MuseoSlab700", Verdana, sans-serif
 
-            // media slide
-            // .media
-            //   .media-content
-            //     .media-holder
-            //       margin: 0 76px 0 26px
             // media slide
             .media
               .media-stage
@@ -1631,30 +1584,113 @@
                 width: 70%
 
           .slide-controls
+            position: absolute
             top: 50%
-            left: auto
             right: 0px
+            width: 100px
+            height: 50px
             margin: -25px 0 0
+            cursor: pointer
+            display: block
+            z-index: 3
+
+            -webkit-transform: translate3d(0,0,0)
 
             .slide-controls-tab
+              position: absolute
+              top: 0px
+              right: 0px
               width: 50px
+              height: 50px
+              background-color: $white
+              @include nav_shadow
+              @include transition(width, 150ms, ease-out)
+
+              .slide-counter
+                position: absolute
+                top: 0px
+                right: 0px
+                width: 50px
+                height: 50px
+                background-color: $white
+
+                -webkit-transform: translate3d(0,0,0)
+
+                span
+                  position: absolute
+                  top: 14px
+                  left: 12px
+                  font: bold normal normal 9px/9px 'Helvetica Neue', Helvetica, Arial, sans-serif
+                  color: $less_black
+
+                  &:last-child
+                    top: auto
+                    left: auto
+                    right: 12px
+                    bottom: 8px
+
+                &:after
+                  content: ''
+                  position: absolute
+                  top: 50%
+                  left: 50%
+                  width: 1px
+                  height: 32px
+                  margin: -14px 0 0
+                  background-color: $less_black
+                  opacity: 0.5
+                  -webkit-transform: rotate(45deg)
+                  -moz-transform: rotate(45deg)
+                  -ms-transform: rotate(45deg)
+                  -o-transform: rotate(45deg)
+                  transform: rotate(45deg)
 
               .slide-next
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 50px
+                height: 50px
                 opacity: 0
+                @include transition(opacity, 50ms, ease-in-out)
 
-          .slide-controls:hover
-            .slide-controls-tab
-              width: 100px
+                &:after
+                  content: ''
+                  position: absolute
+                  top: 50%
+                  left: 50%
+                  width: 7px
+                  height: 7px
+                  margin: -5px 0 0 -8px
+                  border-top: 3px solid $less_black
+                  border-right: 3px solid $less_black
+                  -webkit-transform: rotate(45deg)
+                  -moz-transform: rotate(45deg)
+                  -ms-transform: rotate(45deg)
+                  -o-transform: rotate(45deg)
+                  transform: rotate(45deg)
 
-              .slide-next
-                opacity: 1
-                @include transition(opacity, 150ms, ease-in-out)
+            &:hover
+              .slide-controls-tab
+                width: 100px
+
+                .slide-next
+                  opacity: 1
+                  @include transition(opacity, 150ms, ease-in-out)
+
+          #back-slide-btn
+            display: none
 
       #detail-close-btn
         left: 26px
 
+        &:before,
+        &:after
+          top: 17px
+
       #related-btn
         left: 26px
+        right: auto
 
     // footer
     footer

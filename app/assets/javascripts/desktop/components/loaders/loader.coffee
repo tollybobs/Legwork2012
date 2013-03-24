@@ -176,8 +176,11 @@ class Legwork.Loader
         $v.appendTo(@$video_stage)
 
         $v[0].addEventListener 'canplaythrough', =>
+          $v[0].removeEventListener 'canplaythrough'
           @loaded++
           @updateProgress()
+
+          console.log('canplaythrough')
 
         , false
     else

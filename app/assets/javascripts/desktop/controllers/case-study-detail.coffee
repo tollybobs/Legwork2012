@@ -30,14 +30,16 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     $slides_wrap = @$el.find('.slides')
     @$next_btn = @$el.find('.next-slide-btn')
+    @$back_btn = @$el.find('#back-slide-btn')
     @$current_cnt = @$el.find('.current-cnt')
+    @inmotion
 
     for slide in @model.slides
       slide_view = new Legwork.Slides[slide.type]({model: slide})
       $slides_wrap.append slide_view.build()
       @slide_views.push(slide_view)
 
-    @$slides = @$el.find('.slide')
+    @$slides = $('.slide', @$el)
 
     return @$el
 
@@ -72,6 +74,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     @resetSlides()
 
     @$next_btn.on Legwork.click, @nextSlide
+    @$back_btn.on Legwork.click, @priorSlide
     Legwork.$doc.on 'keyup.slider', @handleArrowKeys
 
     @$el.find('.project-callouts h4').on Legwork.click, =>
@@ -88,8 +91,8 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     @current_slide_view.deactivate()
 
-    @$next_btn.off Legwork.click, @nextSlide
-    Legwork.$doc.off 'keyup.slider', @handleArrowKeys
+    if @inmotion then return false
+    else @inmotion is true
 
     Legwork.$wn.off('resize', @onResize)
 
@@ -100,7 +103,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   | Reset the slides so that the
   | title-screen slide is first/current
   *----------------------------------------###
-  resetSlides: ->
+  resetSlides: =>
     @$slides.removeClass('current').css('left', '100%')
     @$slides.eq(@current_slide_index).addClass('current').css('left', '0%')
 
@@ -118,6 +121,19 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     h = Legwork.$wn.height()
     @current_slide_view.resize(w, h)
 
+    if w <= 740
+      
+      if @current_slide_index isnt 0
+        @current_slide_view.deactivate()
+        @current_slide_index = 0
+        @current_slide_view = @slide_views[@current_slide_index]
+        @current_slide_view.activate()
+
+      @resetSlides()
+      Legwork.$doc.off 'keyup.slider', @handleArrowKeys
+    else
+      Legwork.$doc.on 'keyup.slider', @handleArrowKeys
+
   ###
   *------------------------------------------*
   | nextSlide:void (=)
@@ -125,8 +141,8 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   | Next. Next slide.
   *----------------------------------------###
   nextSlide: =>
-    @$next_btn.off Legwork.click, @nextSlide
-    Legwork.$doc.off 'keyup.slider', @handleArrowKeys
+    if @inmotion then return false
+    else @inmotion = true
 
     @old_slide_index = @current_slide_index
     @old_slide_view = @current_slide_view
@@ -142,9 +158,12 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     @old_slide_view.$el.removeClass('current').css({'left':'0%', 'z-index':'2'}).stop().animate
       left: '-100%'
     , 666, 'easeInOutExpo', =>
-      @$next_btn.on Legwork.click, @nextSlide
-      Legwork.$doc.on 'keyup.slider', @handleArrowKeys
       @old_slide_view.deactivate()
+      
+      if @current_slide_index is 1
+        @$back_btn.css 'top','0px'
+      
+      @inmotion = false
 
   ###
   *------------------------------------------*
@@ -153,8 +172,8 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   | Prior. Prior slide.
   *----------------------------------------###
   priorSlide: =>
-    @$next_btn.off Legwork.click, @nextSlide
-    Legwork.$doc.off 'keyup.slider', @handleArrowKeys
+    if @inmotion then return false
+    else @inmotion = true
 
     @old_slide_index = @current_slide_index
     @old_slide_view = @current_slide_view
@@ -165,14 +184,16 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     @$current_cnt.text(@current_slide_index + 1)
 
+    if @current_slide_index is 0
+        @$back_btn.css 'top','-50px'
+
     @$slides.css('left','100%')
     @old_slide_view.$el.removeClass('current').css({'left': '0%', 'z-index': '1'})
     @current_slide_view.$el.addClass('current').css({'left':'-100%', 'z-index':'2'}).stop().animate
       left: '-0%'
     , 666, 'easeInOutExpo', =>
-      @$next_btn.on Legwork.click, @nextSlide
-      Legwork.$doc.on 'keyup.slider', @handleArrowKeys
       @old_slide_view.deactivate()
+      @inmotion = false
 
   ###
   *------------------------------------------*

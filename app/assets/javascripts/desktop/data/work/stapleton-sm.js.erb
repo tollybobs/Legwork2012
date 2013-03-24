@@ -1,0 +1,64 @@
+Legwork.Work["stapleton-sm"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work/work-stapleton-sm.jpg' %>"
+		],
+		"videos": [
+			{
+				"path": "stapleton-sm-loop",
+				"size": [960, 540]
+			}
+		],
+		"sequences": []
+	},
+
+	// project metadata
+	"title": "Conservatory Green",
+	"summary": "A sales center installation for Forest City",
+	"thumbnail": "<%= asset_path 'desktop/work/work-stapleton-sm.jpg' %>", // NOTE: 960x540
+	"related": "clyfford-still",
+	"upnext": "Up Next: Clyfford Still",
+
+	// slides
+	"slides": [
+		// title screen
+		{
+			"type": "TitleScreen",
+			"title": "Conservatory Green",
+			"summary": "A sales center installation for Forest City",
+
+			// services
+			"services": [
+				"Design Build",
+				"Animation",
+				"Stop Motion Capture"
+			],
+			
+			"overview": [
+				"The sales center for Forest City’s newest neighborhood needed a way to capture the essence of a yet to be completed residential neighborhood. We responded by creating a series of stop motion animations that represent key attributes to the lifestyle they are providing. Each animation serves as a title sequence for a collection of photos and videos that are displayed on an 80” screen that greets visitors when they enter the building."
+			],
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "stapleton-sm-loop"
+			}
+		},
+
+		// video
+		{
+			"type": "Video",
+			"background_color": "#84975a",
+			"id": "52264316"
+		},
+
+		// full screen (w/ video)
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/stapleton/stapleton-breakdown.jpg' %>",
+			"id": "57018313"
+		},
+	]
+}

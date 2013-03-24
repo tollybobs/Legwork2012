@@ -583,7 +583,7 @@ class Legwork.Application
 
     @lifelines = @getLifelines()
 
-    if @current_state is ''
+    if @current_state is '' and Legwork.app_width > 1024
       @$canvas_wrap.show()
 
     Legwork.$wn.trigger('scroll')
@@ -900,7 +900,7 @@ class Legwork.Application
   | Route to the passed url.
   *----------------------------------------###
   route: (to) ->
-    
+
     @doc_title = to
     @$filter.removeClass('selected')
 

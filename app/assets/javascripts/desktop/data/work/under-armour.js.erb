@@ -1,0 +1,58 @@
+Legwork.Work["under-armour"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work/work-under-armour.jpg' %>"
+		],
+		"videos": [
+			{
+				"path": "under-armour-loop",
+				"size": [960, 540]
+			}
+		],
+		"sequences": []
+	},
+
+	// project metadata
+	"title": "Always Lethal",
+	"summary": "A collection of product demonstrations for Under Armour.",
+	"thumbnail": "<%= asset_path 'desktop/work/work-under-armour.jpg' %>", // NOTE: 960x540
+	"related": "clyfford-still",
+	"upnext": "Up Next: Clyfford Still",
+
+	// slides
+	"slides": [
+		// title screen 
+		{
+			"type": "TitleScreen",
+			"title": "Always Lethal",
+			"summary": "A collection of product demonstrations for Under Armour.",
+
+			// services
+			"services": [
+				"Motion tracking",
+				"Graphics Production",
+				"Animation"
+			],
+			
+			"overview": [
+				"Under Armour Mountain is the newest division in a fast growing line of products. In an effort to introduce consumers with the technical features of their hunting products, UA approached us directly to produce a series of web shorts. These touts were placed strategically in partner sites as well as on their own online properties to cross promote."
+			],
+			
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "under-armour-loop"
+			}
+		},
+
+		// video
+		{
+			"type": "Video",
+			"background_color": "#191919",
+			"id": "46114393"
+		}
+	]
+}

@@ -45,7 +45,7 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
     # because the throttle delay is seen as you slide this into view..
     @$pan_image
       .css
-        'top': (Legwork.$wn.height() / 2) - (@ph / 2) + 'px'
+        'top': '0px'
         'left':  (Legwork.$wn.width() / 2) - (@pw / 2) + 'px'
 
     @initPanning()
@@ -95,7 +95,7 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   resetToCenter: =>
     @$pan_image
       .css
-        'top': @vert_center + 'px'
+        'top': '0px'
         'left':  @horz_center + 'px'
 
   initPanning: =>

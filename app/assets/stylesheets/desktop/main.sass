@@ -1075,14 +1075,14 @@
 
       @include scale(0.6)
 
-      #loader-circle,
-      canvas,
-      img
-        position: absolute
-        top: 0px
-        left: 0px
-        width: 100%
-        height: 100%
+    p
+      position: absolute
+      top: 50%
+      width: 100%
+      margin-top: 80px
+      font: normal normal normal 14px/14px "MuseoSlab700", Verdana, sans-serif
+      text-align: center
+      color: #666
 
   #ye-olde-hidden-video-holder
     position: fixed
@@ -1210,13 +1210,12 @@
               @include text_shadow(1px, 1px, 1px, $more_black)
 
             a.selected:after
-              content: ""
+              content: "\00d7"
               position: absolute
-              top: 5px
-              right: 5px
-              width: 5px
-              height: 5px
-              background: asset-url("desktop/filter-close.gif", image) no-repeat top left
+              top: 2px
+              left: 4px
+              font: normal normal normal 11px/11px Verdana, sans-serif
+              color: #fff
 
           li:nth-child(2)
             padding-left: 13px
@@ -1745,6 +1744,10 @@
     #loader-holder
       @include scale(1.0)
 
+    p
+      margin-top: 130px
+      font: normal normal normal 16px/16px "MuseoSlab700", Verdana, sans-serif
+
 // OVERRIDES: 1025 and up (desktop)
 @media screen and (min-width: 1025px)
   #wrapper
@@ -2070,6 +2073,12 @@
             white-space: nowrap
             -webkit-font-smoothing: subpixel-antialiased
             background-color: $more_black
+
+  // main preloader
+  #main-loader
+    p
+      margin-top: 130px
+      font: normal normal normal 18px/18px "MuseoSlab700", Verdana, sans-serif
 
 // OVERRIDES: 1280 and up (big honkin' screens)
 @media screen and (min-width: 1280px)

@@ -1,8 +1,6 @@
 <div id="main-loader">
   <div id="loader-holder">
     <img class="gif" src="<%= @image %>" alt="" />
-    <div id="loader-circle">
-      <canvas id="canvas-fill"></canvas>
-    </div>
   </div>
+  <p id="main-loader-progress">GIVN'R 0%</p>
 </div>

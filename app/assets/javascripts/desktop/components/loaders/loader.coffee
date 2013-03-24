@@ -41,6 +41,7 @@ class Legwork.Loader
     success = 0
     fail = 0
     failed = false
+    start = +(new Date())
 
     $v = $(JST['desktop/templates/html5-video']({
       'path': 'autoplay-test',
@@ -50,18 +51,17 @@ class Legwork.Loader
     $v.appendTo(@$video_stage)
 
     # Fail
-    # Note: I am seeing times consistently under 100ms
-    # for the loadstart event to fire. According to W3C,
-    # when this event fires shouldn't be bandwidth
-    # dependent. 500ms should cover almost any case.
+    # Note: we are waiting 1000ms for metadata
+    # to load. This should be well within the
+    # tolerance for global connection speeds.
     fail = setTimeout =>
       failed = true
       $v.remove()
       @loadVideo()
-    , 500
+    , 1000
 
     # Succeed
-    $v[0].addEventListener 'loadstart', =>
+    $v[0].addEventListener 'loadedmetadata', =>
       b = new Date().getTime()
       clearTimeout(fail)
 
@@ -93,6 +93,7 @@ class Legwork.Loader
   *----------------------------------------###
   updateProgress: () ->
     @percent = Math.round((@loaded / @total) * 100)
+
     if @loaded is @total
       @loadComplete()
 
@@ -103,8 +104,6 @@ class Legwork.Loader
   | Load the cached Twitter JSON.
   *----------------------------------------###
   loadTwitter: () ->
-    # TODO: cache this shit on our side
-    # TODO: in case of failure?
     $.getJSON '/tweetyeah', (data) =>
       Legwork.twitter = data
 

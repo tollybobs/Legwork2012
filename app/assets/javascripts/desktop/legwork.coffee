@@ -500,7 +500,7 @@ class Legwork.Application
     else if time_since_tweet <= 777600
       date = "One week ago"
     else
-      date = "In the ancient times"
+      date = "More than a week ago"
 
     # prepare source
     source = source.replace(/(^<.+>)(.+)(<.+>$)/, '$2')

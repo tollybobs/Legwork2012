@@ -5,7 +5,12 @@ Legwork.Work["exit-zero"] = {
 		"images": [
 			"<%= asset_path 'desktop/work/work-exit-zero.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "exit-zero-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
@@ -43,8 +48,8 @@ Legwork.Work["exit-zero"] = {
 			"url": "http://exitzeroproject.org",
 			
 			"background": {
-				"type": "image",
-				"url": "<%= asset_path 'desktop/work/work-exit-zero.jpg' %>"
+				"type": "video",
+				"id": "exit-zero-loop"
 			}
 		}
 	]

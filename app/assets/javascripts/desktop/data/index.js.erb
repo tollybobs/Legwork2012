@@ -12,49 +12,39 @@ Legwork.Home = {
 	// Assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/metal.png' %>",
+			"<%= asset_path 'desktop/foot.png' %>",
 			"<%= asset_path 'desktop/crush.png' %>",
-			"<%= asset_path 'desktop/science.png' %>"
+			"<%= asset_path 'desktop/metal.png' %>"
 		],
 		"videos": [
 			{
-				"path": "preacher-in",
-				"size": [650, 650],
+				"path": "foot-in",
+				"size": [876, 650],
 				"preload": true
 			},
 			{
-				"path": "preacher-out",
-				"size": [650, 650],
+				"path": "foot-out",
+				"size": [876, 650],
 				"preload": true
 			},
 			{
 				"path": "crush-in",
-				"size": [650, 650],
+				"size": [876, 650],
 				"preload": true
 			},
 			{
 				"path": "crush-out",
-				"size": [650, 650],
+				"size": [876, 650],
 				"preload": true
 			},
 			{
-				"path": "science-in",
-				"size": [650, 650],
+				"path": "rock-in",
+				"size": [876, 650],
 				"preload": true
 			},
 			{
-				"path": "science-out",
-				"size": [650, 650],
-				"preload": true
-			},
-			{
-				"path": "crush-in1",
-				"size": [650, 650],
-				"preload": true
-			},
-			{
-				"path": "crush-out1",
-				"size": [650, 650],
+				"path": "rock-out",
+				"size": [876, 650],
 				"preload": true
 			}
 		],
@@ -204,8 +194,8 @@ Legwork.Home = {
 		{
 			"type": "left sequenced",
 			"title": "Built on creativity,<br/>innovation &amp; a DIY ethic.",
-			"content": ['preacher-in', 'preacher-out'],
-			"alt_content": "<%= asset_path 'desktop/metal.png' %>"
+			"content": ['foot-in', 'foot-out'],
+			"alt_content": "<%= asset_path 'desktop/foot.png' %>"
 		},
 		{
 			"type": "work",
@@ -248,12 +238,6 @@ Legwork.Home = {
 			"content": "new-york-times-obama-vs-boehner"
 		},
 		{
-			"type": "left sequenced",
-			"title": "Don't question it,<br>it's science.",
-			"content": ['science-in', 'science-out'],
-			"alt_content": "<%= asset_path 'desktop/science.png' %>"
-		},
-		{
 			"type": "twitter",
 		},
 		{
@@ -265,10 +249,10 @@ Legwork.Home = {
 			"content": "clyfford-still"
 		},
 		{
-			"type": "right sequenced",
+			"type": "left sequenced",
 			"title": "Love,<br>Legwork Studio",
-			"content": ['crush-in1', 'crush-out1'],
-			"alt_content": "<%= asset_path 'desktop/crush.png' %>"
+			"content": ['rock-in', 'rock-out'],
+			"alt_content": "<%= asset_path 'desktop/metal.png' %>"
 		}
 	]
 }

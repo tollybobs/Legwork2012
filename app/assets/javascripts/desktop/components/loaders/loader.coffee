@@ -180,8 +180,6 @@ class Legwork.Loader
           @loaded++
           @updateProgress()
 
-          console.log('canplaythrough')
-
         , false
     else
       @loaded += @assets.videos.length

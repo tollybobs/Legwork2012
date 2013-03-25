@@ -218,7 +218,8 @@ class Legwork.Application
         @$stuff_reveal.css('background-color', '#fff')
         erase.destroy()
 
-        callback()
+        if callback?
+          callback()
 
   ###
   *------------------------------------------*
@@ -226,7 +227,7 @@ class Legwork.Application
   |
   | Reveal the screen.
   *----------------------------------------###
-  reveal: ->
+  reveal: (callback) ->
     reveal = new Legwork.ImageSequence({
       '$el': @$stuff_reveal,
       'settings': Legwork.sequences['reveal']
@@ -242,6 +243,9 @@ class Legwork.Application
       .one 'sequence_complete', (e) =>
         @$stuff_reveal.hide()
         reveal.destroy()
+
+        if callback?
+          callback()
 
   ###
   *------------------------------------------*
@@ -914,7 +918,6 @@ class Legwork.Application
       if @current_state is '404'
         @openFourOhFour('')
 
-      Legwork.$wn.trigger('resize')
       @current_state = ''
       @doc_title = @home_title
     else if to in Legwork.filters
@@ -1177,11 +1180,8 @@ class Legwork.Application
     @$404_wrap.hide()
     @$stuff_wrap.show()
 
-    if Legwork.app_width >= 740
-      @$canvas_wrap.show()
+    @reveal =>
       @finishLayout()
-
-    @reveal()
 
 # Kick the tires and light the fires!
 $ ->

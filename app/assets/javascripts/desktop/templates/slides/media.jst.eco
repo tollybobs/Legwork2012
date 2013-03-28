@@ -2,7 +2,7 @@
   <div class="sidebar">
     <div class="sidebar-inner">
       <div class="overview">
-        <h4><%= @title %></h4>
+        <h4><%- @title %></h4>
         <%- @text %>
       </div>
     </div>

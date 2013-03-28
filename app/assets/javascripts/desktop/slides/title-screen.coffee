@@ -52,7 +52,7 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   activate: ->
     Legwork.$wn.trigger('resize')
 
-    if @$bgvid.length > 0
+    if @$bgvid.length > 0 and Legwork.supports_autoplay
       @$v[0].load()
       @$v[0].addEventListener 'canplaythrough', @playVideo, false
       @$v[0].addEventListener 'ended', @videoEnded, false

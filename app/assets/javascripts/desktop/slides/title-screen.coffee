@@ -64,7 +64,7 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   | Deactivate old slide
   *----------------------------------------###
   deactivate: ->
-    if @$bgvid.length > 0
+    if @$bgvid.length > 0 and Legwork.supports_autoplay
       @$v[0].removeEventListener 'canplaythrough', @playVideo, false
       @$v[0].removeEventListener 'ended', @videoEnded, false
 

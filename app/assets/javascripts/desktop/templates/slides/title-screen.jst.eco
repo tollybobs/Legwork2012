@@ -8,15 +8,15 @@
   <div class="slide-inner">
     <div class="slide-inner-content">
       <div class="project-title">
-        <h2><%= @title %></h2>
-        <h4><%= @summary %></h4>
+        <h2><%- @title %></h2>
+        <h4><%- @summary %></h4>
       </div>
       <div class="project-info">
         <% if @services?: %>
           <ul>
             <li>Services</li>
             <% for item in @services: %>
-              <li><%= item %></li>
+              <li><%- item %></li>
             <% end %>
           </ul>
         <% end %>
@@ -24,13 +24,13 @@
           <ul>
             <li>Recognition</li>
             <% for item in @recognition: %>
-              <li><%= item %></li>
+              <li><%- item %></li>
             <% end %>
           </ul>
         <% end %>
         <ul>
           <li>Overview</li>
-          <li><%= @overview %></li>
+          <li><%- @overview %></li>
         </ul>
       </div>
       <ul class="project-callouts">
@@ -41,7 +41,7 @@
           <li><a href="<%= @downloadlink %>" target="_blank">Download<span></span></a></li>
         <% end %>
         <% if @callout?: %>
-          <li><h4><%= @callout %><span></span></h4></li>
+          <li><h4><%- @callout %><span></span></h4></li>
         <% end %>
       </ul>
     </div>

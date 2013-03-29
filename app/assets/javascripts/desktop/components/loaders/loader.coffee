@@ -20,7 +20,7 @@ class Legwork.Loader
     @loaded = 0
     @percent = 0
     @$video_stage = $('#ye-olde-hidden-video-holder')
-    @supports_autoplay = false
+    Legwork.supports_autoplay = false
 
     @total = @assets.images.length + @assets.videos.length + 1 # +1 for Twitter
 
@@ -66,7 +66,7 @@ class Legwork.Loader
       clearTimeout(fail)
 
       if failed is false
-        @supports_autoplay = true
+        Legwork.supports_autoplay = true
         $v.remove()
         @loadVideo()
     , false
@@ -170,7 +170,7 @@ class Legwork.Loader
   | Preload the specified video collection.
   *----------------------------------------###
   loadVideo: ->
-    if Modernizr.video and @supports_autoplay
+    if Modernizr.video and Legwork.supports_autoplay
       for video in @assets.videos
         $v = $(JST['desktop/templates/html5-video'](video))
         $v.appendTo(@$video_stage)

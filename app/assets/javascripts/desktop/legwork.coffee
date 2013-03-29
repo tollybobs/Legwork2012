@@ -904,7 +904,6 @@ class Legwork.Application
   | Route to the passed url.
   *----------------------------------------###
   route: (to) ->
-
     @doc_title = to
     @$filter.removeClass('selected')
 
@@ -971,8 +970,6 @@ class Legwork.Application
   | Open the detail view.
   *----------------------------------------###
   openDetail: (item) ->
-    @turnScroll('off')
-
     # Set reference to what you open on
     Legwork.open_detail_state = item
 
@@ -1036,6 +1033,8 @@ class Legwork.Application
 
     controller.activate()
     Legwork.current_detail_controller = controller
+
+    @turnScroll('off')
 
   ###
   *------------------------------------------*

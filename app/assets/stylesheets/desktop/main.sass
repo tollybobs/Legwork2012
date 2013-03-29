@@ -557,6 +557,15 @@
               display: block
               @include background_cover
 
+              .slide-inner
+                overflow: auto
+                display: block
+
+                .slide-inner-content
+                  padding: 100px 0
+                  vertical-align: baseline
+                  display: block
+
               .bg-project-video,
               .bg-project-video video,
               .bg-project-image
@@ -624,6 +633,13 @@
                 margin: 40px 20px 0
                 list-style-type: none
                 display: block
+
+                &:after
+                  content: ''
+                  height: 0
+                  margin: 0
+                  display: block
+                  clear: both
 
                 li
                   position: relative
@@ -960,6 +976,15 @@
                 background-repeat: no-repeat
                 background-position: 50% 50%
                 @include background_cover
+
+            // full screen iframe slide
+            .full-screen-iframe
+              background-color: $less_black
+              display: block
+
+              iframe
+                width: 100%
+                height: 100%
 
           .slide-controls
             display: none
@@ -1534,6 +1559,15 @@
 
             // title screen slide
             .title-screen
+              .slide-inner
+                overflow: hidden
+                display: table
+
+                .slide-inner-content
+                  padding: 0
+                  vertical-align: middle
+                  display: table-cell
+
               .project-title
                 margin: 0 50px 90px 26px
 
@@ -1862,7 +1896,7 @@
           .sequenced-inner
             .sequenced-content-wrap
               video
-                left: 5%
+                left: 0%
 
         .work.stuff,
         .world.stuff
@@ -2142,6 +2176,5 @@ html.touch
 
             .slide-next
               opacity: 1
-
 
 

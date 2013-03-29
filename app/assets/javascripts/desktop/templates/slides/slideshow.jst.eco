@@ -3,9 +3,9 @@
     <div class="slide-inner-content">
       <div class="media-content">
         <div class="media-text">
-          <h4><%= @title %></h4>
+          <h4><%- @title %></h4>
           <% for item in @text: %>
-            <p><%= item %></p>
+            <p><%- item %></p>
           <% end %>
         </div>
       </div>

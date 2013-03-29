@@ -3,7 +3,7 @@ Legwork.Work["one-show"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-placeholder.jpg' %>"
+			"<%= asset_path 'desktop/work/work-one-show.jpg' %>"
 		],
 		"videos": [],
 		"sequences": []
@@ -12,7 +12,7 @@ Legwork.Work["one-show"] = {
 	// project metadata
 	"title": "One Show",
 	"summary": "A website for East West Partners.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-placeholder.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/work-one-show.jpg' %>", // NOTE: 960x540
 	"related": "vision-street-wear",
 	"upnext": "Up Next: Vision Street Wear",
 
@@ -24,31 +24,51 @@ Legwork.Work["one-show"] = {
 			"title": "One Show",
 			"summary": "A website for East West Partners.",
 
-			"services": [
-				"Strategy",
-				"User Experience",
-				"Creative/Art Direction",
-				"Visual Design",
-				"Development"
-			],
+			// "services": [
+			// 	"Strategy",
+			// 	"User Experience",
+			// 	"Creative/Art Direction",
+			// 	"Visual Design",
+			// 	"Development"
+			// ],
 
-			"recognition": [
-				"Webby Awards",
-				"Awwwards",
-				"CommArts",
-				".net Mag",
-				"W3 Awards"
-			],
+			// "recognition": [
+			// 	"Webby Awards",
+			// 	"Awwwards",
+			// 	"CommArts",
+			// 	".net Mag",
+			// 	"W3 Awards"
+			// ],
 			
 			"overview": [
 				"The developers of the Union Station Neighborhood needed a visionary experience that would tell their story on both a tablet in the field and through a regular desktop. Our solution was to merge classic editorial design principles with progressive development techniques to visualize the future of Denver's oldest neighborhood while tipping our hat to its history."
 			],
-
-			"url": "http://unionstationdenver.com",
 			
 			"background": {
 				"type": "image",
-				"url": "<%= asset_path 'desktop/work/work-union-station.jpg' %>"
+				"url": "<%= asset_path 'desktop/work/one-show/one-show-landing.jpg' %>"
+			}
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/one-show/one-show-front.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/one-show/one-show-open.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/one-show/one-show-grid.jpg' %>",
+			"sidebar": {
+				"title": "So Pitted",
+				"text": "<p>Ah bra, it's just like, dude you get the best barrels ever dude. It's just like you pull in and just get spit right out of them. And you just drop in and just smack the lip. Whuppah! Jus-drop down, send it baahhahhh! And then after that you just drop in and just ride the barrel and get pitted, so pitted like that.</p>"
 			}
 		}
 	]

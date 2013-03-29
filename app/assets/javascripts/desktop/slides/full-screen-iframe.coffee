@@ -29,7 +29,6 @@ class Legwork.Slides.FullScreenIframe extends Legwork.Slides.Slide
   build: ->
     @$el = @renderTemplate('full-screen-iframe', @model)
     @url = @$el.data('url')
-    @mobile = false
     return @$el
 
   ###
@@ -39,10 +38,6 @@ class Legwork.Slides.FullScreenIframe extends Legwork.Slides.Slide
   | Activate new/current slide
   *----------------------------------------###
   activate: ->
-    if $('iframe', @$el).length > 0
-      $('iframe', @$el).remove()
-      console.log('remove first')
-
     @$el.empty().append("<iframe src='#{@url}' height='100%' width='100%'></iframe>")
     # Legwork.$wn.trigger('resize')
 
@@ -55,29 +50,6 @@ class Legwork.Slides.FullScreenIframe extends Legwork.Slides.Slide
   deactivate: ->
     $('iframe', @$el).fadeOut 333, =>
       @$el.empty()
-
-  ###
-  *------------------------------------------*
-  | onResize:void (=)
-  |
-  | w:number - window width
-  | h:number - window height
-  |
-  | Handle window resize
-  *----------------------------------------###
-  # resize: (w, h) =>
-  #   super(w, h)
-      
-  #   if w < 740
-  #     if @mobile is false
-  #       @mobile = true
-  #       @$el.empty().append("<iframe src='#{@url}/mobile' height='100%' width='100%'></iframe>")
-  #       console.log(@mobile)
-  #   else
-  #     if @mobile is true
-  #       @mobile = false
-  #       @$el.empty().append("<iframe src='#{@url}' height='100%' width='100%'></iframe>")
-  #       console.log(@mobile)
 
 
 

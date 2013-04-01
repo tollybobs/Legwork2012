@@ -3,7 +3,8 @@ Legwork.Work["charter"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-charter.jpg' %>"
+			"<%= asset_path 'desktop/work/charter/charter-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/charter/charter-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["charter"] = {
 	// project metadata
 	"title": "Charter Local Interest",
 	"summary": "Chartering local interest about stuff",
-	"thumbnail": "<%= asset_path 'desktop/work/work-charter.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/charter/charter-thumb.jpg' %>", // NOTE: 960x540
 	"related": "clyfford-still",
 	"upnext": "Up Next: Clyfford Still",
 
@@ -43,7 +44,8 @@ Legwork.Work["charter"] = {
 			
 			"background": {
 				"type": "video",
-				"id": "charter-loop"
+				"id": "charter-loop",
+				"src": "<%= asset_path 'desktop/work/charter/charter-ts-poster.jpg' %>"
 			}
 		},
 

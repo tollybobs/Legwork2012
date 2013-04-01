@@ -3,7 +3,8 @@ Legwork.Work["prescreen"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-prescreen.jpg' %>"
+			"<%= asset_path 'desktop/work/prescreen/prescreen-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/prescreen/prescreen-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["prescreen"] = {
 	// project metadata
 	"title": "Prescreen",
 	"summary": "Pre before you screen",
-	"thumbnail": "<%= asset_path 'desktop/work/work-prescreen.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/prescreen/prescreen-thumb.jpg' %>",
 	"related": "clyfford-still",
 	"upnext": "Up Next: Clyfford Still",
 
@@ -43,7 +44,8 @@ Legwork.Work["prescreen"] = {
 			
 			"background": {
 				"type": "video",
-				"id": "prescreen-loop"
+				"id": "prescreen-loop",
+				"src": "<%= asset_path 'desktop/work/prescreen/prescreen-ts-poster.jpg' %>"
 			}
 		},
 

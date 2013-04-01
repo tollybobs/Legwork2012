@@ -3,7 +3,8 @@ Legwork.Work["new-york-times-obama-vs-boehner"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-nyt.jpg' %>"
+			"<%= asset_path 'desktop/work/nyt-obama-vs-boehner/nyt-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/nyt-obama-vs-boehner/nyt-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["new-york-times-obama-vs-boehner"] = {
 	// project metadata
 	"title": "Debt Deal: Obama vs. Boehner",
 	"summary": "A video feature for The New York Times.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-nyt.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/nyt-obama-vs-boehner/nyt-thumb.jpg' %>",
 	"related": "wow",
 	"upnext": "Up Next: WOW",
 
@@ -48,7 +49,8 @@ Legwork.Work["new-york-times-obama-vs-boehner"] = {
 			
 			"background": {
 				"type": "video",
-				"id": "nyt-debt-deal"
+				"id": "nyt-debt-deal",
+				"src": "<%= asset_path 'desktop/work/nyt-obama-vs-boehner/nyt-ts-poster.jpg' %>"
 			}
 		},
 

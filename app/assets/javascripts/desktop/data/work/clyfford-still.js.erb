@@ -3,7 +3,8 @@ Legwork.Work["clyfford-still"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-clyfford-still.jpg' %>"
+			"<%= asset_path 'desktop/work/clyfford-still/clyfford-still-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/clyfford-still/clyfford-still-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["clyfford-still"] = {
 	// project metadata
 	"title": "First Light",
 	"summary": "A projection mapping event for The Clyfford Still Museum.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-clyfford-still.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/clyfford-still/clyfford-still-thumb.jpg' %>", // NOTE: 960x540
 	"related": "colorado-lottery-dad",
 	"upnext": "Up Next: Colorado Lottery",
 
@@ -45,7 +46,8 @@ Legwork.Work["clyfford-still"] = {
 			
 			"background": {
 				"type": "video",
-				"id": "clyfford-still-loop"
+				"id": "clyfford-still-loop",
+				"src": "<%= asset_path 'desktop/work/clyfford-still/clyfford-still-ts-poster.jpg' %>"
 			}
 		},
 

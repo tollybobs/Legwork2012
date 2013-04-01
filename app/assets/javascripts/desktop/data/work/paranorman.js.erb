@@ -3,7 +3,8 @@ Legwork.Work["paranorman"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-paranorman.jpg' %>"
+			"<%= asset_path 'desktop/work/paranorman/paranorman-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/paranorman/paranorman-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["paranorman"] = {
 	// project metadata
 	"title": "Paranorman",
 	"summary": "A website for Laika with Wieden+Kennedy and Mode Set.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-paranorman.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/paranorman/paranorman-thumb.jpg' %>",
 	"related": "toyota-owners",
 	"upnext": "Up Next: Toyota Owners",
 
@@ -57,7 +58,8 @@ Legwork.Work["paranorman"] = {
 
 			"background": {
 				"type": "video",
-				"id": "paranorman-loop"
+				"id": "paranorman-loop",
+				"src": "<%= asset_path 'desktop/work/paranorman/paranorman-ts-poster.jpg' %>"
 			}
 		},
 
@@ -123,7 +125,7 @@ Legwork.Work["paranorman"] = {
 		// full screen (w/ image)
 		{
 			"type": "FullScreenImage",
-			"image": "<%= asset_path 'desktop/world/world-code.jpg' %>",
+			"image": "<%= asset_path 'desktop/work/work-placeholder.jpg' %>",
 			"sidebar": {
 				"title": "A Targeted Experience",
 				"text": "<p>There was some serious technical powerlifting required to ensure this site was performant. We took full advantage of each targeted devices strong suites without sacrificing any of the content. Check it out on your desktop, tablet and phone to see what we mean. We took advantage of hardware acceleration to scroll through the 3d worlds, the accelerometer to unlock content by spinning your phone around and much, much more.</p>"
@@ -139,58 +141,5 @@ Legwork.Work["paranorman"] = {
 				"text": "<p>We take great pride in every detail of our craft, even how we organize our files. In order to make it easy for anyone to jump in and out of the project with little effort, we took great care to ensure even our source files were cleaned up and well constructed. We're big believers in proper <a href='http://photoshopetiquette.com' target='_new'>Photoshop Etiquette</a>. And by sharing all of our files on <a href='http://dropbox.com' target='_new'>Dropbox</a> and <a href='http://github.com' target='_new'>Github</a>, geography never got in the way.</p>"
 			}
 		}
-
-		// The following are other slide types
-		// we can use too...
-
-		// video (this is just a demo slide)
-		// {
-		// 	"type": "Video",
-		// 	"background_color": "#89af60",
-		// 	"id": "49792510"
-		// },
-
-		// media (w/ vimeo)  (this is just a demo slide)
-		// {
-		// 	"type": "Media",
-		// 	"background_color": "#89af60",
-		// 	"title": "Paranorman Walk Through",
-		// 	"text": "<p>Ah bra, it's just like, dude you get the best barrels ever dude. It's just like you pull in and just get spit right out of them. And you just drop in and just smack the lip. Whuppah! Jus-drop down, send it baahhahhh! And then after that you just drop in and just ride the barrel and get pitted, so pitted like that.</p>",
-		// 	"media": {
-		// 		"type": "vimeo",
-		// 		"id": "49792510"
-		// 	}
-		// }
-
-		// slideshow
-		// {
-		// 	"type": "Slideshow",
-		// 	"background_color": "#89af60",
-		// 	"title": "Random Slides of Stuff",
-		// 	"text": [
-		// 		"In an effort to humanize their new start up, Abodigy tasked us with creating a character-driven story to help make a somewhat complicated business model seem approachable and necessary.",
-		// 		"Created a comprehensive illustration library (elements, characters, homes)",
-		// 		"2D and 3D styles composited for final animation",
-		// 		"Custom music and sound design"
-		// 	],
-		// 	"slides": [
-		// 		{
-		// 			"type": "vimeo",
-		// 			"id": "52264316"
-		// 		},
-		// 		{
-		// 			"type": "image",
-		// 			"url": "<%= asset_path 'desktop/work/paranorman/slideshow-fpo.jpg' %>"
-		// 		},
-		// 		{
-		// 			"type": "vimeo",
-		// 			"id": "53487338"
-		// 		},
-		// 		{
-		// 			"type": "image",
-		// 			"url": "<%= asset_path 'desktop/work-paranorman.jpg' %>"
-		// 		}
-		// 	]
-		// }
 	]
 }

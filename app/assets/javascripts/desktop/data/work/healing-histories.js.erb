@@ -3,7 +3,8 @@ Legwork.Work["healing-histories"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-hh.jpg' %>"
+			"<%= asset_path 'desktop/work/healing-histories/hh-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/healing-histories/hh-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["healing-histories"] = {
 	// project metadata
 	"title": "Healing Histories",
 	"summary": "An interactive documentary for WKKF with Weber Shandwick.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-hh.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/healing-histories/hh-thumb.jpg' %>",
 	"related": "paranorman",
 	"upnext": "Up Next: Paranorman",
 
@@ -91,7 +92,7 @@ Legwork.Work["healing-histories"] = {
 		// full screen (w/ image)
 		{
 			"type": "FullScreenImage",
-			"image": "<%= asset_path 'desktop/world/world-code.jpg' %>",
+			"image": "<%= asset_path 'desktop/work/work-placeholder.jpg' %>",
 			"sidebar": {
 				"title": "Let's Get Technical",
 				"text": "<p>We started this project thinking that an <a href='http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller' target='_new'>MVC framework</a> would be overkill, but we went ahead and built it on top of <a href='http://backbonejs.org' target='_new'>Backbone</a> as a teaching/learning exercise. In the end, it turned out there was no way we could have managed the complexities of the various application states without it. The entire site is deep-linkable and each view has hooks for being enabled and disabled when being transitioned to and from; and paused and resumed when the navigation is hidden and shown. Coming up with our own system for all of that without a solid base would have been foolish.</p>"

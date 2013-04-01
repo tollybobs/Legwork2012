@@ -3,7 +3,8 @@ Legwork.Work["airwalk-proto"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-airwalk-proto.jpg' %>"
+			"<%= asset_path 'desktop/work/airwalk-proto/airwalk-proto-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/airwalk-proto/airwalk-proto-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["airwalk-proto"] = {
 	// project metadata
 	"title": "Prototype 600",
 	"summary": "A product release video for Airwalk.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-airwalk-proto.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/airwalk-proto/airwalk-proto-thumb.jpg' %>", // NOTE: 960x540
 	"related": "airwalk-jim",
 	"upnext": "Up Next: Airwalk Jim",
 
@@ -44,7 +45,8 @@ Legwork.Work["airwalk-proto"] = {
 			
 			"background": {
 				"type": "video",
-				"id": "airwalk-proto"
+				"id": "airwalk-proto",
+				"src": "<%= asset_path 'desktop/work/airwalk-proto/airwalk-proto-ts-poster.jpg' %>"
 			}
 		},
 
@@ -54,13 +56,6 @@ Legwork.Work["airwalk-proto"] = {
 			"background_color": "#ffffff",
 			"id": "15621741"
 		},
-
-		// full screen (w/ video)
-		// {
-		// 	"type": "FullScreenVideo",
-		// 	"url": "<%= asset_path 'desktop/work/brightnest/brightnest-breakdown.jpg' %>",
-		// 	"id": "57025460"
-		// },
 
 		// full screen (w/ image)
 		{

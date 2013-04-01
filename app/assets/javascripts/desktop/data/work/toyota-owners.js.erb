@@ -3,7 +3,8 @@ Legwork.Work["toyota-owners"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-toyota-owners.jpg' %>"
+			"<%= asset_path 'desktop/work/toyota-owners/toyota-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/toyota-owners/toyota-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["toyota-owners"] = {
 	// project metadata
 	"title": "Toyota Owners",
 	"summary": "A web application for Toyota with Saatchi & Saatchi LA.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-toyota-owners.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/toyota-owners/toyota-thumb.jpg' %>",
 	"related": "union-station",
 	"upnext": "Up Next: Union Station Neighborhood",
 
@@ -52,7 +53,8 @@ Legwork.Work["toyota-owners"] = {
 			
 			"background": {
 				"type": "video",
-				"id": "toyota-loop"
+				"id": "toyota-loop",
+				"src": "<%= asset_path 'desktop/work/toyota-owners/toyota-ts-poster.jpg' %>"
 			}
 		},
 

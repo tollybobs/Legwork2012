@@ -3,7 +3,8 @@ Legwork.Work["exit-zero"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-exit-zero.jpg' %>"
+			"<%= asset_path 'desktop/work/exit-zero/exit-zero-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/exit-zero/exit-zero-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["exit-zero"] = {
 	// project metadata
 	"title": "The Exit Zero Project",
 	"summary": "A website for the Exit Zero Project.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-exit-zero.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/exit-zero/exit-zero-thumb.jpg' %>",
 	"related": "gamits",
 	"upnext": "Up Next: This Shell",
 
@@ -49,7 +50,8 @@ Legwork.Work["exit-zero"] = {
 			
 			"background": {
 				"type": "video",
-				"id": "exit-zero-loop"
+				"id": "exit-zero-loop",
+				"src": "<%= asset_path 'desktop/work/exit-zero/exit-zero-ts-poster.jpg' %>"
 			}
 		}
 	]

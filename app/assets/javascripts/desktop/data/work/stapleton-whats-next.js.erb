@@ -1,13 +1,14 @@
-Legwork.Work["stapleton"] = {
+Legwork.Work["stapleton-whats-next"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-stapleton.jpg' %>"
+			"<%= asset_path 'desktop/work/stapleton-whats-next/stapleton-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/stapleton-whats-next/stapleton-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
-				"path": "stapleton",
+				"path": "stapleton-whats-next-loop",
 				"size": [960, 540]
 			}
 		],
@@ -17,7 +18,7 @@ Legwork.Work["stapleton"] = {
 	// project metadata
 	"title": "What’s Next?",
 	"summary": "A teaser video for Forest City with Strada",
-	"thumbnail": "<%= asset_path 'desktop/work/work-stapleton.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/stapleton-whats-next/stapleton-thumb.jpg' %>",
 	"related": "clyfford-still",
 	"upnext": "Up Next: Clyfford Still",
 
@@ -43,7 +44,8 @@ Legwork.Work["stapleton"] = {
 			
 			"background": {
 				"type": "video",
-				"id": "stapleton"
+				"id": "stapleton-whats-next-loop",
+				"src": "<%= asset_path 'desktop/work/stapleton-whats-next/stapleton-ts-poster.jpg' %>"
 			}
 		},
 
@@ -57,7 +59,7 @@ Legwork.Work["stapleton"] = {
 		// full screen (w/ video)
 		{
 			"type": "FullScreenVideo",
-			"url": "<%= asset_path 'desktop/work/stapleton/stapleton-breakdown.jpg' %>",
+			"url": "<%= asset_path 'desktop/work/stapleton-whats-next/stapleton-breakdown.jpg' %>",
 			"id": "57018313"
 		},
 	]

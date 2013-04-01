@@ -3,7 +3,8 @@ Legwork.Work["gamits"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-gamits.jpg' %>"
+			"<%= asset_path 'desktop/work/gamits/gamits-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/gamits/gamits-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["gamits"] = {
 	// project metadata
 	"title": "This Shell",
 	"summary": "An interactive music video for the Gamits.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-gamits.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/gamits/gamits-thumb.jpg' %>", // NOTE: 960x540
 	"related": "healing-histories",
 	"upnext": "Up Next: Healing Histories",
 
@@ -56,7 +57,8 @@ Legwork.Work["gamits"] = {
 			
 			"background": {
 				"type": "video",
-				"id": "gamits-loop"
+				"id": "gamits-loop",
+				"src": "<%= asset_path 'desktop/work/gamits/gamits-ts-poster.jpg' %>"
 			}
 		}
 	]

@@ -3,7 +3,8 @@ Legwork.Work["wow"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-wow.jpg' %>"
+			"<%= asset_path 'desktop/work/wow/wow-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/wow/wow-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["wow"] = {
 	// project metadata
 	"title": "Ultra TV",
 	"summary": "A collection of videos for WOW! with Gyro.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-wow.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/wow/wow-thumb.jpg' %>",
 	"related": "brightnest",
 	"upnext": "Up Next: Brightnest",
 
@@ -43,12 +44,9 @@ Legwork.Work["wow"] = {
 			"callout": "Watch Video",
 			
 			"background": {
-				// option 1
-				// "type": "video",
-				// "url": "<%= asset_path 'desktop/some-video' %>"
-				// option 2
 				"type": "video",
-				"id": "wow-loop"
+				"id": "wow-loop",
+				"src": "<%= asset_path 'desktop/work/wow/wow-ts-poster.jpg' %>"
 			}
 		},
 

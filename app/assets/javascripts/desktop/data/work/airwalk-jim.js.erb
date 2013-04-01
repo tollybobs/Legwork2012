@@ -3,7 +3,8 @@ Legwork.Work["airwalk-jim"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-airwalk-jim.jpg' %>"
+			"<%= asset_path 'desktop/work/airwalk-jim/airwalk-jim-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/airwalk-jim/airwalk-jim-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["airwalk-jim"] = {
 	// project metadata
 	"title": "The Airwalk Jim",
 	"summary": "A video for Airwalk.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-airwalk-jim.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/airwalk-jim/airwalk-jim-thumb.jpg' %>", // NOTE: 960x540
 	"related": "clyfford-still",
 	"upnext": "Up Next: Clyfford Still",
 
@@ -43,7 +44,8 @@ Legwork.Work["airwalk-jim"] = {
 			
 			"background": {
 				"type": "video",
-				"id": "airwalk-jim"
+				"id": "airwalk-jim",
+				"src": "<%= asset_path 'desktop/work/airwalk-jim/airwalk-jim-ts-poster.jpg' %>"
 			}
 		},
 
@@ -53,13 +55,6 @@ Legwork.Work["airwalk-jim"] = {
 			"background_color": "#191919",
 			"id": "17168663"
 		},
-
-		// full screen (w/ video)
-		// {
-		// 	"type": "FullScreenVideo",
-		// 	"url": "<%= asset_path 'desktop/work/brightnest/brightnest-breakdown.jpg' %>",
-		// 	"id": "57025460"
-		// },
 
 		// full screen (w/ image)
 		{

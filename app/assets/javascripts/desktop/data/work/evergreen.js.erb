@@ -3,7 +3,8 @@ Legwork.Work["evergreen"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-evergreen.jpg' %>"
+			"<%= asset_path 'desktop/work/evergreen/evergreen-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/evergreen/evergreen-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["evergreen"] = {
 	// project metadata
 	"title": "Evergreen Solar",
 	"summary": "A video for Airwalk.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-evergreen.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/evergreen/evergreen-thumb.jpg' %>", // NOTE: 960x540
 	"related": "clyfford-still",
 	"upnext": "Up Next: Clyfford Still",
 
@@ -39,11 +40,13 @@ Legwork.Work["evergreen"] = {
 			"overview": [
 				"Like so many service based startups, BrightNest wanted to humanize their new product. With no real assets existing, we created a character-driven story to help make a very deep and somewhat complicated business model seem approachable and necessary for homeowners everywhere."
 			],
+			
 			"callout": "Watch Video",
 			
 			"background": {
 				"type": "video",
-				"id": "evergreen"
+				"id": "evergreen",
+				"src": "<%= asset_path 'desktop/work/evergreen/evergreen-ts-poster.jpg' %>"
 			}
 		},
 

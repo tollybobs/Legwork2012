@@ -3,7 +3,8 @@ Legwork.Work["lexmark"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-lexmark.jpg' %>"
+			"<%= asset_path 'desktop/work/lexmark/lexmark-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/lexmark/lexmark-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
@@ -17,7 +18,7 @@ Legwork.Work["lexmark"] = {
 	// project metadata
 	"title": "lexmark",
 	"summary": "Lexmarks the spot",
-	"thumbnail": "<%= asset_path 'desktop/work/work-lexmark.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/lexmark/lexmark-thumb.jpg' %>", // NOTE: 960x540
 	"related": "clyfford-still",
 	"upnext": "Up Next: Clyfford Still",
 
@@ -43,7 +44,8 @@ Legwork.Work["lexmark"] = {
 			
 			"background": {
 				"type": "video",
-				"id": "lexmark-loop"
+				"id": "lexmark-loop",
+				"src": "<%= asset_path 'desktop/work/lexmark/lexmark-ts-poster.jpg' %>"
 			}
 		},
 
@@ -53,13 +55,6 @@ Legwork.Work["lexmark"] = {
 			"background_color": "#191919",
 			"id": "46114007"
 		},
-
-		// full screen (w/ video)
-		// {
-		// 	"type": "FullScreenVideo",
-		// 	"url": "<%= asset_path 'desktop/work/brightnest/brightnest-breakdown.jpg' %>",
-		// 	"id": "57025460"
-		// },
 
 		// full screen (w/ image)
 		{

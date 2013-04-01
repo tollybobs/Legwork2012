@@ -37,6 +37,9 @@
         <% if @url?: %>
           <li><a href="<%= @url %>" target="_blank">Launch Project<span></span></a></li>
         <% end %>
+        <% if @downloadlink?: %>
+          <li><a href="<%= @downloadlink %>" target="_blank">Download<span></span></a></li>
+        <% end %>
         <% if @callout?: %>
           <li><h4><%- @callout %><span></span></h4></li>
         <% end %>

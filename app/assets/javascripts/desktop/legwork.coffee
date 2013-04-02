@@ -68,6 +68,8 @@ class Legwork.Application
     @lost_title = 'Hey bud, are you lost?'
     @doc_title = @home_title
 
+    @filter_transition = true
+
     @preload()
 
   ###
@@ -205,6 +207,8 @@ class Legwork.Application
   | Erase the screen.
   *----------------------------------------###
   erase: (callback) ->
+    @filter_transition = true
+
     erase = new Legwork.ImageSequence({
       '$el': @$stuff_reveal,
       'settings': Legwork.sequences['erase']
@@ -243,6 +247,7 @@ class Legwork.Application
       .one 'sequence_complete', (e) =>
         @$stuff_reveal.hide()
         reveal.destroy()
+        @filter_transition = false
 
         if callback?
           callback()
@@ -615,9 +620,9 @@ class Legwork.Application
       .on('click', '.ajaxy', @onAjaxyLinkClick)
 
     # Launch
-    Legwork.$body
-      .on('mouseenter', '.launch-btn', @onStuffHover)
-      .on('mouseleave', '.launch-btn', @onStuffHover)
+    # Legwork.$body
+    #   .on('mouseenter', '.launch-btn', @onStuffHover)
+    #   .on('mouseleave', '.launch-btn', @onStuffHover)
 
     return false
 
@@ -716,8 +721,11 @@ class Legwork.Application
   | Resize has started.
   *----------------------------------------###
   onResizeStart: (e) =>
-    @$launch
-      .off('mouseenter mouseleave')
+    @$launch.removeClass('over')
+
+    Legwork.$body
+      .off('mouseenter', '.launch-btn', @onStuffHover)
+      .off('mouseleave', '.launch-btn', @onStuffHover)
 
     if Legwork.app_width >= 740
       @startLayout()
@@ -767,6 +775,10 @@ class Legwork.Application
         $t
           .off('activate deactivate')
           .one('activate', @onStuffActivate)
+
+      Legwork.$body
+        .on('mouseenter', '.launch-btn', @onStuffHover)
+        .on('mouseleave', '.launch-btn', @onStuffHover)
 
       Legwork.$wn.trigger('scroll')
 
@@ -868,20 +880,21 @@ class Legwork.Application
   onAjaxyLinkClick: (e) =>
     e.preventDefault()
 
-    if e.which is 2 or e.metaKey is true then return true
-
-    $t = $(e.currentTarget)
-
-    if $t.hasClass('filter') is true
-      if $t.hasClass('selected') is true
-        $t.removeClass('selected')
-        @History.pushState(null, null, '/')
-      else
-        # @$filter.removeClass('selected')
-        # $t.addClass('selected')
-        @History.pushState(null, null, $t.attr('href'))
+    if @filter_transition is true
+      return false
     else
-      @History.pushState(null, null, $t.attr('href'))
+      if e.which is 2 or e.metaKey is true then return true
+
+      $t = $(e.currentTarget)
+
+      if $t.hasClass('filter') is true
+        if $t.hasClass('selected') is true
+          $t.removeClass('selected')
+          @History.pushState(null, null, '/')
+        else
+          @History.pushState(null, null, $t.attr('href'))
+      else
+        @History.pushState(null, null, $t.attr('href'))
 
   ###
   *------------------------------------------*

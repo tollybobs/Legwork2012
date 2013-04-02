@@ -58,7 +58,7 @@ class Legwork.Controllers.BaseDetail
         Legwork.$doc.on 'keyup.switch', @handleArrowKey
     , 333
 
-    if @model.related then @$related.text(@model.upnext)
+    if @model.related then @$related.text(@model.related_name)
 
   ###
   *------------------------------------------*

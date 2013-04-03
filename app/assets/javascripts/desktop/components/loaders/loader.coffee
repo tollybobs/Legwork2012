@@ -171,16 +171,12 @@ class Legwork.Loader
   *----------------------------------------###
   loadVideo: ->
     if Modernizr.video and Legwork.supports_autoplay
-      
-      # console.log('videos to load: ', @assets.videos.length)
 
       for video in @assets.videos
         $v = $(JST['desktop/templates/html5-video'](video))
         $v.appendTo(@$video_stage)
 
-        $v[0].addEventListener 'canplaythrough', =>
-          # $v[0].removeEventListener 'canplaythrough'
-          # console.log('canplaythrough')
+        $v[0].addEventListener 'canplay', =>
           @loaded++
           @updateProgress()
 

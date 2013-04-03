@@ -1,4 +1,4 @@
-<video width="<%= @size[0] %>" height="<%= @size[1] %>" <% if @preload is true: %>autobuffer preload="auto"<% end %> id="<%= @path %>">
+<video width="<%= @size[0] %>" height="<%= @size[1] %>" autobuffer preload="auto" id="<%= @path %>">
   <source src="http://s3.amazonaws.com/legwork/<%= @path %>.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
   <source src="http://s3.amazonaws.com/legwork/<%= @path %>.webm" type='video/webm; codecs="vp8, vorbis"'>
   <source src="http://s3.amazonaws.com/legwork/<%= @path %>.ogv" type='video/ogg; codecs="theora, vorbis"'>

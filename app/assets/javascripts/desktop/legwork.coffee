@@ -68,7 +68,7 @@ class Legwork.Application
     @lost_title = 'Hey bud, are you lost?'
     @doc_title = @home_title
 
-    @filter_transition = true
+    @filter_transition = false
 
     @preload()
 
@@ -232,6 +232,8 @@ class Legwork.Application
   | Reveal the screen.
   *----------------------------------------###
   reveal: (callback) ->
+    @filter_transition = true
+
     reveal = new Legwork.ImageSequence({
       '$el': @$stuff_reveal,
       'settings': Legwork.sequences['reveal']
@@ -938,6 +940,7 @@ class Legwork.Application
 
       @current_state = 'filter'
     else if Legwork.Work[to]? or Legwork.World[to]?
+
       if @$detail.is(':visible')
         Legwork.current_detail_controller.deactivate()
         @loadDetail(to)
@@ -1067,6 +1070,7 @@ class Legwork.Application
   *----------------------------------------###
   openFilter: (filter) ->
     if Legwork.$wn.scrollTop() isnt 0
+      @filter_transition = true
       @scrollUp =>
         @openFilter(filter)
     else

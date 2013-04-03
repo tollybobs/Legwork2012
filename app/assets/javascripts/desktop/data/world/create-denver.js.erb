@@ -3,24 +3,30 @@ Legwork.World["create-denver"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/world/world-placeholder.jpg' %>"
+			"<%= asset_path 'desktop/work/create-denver/create-denver-thumb.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "create-denver-loop",
+				"size": [960, 540]
+			}
+		],
+
 		"sequences": []
 	},
 
 	// metadata
 	"title": "Create Denver",
 	"summary": "A projection mapping for the city of Denver.",
-	"thumbnail": "<%= asset_path 'desktop/world/world-placeholder.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/create-denver/create-denver-thumb.jpg' %>", // NOTE: 960x540
 	"related": "intern-presentations",
-	"related_name": "Related: Intern Presentations",
+	"related_name": "Related: This Shell",
 
 	// slides
 	"slides": [
 		// title screen
 		{
-			"type": "TitleScreen",
+			"type": "TitleScreen", 
 			"title": "Create Denver",
 			"summary": "A projection mapping for the city of Denver.",
 			
@@ -28,12 +34,26 @@ Legwork.World["create-denver"] = {
 				"This needs to be filled out..."
 			],
 
-			"url": "http://???",
+			"callout": "Watch Video",
 			
 			"background": {
 				"type": "video",
-				"id": "vision-loop"
+				"id": "create-denver-loop"
 			}
+		},
+
+		// video
+		{
+			"type": "Video",
+			"background_color": "#ffffff",
+			"id": "24807030"
+		},
+
+		// video
+		{
+			"type": "Video",
+			"background_color": "#ffffff",
+			"id": "11468421"
 		}
 	]
 }

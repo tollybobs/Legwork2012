@@ -3,16 +3,16 @@ Legwork.Work["du"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-placeholder.jpg' %>"
+			"<%= asset_path 'desktop/work/du/du-thumb.jpg' %>"
 		],
 		"videos": [],
 		"sequences": []
 	},
 
 	// project metadata
-	"title": "Denver University",
-	"summary": "A website for East West Partners.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-placeholder.jpg' %>", // NOTE: 960x540
+	"title": "University of Denver",
+	"summary": "Custom graphics for the University of Denver.",
+	"thumbnail": "<%= asset_path 'desktop/work/du/du-thumb.jpg' %>", // NOTE: 960x540
 	"related": "vision-street-wear",
 	"related_name": "Related: Vision Street Wear",
 
@@ -21,35 +21,43 @@ Legwork.Work["du"] = {
 		// title screen
 		{
 			"type": "TitleScreen",
-			"title": "Denver University",
-			"summary": "A website for East West Partners.",
+			"title": "University of Denver",
+			"summary": "Custom graphics for the University of Denver.",
 
 			"services": [
-				"Strategy",
-				"User Experience",
-				"Creative/Art Direction",
+				"Art Direction",
 				"Visual Design",
-				"Development"
-			],
-
-			"recognition": [
-				"Webby Awards",
-				"Awwwards",
-				"CommArts",
-				".net Mag",
-				"W3 Awards"
+				"Illustration"
 			],
 			
 			"overview": [
-				"The developers of the Union Station Neighborhood needed a visionary experience that would tell their story on both a tablet in the field and through a regular desktop. Our solution was to merge classic editorial design principles with progressive development techniques to visualize the future of Denver's oldest neighborhood while tipping our hat to its history."
+				"The University of Denver came to us looking for visual help on the website for their University College, a branch devoted to professional and continuing studies. We created a system of illustrations, interface elements and more for them to implement through their internal team."
 			],
-
-			"url": "http://unionstationdenver.com",
 			
 			"background": {
 				"type": "image",
-				"url": "<%= asset_path 'desktop/work/work-union-station.jpg' %>"
+				"url": "<%= asset_path 'desktop/work/du/du-ts-poster.jpg' %>"
 			}
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/du/du-plane.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/du/du-ipod.jpg' %>"
+		},
+
+		// panning
+		{
+			"type": "PanningSlide",
+			"image": "<%= asset_path 'desktop/work/du/du-sketchdrag.jpg' %>",
+			"width": "2500",
+			"height": "2500"
 		}
 	]
 }

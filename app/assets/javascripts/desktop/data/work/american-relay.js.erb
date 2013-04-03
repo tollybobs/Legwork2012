@@ -3,7 +3,7 @@ Legwork.Work["american-relay"] = {
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/work-placeholder.jpg' %>"
+			"<%= asset_path 'desktop/work/american-relay/american-relay-ts-poster.jpg' %>"
 		],
 		"videos": [],
 		"sequences": []
@@ -12,7 +12,7 @@ Legwork.Work["american-relay"] = {
 	// project metadata
 	"title": "American Relay",
 	"summary": "Album artwork for the band.",
-	"thumbnail": "<%= asset_path 'desktop/work/work-placeholder.jpg' %>", // NOTE: 960x540
+	"thumbnail": "<%= asset_path 'desktop/work/american-relay/american-relay-thumb.jpg' %>", // NOTE: 960x540
 	"related": "vision-street-wear",
 	"related_name": "Related: Vision Street Wear",
 
@@ -41,8 +41,20 @@ Legwork.Work["american-relay"] = {
 			
 			"background": {
 				"type": "image",
-				"url": "<%= asset_path 'desktop/work/work-placeholder.jpg' %>"
+				"url": "<%= asset_path 'desktop/work/american-relay/american-relay-ts-poster.jpg' %>"
 			}
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/american-relay/american-relay-front.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/american-relay/american-relay-open.jpg' %>"
 		}
 	]
 }

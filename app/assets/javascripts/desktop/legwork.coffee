@@ -492,7 +492,7 @@ class Legwork.Application
     if time_since_tweet <= 1
       date = "Just now"
     else if time_since_tweet < 20
-      date = @toWords(time_since_tweet) + " seconds ago"
+      date = @toWords(time_since_tweet) + " seconds ago" # TODO: isn't working
     else if time_since_tweet < 40
       date = "Half a minute ago"
     else if time_since_tweet < 60
@@ -500,11 +500,11 @@ class Legwork.Application
     else if time_since_tweet <= 90
       date = "One minute ago"
     else if time_since_tweet <= 3540
-      date = @toWords(Math.round(time_since_tweet / 60)) + " minutes ago"
+      date = @toWords(Math.round(time_since_tweet / 60)) + " minutes ago" # TODO: isn't working
     else if time_since_tweet <= 5400
       date = "One hour ago"
     else if time_since_tweet <= 86400
-      date = @toWords(Math.round(time_since_tweet / 3600)) + " hours ago"
+      date = @toWords(Math.round(time_since_tweet / 3600)) + " hours ago" # TODO: isn't working
     else if time_since_tweet <= 129600
       date = "One day ago"
     else if time_since_tweet < 604800

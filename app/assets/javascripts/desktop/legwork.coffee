@@ -30,6 +30,7 @@ class Legwork.Application
     Legwork.slide_controllers = {}
     Legwork.open_detail_state = null
     Legwork.current_detail_controller = null
+    Legwork.pro_tip = true
 
     Legwork.click = 'click'
     Legwork.mousedown = 'mousedown'

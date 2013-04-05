@@ -948,6 +948,44 @@
                 background-position: 50% 50%
                 @include background_cover
 
+            // image stack slide
+            .image-stack-slide
+              display: block
+              background-repeat: no-repeat
+              background-position: 50% 50%
+              @include background_cover
+
+              .image-stack
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 100%
+                height: 100%
+                background-color: $less_black
+                overflow: auto
+                display: block
+                -webkit-overflow-scrolling: touch
+
+                ul
+                  position: relative
+                  width: 100%
+                  min-height: 100%
+                  margin: 0 auto
+                  list-style-type: none
+                  display: block
+
+                  li
+                    position: relative
+                    width: 100%
+                    list-style-type: none
+                    display: block
+
+                    img
+                      width: 100%
+                      height: auto
+                      vertical-align: middle
+                      display: block
+
             // full screen video slide
             .full-screen-video
               .fs-iframe
@@ -1665,6 +1703,9 @@
                 li
                   display: block
 
+              .image-stack
+                display: none
+
             // video slide
             .video-slide
               .video-holder
@@ -1687,6 +1728,10 @@
               .image-stage
                 left: 30%
                 width: 70%
+
+            // image stack slide
+            .image-stack-slide
+              display: block
 
           .slide-controls
             position: absolute

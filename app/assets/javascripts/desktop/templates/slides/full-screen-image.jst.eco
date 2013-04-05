@@ -1,16 +1,26 @@
 <% if @sidebar?: %>
-<div class="slide full-screen-image">
-  <div class="sidebar">
-    <div class="sidebar-inner">
-      <div class="overview">
-        <h4><%- @sidebar.title %></h4>
-        <%- @sidebar.text %>
+  <div class="slide full-screen-image">
+    <div class="sidebar">
+      <div class="sidebar-inner">
+        <div class="overview">
+          <h4><%- @sidebar.title %></h4>
+          <%- @sidebar.text %>
+        </div>
       </div>
     </div>
+    <div class="image-stage" style="background-image: url(<%= @image %>)"></div>
   </div>
-  <div class="image-stage" style="background-image: url(<%= @image %>)"></div>
-</div>
+<% else if @image_stack?: %>
+  <div class="slide image-stack-slide" style="background-image: url(<%= @image %>)">
+    <div class="image-stack">
+      <ul>
+        <% for item in @image_stack: %>
+        <li><img src="<%= item %>" alt="" /></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 <% else: %>
-<div class="slide full-screen-image" style="background-image: url(<%= @image %>)">
-</div>
+  <div class="slide full-screen-image" style="background-image: url(<%= @image %>)">
+  </div>
 <% end %>

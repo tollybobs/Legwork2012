@@ -104,11 +104,16 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   | title-screen slide is first/current
   *----------------------------------------###
   resetSlides: =>
-    @$slides.removeClass('current').css('left', '100%')
-    @$slides.eq(@current_slide_index).addClass('current').css('left', '0%')
+    @$slides.removeClass('current').css
+      'left':'100%'
+
+    @$slides.eq(@current_slide_index).addClass('current').css
+      'left':'0%'
 
     @$current_cnt.text(@current_slide_index + 1)
     @$el.find('.total-cnt').text(@slide_views.length)
+
+    @$back_btn.css 'top','-50px'
 
   ###
   *------------------------------------------*

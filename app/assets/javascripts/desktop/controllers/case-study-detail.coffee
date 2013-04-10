@@ -133,8 +133,8 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
         @current_slide_index = 0
         @current_slide_view = @slide_views[@current_slide_index]
         @current_slide_view.activate()
-
-      @resetSlides()
+        @resetSlides()
+      
       Legwork.$doc.off 'keyup.slider', @handleArrowKeys
     else
       Legwork.$doc.on 'keyup.slider', @handleArrowKeys
@@ -190,7 +190,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     @$current_cnt.text(@current_slide_index + 1)
 
     if @current_slide_index is 0
-        @$back_btn.css 'top','-50px'
+      @$back_btn.css 'top','-50px'
 
     @$slides.css('left','100%')
     @old_slide_view.$el.removeClass('current').css({'left': '0%', 'z-index': '1'})

@@ -977,8 +977,16 @@
                   li
                     position: relative
                     width: 100%
+                    margin: 0
+                    border-top: 1px solid $light_gray
                     list-style-type: none
                     display: block
+
+                    &:first-child
+                      border-top: none
+                    
+                    &:last-child
+                      margin: 0 0 50px
 
                     img
                       width: 100%
@@ -1091,8 +1099,8 @@
       #related-btn
         position: absolute
         bottom: 0px
-        left: 20px
-        right: 20px
+        left: 0px
+        right: 0px
         height: 50px
         margin: 0 0 -55px
         padding: 0 20px
@@ -1103,6 +1111,23 @@
         cursor: pointer
         overflow: hidden
         @include nav_shadow
+
+        &:after
+          content: ''
+          position: absolute
+          top: 50%
+          right: 20px
+          width: 7px
+          height: 7px
+          margin: -6px 0 0 -8px
+          border-top: 3px solid $white
+          border-right: 3px solid $white
+          display: block
+          -webkit-transform: rotate(45deg)
+          -moz-transform: rotate(45deg)
+          -ms-transform: rotate(45deg)
+          -o-transform: rotate(45deg)
+          transform: rotate(45deg)
 
       #detail-pro-tip
         position: absolute
@@ -1733,6 +1758,9 @@
             .image-stack-slide
               display: block
 
+              .image-stack
+                display: none
+
           .slide-controls
             position: absolute
             top: 50%
@@ -1841,6 +1869,9 @@
       #related-btn
         left: 26px
         right: auto
+
+        &:after
+          display: none
 
       #detail-pro-tip
         display: block

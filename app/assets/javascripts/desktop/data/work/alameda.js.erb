@@ -15,7 +15,7 @@ Legwork.Work["alameda"] = {
 	"summary": "Album artwork for the band.",
 	"thumbnail": "<%= asset_path 'desktop/work/alameda/alameda-thumb.jpg' %>", // NOTE: 960x540
 	"related": "vision-street-wear",
-	"upnext": "Up Next: Vision Street Wear",
+	"related_name": "Up Next: Vision Street Wear",
 
 	// slides
 	"slides": [
@@ -36,6 +36,8 @@ Legwork.Work["alameda"] = {
 				"Alameda is a Portland-based indie folk band that we’ve enjoyed working with for a number of years. We’ve designed artwork for records and a soon to be released music video."
 			],
 			
+			"callout": "View More",
+			
 			"background": {
 				"type": "image",
 				"url": "<%= asset_path 'desktop/work/alameda/alameda-ts-poster.jpg' %>"
@@ -45,7 +47,11 @@ Legwork.Work["alameda"] = {
 		// full screen (w/ image)
 		{
 			"type": "FullScreenImage",
-			"image": "<%= asset_path 'desktop/work/alameda/alameda-front.jpg' %>"
+			"image": "<%= asset_path 'desktop/work/alameda/alameda-front.jpg' %>",
+			"image_stack": [
+				"<%= asset_path 'desktop/work/alameda/alameda-front.jpg' %>",
+				"<%= asset_path 'desktop/work/alameda/alameda-spread.jpg' %>"
+			]
 		},
 
 		// full screen (w/ image)

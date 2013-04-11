@@ -19,7 +19,7 @@ Legwork.Work["stapleton-go"] = {
 	"summary": "A web short for Forest City",
 	"thumbnail": "<%= asset_path 'desktop/work/stapleton-go/stapleton-go-thumb.jpg' %>", // NOTE: 960x540
 	"related": "clyfford-still",
-	"upnext": "Up Next: Clyfford Still",
+	"related_name": "Up Next: Clyfford Still",
 
 	// slides
 	"slides": [
@@ -39,18 +39,23 @@ Legwork.Work["stapleton-go"] = {
 				"When Forest City began looking to create video content for their digital marketing effort, we suggested they stretch their dollar by visualizing their radio spots and posting them online. This presented a unique chalenge of started with fully realized audio and developing a visual narrative around it."
 			],
 
-			"url": "http://vimeo.com/46114711",
+			"callout": "View More",
 			
 			"background": {
 				"type": "video",
 				"id": "stapleton-go-loop",
+				"src": "<%= asset_path 'desktop/work/stapleton-go/stapleton-go-ts-poster.jpg' %>"
 			}
 		},
 
 		// full screen (w/ image)
 		{
 			"type": "FullScreenImage",
-			"image": "<%= asset_path 'desktop/work/stapleton-go/stapleton-go-rocker.jpg' %>"
+			"image": "<%= asset_path 'desktop/work/stapleton-go/stapleton-go-rocker.jpg' %>",
+			"image_stack": [
+				"<%= asset_path 'desktop/work/stapleton-go/stapleton-go-rocker.jpg' %>",
+				"<%= asset_path 'desktop/work/stapleton-go/stapleton-go-vectors.jpg' %>"
+			]
 		},
 
 		// full screen (w/ image)

@@ -35,7 +35,7 @@ Legwork.Work["artcrank"] = {
 				"Artcrank is a show of bicycle-inspired poster artwork that introduces people to local artists and sends them home with affordable, original works of art. We’ve made a number of submissions over the years and hope to continue creating more in the future for their annual show in Denver."
 			],
 
-			"callout": "Details",
+			"callout": "View More",
 			
 			"background": {
 				"type": "image",
@@ -46,7 +46,11 @@ Legwork.Work["artcrank"] = {
 		// full screen (w/ image)
 		{
 			"type": "FullScreenImage",
-			"image": "<%= asset_path 'desktop/work/artcrank/artcrank-drunk.jpg' %>"
+			"image": "<%= asset_path 'desktop/work/artcrank/artcrank-drunk.jpg' %>",
+			"image_stack": [
+				"<%= asset_path 'desktop/work/artcrank/artcrank-drunk.jpg' %>",
+				"<%= asset_path 'desktop/work/artcrank/artcrank-date.jpg' %>"
+			]
 		},
 
 		// panning

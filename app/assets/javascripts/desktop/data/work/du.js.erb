@@ -33,6 +33,8 @@ Legwork.Work["du"] = {
 			"overview": [
 				"When the University of Denver offered us the opportunity to come up with a system of illustrations and interface elements to help define their professional and continuing studies program, we jumped at the chance."
 			],
+
+			"callout": "View More",
 			
 			"background": {
 				"type": "image",
@@ -43,7 +45,12 @@ Legwork.Work["du"] = {
 		// full screen (w/ image)
 		{
 			"type": "FullScreenImage",
-			"image": "<%= asset_path 'desktop/work/du/du-plane.jpg' %>"
+			"image": "<%= asset_path 'desktop/work/du/du-plane.jpg' %>",
+			"image_stack": [
+				"<%= asset_path 'desktop/work/du/du-plane.jpg' %>",
+				"<%= asset_path 'desktop/work/du/du-ipod.jpg' %>",
+				"<%= asset_path 'desktop/work/du/du-city.jpg' %>"
+			]
 		},
 
 		// full screen (w/ image)

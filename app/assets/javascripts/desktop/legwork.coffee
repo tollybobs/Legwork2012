@@ -26,6 +26,7 @@ class Legwork.Application
 
     Legwork.filters = ['interactive', 'motion', 'illustration', 'about-us', 'open-source', 'extracurricular']
 
+    Legwork.scroll_top = Legwork.$wn.scrollTop()
     Legwork.sequences = {}
     Legwork.slide_controllers = {}
     Legwork.open_detail_state = null
@@ -671,26 +672,6 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
-  | turnScroll:void (-)
-  |
-  | s:string - 'on' or 'off'
-  |
-  | Switch scrolling on or off.
-  *----------------------------------------###
-  turnScroll: (s) ->
-    if s is 'off'
-      Legwork.$wn.on 'mousewheel', (e) =>
-        return false
-
-      Legwork.$doc.on 'keydown', (e) =>
-        if e.keyCode in [32..40]
-          return false
-    else
-      Legwork.$wn.off('mousewheel')
-      Legwork.$doc.off('keydown')
-
-  ###
-  *------------------------------------------*
   | scrollUp:void (-)
   |
   | callback:function - callback
@@ -946,6 +927,8 @@ class Legwork.Application
         Legwork.current_detail_controller.deactivate()
         @loadDetail(to)
       else
+        Legwork.scroll_top = Legwork.$wn.scrollTop()
+        Legwork.$wn.scrollTop(Legwork.scroll_top)
         @openDetail(to)
 
       @current_state = 'detail'
@@ -1046,7 +1029,7 @@ class Legwork.Application
     controller.activate()
     Legwork.current_detail_controller = controller
 
-    @turnScroll('off')
+    Legwork.$view.hide()
 
   ###
   *------------------------------------------*
@@ -1055,7 +1038,9 @@ class Legwork.Application
   | Reset the detail view.
   *----------------------------------------###
   resetDetail: () ->
-    @turnScroll('on')
+    Legwork.$view.show()
+    Legwork.$wn.scrollTop(Legwork.scroll_top)
+
     @$detail_close.css('margin-top', '-55px')
     @$related_btn.css('margin-bottom', '-55px')
     @$detail.fadeOut 'fast', =>

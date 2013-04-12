@@ -76,6 +76,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     @$next_btn.on Legwork.click, @nextSlide
     @$back_btn.on Legwork.click, @priorSlide
     Legwork.$doc.on 'keyup.slider', @handleArrowKeys
+    @handlingArrowKeys = true
 
     @$el.find('.project-callouts h4').on Legwork.click, =>
       @$next_btn.trigger Legwork.click
@@ -95,6 +96,8 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     else @inmotion is true
 
     Legwork.$wn.off('resize', @onResize)
+    Legwork.$doc.off 'keyup.slider', @handleArrowKeys
+    @handlingArrowKeys = false
 
   ###
   *------------------------------------------*
@@ -135,9 +138,13 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
         @current_slide_view.activate()
         @resetSlides()
       
-      Legwork.$doc.off 'keyup.slider', @handleArrowKeys
+      if @handlingArrowKeys is true
+        Legwork.$doc.off 'keyup.slider', @handleArrowKeys
+        @handlingArrowKeys = false
     else
-      Legwork.$doc.on 'keyup.slider', @handleArrowKeys
+      if @handlingArrowKeys is false
+        Legwork.$doc.on 'keyup.slider', @handleArrowKeys
+        @handlingArrowKeys = true
 
   ###
   *------------------------------------------*

@@ -62,7 +62,7 @@ class Legwork.SingleDetail extends Legwork.Controllers.BaseDetail
     super()
 
     @onResize = _.debounce(@afterResize, 300)
-    Legwork.$wn.on('resize', @onResize)
+    Legwork.$wn.on('resize.single', @onResize)
 
     @current_slide_view = @slide_views[0]
     @current_slide_view.activate()
@@ -81,7 +81,7 @@ class Legwork.SingleDetail extends Legwork.Controllers.BaseDetail
 
     @current_slide_view.deactivate()
 
-    Legwork.$wn.off('resize', @onResize)
+    Legwork.$wn.off('resize.single', @onResize)
 
   ###
   *------------------------------------------*

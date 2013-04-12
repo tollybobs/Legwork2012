@@ -39,7 +39,6 @@ class Legwork.Slides.FullScreenIframe extends Legwork.Slides.Slide
   *----------------------------------------###
   activate: ->
     @$el.empty().append("<iframe src='#{@url}' height='100%' width='100%'></iframe>")
-    # Legwork.$wn.trigger('resize')
 
   ###
   *------------------------------------------*

@@ -66,7 +66,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     @turnOffKeyboardNav()
     @onResize = _.debounce(@afterResize, 300)
-    Legwork.$wn.on('resize', @onResize)
+    Legwork.$wn.on('resize.case', @onResize)
 
     @current_slide_view = @slide_views[0]
     @current_slide_index = 0
@@ -93,7 +93,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     if @inmotion then return false
     else @inmotion is true
 
-    Legwork.$wn.off('resize', @onResize)
+    Legwork.$wn.off('resize.case', @onResize)
     @$next_btn.off Legwork.click
     @$back_btn.off Legwork.click
     $('.project-callouts h4', @$el).off Legwork.click

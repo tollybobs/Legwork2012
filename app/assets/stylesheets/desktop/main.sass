@@ -959,8 +959,8 @@
                 position: absolute
                 top: 0px
                 left: 0px
+                bottom: 50px
                 width: 100%
-                height: 100%
                 background-color: $less_black
                 overflow: auto
                 display: block
@@ -969,7 +969,6 @@
                 ul
                   position: relative
                   width: 100%
-                  min-height: 100%
                   margin: 0 auto
                   list-style-type: none
                   display: block
@@ -984,9 +983,6 @@
 
                     &:first-child
                       border-top: none
-                    
-                    &:last-child
-                      margin: 0 0 50px
 
                     img
                       width: 100%
@@ -996,6 +992,8 @@
 
             // full screen video slide
             .full-screen-video
+              display: block
+              
               .fs-iframe
                 position: absolute
                 top: 0px

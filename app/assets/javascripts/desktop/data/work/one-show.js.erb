@@ -19,6 +19,7 @@ Legwork.Work["one-show"] = {
 
 	// slides
 	"slides": [
+		
 		// title screen
 		{
 			"type": "TitleScreen",
@@ -35,6 +36,8 @@ Legwork.Work["one-show"] = {
 			"overview": [
 				"The Art Directors Club of Denver came to us to design an invitation for it’s 2009 presentation of the One Show Awards, a show that features some of advertising’s best work in print, television, design and interactive. We created a concept that displays the breakdown of what it takes to create the type of award winning work showcased at the event."
 			],
+
+			"callout": "View More",
 			
 			"background": {
 				"type": "image",
@@ -45,7 +48,11 @@ Legwork.Work["one-show"] = {
 		// full screen (w/ image)
 		{
 			"type": "FullScreenImage",
-			"image": "<%= asset_path 'desktop/work/one-show/one-show-front.jpg' %>"
+			"image": "<%= asset_path 'desktop/work/one-show/one-show-front.jpg' %>",
+			"image_stack": [
+				"<%= asset_path 'desktop/work/one-show/one-show-front.jpg' %>",
+				"<%= asset_path 'desktop/work/one-show/one-show-open.jpg' %>"
+			]
 		},
 
 		// full screen (w/ image)

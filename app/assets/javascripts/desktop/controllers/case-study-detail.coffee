@@ -64,6 +64,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   activate: ->
     super()
 
+    @turnOffKeyboardNav()
     @onResize = _.debounce(@afterResize, 300)
     Legwork.$wn.on('resize', @onResize)
 
@@ -77,8 +78,6 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     @$back_btn.on Legwork.click, @priorSlide
     $('.project-callouts h4', @$el).on Legwork.click, =>
       @$next_btn.trigger Legwork.click
-
-    @turnOnKeyboardNav()
 
   ###
   *------------------------------------------*
@@ -127,7 +126,6 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   | Call after resize complete
   *----------------------------------------###
   afterResize: =>
-    console.log('after resize')
     w = Legwork.$wn.width()
     h = Legwork.$wn.height()
     @current_slide_view.resize(w, h)
@@ -226,25 +224,23 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
-  | turnOnKeyboardNav:void (=)
-  |
-  | Turn on keyboard nav
-  *----------------------------------------###
-  turnOnKeyboardNav: =>
-    console.log('keys on')
-    @handlingArrowKeys = true
-    Legwork.$doc.on 'keyup.slider', @handleArrowKeys
-
-  ###
-  *------------------------------------------*
   | turnOffKeyboardNav:void (=)
   |
   | Turn off keyboard nav
   *----------------------------------------###
   turnOffKeyboardNav: =>
-    console.log('keys off')
     @handlingArrowKeys = false
     Legwork.$doc.off 'keyup.slider', @handleArrowKeys
+
+  ###
+  *------------------------------------------*
+  | turnOnKeyboardNav:void (=)
+  |
+  | Turn on keyboard nav
+  *----------------------------------------###
+  turnOnKeyboardNav: =>
+    @handlingArrowKeys = true
+    Legwork.$doc.on 'keyup.slider', @handleArrowKeys
 
 
 

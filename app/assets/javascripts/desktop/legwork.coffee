@@ -973,10 +973,6 @@ class Legwork.Application
       'settings': Legwork.sequences['detail_open']
     })
 
-    Legwork.$body
-      .off('mouseenter', '.launch-btn', @onStuffHover)
-      .off('mouseleave', '.launch-btn', @onStuffHover)
-
     @$detail
       .css('background-color', 'transparent')
       .show()
@@ -1044,11 +1040,6 @@ class Legwork.Application
   resetDetail: () ->
     Legwork.$view.show()
     Legwork.$wn.scrollTop(Legwork.scroll_top)
-
-    @$launch.removeClass('over')
-    Legwork.$body
-      .on('mouseenter', '.launch-btn', @onStuffHover)
-      .on('mouseleave', '.launch-btn', @onStuffHover)
 
     @$detail_close.css('margin-top', '-55px')
     @$related_btn.css('margin-bottom', '-55px')

@@ -1045,6 +1045,7 @@ class Legwork.Application
     Legwork.$view.show()
     Legwork.$wn.scrollTop(Legwork.scroll_top)
 
+    @$launch.removeClass('over')
     Legwork.$body
       .on('mouseenter', '.launch-btn', @onStuffHover)
       .on('mouseleave', '.launch-btn', @onStuffHover)

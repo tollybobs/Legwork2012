@@ -75,11 +75,10 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     @$next_btn.on Legwork.click, @nextSlide
     @$back_btn.on Legwork.click, @priorSlide
-    Legwork.$doc.on 'keyup.slider', @handleArrowKeys
-    @handlingArrowKeys = true
-
-    @$el.find('.project-callouts h4').on Legwork.click, =>
+    $('.project-callouts h4', @$el).on Legwork.click, =>
       @$next_btn.trigger Legwork.click
+
+    @turnOnKeyboardNav()
 
   ###
   *------------------------------------------*
@@ -96,8 +95,11 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     else @inmotion is true
 
     Legwork.$wn.off('resize', @onResize)
-    Legwork.$doc.off 'keyup.slider', @handleArrowKeys
-    @handlingArrowKeys = false
+    @$next_btn.off Legwork.click
+    @$back_btn.off Legwork.click
+    $('.project-callouts h4', @$el).off Legwork.click
+
+    @turnOffKeyboardNav()
 
   ###
   *------------------------------------------*
@@ -125,6 +127,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   | Call after resize complete
   *----------------------------------------###
   afterResize: =>
+    console.log('after resize')
     w = Legwork.$wn.width()
     h = Legwork.$wn.height()
     @current_slide_view.resize(w, h)
@@ -138,13 +141,9 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
         @current_slide_view.activate()
         @resetSlides()
       
-      if @handlingArrowKeys is true
-        Legwork.$doc.off 'keyup.slider', @handleArrowKeys
-        @handlingArrowKeys = false
+      if @handlingArrowKeys is true then @turnOffKeyboardNav()
     else
-      if @handlingArrowKeys is false
-        Legwork.$doc.on 'keyup.slider', @handleArrowKeys
-        @handlingArrowKeys = true
+      if @handlingArrowKeys is false then @turnOnKeyboardNav()
 
   ###
   *------------------------------------------*
@@ -217,8 +216,36 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   handleArrowKeys: (e) =>
     kc = e.keyCode
 
-    if kc is 39 then @nextSlide()
-    if kc is 37 then @priorSlide()
+    if kc is 37
+      e.preventDefault()
+      @priorSlide()
+
+    if kc is 39
+      e.preventDefault()
+      @nextSlide()
+
+  ###
+  *------------------------------------------*
+  | turnOnKeyboardNav:void (=)
+  |
+  | Turn on keyboard nav
+  *----------------------------------------###
+  turnOnKeyboardNav: =>
+    console.log('keys on')
+    @handlingArrowKeys = true
+    Legwork.$doc.on 'keyup.slider', @handleArrowKeys
+
+  ###
+  *------------------------------------------*
+  | turnOffKeyboardNav:void (=)
+  |
+  | Turn off keyboard nav
+  *----------------------------------------###
+  turnOffKeyboardNav: =>
+    console.log('keys off')
+    @handlingArrowKeys = false
+    Legwork.$doc.off 'keyup.slider', @handleArrowKeys
+
 
 
 

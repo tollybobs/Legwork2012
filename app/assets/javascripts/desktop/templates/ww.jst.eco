@@ -12,7 +12,7 @@
           <div class="launch-btn">
             <div class="ww-hover"></div>
             <a class="ajaxy" href="<%= @link %>">
-              <span class="label">Project Details</span>
+              <span class="label">View Details</span>
               <span class="icon"></span>
             </a>
           </div>

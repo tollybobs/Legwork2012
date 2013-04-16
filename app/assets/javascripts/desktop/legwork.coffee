@@ -82,7 +82,6 @@ class Legwork.Application
   *----------------------------------------###
   preload: ->
     # Merge initial assets
-    # TODO: All or some?
     home_assets = Legwork.Home.assets
     site_assets = {images:[], videos:[], sequences:[]}
     main_assets = {images:[], videos:[], sequences:[]}
@@ -473,9 +472,6 @@ class Legwork.Application
     date = ''
     source = tweet.source
 
-    # TODO: remove this test text once Twitter is caching and good to go
-    # text = 'This rad tweet is custom built for testing a #hashtag and a @mention of someone and is exactly 140 characters long. <a href="legworkstudio.com" target="_new">http://legworkstudio.com</a>'
-
     @twitter_index++
 
     # format mentions, hashes and links
@@ -493,7 +489,7 @@ class Legwork.Application
     if time_since_tweet <= 1
       date = "Just now"
     else if time_since_tweet < 20
-      date = @toWords(time_since_tweet) + " seconds ago" # TODO: isn't working
+      date = @toWords(time_since_tweet) + " seconds ago"
     else if time_since_tweet < 40
       date = "Half a minute ago"
     else if time_since_tweet < 60
@@ -501,11 +497,11 @@ class Legwork.Application
     else if time_since_tweet <= 90
       date = "One minute ago"
     else if time_since_tweet <= 3540
-      date = @toWords(Math.round(time_since_tweet / 60)) + " minutes ago" # TODO: isn't working
+      date = @toWords(Math.round(time_since_tweet / 60)) + " minutes ago"
     else if time_since_tweet <= 5400
       date = "One hour ago"
     else if time_since_tweet <= 86400
-      date = @toWords(Math.round(time_since_tweet / 3600)) + " hours ago" # TODO: isn't working
+      date = @toWords(Math.round(time_since_tweet / 3600)) + " hours ago"
     else if time_since_tweet <= 129600
       date = "One day ago"
     else if time_since_tweet < 604800
@@ -549,12 +545,12 @@ class Legwork.Application
       if (x - i) % 3 is 2
         if n[i] is '1'
           str += tn[Number(n[i + 1])] + ' '
-          i++ # TODO: isn't working
+          i++
           sk = 1
-        else if n[i] isnt 0
+        else if n[i] isnt '0'
           str += tw[n[i] - 2] + ' '
           sk = 1
-      else if n[i] isnt 0
+      else if n[i] isnt '0'
         str += dg[n[i]] + ' '
         if (x - i) % 3 is 0
           str += 'hundred '
@@ -1060,8 +1056,6 @@ class Legwork.Application
       @scrollUp =>
         @openFilter(filter)
     else
-      @$detail_close.attr('href', '/' + filter)
-
       @erase =>
         if filter isnt ''
           @loadFilter(filter)
@@ -1096,6 +1090,7 @@ class Legwork.Application
   | Build a filter.
   *----------------------------------------###
   buildFilter: (filter)->
+    @$detail_close.attr('href', '/' + filter)
     manifest = Legwork[filter]
     content = ''
 

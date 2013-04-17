@@ -5,7 +5,12 @@ Legwork.World["perfect-masonry"] = {
 		"images": [
 			"<%= asset_path 'desktop/world/perfect-masonry/perfect-masonry-thumb.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "perfect-masonry-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
@@ -30,9 +35,10 @@ Legwork.World["perfect-masonry"] = {
 			],
 
 			"url": "https://github.com/DrewDahlman/Mason",
-			
+
 			"background": {
-				"type": "image",
+				"type": "video",
+				"id": "perfect-masonry-loop",
 				"url": "<%= asset_path 'desktop/world/perfect-masonry/perfect-masonry-ts-poster.jpg' %>"
 			}
 		}

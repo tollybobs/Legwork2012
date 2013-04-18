@@ -65,8 +65,6 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     super()
 
     @turnOffKeyboardNav()
-    @onResize = _.debounce(@afterResize, 300)
-    Legwork.$wn.on('resize.case', @onResize)
 
     @current_slide_view = @slide_views[0]
     @current_slide_index = 0
@@ -78,6 +76,17 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     @$back_btn.on Legwork.click, @priorSlide
     $('.project-callouts h4', @$el).on Legwork.click, =>
       @$next_btn.trigger Legwork.click
+
+    if Legwork.pro_tip is true and Legwork.app_width > 740
+      Legwork.pro_tip = false
+
+      @$pro_tip = $(JST["desktop/templates/pro-tip"]({}))
+
+      @$pro_tip
+        .appendTo(@$slides.eq(0))
+        .one('click', @removeProTip)
+
+      @protime = setTimeout(@removeProTip, 6666)
 
   ###
   *------------------------------------------*
@@ -93,10 +102,15 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     if @inmotion then return false
     else @inmotion is true
 
-    Legwork.$wn.off('resize.case', @onResize)
     @$next_btn.off Legwork.click
     @$back_btn.off Legwork.click
     $('.project-callouts h4', @$el).off Legwork.click
+
+    setTimeout(=>
+      if @$pro_tip.length isnt 0
+        @$pro_tip.remove()
+        clearTimeout(@protime)
+    , 500)
 
     @turnOffKeyboardNav()
 
@@ -121,6 +135,19 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
+  | removeProTip:void (=)
+  |
+  | Get rid of the pro tip.
+  *----------------------------------------###
+  removeProTip: =>
+    @$pro_tip.animate({
+      'left': '-100%'
+    }, 666, 'easeInOutExpo', (e) =>
+      @$pro_tip.remove()
+    )
+
+  ###
+  *------------------------------------------*
   | afterResize:void (=)
   |
   | Call after resize complete
@@ -131,14 +158,14 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     @current_slide_view.resize(w, h)
 
     if w <= 740
-      
+
       if @current_slide_index isnt 0
         @current_slide_view.deactivate()
         @current_slide_index = 0
         @current_slide_view = @slide_views[@current_slide_index]
         @current_slide_view.activate()
         @resetSlides()
-      
+
       if @handlingArrowKeys is true then @turnOffKeyboardNav()
     else
       if @handlingArrowKeys is false then @turnOnKeyboardNav()
@@ -163,15 +190,20 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     @$current_cnt.text(@current_slide_index + 1)
 
     @$slides.css('left','100%')
-    @current_slide_view.$el.addClass('current').css({'left': '0%', 'z-index': '1'})
+    @current_slide_view.$el.addClass('current').css({'left': '0%', 'z-index': '1'}).show()
     @old_slide_view.$el.removeClass('current').css({'left':'0%', 'z-index':'2'}).stop().animate
       left: '-100%'
     , 666, 'easeInOutExpo', =>
+      @old_slide_view.$el.hide()
       @old_slide_view.deactivate()
-      
+
+      if @$pro_tip.length isnt 0
+        @$pro_tip.remove()
+        clearTimeout(@protime)
+
       if @current_slide_index is 1
         @$back_btn.css 'top','0px'
-      
+
       @inmotion = false
 
   ###
@@ -198,10 +230,16 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     @$slides.css('left','100%')
     @old_slide_view.$el.removeClass('current').css({'left': '0%', 'z-index': '1'})
-    @current_slide_view.$el.addClass('current').css({'left':'-100%', 'z-index':'2'}).stop().animate
+    @current_slide_view.$el.addClass('current').css({'left':'-100%', 'z-index':'2'}).show().stop().animate
       left: '-0%'
     , 666, 'easeInOutExpo', =>
+      @old_slide_view.$el.hide()
       @old_slide_view.deactivate()
+
+      if @$pro_tip.length isnt 0
+        @$pro_tip.remove()
+        clearTimeout(@protime)
+
       @inmotion = false
 
   ###

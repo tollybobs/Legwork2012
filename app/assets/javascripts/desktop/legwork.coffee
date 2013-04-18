@@ -142,6 +142,7 @@ class Legwork.Application
       # Set filter button
       Legwork.$header.find('a[id$="-' + url + '"]').addClass('selected')
 
+      @$detail_close.attr('href', '/' + url)
       @current_state = 'filter'
       @homeTransition()
     else if Legwork.Work[url]? or Legwork.World[url]?
@@ -569,7 +570,8 @@ class Legwork.Application
   | Start layout.
   *----------------------------------------###
   startLayout: ->
-    @$canvas_wrap.hide()
+    if Legwork.app_width >= 740
+      @$canvas_wrap.hide()
 
   ###
   *------------------------------------------*
@@ -578,6 +580,8 @@ class Legwork.Application
   | Compute layout for current window width.
   *----------------------------------------###
   layout: ->
+    if Legwork.app_width < 1025
+      $('.sequenced-inner').find('video').hide()
 
   ###
   *------------------------------------------*
@@ -586,14 +590,25 @@ class Legwork.Application
   | Finish layout.
   *----------------------------------------###
   finishLayout: ->
-    @$lines
-      .attr('width', Legwork.app_width)
-      .attr('height', Math.floor(Legwork.$wn.height() * 0.50))
+    if Legwork.app_width >= 1025
 
-    @lifelines = @getLifelines()
+      # Lines
+      @$lines
+        .attr('width', Legwork.app_width)
+        .attr('height', Math.floor(Legwork.$wn.height() * 0.50))
 
-    if @current_state is '' and Legwork.app_width > 1024
-      @$canvas_wrap.show()
+      @lifelines = @getLifelines()
+
+      if @current_state isnt 'filter' and @current_state isnt '404'
+        @$canvas_wrap.show()
+
+      # Animations
+      for $t, index in @sequenced_stuff
+        $t
+          .off('activate deactivate')
+          .one('activate', @onStuffActivate)
+          .eq(0)
+          .trigger('activate')
 
     Legwork.$wn.trigger('scroll')
 
@@ -615,6 +630,11 @@ class Legwork.Application
       .on('scroll', @onScroll)
       .trigger('resize')
 
+    # Launchers
+    Legwork.$view
+      .on('mouseenter', '.launch-btn', @onStuffHover)
+      .on('mouseleave', '.launch-btn', @onStuffHover)
+
     # Ajaxy
     Legwork.$body
       .on('click', '.ajaxy', @onAjaxyLinkClick)
@@ -631,7 +651,8 @@ class Legwork.Application
   *----------------------------------------###
   onScrollStart: (e) =>
     if Legwork.app_width >= 1025
-      @$canvas_wrap.stop(true, false).css('opacity', 1)
+      if @current_state isnt 'filter' and @current_state isnt '404'
+        @$canvas_wrap.stop(true, false).css('opacity', 1)
 
   ###
   *------------------------------------------*
@@ -664,7 +685,8 @@ class Legwork.Application
       .one('scroll', @onScrollStart)
 
     if Legwork.app_width >= 1025
-      @$canvas_wrap.stop(true, false).animate({'opacity':0.666}, 250, 'linear')
+      if @current_state isnt 'filter' and @current_state isnt '404'
+        @$canvas_wrap.stop(true, false).animate({'opacity':0.666}, 250, 'linear')
 
   ###
   *------------------------------------------*
@@ -697,13 +719,7 @@ class Legwork.Application
   *----------------------------------------###
   onResizeStart: (e) =>
     @$launch.removeClass('over')
-
-    Legwork.$body
-      .off('mouseenter', '.launch-btn', @onStuffHover)
-      .off('mouseleave', '.launch-btn', @onStuffHover)
-
-    if Legwork.app_width >= 740
-      @startLayout()
+    @startLayout()
 
   ###
   *------------------------------------------*
@@ -719,7 +735,7 @@ class Legwork.Application
     @resize_timeout = setTimeout(@onResizeComplete, 333)
 
     # Global cache app size
-    Legwork.app_width = @$stuff_wrap.outerWidth()
+    Legwork.app_width = Legwork.$wn.width()
 
     # Reset the mobile header if it exists, otherwise build
     # the mobile menu if the button becomese visible
@@ -728,8 +744,7 @@ class Legwork.Application
     else if @$menu_btn.is(':visible') is true
       @mobile_menu = new Legwork.MobileMenu()
 
-    if Legwork.app_width < 1025
-      $('.sequenced-inner').find('video').hide()
+    @layout()
 
   ###
   *------------------------------------------*
@@ -742,20 +757,7 @@ class Legwork.Application
     Legwork.$wn
       .one('resize', @onResizeStart)
 
-    if Legwork.app_width >= 740
-      @finishLayout()
-
-    if Legwork.app_width >= 1025
-      for $t, index in @sequenced_stuff
-        $t
-          .off('activate deactivate')
-          .one('activate', @onStuffActivate)
-
-      Legwork.$body
-        .on('mouseenter', '.launch-btn', @onStuffHover)
-        .on('mouseleave', '.launch-btn', @onStuffHover)
-
-      Legwork.$wn.trigger('scroll')
+    @finishLayout()
 
   ###
   *------------------------------------------*
@@ -784,6 +786,9 @@ class Legwork.Application
   | This stuff got moused with. Get it?
   *----------------------------------------###
   onStuffHover: (e) =>
+    if Legwork.app_width < 1024
+      return false
+
     $t = $(e.currentTarget)
     $w = $t.find('.ww-hover')
     x = Math.round(e.pageX - $t.offset().left)
@@ -1056,6 +1061,7 @@ class Legwork.Application
       @scrollUp =>
         @openFilter(filter)
     else
+      @$detail_close.attr('href', '/' + filter)
       @erase =>
         if filter isnt ''
           @loadFilter(filter)
@@ -1090,7 +1096,6 @@ class Legwork.Application
   | Build a filter.
   *----------------------------------------###
   buildFilter: (filter)->
-    @$detail_close.attr('href', '/' + filter)
     manifest = Legwork[filter]
     content = ''
 

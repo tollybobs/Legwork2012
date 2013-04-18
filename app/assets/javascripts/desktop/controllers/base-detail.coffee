@@ -19,7 +19,7 @@ class Legwork.Controllers.BaseDetail
     @options = options
     @model = options.model
     @slug = options.slug
-    @protime
+    @$pro_tip = []
 
   ###
   *------------------------------------------*
@@ -31,7 +31,6 @@ class Legwork.Controllers.BaseDetail
     @$el = $(JST["desktop/templates/base-detail"]({model: @model, slug: @slug}))
     @$detail_inner = $('#detail-inner')
     @$related = $('#related-btn')
-    @$pro_tip = $('#detail-pro-tip')
     @rel = @model.related
 
   ###
@@ -58,12 +57,12 @@ class Legwork.Controllers.BaseDetail
       if @model.related
         @$related.on Legwork.click, @switchProjects
         Legwork.$doc.on 'keyup.switch', @handleArrowKey
-
-      if Legwork.pro_tip is true
-        @_showProTip()
     , 333
 
     if @model.related then @$related.text(@model.related_name)
+
+    @onResize = _.debounce(@afterResize, 300)
+    Legwork.$wn.on('resize.detail', @onResize)
 
   ###
   *------------------------------------------*
@@ -74,7 +73,6 @@ class Legwork.Controllers.BaseDetail
   deactivate: =>
     @$el.removeClass('open')
     setTimeout =>
-      if Legwork.pro_tip is true then @_removeProTip()
       @$el.hide()
     , 333
 
@@ -82,36 +80,15 @@ class Legwork.Controllers.BaseDetail
       @$related.off Legwork.click
       Legwork.$doc.off 'keyup.switch', @handleArrowKey
 
-  ###
-  *------------------------------------------*
-  | _showProTip:void (=)
-  |
-  | Show Pro Tip once
-  *----------------------------------------###
-  _showProTip: =>
-    @$pro_tip.addClass 'instructor'
-
-    Legwork.$doc.one Legwork.click, =>
-      if @$pro_tip.hasClass 'instructor' then @_removeProTip()
-
-    @protime = setTimeout(@_removeProTip, 6666)
+    Legwork.$wn.off('resize.detail', @onResize)
 
   ###
   *------------------------------------------*
-  | _removeProTip:void (=)
+  | afterResize:void (=)
   |
-  | Remove Pro Tip after used once
+  | Call after resize complete
   *----------------------------------------###
-  _removeProTip: =>
-    Legwork.pro_tip = false
-    
-    clearTimeout(@protime)
-
-    @$pro_tip.removeClass 'instructor'
-
-    setTimeout =>
-      @$pro_tip.remove()
-    , 333
+  afterResize: =>
 
   ###
   *------------------------------------------*
@@ -142,8 +119,6 @@ class Legwork.Controllers.BaseDetail
   | if down, go to next project
   *----------------------------------------###
   handleArrowKey: (e) =>
-    if @$pro_tip.hasClass 'instructor' then @_removeProTip()
-
     if e.keyCode is 27 then $('#detail-close-btn').trigger(Legwork.click)
     if e.keyCode is 40 then @switchProjects()
     if e.keyCode is 38

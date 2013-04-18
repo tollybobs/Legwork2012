@@ -50,8 +50,7 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   | Activate new/current slide
   *----------------------------------------###
   activate: ->
-    Legwork.$wn.trigger('resize')
-
+    Legwork.$wn.trigger('resize.detail')
     if @$bgvid.length > 0 and Legwork.supports_autoplay
       @$v[0].load()
       @$v[0].addEventListener 'canplaythrough', @playVideo, false
@@ -78,8 +77,6 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   | Handle window resize
   *----------------------------------------###
   resize: (w, h) =>
-    super(w, h)
-
     if (h / w) > @ratio
       @$bgvid.height h
       @$bgvid.width h / @ratio
@@ -92,7 +89,7 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
-  | 
+  |
   | Private Methods
   |
   *----------------------------------------###

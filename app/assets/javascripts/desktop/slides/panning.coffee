@@ -57,7 +57,7 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   | Activate new/current slide
   *----------------------------------------###
   activate: ->
-    Legwork.$wn.trigger('resize')
+    Legwork.$wn.trigger('resize.detail')
     @$pan_image.removeClass('constrain')
 
   ###
@@ -78,8 +78,6 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   | Handle window resize
   *----------------------------------------###
   resize: (w, h) =>
-    super(w, h)
-
     @bw = w
     @bh = h
     @horz_center = (@bw / 2) - (@pw / 2)
@@ -88,7 +86,7 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
-  | 
+  |
   | Private Methods
   |
   *----------------------------------------###
@@ -102,14 +100,14 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
     @$pan_image
       .on Legwork.mousedown, (e) =>
         $t = $(e.currentTarget)
-        
-        $t.removeClass('constrain').addClass('grabbing').data('pan', 
+
+        $t.removeClass('constrain').addClass('grabbing').data('pan',
           'iMouseX': e.pageX
           'iMouseY': e.pageY
           'iPosX': $t.position().left
           'iPosY': $t.position().top
         ).on(Legwork.mousemove, @_clickedDrag)
-        
+
         Legwork.$doc.one(Legwork.mouseup, @_constrainDrag)
         e.preventDefault()
 

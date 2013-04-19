@@ -86,7 +86,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
         .appendTo(@$slides.eq(0))
         .one('click', @removeProTip)
 
-      @protime = setTimeout(@removeProTip, 6666)
+      @protime = setTimeout(@removeProTip, 4000)
 
   ###
   *------------------------------------------*

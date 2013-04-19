@@ -614,7 +614,7 @@ class Legwork.Application
 
       @lifelines = @getLifelines()
 
-      if @current_state isnt 'filter' and @current_state isnt '404'
+      if @current_state is ''
         @$canvas_wrap.show()
 
       # Animations

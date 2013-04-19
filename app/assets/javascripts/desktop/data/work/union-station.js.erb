@@ -5,7 +5,12 @@ Legwork.Work["union-station"] = {
 		"images": [
 			"<%= asset_path 'desktop/work/union-station/union-station-thumb.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "union-station-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
@@ -48,8 +53,9 @@ Legwork.Work["union-station"] = {
 			"url": "http://unionstationdenver.com",
 			
 			"background": {
-				"type": "image",
-				"url": "<%= asset_path 'desktop/work/union-station/union-station-ts-poster.jpg' %>"
+				"type": "video",
+				"id": "union-station-loop",
+				"src": "<%= asset_path 'desktop/work/union-station/union-station-ts-poster.jpg' %>"
 			}
 		}
 	]

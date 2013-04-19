@@ -38,7 +38,6 @@ class Legwork.Loader
   | Test autoplay capability.
   *----------------------------------------###
   testAutoplay: ->
-    success = 0
     fail = 0
     failed = false
     start = +(new Date())
@@ -51,18 +50,21 @@ class Legwork.Loader
     $v.appendTo(@$video_stage)
 
     # Fail
-    # Note: we are waiting 1000ms for metadata
+    # Note: we are waiting 1500ms for metadata
     # to load. This should be well within the
     # tolerance for global connection speeds.
     fail = setTimeout =>
+      end = +(new Date())
+      console.log('Autoplay test failed: ' + (end - start))
       failed = true
       $v.remove()
       @loadVideo()
-    , 1000
+    , 1500
 
     # Succeed
     $v[0].addEventListener 'loadedmetadata', =>
-      b = new Date().getTime()
+      end = +(new Date())
+      console.log('Autoplay test succeeded: ' + (end - start))
       clearTimeout(fail)
 
       if failed is false

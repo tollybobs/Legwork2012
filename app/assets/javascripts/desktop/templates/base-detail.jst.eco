@@ -1,0 +1,15 @@
+<div class="slides-wrapper" id="<%= @slug %>-slides">
+  <div class="slides">
+  </div>
+  <div id="back-slide-btn">
+  </div>
+  <div class="slide-controls next-slide-btn">
+    <div class="slide-controls-tab">
+      <div class="slide-next"></div>
+      <div class="slide-counter">
+        <span class="current-cnt"></span>
+        <span class="total-cnt"></span>
+      </div>
+    </div>
+  </div>
+</div>

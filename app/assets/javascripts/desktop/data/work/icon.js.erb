@@ -1,0 +1,86 @@
+Legwork.Work["icon"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work/icon/icon-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/icon/icon-ts-poster.jpg' %>"
+		],
+		"videos": [],
+		"sequences": []
+	},
+
+	// project metadata
+	"title": "Icon Sampler",
+	"summary": "Packaging design for a seasonal mailer.",
+	"thumbnail": "<%= asset_path 'desktop/work/icon/icon-thumb.jpg' %>",
+	"related": "alameda",
+	"related_name": "Related: Alameda",
+
+	// slides
+	"slides": [
+		
+		// title screen 
+		{
+			"type": "TitleScreen",
+			"title": "Icon Sampler",
+			"summary": "Packaging design for a seasonal mailer.",
+
+			// services
+			"services": [
+				"Creative/Art Direction",
+				"Visual Design",
+				"Illustration",
+				"Collage"
+			],
+			
+			"overview": [
+				"We designed the packaging for ICON's seasonal promotional mailer. They used this as promotional tool for their CD, DVD and vinyl replication services. Packaging included a poster with 6 different portrait illustrations of Thomas Edison, which could be folded in different ways to show a the various illustrations through the die cut on the inner panel."
+			],
+			
+			"callout": "View More",
+			
+			"background": {
+				"type": "image",
+				"url": "<%= asset_path 'desktop/work/icon/icon-ts-poster.jpg' %>"
+			}
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/icon/icon-1.jpg' %>",
+			"image_stack": [
+				"<%= asset_path 'desktop/work/icon/icon-1.jpg' %>",
+				"<%= asset_path 'desktop/work/icon/icon-2.jpg' %>",
+				"<%= asset_path 'desktop/work/icon/icon-3.jpg' %>",
+				"<%= asset_path 'desktop/work/icon/icon-4.jpg' %>"
+			]
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/icon/icon-2.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/icon/icon-3.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/icon/icon-4.jpg' %>"
+		},
+
+		// video
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/icon/icon-screen.jpg' %>",
+			"id": "9194476"
+		},
+	]
+}

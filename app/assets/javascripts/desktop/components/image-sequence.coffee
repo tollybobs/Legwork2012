@@ -17,85 +17,113 @@ class Legwork.ImageSequence
   constructor: (init_obj) ->
     # Class vars
     @$el = init_obj.$el
-    @img_arr = init_obj.settings.frames
-    @img_len = @img_arr.length
+    @frames = init_obj.settings.frames
+    @fresh = Modernizr.canvas
+    @total_frames = @frames.length
     @fps = init_obj.settings.fps
-    @delay = if init_obj.settings.delay? then init_obj.settings.delay
-    @interval = Math.round(1000 / @fps)
-    @is_looping = init_obj.settings.is_looping or false
-    @loops = if init_obj.settings.loops? then init_obj.settings.loops
     @current_frame = 0
-    @current_loop = 0
 
+    # Render engine
+    if @fresh is true
+      @render_ref = @render
+    else
+      @render_ref = @renderForTheAncientTimes
+
+    # Build
     @build()
 
+    # Trigger init
+    @$el.trigger('sequence_init')
+
     # Fire it up
-    @img_timeout = setTimeout(@play, @interval)
+    @current_time  = @rightNow()
+    @img_frame = window.requestAnimationFrame(@play)
 
   ###
   *------------------------------------------*
   | build:void (-)
   |
-  | DOM manipulations, instantiations, etc.
+  | Q: When is now? A: This is now.
   *----------------------------------------###
-  build: ->
-    @$view = $(JST['desktop/templates/image-sequence']({img_arr: @img_arr}))
-    @$el.append(@$view)
-
-    # Collect
-    @$imgs = @$el.find('.image-sequence-item')
-
-    # Trigger init event
-    @$el.trigger('Legwork.sequence_init')
+  rightNow: ->
+    if window['performance']? and window['performance']['now']?
+      return window['performance']['now']()
+    else
+      return +(new Date())
 
   ###
   *------------------------------------------*
-  | play:void (-)
+  | build:void (-)
+  |
+  | Build.
+  *----------------------------------------###
+  build: ->
+    @$view = $('<div class="image-sequence-wrap" />').appendTo(@$el)
+
+    if @fresh is true
+      @cnv = document.createElement('canvas')
+      @cnv.width = @frames[0].width
+      @cnv.height = @frames[0].height
+      @ctx = @cnv.getContext('2d')
+      @$view.html(@cnv)
+    else
+      @$si = $('<img class="sequence-item" src="">').appendTo(@$view)
+
+  ###
+  *------------------------------------------*
+  | play:void (=)
   |
   | Play the sequence.
   *----------------------------------------###
   play: =>
-    cont = true
+    time = @rightNow()
+    delta = (time - @current_time) / 1000
+    @current_frame += (delta * @fps)
+    frame_num = Math.floor(@current_frame)
 
-    # Is it done yet, daaaaang
-    if @current_frame is @img_len
-      if @is_looping is true
-        @current_frame = 0
-        if @loops?
-          @current_loop++
-          if @current_loop is @loops
-            @is_looping = false
-      else
-        cont = false
-    else 
-      @current_frame++
-
-    if cont is true
-      if @delay? then setTimeout(@continue, @delay) else @continue()
+    if frame_num >= @total_frames
+      @$el.trigger('sequence_complete')
     else
-      # Trigger complete event
-      @$el.trigger('Legwork.sequence_complete')
+      # Render
+      @render_ref(frame_num)
+
+      # Trigger frame
+      @$el.trigger('sequence_frame')
+
+      @img_frame = requestAnimationFrame(@play)
+      @current_time = time
 
   ###
   *------------------------------------------*
-  | continue:void (-)
+  | render:void (-)
   |
-  | Continue to the next frame.
+  | frame:integer - current frame
+  |
+  | Render the current frame.
   *----------------------------------------###
-  continue: =>
-    @$imgs.hide()
-    @$imgs.eq(@current_frame - 1).show()
+  render: (frame) ->
+    @ctx.clearRect(0, 0, @cnv.width, @cnv.height)
+    @ctx.drawImage(@frames[frame], 0, 0)
 
-    @img_timeout = setTimeout(@play, @interval)
+  ###
+  *------------------------------------------*
+  | renderForTheAncientTimes:void (-)
+  |
+  | frame:integer - current frame
+  |
+  | Render for no canvas support.
+  *----------------------------------------###
+  renderForTheAncientTimes: (frame) ->
+    @$si.attr('src', @frames[frame].src)
 
   ###
   *------------------------------------------*
   | stop:void (-)
   |
-  | Stop the sequence.
+  | Staaaaahp.
   *----------------------------------------###
   stop: ->
-    clearTimeout(@img_timeout)
+    cancelAnimationFrame(@img_frame)
 
   ###
   *------------------------------------------*

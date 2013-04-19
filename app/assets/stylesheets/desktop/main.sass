@@ -11,7 +11,7 @@
   body
     background: $white
     -webkit-text-size-adjust: none
-    -webkit-font-smoothing: subpixel-antialiased
+    //-webkit-font-smoothing: subpixel-antialiased
 
   #wrapper
     width: 100%
@@ -25,6 +25,7 @@
       left: 0px
       width: 100%
       height: 100%
+      margin-top: 0px
       z-index: 666
       background-color: $less_black
       -webkit-transform: translateZ(0)
@@ -55,12 +56,13 @@
               display: block
               width: auto
               height: 100%
-              color: $white
-              font: normal normal bold 10px/104px Helvetica, Arial, sans-serif
+              color: #666
+              font: normal normal bold 10px/104px 'Helvetica Neue', Helvetica, Arial, sans-serif
               text-align: center
               text-decoration: none
-              background: transparent asset-url("desktop/mobile-icons.png", image) no-repeat 0px 0px
+              background: transparent asset-url("desktop/mobile-icons@2x.png", image) no-repeat 0px 0px
               overflow: hidden
+              @include background_size(37px, 540px)
               @include inner_shadow(0, 0, -1px, #2b2b2b)
               @include text_shadow(-1px, -1px, 1px, $more_black)
 
@@ -71,22 +73,22 @@
               background-position: 50% -50px
 
             a#work-illustration
-              background-position: 50% -108px
+              background-position: 50% -110px
 
-            a#world-about
-              background-position: 50% -170px
+            a#world-about-us
+              background-position: 50% -169px
 
-            a#world-open
+            a#world-open-source
               background-position: 50% -229px
 
-            a#world-extra
+            a#world-extracurricular
               background-position: 50% -290px
 
             a#contact-email
-              background-position: 50% -348px
+              background-position: 50% -350px
 
             a#contact-phone
-              background-position: 50% -409px
+              background-position: 50% -410px
 
             a#contact-address
               background-position: 50% -470px
@@ -188,8 +190,14 @@
         width: 70px
         height: 70px
         margin-bottom: 74px
-        background: asset-url("desktop/logo.gif", image) no-repeat top left
+        background: asset-url("desktop/logo@2x.gif", image) no-repeat top left
+        @include background_size(70px, 70px)
         @include nav_shadow
+
+        a
+          width: 100%
+          height: 100%
+          display: block
 
     header.transition
       @include transition(margin-top, 333ms, ease-in-out)
@@ -216,151 +224,199 @@
       width: 100%
       height: 100%
 
-      #wrap-the-background
-        height: 200px
-        padding: 70px 20px 20px
+      #wrap-the-canvas
+        display: none
+
+      #wrap-the-stuff,
+      #wrap-the-filter
+        padding: 54px 0
+
+        .stuff
+          position: relative
+          padding: 20px
+          border-top: 1px solid $light_gray
+
+        .stuff:first-child
+          border-top: 0px
+
+        .stuff:last-child
+          margin-bottom: 0px
 
         .sequenced.stuff,
         .animated.stuff
           display: none
 
         .sequenced.stuff:first-child
+          padding: 0px
           display: block
-          width: 100%
-          height: 100%
 
           .sequenced-inner
             width: 100%
-            height: 100%
-            background-position: 50% 50%
-            background-repeat: no-repeat
-            @include background_size(auto, 100%)
+            height: auto
+
+            .sequenced-content-wrap
+              width: 100%
+              height: auto
+              padding-bottom: 223px
+              background-position: 50% 100%
+              background-repeat: no-repeat
+              @include background_size(300px, 223px)
+
+              .sequenced-title-wrap
+                width: 100%
+                height: auto
+
+                .sequenced-tagline
+                  position: relative
+                  display: block
+
+                  h1
+                    position: relative
+                    padding-bottom: 0px
+                    font: normal normal normal 20px/20px "MuseoSlab700", Verdana, sans-serif
+                    display: none
+
+                  h3
+                    display: none
 
         .sequenced.stuff
           .sequenced-inner
             video
               display: none
 
-        .stuff.no-position
-          top: 0px !important
-          left: 0px !important
-
-      #wrap-the-canvas
-        display: none
-
-      #wrap-the-stuff
-        padding: 0px 20px 20px
-
-        .stuff
-          position: relative
-          width: 100%
-          height: 0%
-          padding-top: 56%
-          margin-bottom: 20px
-
-          .marker
-            display: none
-
-          .activate-it
-            @include background_size(100%, 100%)
-
-        .stuff:last-child
-          margin-bottom: 0px
-
         .work.stuff,
         .world.stuff
           .ww-inner
-            position: absolute
-            top: 0px
             width: 100%
-            height: 100%
-
-            .ww-details
-              position: absolute
-              padding: 7px
-
-              h2
-                font: normal normal normal 9px/9px "MuseoSlab700", Verdana, sans-serif
-                text-transform: uppercase
-                margin-bottom: 1px
-
-              h3
-                font: normal normal normal 9px/9px Helvetica, Arial, sans-serif
+            height: 0px
+            padding-top: 56%
+            @include background_cover
 
             a
-              display: block
-              position: absolute
-              top: 0px
-              width: 100%
-              height: 100%
+              display: none
 
-        .work.stuff
           .ww-details
-            background-color: $yellow
+            padding-top: 20px
 
-        .world.stuff
-          .ww-details
-            background-color: $blue
+            .ww-details-inner
+              .ww-details-title
+                .ww-details-title-inner
+                  h2
+                    font: normal normal normal 18px/18px "MuseoSlab700", Verdana, sans-serif
+                    text-transform: uppercase
+                    margin-bottom: 1px
+
+                  h3
+                    font: normal normal normal 11px/11px 'Helvetica Neue', Helvetica, Arial, sans-serif
+                    color: #666
+
+                  .launch-wrap
+                    position: absolute
+                    top: 0px
+                    left: 0px
+                    width: 100%
+                    height: 100%
+
+                  .launch-btn
+                    width: 100%
+                    height: 100%
+
+                    .ww-hover
+                      display: none
+
+                    a
+                      display: block
+                      width: 100%
+                      height: 100%
+
+                      .label
+                        display: none
+
+                      .icon
+                        display: none
 
         .twitter.stuff
           height: auto
-          padding: 0
-          background-color: #eee
+          padding: 0px
 
           .twitter-inner
-            .twitter-details
-              float: left
-              padding: 7px
-              background-color: $pink
+            height: auto
+            padding: 0px
 
-              h2
-                font: normal normal normal 9px/9px "MuseoSlab700", Verdana, sans-serif
-                text-transform: uppercase
-                margin-bottom: 1px
+            .tweet-one,
+            .tweet-two
+              padding: 60px 20px
 
-              h3
-                font: normal normal normal 9px/9px Helvetica, Arial, sans-serif
+              p
+                font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
+                color: $black
+                -webkit-hyphens: auto
+                -moz-hyphens: auto
+                hyphens: auto
+                margin-bottom: 10px
 
-            .twitter-logo
-              float: right
-              width: 22px
-              height: 18px
-              padding: 7px
-              background: asset-url("desktop/bg-twitter-stuff.png", image) no-repeat 50% 50%
-              background-size: 22px 18px
+                a
+                  color: $black
+                  text-decoration: none
+                  border-bottom: 2px solid $light_gray
 
-            p
-              font: normal normal normal 12px/20px "MuseoSlab700", Verdana, sans-serif
-              color: #666
-              padding: 24px 20px
-              -webkit-hyphens: auto
-              -moz-hyphens: auto
-              hyphens: auto
-              clear: both
+                .tweet-hash
+                  color: #666
+                  text-decoration: none
+                  border-bottom: none
+                  cursor: default
 
-              a
-                color: #333
-                text-decoration: none
+              .twitter-details
+                color: #666
+                font: normal normal normal 11px/11px 'Helvetica Neue', Helvetica, Arial, sans-serif
 
-              .tweet-at
-                color: #333
-                text-decoration: none
+            .tweet-one
+              border-bottom: 1px solid $light_gray
 
-              .tweet-hash
-                color: #999
-                text-decoration: none
+      #wrap-the-filter
+        display: none
 
-        .stuff.no-position
-          top: 0px !important
-          left: 0px !important
+        .services-list
+          display: none
+
+      #wrap-the-404
+        position: relative
+        width: 100%
+        height: 100%
+        background-color: $light_gray
+        display: none
+
+        h1
+          position: absolute
+          top: 50%
+          left: 0%
+          width: 100%
+          height: 32px
+          margin-top: -16px
+          font: normal normal bold 32px/32px 'Helvetica Neue', Helvetica, Arial, sans-serif
+          text-align: center
+          color: #666
+
+          a
+            text-decoration: none
+            color: #333
 
       #reveal-the-stuff
-        position: absolute
+        position: fixed
         top: 0px
         right: 0px
         width: 100%
         height: 100%
         background-color: $white
+
+        .image-sequence-wrap
+          width: 100%
+          height: 100%
+
+          img, canvas
+            display: block
+            width: 100%
+            height: 100%
 
     // detail
     #detail
@@ -375,19 +431,22 @@
       -webkit-perspective: 600
 
       .image-sequence-wrap
-        position: relative
         width: 100%
         height: 100%
 
-        .image-sequence-item
-          position: absolute
-          top: 0px
-          left: 0px
+        img, canvas
+          display: block
           width: 100%
           height: 100%
-          background-position: 50% 50%
-          background-repeat: no-repeat
-          @include background_size(100%, 100%)
+
+      &:after
+        content: ''
+        position: absolute
+        top: 0px
+        left: 0px
+        width: 100%
+        height: 4px
+        background-color: $less_black
 
       #detail-inner
         position: absolute
@@ -395,15 +454,624 @@
         left: 0px
         width: 100%
         height: 100%
-        background-color: #666
-        opacity: 0
-        -webkit-transform: rotateX(3deg) scale(0.9)
-        -webkit-transform-origin: 50% 50%
-        -webkit-transition: opacity 333ms ease-out, -webkit-transform 333ms ease-out
+        margin-top: 0px
+        overflow: hidden
+        -webkit-transform: scale(1.0)
+        -moz-transform: scale(1.0)
+        -o-transform: scale(1.0)
+        transform: scale(1.0)
+        @include transition(all, 150ms, linear)
 
-      #detail-inner.open
-        opacity: 1
-        -webkit-transform: rotateX(0deg) scale(1)
+        .slides-wrapper
+          position: absolute
+          top: 0px
+          left: 0px
+          width: 100%
+          height: 100%
+          overflow: hidden
+          opacity: 0
+          -webkit-transform: rotateX(3deg) scale(0.9)
+          -webkit-transform-origin: 50% 50%
+          -webkit-transition: opacity 333ms ease-out, -webkit-transform 333ms ease-out
+
+          .slides
+            position: absolute
+            top: 0px
+            left: 0px
+            width: 100%
+            height: 100%
+            background-color: $more_black
+            overflow: hidden
+
+            .slide
+              position: absolute
+              top: 0px
+              left: 0%
+              width: 100%
+              height: 100%
+              color: $white
+              background-color: $less_black
+              overflow: hidden
+              display: none
+              z-index: 1
+
+              .slide-inner
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 100%
+                height: 100%
+                overflow: hidden
+                display: table
+
+                .slide-inner-content
+                  width: 100%
+                  vertical-align: middle
+                  display: table-cell
+
+              .sidebar
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 30%
+                height: 100%
+                background-color: $less_black
+                overflow: hidden
+                display: none
+
+                .sidebar-inner
+                  width: 100%
+                  vertical-align: middle
+                  display: table-cell
+
+                  .overview
+                    max-width: 420px
+                    margin: 0 26px
+                    display: block
+
+                    h4
+                      margin: 0
+                      font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
+
+                    p
+                      margin: 25px 0 0
+                      font: normal normal normal 12px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif
+
+                      a
+                        color: #fff
+                        text-decoration: none
+                        font: normal normal bold 12px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif
+                        border-bottom: 1px solid #8c8c8c
+                        @include transition(border-bottom, 250ms, linear)
+
+                      a:hover
+                        border-bottom: 1px solid #fff
+
+            // title screen slide
+            .title-screen
+              background-repeat: no-repeat
+              background-position: 50% 50%
+              display: block
+              @include background_cover
+
+              .slide-inner
+                overflow: auto
+                display: block
+
+                -webkit-overflow-scrolling: touch
+
+                .slide-inner-content
+                  padding: 70px 0
+                  vertical-align: baseline
+                  display: block
+
+                  -webkit-transform: translate3d(0,0,0)
+
+              .bg-project-video,
+              .bg-project-video video,
+              .bg-project-image
+                position: absolute
+                top: 0px
+                left: 0%
+                width: 100%
+                height: 100%
+                overflow: hidden
+
+              .bg-project-video
+                display: none
+
+              .bg-project-image
+                background-repeat: no-repeat
+                background-position: 50% 50%
+                display: block
+                @include background_cover
+
+              .project-title
+                margin: 0 20px 40px
+                display: block
+
+                h2
+                  margin: 0
+                  font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
+                  text-transform: uppercase
+
+                h4
+                  margin: 0
+                  font: normal normal normal 12px/18px 'Helvetica Neue', Helvetica, Arial, sans-serif
+
+              .project-info
+                position: relative
+                margin: 0 20px
+
+                ul
+                  float: left
+                  width: 100%
+                  margin: 0 0 20px
+                  list-style-type: none
+                  display: block
+
+                  li
+                    margin: 0 20px 0 0
+                    list-style-type: none
+                    font: normal normal normal 12px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif
+                    display: block
+
+                    &:first-child
+                      margin: 0 0 5px
+                      font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
+
+                  &:last-child
+                    margin: 0
+
+                &:after
+                  content: ''
+                  clear: both
+                  height: 0
+                  margin: 0
+                  display: block
+
+              .project-callouts
+                margin: 40px 20px 0
+                list-style-type: none
+                display: block
+
+                &:after
+                  content: ''
+                  height: 0
+                  margin: 0
+                  display: block
+                  clear: both
+
+                li
+                  position: relative
+                  float: left
+                  height: 20px
+                  margin: 0
+                  padding: 0 0 0 30px
+                  display: none
+
+                  a, h4
+                    position: relative
+                    padding: 0 2px 3px
+                    text-decoration: none
+                    font: normal normal normal 14px/20px "MuseoSlab700", Verdana, sans-serif
+                    color: $white
+                    cursor: pointer
+                    display: block
+
+                    span
+                      content: ''
+                      position: absolute
+                      bottom: 0px
+                      left: 2px
+                      right: 2px
+                      height: 2px
+                      background-color: $white
+                      @include transition(all, 150ms, ease-out)
+
+                  &:before
+                    content: '/'
+                    position: absolute
+                    top: 0px
+                    left: 0px
+                    width: 30px
+                    height: 20px
+                    margin: 0
+                    font: normal normal normal 18px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif
+                    text-align: center
+                    display: block
+
+                li:first-child
+                  margin-left: -2px
+                  padding: 0
+                  display: block
+
+                  &:before
+                    display: none
+
+                li
+                  a:hover span, h4:hover span
+                    right: 0px
+                    left: 0px
+
+            // video slide
+            .video-slide
+              display: block
+
+              .video-holder
+                position: relative
+                margin: 0 20px
+                display: block
+
+                .video-holder-inner
+                  position: relative
+                  width: 100%
+                  height: 0
+                  padding-bottom: 56.25%
+                  background-color: $more_black
+                  overflow: hidden
+                  display: block
+
+                  .vimeo-iframe
+                    position: absolute
+                    top: 0px
+                    left: 0px
+                    width: 100%
+                    height: 100%
+
+                    iframe
+                      position: absolute
+                      top: 0px
+                      left: 0px
+                      width: 100%
+                      height: 100%
+
+                  .vimeo-poster
+                    position: absolute
+                    top: 0px
+                    left: 0px
+                    width: 100%
+                    height: 100%
+
+                    img
+                      position: absolute
+                      top: 0px
+                      left: 0px
+                      width: 100%
+                      height: 100%
+
+            // panning slide
+            .panning
+              .pan-image
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 0px
+                height: 0px
+                overflow: hidden
+                cursor: move
+                cursor: -webkit-grab
+                cursor: -moz-grab
+
+                img
+                  position: absolute
+                  top: 0px
+                  left: 0px
+                  width: 100%
+                  height: 100%
+
+              .pan-image.grabbing
+                cursor: -webkit-grabbing
+                cursor: -moz-grabbing
+
+              .pan-image.constrain
+                -webkit-transition: all ease-out 0.2s
+                -moz-transition: all ease-out 0.2s
+                -o-transition: all ease-out 0.2s
+                transition: all ease-out 0.2s
+
+            // pull quote slide
+            .pull-quote
+              background-repeat: no-repeat
+              background-position: 50% 50%
+              @include background_cover
+
+              h1
+                margin: 0 20px
+                font: normal normal normal 14px/20px "MuseoSlab700", Verdana, sans-serif
+
+            // media slide
+            .media
+              .media-stage
+                position: absolute
+                top: 0px
+                left: 0%
+                width: 100%
+                height: 100%
+                overflow: hidden
+                display: table
+
+                .media-stage-inner
+                  width: 100%
+                  vertical-align: middle
+                  display: table-cell
+
+                  .media-holder
+                    position: relative
+                    margin: 0 25px
+                    display: block
+
+                    .media-holder-inner
+                      position: relative
+                      width: 100%
+                      height: 0
+                      padding-bottom: 56.25%
+                      background-color: $more_black
+                      overflow: hidden
+                      display: block
+
+                      .vimeo-iframe
+                        position: absolute
+                        top: 0px
+                        left: 0px
+                        width: 100%
+                        height: 100%
+
+                      .vimeo-poster
+                        position: absolute
+                        top: 0px
+                        left: 0px
+                        width: 100%
+                        height: 100%
+                        cursor: pointer
+
+                        .vimeo-play-btn
+                          position: absolute
+                          top: 50%
+                          left: 50%
+                          width: 50px
+                          height: 50px
+                          margin: -25px 0 0 -25px
+                          background-color: #fff
+                          opacity: 0.6
+                          @include nav_shadow
+                          @include transition(opacity, 150ms, ease-out)
+
+                          &:after
+                            content: ''
+                            position: absolute
+                            top: 50%
+                            left: 50%
+                            width: 0
+                            height: 0
+                            margin: -10px 0 0 -8px
+                            border-top: 10px solid transparent
+                            border-bottom: 10px solid transparent
+                            border-left: 18px solid $less_black
+
+                        img
+                          position: absolute
+                          top: 0px
+                          left: 0px
+                          width: 100%
+                          height: 100%
+
+                      .vimeo-poster:hover
+                        .vimeo-play-btn
+                          opacity: 1
+
+                      img,
+                      iframe
+                        position: absolute
+                        top: 0px
+                        left: 0px
+                        width: 100%
+                        height: 100%
+
+                    // slideshow slide
+                    .slideshow
+                      .ss-slide
+                        position: absolute
+                        top: 0px
+                        left: 100%
+                        width: 100%
+                        height: 100%
+                        overflow: hidden
+                        z-index: 1
+
+                        img,
+                        iframe
+                          position: absolute
+                          top: 0px
+                          left: 0px
+                          width: 100%
+                          height: 100%
+
+                    .progress
+                      position: relative
+                      width: 100%
+                      height: 16px
+                      cursor: pointer
+                      overflow: hidden
+                      display: block
+
+                      .progress-track
+                        position: absolute
+                        top: 4px
+                        left: 0px
+                        width: 100%
+                        height: 4px
+                        background-color: $white
+                        @include transition(height, 100ms, ease-out)
+
+                        .progress-bar
+                          position: absolute
+                          top: 0px
+                          left: 0px
+                          width: 0%
+                          height: 100%
+                          background-color: $less_black
+
+                        .panel
+                          position: absolute
+                          top: 0px
+                          left: 0%
+                          width: 0%
+                          height: 100%
+
+                          span
+                            position: absolute
+                            top: 0px
+                            right: 0px
+                            width: 1px
+                            height: 100%
+
+                        .panel:last-child
+                          span
+                            display: none
+
+                    .progress:hover
+                      .progress-track
+                        height: 12px
+
+            // full screen image slide
+            .full-screen-image
+              background-repeat: no-repeat
+              background-position: 50% 50%
+              @include background_cover
+
+              .image-stage
+                position: absolute
+                top: 0px
+                left: 0%
+                width: 100%
+                height: 100%
+                overflow: hidden
+                display: table
+                background-repeat: no-repeat
+                background-position: 50% 50%
+                @include background_cover
+
+            // image stack slide
+            .image-stack-slide
+              display: block
+              background-repeat: no-repeat
+              background-position: 50% 50%
+              @include background_cover
+
+              .image-stack
+                position: absolute
+                top: 0px
+                left: 0px
+                bottom: 50px
+                width: 100%
+                background-color: $less_black
+                overflow: auto
+                display: block
+                -webkit-overflow-scrolling: touch
+
+                ul
+                  position: relative
+                  width: 100%
+                  margin: 0 auto
+                  list-style-type: none
+                  display: block
+
+                  li
+                    position: relative
+                    width: 100%
+                    margin: 0
+                    border-top: 1px solid $light_gray
+                    list-style-type: none
+                    display: block
+
+                    &:first-child
+                      border-top: none
+
+                    img
+                      width: 100%
+                      height: auto
+                      vertical-align: middle
+                      display: block
+
+            // full screen video slide
+            .full-screen-video
+              display: block
+
+              .fs-iframe
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 100%
+                height: 100%
+
+                iframe
+                  position: absolute
+                  top: 0px
+                  left: 0px
+                  width: 100%
+                  height: 100%
+
+              .fs-poster
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 100%
+                height: 100%
+                background-repeat: no-repeat
+                background-position: 50% 50%
+                @include background_cover
+
+            // full screen iframe slide
+            .full-screen-iframe
+              background-color: $less_black
+              display: block
+
+              iframe
+                width: 100%
+                height: 100%
+
+          .slide-controls
+            display: none
+
+          #back-slide-btn
+            position: absolute
+            top: -50px
+            left: 70px
+            width: 50px
+            height: 50px
+            background-color: $white
+            display: block
+            cursor: pointer
+            z-index: 3
+            @include nav_shadow
+            @include transition(top, 150ms, ease-out)
+
+            &:after
+              content: ''
+              position: absolute
+              top: 50%
+              left: 50%
+              width: 7px
+              height: 7px
+              margin: -3px 0 0 -4px
+              border-top: 3px solid $less_black
+              border-right: 3px solid $less_black
+              -webkit-transform: rotate(-135deg)
+              -moz-transform: rotate(-135deg)
+              -ms-transform: rotate(-135deg)
+              -o-transform: rotate(-135deg)
+              transform: rotate(-135deg)
+
+        .slides-wrapper.open
+          opacity: 1
+          -webkit-transform: rotateX(0deg) scale(1)
+
+      #detail-inner.bump
+        -webkit-transform: scale(0.96)
+        -moz-transform: scale(0.96)
+        -o-transform: scale(0.96)
+        transform: scale(0.96)
 
       #detail-close-btn
         position: absolute
@@ -415,22 +1083,55 @@
         background-color: $black
         @include nav_shadow
 
-      #detail-close-btn:before,
-      #detail-close-btn:after
-        content: ""
+        &:before,
+        &:after
+          content: ""
+          position: absolute
+          top: 20px
+          left: 23px
+          width: 3px
+          height: 15px
+          border: 0px
+          background-color: $white
+          @include rotate(45deg)
+
+        &:after
+          @include rotate(-45deg)
+
+      #related-btn
         position: absolute
-        top: 17px
-        left: 23px
-        width: 3px
-        height: 15px
-        border: 0px
-        background-color: $white
-        @include rotate(45deg)
+        bottom: 0px
+        left: 0px
+        right: 0px
+        height: 50px
+        margin: 0 0 -55px
+        padding: 0 20px
+        font: bold normal normal 12px/50px 'Helvetica Neue', Helvetica, Arial, sans-serif
+        color: $white
+        text-align: left
+        background-color: $black
+        cursor: pointer
+        overflow: hidden
+        @include nav_shadow
 
-      #detail-close-btn:after
-        @include rotate(-45deg)
+        &:after
+          content: ''
+          position: absolute
+          top: 50%
+          right: 20px
+          width: 7px
+          height: 7px
+          margin: -6px 0 0 -8px
+          border-top: 3px solid $white
+          border-right: 3px solid $white
+          display: block
+          -webkit-transform: rotate(45deg)
+          -moz-transform: rotate(45deg)
+          -ms-transform: rotate(45deg)
+          -o-transform: rotate(45deg)
+          transform: rotate(45deg)
 
-      #related-drawer
+      #detail-pro-tip
         display: none
 
     // footer
@@ -443,96 +1144,40 @@
   #main-loader
     position: absolute
     top: 0px
-    right: 0px
+    left: 0px
     width: 100%
     height: 100%
-    background-color: #eee
+    background-color: $white
     z-index: 999
+    opacity: 1
 
-    #loader-fill
+    #loader-holder
       position: absolute
-      bottom: 0px
-      left: 0px
-      width: 100%
-      height: 0%
-      background-color: $white
-      @include transition(height, 150ms, ease-out)
-
-    #loader-status
-      position: absolute
-      top: 0px
-      left: 0px
-      width: 100%
-      height: 100%
-      background: asset-url("desktop/status.png", image) no-repeat 50% 50%
-      @include background_size(100%, auto)
-
-    #loader-bros
-      position: absolute
-      bottom: 0px
+      top: 50%
       left: 50%
-      width: 215px
-      height: 163px
-      margin-left: -107px
-      background: asset-url("desktop/bros.png", image) no-repeat top left
-      background-size: cover
+      width: 450px
+      height: 450px
+      margin: -225px 0 0 -225px
+      display: none
 
-    #loader-speech-bubble
+      @include scale(0.6)
+
+    p
       position: absolute
-      bottom: 170px
-      left: 50%
-      width: 86px
-      height: 51px
-      padding: 4px 7px
-      background: asset-url("desktop/speech-bubbles.png", image) no-repeat 0px 0px
-      background-size: cover
-
-      #loader-speech-bubble-inner
-        display: table
-        width: 100%
-        height: 36px
-
-        span
-          display: table-cell
-          width: 100%
-          height: 100%
-          vertical-align: middle
-          font: normal normal bold 9px/12px Helvetica, Arial, sans-serif
-          text-align: center
-          color: $white
-
-          sup
-            display: none
-
-    #loader-speech-bubble.left
-      margin-left: -50px
-
-    #loader-speech-bubble.right
-      margin: 0 0 -5px -50px
-      background-position: -100px 0px
-
-    #loader-bands
-      position: absolute
-      top: 0px
-      left: 0px
-      width: 0%
-      height: 100%
-
-    #loader-bands:before
-      content: ""
-      position: absolute
-      top: 0px
-      left: 0px
+      top: 50%
       width: 100%
-      height: 46px
-      background-color: $nav_bg
-      border-top: 4px solid $black
-      @include nav_shadow
+      margin-top: 80px
+      font: normal normal normal 14px/14px "MuseoSlab700", Verdana, sans-serif
+      text-align: center
+      color: #222
 
   #ye-olde-hidden-video-holder
     position: fixed
     top: 0px
-    left: -1337px
+    left: -5000px
+    width: 1px
+    height: 1px
+    overflow: hidden
 
 // OVERRIDES: 480 and up (phone landscape)
 @media screen and (min-width: 480px)
@@ -551,55 +1196,51 @@
               line-height: 49px
 
             a#work-interactive
-              background-position: 12px 9px
+              background-position: 12px 10px
 
             a#work-motion
-              background-position: 12px -51px
+              background-position: 12px -50px
 
             a#work-illustration
               background-position: 12px -110px
 
-            a#world-about
-              background-position: 12px -172px
+            a#world-about-us
+              background-position: 12px -170px
 
-            a#world-open
-              background-position: 12px -233px
+            a#world-open-source
+              background-position: 12px -230px
 
-            a#world-extra
-              background-position: 12px -293px
+            a#world-extracurricular
+              background-position: 12px -290px
 
             a#contact-email
               background-position: 12px -351px
 
             a#contact-phone
-              background-position: 12px -412px
+              background-position: 12px -410px
 
             a#contact-address
-              background-position: 12px -472px
+              background-position: 12px -470px
 
     // main
     #legwork
       width: 100%
       height: 100%
 
-      #wrap-the-background
-        height: 320px
+      #wrap-the-stuff,
+      #wrap-the-filter
+        .sequenced.stuff:first-child
+          .sequenced-inner
+            .sequenced-content-wrap
+              padding-bottom: 297px
+              @include background_size(400px, 297px)
 
-      #wrap-the-stuff
-        padding: 0px 0px 20px
-
-        .stuff
-          width: 440px
-          padding-top: 246px
-          margin: 0 auto 20px
-
-  // main preloader
-  #main-loader
-    #loader-bros
-      bottom: -100px
-
-    #loader-speech-bubble
-      bottom: 70px
+              .sequenced-title-wrap
+                .sequenced-tagline
+                  h1
+                    font: normal normal normal 24px/24px "MuseoSlab700", Verdana, sans-serif
+                  h3
+                    display: none
 
 // OVERRIDES: 740 and up (tablet)
 @media screen and (min-width: 740px)
@@ -618,7 +1259,7 @@
     header
       top: 0px
       height: 70px
-      margin-top: 0px !important
+      margin-top: -100px
       border-top: 4px solid $less_black
       background-color: $nav_bg
       @include nav_shadow
@@ -647,7 +1288,7 @@
               position: relative
               padding: 0 13px
               text-align: center
-              font: normal normal normal 12px/65px Helvetica, Arial, sans-serif
+              font: normal normal normal 12px/65px 'Helvetica Neue', Helvetica, Arial, sans-serif
               background: transparent
               @include text_shadow(-1px, -1px, 1px, $more_black)
               @include inner_shadow(0, 0, 0, transparent)
@@ -656,13 +1297,12 @@
               @include text_shadow(1px, 1px, 1px, $more_black)
 
             a.selected:after
-              content: ""
+              content: "\00d7"
               position: absolute
-              top: 5px
-              right: 5px
-              width: 5px
-              height: 5px
-              background: asset-url("desktop/filter-close.gif", image) no-repeat top left
+              top: 2px
+              left: 4px
+              font: normal normal normal 11px/11px Verdana, sans-serif
+              color: #fff
 
           li:nth-child(2)
             padding-left: 13px
@@ -715,253 +1355,544 @@
         width: 98px
         height: 98px
         margin-bottom: 102px
-        background: asset-url("desktop/bigger-logo.gif", image) no-repeat top left
+        background: asset-url("desktop/bigger-logo@2x.gif", image) no-repeat top left
+        @include background_size(98px, 98px)
 
     // main
     #legwork
       position: relative
 
-      #wrap-the-background
-        display: block
-        position: absolute
-        top: 54px
-        left: 0px
-        width: 100%
-        height: auto
-        padding: 0px
-
-        .stuff
-          position: absolute
-          top: 0px
-          left: 0px
-          height: 0%
-          @include transition(top, 100ms, linear)
-
-          .marker
-            display: none
-
-          .activate-it
-            display: block
-
-        .sequenced.stuff:first-child
-          display: block
-          position: absolute
-          top: 0px
-          width: 56%
-          height: 0%
-          padding-top: 38%
-
-        .sequenced.stuff
-          display: block
-          position: absolute
-          top: 0px
-          width: 56%
-          height: 0%
-          padding-top: 38%
-
-          .sequenced-inner
-            position: absolute
-            top: 0px
-            width: 100%
-            height: 100%
-            background-position: top left
-            background-repeat: no-repeat
-            @include background_size(auto, 100%)
-
-        .right.sequenced.stuff
-          .sequenced-inner
-            background-position: top right
-
-        .animated.stuff
-          display: block
-          position: absolute
-          top: 0px
-          left: 0px
-          width: 31%
-          height: 0%
-          padding-top: 31%
-
-          .animated-inner
-            position: absolute
-            top: 0px
-            width: 100%
-            height: 100%
-            background-position: 0px 0px
-            background-repeat: no-repeat
-            @include background_size(100%, 100%)
-
-        .ignore
-          .activate-it
-            display: block !important
-
       #wrap-the-canvas
-        display: block
+        display: none
         position: fixed
         top: 74px
         width: 100%
         height: 50%
 
-      #wrap-the-stuff
-        position: absolute
-        top: 54px
-        left: 0px
-        width: 100%
-        height: auto
-        padding: 0px
-
-        .stuff
+        #lines-leader
           position: absolute
-          top: 0px
+          bottom: 0px
           left: 0px
-          height: 0%
-          @include transition(top, 100ms, linear)
+          width: 100%
+          height: 80px
+          background: asset-url("desktop/lines-leader.png", image) no-repeat bottom left
+          @include background_size(100%, 100%)
 
-          .marker
-            display: block
-            position: absolute
-            top: -6px
-            left: 0px
-            width: 2px
-            height: 14px
+      #wrap-the-stuff,
+      #wrap-the-filter
+        padding: 74px 0 50px 0
 
-          .marker:after
-            content: ""
-            position: absolute
-            top: 6px
-            left: -6px
-            width: 14px
-            height: 2px
+        .sequenced.stuff,
+        .sequenced.stuff:first-child
+          display: block
+          width: 100%
+          height: auto
+          padding: 0px
 
-          .activate-it
-            display: block
+          .sequenced-inner
+            position: relative
+            width: 100%
+            height: 0%
+            padding-top: 36%
+
+            .sequenced-content-wrap
+              position: absolute
+              top: 0px
+              width: 100%
+              height: 100%
+              padding: 0px
+              background-position: 5% 0%
+              background-repeat: no-repeat
+              @include background_size(auto, 100%)
+
+              .sequenced-title-wrap
+                display: table
+                position: absolute
+                top: 0px
+                left: 50%
+                width: 45%
+                height: 100%
+
+                .sequenced-tagline
+                  position: relative
+                  vertical-align: middle
+                  display: table-cell
+
+                  h1
+                    position: relative
+                    padding-bottom: 30px
+                    font: normal normal normal 24px/24px "MuseoSlab700", Verdana, sans-serif
+                    display: block
+
+                    &:after
+                      content: ''
+                      position: absolute
+                      bottom: 0px
+                      left: 0px
+                      width: 100px
+                      height: 3px
+                      background-color: $less_black
+
+                  h3
+                    display: block
+                    font: normal normal normal 11px/16px "Helvetica Neue", Helvetica, Arial, sans-serif
+                    padding-top: 32px
+                    color: #666
+
+        .right.sequenced.stuff
+          .sequenced-inner
+            .sequenced-content-wrap
+              background-position: 95% 0%
+
+              .sequenced-title-wrap
+                left: 5%
 
         .work.stuff,
         .world.stuff
+          position: relative
+          padding: 5%
+
           .ww-inner
-            .ww-details
-              padding: 8px
+            position: relative
+            float: right
+            width: 50%
+            padding-top: 28%
 
-              h2
-                font: normal normal normal 10px/10px "MuseoSlab700", Verdana, sans-serif
+            a
+              position: absolute
+              top: 0px
+              left: 0px
+              width: 100%
+              height: 100%
+              display: block
 
-              h3
-                font: normal normal normal 10px/10px Helvetica, Arial, sans-serif
+          .ww-details
+            position: relative
+            float: left
+            width: 50%
+            padding-top: 28%
 
-        .work.stuff
-          .marker,
-          .marker:after
-            background-color: $yellow
+            .ww-details-inner
+              position: absolute
+              top: 0px
+              left: 0px
+              width: 100%
+              height: 100%
+
+              .ww-details-title
+                width: 100%
+                height: 100%
+                display: table
+
+                .ww-details-title-inner
+                  display: table-cell
+                  vertical-align: middle
+
+                  h2
+                    font: normal normal normal 24px/24px "MuseoSlab700", Verdana, sans-serif
+                    text-transform: uppercase
+                    margin-bottom: 3px
+
+                  h3
+                    font: normal normal normal 12px/12px 'Helvetica Neue', Helvetica, Arial, sans-serif
+                    margin-bottom: 32px
+
+                  .launch-wrap
+                    position: relative
+                    top: auto
+                    left: auto
+                    width: auto
+                    height: 44px
+                    overflow: hidden
+
+                    .launch-btn
+                      position: absolute
+                      top: -1px
+                      left: -1px
+                      display: inline-block
+                      width: auto
+                      height: 46px
+                      background-color: $yellow
+                      overflow: hidden
+
+                      .ww-hover
+                        display: block
+                        position: absolute
+                        width: 200%
+                        height: 92px
+                        margin-top: -46px
+
+                        .image-sequence-wrap
+                          width: 100%
+                          height: 100%
+
+                          img, canvas
+                            display: block
+                            width: 100%
+                            height: 100%
+
+                      a
+                        position: relative
+                        display: block
+                        width: auto
+                        height: 100%
+                        padding: 0 48px 0 20px
+                        text-decoration: none
+
+                        .label
+                          display: block
+                          font: normal normal bold 12px/46px 'Helvetica Neue', Helvetica, Arial, sans-serif
+                          color: $black
+                          white-space: nowrap
+
+                        .icon
+                          display: block
+                          position: absolute
+                          top: 18px
+                          right: 22px
+                          width: 7px
+                          height: 7px
+                          border-top: 3px solid $black
+                          border-right: 3px solid $black
+                          @include rotate(45deg)
 
         .world.stuff
-          .marker,
-          .marker:after
-            background-color: $blue
-
-        .big.stuff
-          width: 41%
-          padding-top: 23%
-
-        .small.stuff
-          width: 25%
-          padding-top: 14%
+          .ww-details
+            .ww-details-inner
+              .ww-details-title
+                .ww-details-title-inner
+                  .launch-wrap
+                    .launch-btn
+                      background-color: $blue
 
         .twitter.stuff
-          width: 42%
+          height: auto
+          padding: 0px
 
           .twitter-inner
-            .twitter-details
-              padding: 8px
+            height: auto
+            padding: 0px
 
-              h2
-                font: normal normal normal 10px/10px "MuseoSlab700", Verdana, sans-serif
+            .tweet-one,
+            .tweet-two
+              float: left
+              width: 40%
+              padding: 5%
 
-              h3
-                font: normal normal normal 10px/10px Helvetica, Arial, sans-serif
+              p
+                font: normal normal normal 16px/22px "MuseoSlab700", Verdana, sans-serif
+                margin-bottom: 10px
 
-            .twitter-logo
-              width: 24px
-              height: 20px
-              background-size: 24px 20px
+            .tweet-one
+              border-bottom: 0px
 
-          .marker,
-          .marker:after
-            background-color: $pink
+            .tweet-two
+              width: 40%
+              padding-right: 0%
 
-        .ignore
-          .activate-it
-            display: block !important
+        .twitter-inner:after
+          content: ''
+          position: absolute
+          top: 0px
+          left: 50%
+          width: 1px
+          height: 100%
+          background-color: $light_gray
+
+      #wrap-the-filter
+        .services-list
+          display: block
+          float: left
+          width: 30%
+          list-style: none
+          padding-top: 32px
+          margin-right: 3%
+
+          li
+            display: block
+            font: normal normal normal 9px/10px 'Helvetica Neue', Helvetica, Arial, sans-serif
+            margin-bottom: 4px
+            color: #666
+
+            b
+              font-weight: bold
+              color: $black
+
+          li:first-child
+            margin-bottom: 7px
 
     // detail
     #detail
+      #detail-inner
+        .slides-wrapper
+
+          .slides
+            .slide
+              display: none
+
+              .sidebar
+                display: table
+
+            // title screen slide
+            .title-screen
+              display: block
+
+              .slide-inner
+                overflow: hidden
+                display: table
+
+                .slide-inner-content
+                  padding: 0
+                  vertical-align: middle
+                  display: table-cell
+
+              .project-title
+                margin: 0 50px 90px 26px
+
+                h2
+                  font: normal normal normal 36px/36px "MuseoSlab700", Verdana, sans-serif
+
+              .project-info
+                margin: 0 50px 0 26px
+
+                ul
+                  margin: 0
+                  width: 24%
+
+                  li
+                    margin: 0 40px 0 0
+
+                    &:first-child
+                      margin: 0 0 15px
+
+                ul:last-child
+                  width: 46%
+                  margin: 0
+
+              .project-callouts
+                margin: 90px 50px 0 26px
+
+                li
+                  display: block
+
+              .image-stack
+                display: none
+
+            // video slide
+            .video-slide
+              .video-holder
+                margin: 0 76px 0 26px
+
+            // pull quote slide
+            .pull-quote
+              h1
+                margin: 0 150px 0 76px
+                font: normal normal normal 18px/28px "MuseoSlab700", Verdana, sans-serif
+
+            // media slide
+            .media
+              .media-stage
+                left: 30%
+                width: 70%
+
+            // full screen image slide
+            .full-screen-image
+              .image-stage
+                left: 30%
+                width: 70%
+
+            // image stack slide
+            .image-stack-slide
+              display: block
+
+              .image-stack
+                display: none
+
+          .slide-controls
+            position: absolute
+            top: 50%
+            right: 0px
+            width: 100px
+            height: 50px
+            margin: -25px 0 0
+            cursor: pointer
+            display: block
+            z-index: 3
+
+            -webkit-transform: translate3d(0,0,0)
+
+            .slide-controls-tab
+              position: absolute
+              top: 0px
+              right: 0px
+              width: 50px
+              height: 50px
+              background-color: $white
+              @include nav_shadow
+              @include transition(width, 150ms, ease-out)
+
+              .slide-counter
+                position: absolute
+                top: 0px
+                right: 0px
+                width: 50px
+                height: 50px
+                background-color: $white
+
+                -webkit-transform: translate3d(0,0,0)
+
+                span
+                  position: absolute
+                  top: 14px
+                  left: 12px
+                  font: bold normal normal 9px/9px 'Helvetica Neue', Helvetica, Arial, sans-serif
+                  color: $less_black
+
+                  &:last-child
+                    top: auto
+                    left: auto
+                    right: 12px
+                    bottom: 8px
+
+                &:after
+                  content: ''
+                  position: absolute
+                  top: 50%
+                  left: 50%
+                  width: 1px
+                  height: 32px
+                  margin: -14px 0 0
+                  background-color: $less_black
+                  opacity: 0.5
+                  -webkit-transform: rotate(45deg)
+                  -moz-transform: rotate(45deg)
+                  -ms-transform: rotate(45deg)
+                  -o-transform: rotate(45deg)
+                  transform: rotate(45deg)
+
+              .slide-next
+                position: absolute
+                top: 0px
+                left: 0px
+                width: 50px
+                height: 50px
+                opacity: 0
+                @include transition(opacity, 50ms, ease-in-out)
+
+                &:after
+                  content: ''
+                  position: absolute
+                  top: 50%
+                  left: 50%
+                  width: 7px
+                  height: 7px
+                  margin: -5px 0 0 -8px
+                  border-top: 3px solid $less_black
+                  border-right: 3px solid $less_black
+                  -webkit-transform: rotate(45deg)
+                  -moz-transform: rotate(45deg)
+                  -ms-transform: rotate(45deg)
+                  -o-transform: rotate(45deg)
+                  transform: rotate(45deg)
+
+            &:hover
+              .slide-controls-tab
+                width: 100px
+
+                .slide-next
+                  opacity: 1
+                  @include transition(opacity, 150ms, ease-in-out)
+
+          #back-slide-btn
+            display: none
+
       #detail-close-btn
         left: 26px
 
-      #related-drawer
+        &:before,
+        &:after
+          top: 17px
+
+      #related-btn
+        left: 26px
+        right: auto
+
+        &:after
+          display: none
+
+      #detail-pro-tip
         display: block
         position: absolute
-        bottom: 0px
+        top: 0px
         left: 0px
         width: 100%
-        height: 200px
-        margin-bottom: -251px
+        height: 100%
+        overflow: hidden
+        background-color: rgba(0,0,0,0.66)
+        opacity: 1
+        @include transition(opacity, 333ms, ease-out)
 
-        #related-btn
+        #pro-tip-box
           position: absolute
-          top: -51px
-          left: 26px
-          width: auto
-          height: 50px
+          top: 50%
+          left: 50%
+          width: 301px
+          height: 161px
+          margin: -80px 0 0 -150px
+          overflow: hidden
 
-          #related-btn-icon
-            position: absolute
-            top: 0px
-            left: 0px
-            width: 50px
-            height: 50px
-            background-color: $black
-            @include nav_shadow
-
-          #related-btn-icon:before,
-          #related-btn-icon:after
-            content: ""
-            position: absolute
-            top: 17px
-            left: 20px
-            width: 5px
-            height: 5px
-            border-top: 3px solid $white
-            border-left: 3px solid $white
-            @include rotate(45deg)
-
-          #related-btn-icon:after
-            top: 27px
-            @include rotate(225deg)
-
-          #related-btn-label
-            display: block
-            position: absolute
-            top: 0px
-            left: 51px
-            width: auto
-            height: 50px
-            padding: 0 20px
-            font: normal normal bold 12px/50px Helvetica, Arial, sans-serif
+          h2
+            position: relative
+            float: left
+            width: 100%
+            height: 80px
+            margin-bottom: 1px
+            font: normal normal normal 16px/80px "MuseoSlab700", Verdana, sans-serif
             color: $white
-            white-space: nowrap
-            background-color: $black
-            @include nav_shadow
+            text-align: center
+            background-color: $less_black
 
-        #related-inner
-          width: 100%
-          height: 200px
-          background-color: $black
-          @include nav_shadow
+          .pro-tip-opts
+            position: relative
+            float: left
+            width: 150px
+            height: 80px
+            background-color: $less_black
+            display: block
+
+            &:last-child
+              margin-left: 1px
+
+            h4
+              position: absolute
+              bottom: 16px
+              left: 0px
+              width: 100%
+              height: 10px
+              font: bold normal normal 10px/10px Helvetica, Arial, sans-serif
+              color: $white
+              text-align: center
+
+          .pro-tip-opts:after
+            content: ''
+            position: absolute
+            top: 18px
+            left: 0px
+            width: 100%
+            height: 15px
+            background: asset-url("desktop/pro-tip-icons@2x.png", image) no-repeat center 0px
+            overflow: hidden
+            @include background_size(29px, 60px)
+
+          .pro-tip-opts:last-child:after
+            background: asset-url("desktop/pro-tip-icons@2x.png", image) no-repeat center -30px
+            @include background_size(29px, 60px)
 
     // footer
     footer
       display: block
       position: fixed
-      bottom: 0px
+      bottom: -80px
       left: 0px
       width: 100%
       height: 46px
@@ -995,7 +1926,7 @@
             text-transform: uppercase
 
           a
-            font: normal normal normal 12px/46px Helvetica, Arial, sans-serif
+            font: normal normal normal 12px/46px 'Helvetica Neue', Helvetica, Arial, sans-serif
             color: $light_gray
             text-decoration: none
 
@@ -1004,61 +1935,12 @@
 
   // main preloader
   #main-loader
-    #loader-bros
-      bottom: 0px
-      width: 430px
-      height: 325px
-      margin: -163px 0 0 -215px
+    #loader-holder
+      @include scale(1.0)
 
-    #loader-speech-bubble
-      bottom: 335px
-      width: 172px
-      height: 89px
-      padding: 14px
-
-      #loader-speech-bubble-inner
-        display: table
-        width: 100%
-        height: 60px
-
-        span
-          font: normal normal bold 14px/20px Helvetica, Arial, sans-serif
-
-          sup
-            display: inline
-            position: relative
-            top: -0.9em
-            font: normal normal normal 8px/0 Helvetica, Arial, sans-serif
-            vertical-align: baseline
-
-    #loader-speech-bubble.left
-      margin-left: -105px
-
-    #loader-speech-bubble.right
-      margin: 0 0 -5px -95px
-      background-position: -200px 0px
-
-    #loader-bands:before
-      content: ""
-      position: absolute
-      top: 0px
-      left: 0px
-      width: 100%
-      height: 70px
-      background-color: $nav_bg
-      border-top: 4px solid $black
-      @include nav_shadow
-
-    #loader-bands:after
-      content: ""
-      position: absolute
-      bottom: 0px
-      left: 0px
-      width: 100%
-      height: 46px
-      background-color: $nav_bg
-      border-top: 4px solid #4d4d4d
-      @include nav_shadow
+    p
+      margin-top: 130px
+      font: normal normal normal 16px/16px "MuseoSlab700", Verdana, sans-serif
 
 // OVERRIDES: 1025 and up (desktop)
 @media screen and (min-width: 1025px)
@@ -1067,6 +1949,7 @@
     // header
     header
       height: 50px
+      margin-top: -80px
 
       nav
         height: 50px
@@ -1127,80 +2010,198 @@
         width: 70px
         height: 70px
         margin-bottom: 74px
-        background: asset-url("desktop/logo.gif", image) no-repeat top left
+        background: asset-url("desktop/logo@2x.gif", image) no-repeat top left
+        @include background_size(70px, 70px)
 
     // main
     #legwork
-      max-width: 1500px
       margin: 0px auto
 
-      #wrap-the-background
-        top: 34px
+      #wrap-the-canvas
+        display: block
+        top: 54px
 
-        .stuff
-          .activate-it
-            display: none
+      #wrap-the-stuff,
+      #wrap-the-filter
+        padding: 54px 0 0 0
 
-        .sequenced.stuff
+        .sequenced.stuff,
+        .sequenced.stuff:first-child
           .sequenced-inner
-            background: #fff !important
+            .sequenced-content-wrap
+              video
+                position: absolute
+                height: 100%
+                width: auto
+                display: none
 
-            video
-              position: absolute
-              height: 100%
-              width: auto
-              display: none
+              .sequenced-title-wrap
+                .sequenced-tagline
+                  h1
+                    font: normal normal normal 36px/36px "MuseoSlab700", Verdana, sans-serif
+
+                  h3
+                    font: normal normal normal 12px/18px 'Helvetica Neue', Helvetica, Arial, sans-serif
+                    padding-top: 32px
+                    color: #666
 
         .right.sequenced.stuff
           .sequenced-inner
-            video
-              right: 0px
+            .sequenced-content-wrap
+              video
+                right: 5%
 
         .left.sequenced.stuff
           .sequenced-inner
-            video
-              left: 0px
-
-      #wrap-the-canvas
-        top: 34px
-
-      #wrap-the-stuff
-        top: 34px
-
-        .stuff
-          .activate-it
-            display: none
+            .sequenced-content-wrap
+              video
+                left: 0%
 
         .work.stuff,
         .world.stuff
           .ww-inner
-            .ww-details
-              padding: 10px 10px 9px
+          .ww-details
+            .ww-details-inner
+              .ww-details-title
+                .ww-details-title-inner
 
-              h2
-                font: normal normal normal 12px/12px "MuseoSlab700", Verdana, sans-serif
+                  h2
+                    font: normal normal normal 30px/30px "MuseoSlab700", Verdana, sans-serif
 
-              h3
-                font: normal normal normal 12px/12px Helvetica, Arial, sans-serif
+                  h3
+                    font: normal normal normal 12px/14px 'Helvetica Neue', Helvetica, Arial, sans-serif
+                    color: #666
+
+                  .launch-wrap
+                    .launch-btn
+                      a
+                        .label
+                          font: normal normal bold 12px/46px 'Helvetica Neue', Helvetica, Arial, sans-serif
+
+                    .launch-btn:hover
+                      a
+                        .label
+                          color: $yellow
+
+                        .icon
+                          border-top: 3px solid $yellow
+                          border-right: 3px solid $yellow
+
+                    .launch-btn.over
+                      background-color: $black
+
+        .world.stuff
+          .ww-details
+            .ww-details-inner
+              .ww-details-title
+                .ww-details-title-inner
+                  .launch-wrap
+                    .launch-btn:hover
+                      a
+                        .label
+                          color: $blue
+
+                        .icon
+                          border-top: 3px solid $blue
+                          border-right: 3px solid $blue
 
         .twitter.stuff
           .twitter-inner
-            .twitter-details
-              padding: 10px 10px 9px
+            .tweet-one,
+            .tweet-two
+              p
+                font: normal normal normal 24px/30px "MuseoSlab700", Verdana, sans-serif
+                margin-bottom: 20px
 
-              h2
-                font: normal normal normal 12px/12px "MuseoSlab700", Verdana, sans-serif
+                a
+                  border-bottom: 2px solid $light_gray
+                  @include transition(border-bottom, 250ms, linear)
 
-              h3
-                font: normal normal normal 12px/12px Helvetica, Arial, sans-serif
+                  &:hover
+                    border-bottom: 2px solid $black
 
-            .twitter-logo
-              width: 29px
-              height: 24px
-              background-size: 29px 24px
+                .tweet-hash:hover
+                  border-bottom: none
 
-            p
-              font: normal normal normal 14px/21px "MuseoSlab700", Verdana, sans-serif
+              .twitter-details
+                font: normal normal normal 12px/14px 'Helvetica Neue', Helvetica, Arial, sans-serif
+
+      #wrap-the-stuff
+        .sequenced.stuff,
+        .sequenced.stuff:first-child
+          .sequenced-inner
+            .sequenced-content-wrap
+              background: #fff !important
+
+      #wrap-the-filter
+        .services-list
+          display: block
+          float: left
+          width: 30%
+          list-style: none
+          padding-top: 32px
+          margin-right: 3%
+
+          li
+            display: block
+            font: normal normal normal 12px/12px 'Helvetica Neue', Helvetica, Arial, sans-serif
+            margin-bottom: 6px
+            color: #666
+
+            b
+              font-weight: bold
+              color: $black
+
+          li:first-child
+            margin-bottom: 9px
+
+    // detail
+    #detail
+      #detail-inner
+        .slides-wrapper
+          .slides
+            // title screen slide
+            .title-screen
+              .bg-project-video
+                display: block
+
+              .bg-project-image
+                display: none
+
+              .project-info
+                ul
+                  width: 17%
+
+                ul:last-child
+                  width: 36%
+
+            // video slide
+            .video-slide
+              .video-holder
+                margin: 0 126px
+
+            // pull quote slide
+            .pull-quote
+              h1
+                margin: 0 200px 0 176px
+                font: normal normal normal 28px/38px "MuseoSlab700", Verdana, sans-serif
+
+            // media slide
+            // .media
+            //   .media-content
+            //     max-width: 360px
+            //     width: 40%
+            //     display: block
+            //
+            //     .media-text
+            //       margin: 0 50px 0 26px
+            //
+            //     .media-holder
+            //       margin: 0 76px 0 0
+            //
+            //     &:last-child
+            //       width: 60%
+            //       max-width: 960px
 
     // footer
     footer
@@ -1230,8 +2231,10 @@
             display: block
             width: 100%
             height: 100%
-            background: asset-url("desktop/social-icons.gif", image) no-repeat 0 0
+            background: asset-url("desktop/social-icons@2x.gif", image) no-repeat 0 0
             opacity: 0.75
+            text-decoration: none
+            @include background_size(64px, 16px)
             @include transition(opacity, 250ms, linear)
 
           a#social-github
@@ -1252,77 +2255,56 @@
             position: absolute
             top: -15px
             left: 8px
-            border-top: 10px solid $hot
+            border-top: 10px solid $more_black
             border-right: 10px solid transparent
 
           a:hover:after
             content: attr(data-tooltip)
             display: block
             position: absolute
-            top: -38px
+            top: -42px
             left: 8px
             width: auto
-            height: 23px
-            padding: 0 10px
-            font: normal normal normal 12px/24px Helvetica, Arial, sans-serif
+            height: 28px
+            padding: 0 12px
+            font: normal normal normal 12px/28px 'Helvetica Neue', Helvetica, Arial, sans-serif
             color: $white
             white-space: nowrap
             -webkit-font-smoothing: subpixel-antialiased
-            background-color: $hot
-            -webkit-border-top-right-radius: 5px
-            -webkit-border-top-left-radius: 5px
-            -moz-border-radius-topright: 5px
-            -moz-border-radius-topleft: 5px
-            border-top-right-radius: 5px
-            border-top-left-radius: 5px
-            -webkit-border-bottom-right-radius: 5px
-            -moz-border-radius-bottomright: 5px
-            border-bottom-right-radius: 5px
+            background-color: $more_black
 
+  // main preloader
   #main-loader
-    #loader-bands:before
-      content: ""
-      position: absolute
-      top: 0px
-      left: 0px
-      width: 100%
-      height: 50px
-      background-color: $nav_bg
-      border-top: 4px solid $black
-      @include nav_shadow
+    p
+      margin-top: 130px
+      font: normal normal normal 18px/18px "MuseoSlab700", Verdana, sans-serif
 
-    #loader-bands:after
-      content: ""
-      position: absolute
-      bottom: 0px
-      left: 0px
-      width: 100%
-      height: 46px
-      background-color: $nav_bg
-      border-top: 4px solid #4d4d4d
-      @include nav_shadow
-
-// OVERRIDES: retina display
-@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)
+// OVERRIDES: 1280 and up (big honkin' screens)
+@media screen and (min-width: 1280px)
   #wrapper
 
-    // header
-    header
-      nav
-        ul
-          li
-            a
-              background-image: asset-url("desktop/mobile-icons@2x.png", image)
-              background-size: 37px 540px
+    // main
+    #legwork
+      #wrap-the-stuff,
+      #wrap-the-filter
+        .sequenced.stuff,
+        .sequenced.stuff:first-child
+          .sequenced-inner
+            .sequenced-content-wrap
+              .sequenced-title-wrap
+                .sequenced-tagline
+                  h1
+                    font: normal normal normal 42px/42px "MuseoSlab700", Verdana, sans-serif
 
-      h1
-        background-image: asset-url("desktop/bigger-logo@2x.gif", image)
-        background-size: 70px 70px
+        .work.stuff,
+        .world.stuff
+          .ww-inner
+          .ww-details
+            .ww-details-inner
+              .ww-details-title
+                .ww-details-title-inner
 
-    // footer
-    footer
-      ul#social-footer
-        li
-          a
-            background: asset-url("desktop/social-icons@2x.gif", image) no-repeat 0 0
-            background-size: 16px 16px
+                  h2
+                    font: normal normal normal 34px/34px "MuseoSlab700", Verdana, sans-serif
+
+

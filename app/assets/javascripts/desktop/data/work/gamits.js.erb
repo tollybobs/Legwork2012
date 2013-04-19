@@ -1,127 +1,66 @@
-Legwork.work["gamits"] = {
+Legwork.Work["gamits"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work-gamits.jpg' %>"
+			"<%= asset_path 'desktop/work/gamits/gamits-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/gamits/gamits-ts-poster.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "gamits-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
 	// project metadata
-	"client": "Gamits",
-	"project": "This Shell.",
-	"description_title": "Title",
-	"description": "Lorem ipsum.",
-	"url": "http://legworkstudio.com",
-	"thumbnail": "<%= asset_path 'desktop/work-gamits.jpg' %>", // NOTE: 570 x 340
-	"background": {
-		// option 1
-		"type": "video",
-		"url": "<%= asset_path 'desktop/some-video' %>"
-
-		// option 2
-		/* 
-		"type": "image",
-		"url": "<%= asset_path 'desktop/some-image.jpg' %>"
-		*/
-	},
-
-	// services
-	"services": [
-		"Branding",
-		"Illustration",
-		"UX / UI",
-		"Web Development"
-	],
-
-	// recognition
-	"recognition": [
-		"FWA SOTD",
-		"CommArts Web Pick",
-		"SXSW Finalist",
-		"Webby Awards Honorable Mention"
-	],
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
+	"title": "This Shell",
+	"summary": "An interactive music video for the Gamits.",
+	"thumbnail": "<%= asset_path 'desktop/work/gamits/gamits-thumb.jpg' %>",
+	"related": "diesel-intimate-2013",
+	"related_name": "Related: Diesel Intimate S/S 2013",
 
 	// slides
 	"slides": [
-
-		// fullscreen
+		
+		// title screen
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
-		},
+			"type": "TitleScreen",
+			"title": "This Shell",
+			"summary": "An interactive music video for the Gamits.",
 
-		// pull quote
-		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
+			"services": [
+				"Strategy",
+				"User Experience",
+				"Creative/Art Direction",
+				"Visual Design",
+				"Live Action Video",
+				"Animation",
+				"Development"
+			],
 
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
-
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
-				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+			"recognition": [
+				"Webby Awards",
+				"SXSW",
+				"FWA SOTD",
+				"Awwwards",
+				"W3 Awards",
+				".net Magazine"
+			],
+			
+			"overview": [
+				"This Shell is an interactive music video to promote the Gamits 2010 record, Parts. We literally break the video we made into &ldquo;parts&rdquo; and if a user can put it back together before the song ends they receive a free download of the song. This was a pure labour of love for us and an opportunity to experiment with new technologies. Check it out in Chrome or Firefox."
+			],
+			
+			"url": "http://thisshell.com",
+			
+			"background": {
+				"type": "video",
+				"id": "gamits-loop",
+				"src": "<%= asset_path 'desktop/work/gamits/gamits-ts-poster.jpg' %>"
 			}
-		},
-
-		// slideshow
-		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
 		}
 	]
 }

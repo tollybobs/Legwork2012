@@ -1,0 +1,70 @@
+Legwork.World["create-denver"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work/create-denver/create-denver-thumb.jpg' %>"
+		],
+		"videos": [
+			{
+				"path": "create-denver-loop",
+				"size": [960, 540]
+			}
+		],
+
+		"sequences": []
+	},
+
+	// metadata
+	"title": "Create Denver",
+	"summary": "A projection mapping for the city of Denver.",
+	"thumbnail": "<%= asset_path 'desktop/work/create-denver/create-denver-thumb.jpg' %>",
+	"related": "99-frames",
+	"related_name": "Related: 99-frames",
+
+	// slides
+	"slides": [
+
+		// title screen
+		{
+			"type": "TitleScreen", 
+			"title": "Create Denver",
+			"summary": "A projection mapping for the city of Denver.",
+
+			"services": [
+				"Creative/Art Direction",
+				"Design",
+				"Space Planning",
+				"Template Build",
+				"Story Boards",
+				"Asset Development",
+				"Animation"
+			],
+			
+			"overview": [
+				"Create Denver is a week long celebration of the collective creative industries here in town. Its a great outlet for people to really push themselves, as there isn't the typical client relationship and you can essentially do whatever you want. We have participated for a few years now, but one that really stands out was 2011, when we were asked to create and execute a projection mapping of the Ellie Caukins Opera House for the closing party. "
+			],
+
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "create-denver-loop"
+			}
+		},
+
+		// video
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/create-denver/create-denver-building.jpg' %>",
+			"id": "24807030"
+		},
+		
+		// video
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/create-denver/create-denver-monster.jpg' %>",
+			"id": "11468421"
+		}
+	]
+}

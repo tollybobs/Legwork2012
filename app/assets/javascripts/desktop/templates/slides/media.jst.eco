@@ -1,0 +1,23 @@
+<div class="slide media" style="background-color: <%= @background_color %>">
+  <div class="sidebar">
+    <div class="sidebar-inner">
+      <div class="overview">
+        <h4><%- @title %></h4>
+        <%- @text %>
+      </div>
+    </div>
+  </div>
+  <div class="media-stage">
+    <div class="media-stage-inner">
+      <div class="media-holder">
+        <div class="media-holder-inner">
+        <% if @media.type is 'vimeo': %>
+          <div class="vimeo-iframe"></div>
+          <div class="vimeo-poster"></div>
+        <% else: %>
+          <img src="<%= @media.url %>" alt="" />
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

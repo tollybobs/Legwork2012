@@ -1,0 +1,49 @@
+<div class="slide title-screen" <% if @background.type is 'image': %>style="background-image: url(<%= @background.url %>)"<% end %>>
+  <% if @background.type is 'video': %>
+    <div class="bg-project-video">
+    </div>
+    <div class="bg-project-image" style="background-image: url(<%= @background.src %>)">
+    </div>
+  <% end %>
+  <div class="slide-inner">
+    <div class="slide-inner-content">
+      <div class="project-title">
+        <h2><%- @title %></h2>
+        <h4><%- @summary %></h4>
+      </div>
+      <div class="project-info">
+        <% if @services?: %>
+          <ul>
+            <li>Services</li>
+            <% for item in @services: %>
+              <li><%- item %></li>
+            <% end %>
+          </ul>
+        <% end %>
+        <% if @recognition?: %>
+          <ul>
+            <li>Recognition</li>
+            <% for item in @recognition: %>
+              <li><%- item %></li>
+            <% end %>
+          </ul>
+        <% end %>
+        <ul>
+          <li>Overview</li>
+          <li><%- @overview %></li>
+        </ul>
+      </div>
+      <ul class="project-callouts">
+        <% if @url?: %>
+          <li><a href="<%= @url %>" target="_blank">Launch Project<span></span></a></li>
+        <% end %>
+        <% if @downloadlink?: %>
+          <li><a href="<%= @downloadlink %>" target="_blank">Download<span></span></a></li>
+        <% end %>
+        <% if @callout?: %>
+          <li><h4><%- @callout %><span></span></h4></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

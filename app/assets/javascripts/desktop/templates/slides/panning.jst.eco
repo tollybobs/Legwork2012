@@ -1,0 +1,5 @@
+<div class="slide panning">
+  <div class="pan-image" style="width: <%= @width %>px; height: <%= @height %>px">
+    <img src="<%= @image %>" alt="" />
+  </div>
+</div>

@@ -1,127 +1,65 @@
-Legwork.work["diesel-denim-2011"] = {
+Legwork.Work["diesel-denim-2011"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work-diesel.jpg' %>"
+			"<%= asset_path 'desktop/work/diesel-denim/diesel-denim-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/diesel-denim/diesel-denim-ts-poster.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "diesel-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
 	// project metadata
-	"client": "Diesel",
-	"project": "Fall / Winter 2011",
-	"description_title": "Title",
-	"description": "Lorem ipsum.",
-	"url": "http://legworkstudio.com",
-	"thumbnail": "<%= asset_path 'desktop/work-diesel.jpg' %>", // NOTE: 570 x 340
-	"background": {
-		// option 1
-		"type": "video",
-		"url": "<%= asset_path 'desktop/some-video' %>"
-
-		// option 2
-		/* 
-		"type": "image",
-		"url": "<%= asset_path 'desktop/some-image.jpg' %>"
-		*/
-	},
-
-	// services
-	"services": [
-		"Branding",
-		"Illustration",
-		"UX / UI",
-		"Web Development"
-	],
-
-	// recognition
-	"recognition": [
-		"FWA SOTD",
-		"CommArts Web Pick",
-		"SXSW Finalist",
-		"Webby Awards Honorable Mention"
-	],
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
+	"title": "Denim F/W 2011",
+	"summary": "A website for Diesel.",
+	"thumbnail": "<%= asset_path 'desktop/work/diesel-denim/diesel-denim-thumb.jpg' %>",
+	"related": "chrysler-halftime",
+	"related_name": "Related: Halftime In America",
 
 	// slides
 	"slides": [
-
-		// fullscreen
+		
+		// title screen
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
-		},
+			"type": "TitleScreen",
+			"title": "Denim F/W 2011",
+			"summary": "A website for Diesel.",
 
-		// pull quote
-		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
+			"services": [
+				"Strategy",
+				"User Experience",
+				"Art Direction",
+				"Visual Design",
+				"Development"
+			],
 
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
+			"recognition": [
+				"Webby Awards",
+				"SXSW",
+				"FWA SOTD",
+				"FWA MOTD",
+				"Awwwards",
+				"CommArts",
+				"W3 Awards"
+			],
+			
+			"overview": [
+				"We took the Diesel Island denim catalog and turned it into a digital experience based on an &ldquo;X marks the spot&rdquo; theme we came up with. We were able to build it for modern browsers and take advantage of some of the newest capabilities of HTML5/JS for desktop and devices alike."
+			],
 
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
+			"url": "http://diesel.legworkstudio.com",
 
-				// option 2
-				/*
-				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+			"background": {
+				"type": "video",
+				"id": "diesel-loop",
+				"src": "<%= asset_path 'desktop/work/diesel-denim/diesel-denim-ts-poster.jpg' %>"
 			}
-		},
-
-		// slideshow
-		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
 		}
 	]
 }

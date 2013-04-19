@@ -1,0 +1,69 @@
+Legwork.Work["plizy"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work/plizy/plizy-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/plizy/plizy-ts-poster.jpg' %>"
+		],
+		"videos": [
+			{
+				"path": "plizy-loop",
+				"size": [960, 540]
+			}
+		],
+		"sequences": []
+	},
+
+	// project metadata
+	"title": "Bumpers",
+	"summary": "A collection of animations for Plizy with Ocupop.",
+	"thumbnail": "<%= asset_path 'desktop/work/plizy/plizy-thumb.jpg' %>",
+	"related": "legwork-reel",
+	"related_name": "Related: 2012 Reel",
+
+	// slides
+	"slides": [
+		
+		// title screen 
+		{
+			"type": "TitleScreen",
+			"title": "Bumpers",
+			"summary": "A collection of animations for Plizy with Ocupop.",
+
+			// services
+			"services": [
+				"Design",
+				"Character Development",
+				"3D modeling",
+				"Animation"
+			],
+			
+			"overview": [
+				"Everybody loves watching and sharing online videos. They might not always watch them on the site they were created for, so Plizy tasked us with creating show bumpers to reinforce their brand and define the content by category. These quick hits are centered around their brand character engaging in all sorts of unexpected situations."
+			],
+			
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "plizy-loop",
+				"src": "<%= asset_path 'desktop/work/plizy/plizy-ts-poster.jpg' %>"
+			}
+		},
+
+		// video
+		{
+			"type": "Video",
+			"background_color": "#191919",
+			"id": "46114091"
+		},
+
+		// full screen (w/ video)
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/plizy/plizy-breakdown.jpg' %>",
+			"id": "57023690"
+		}
+	]
+}

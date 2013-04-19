@@ -1,127 +1,56 @@
-Legwork.work["union-station"] = {
+Legwork.Work["union-station"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work-union-station.jpg' %>"
+			"<%= asset_path 'desktop/work/union-station/union-station-thumb.jpg' %>"
 		],
 		"videos": [],
 		"sequences": []
 	},
 
 	// project metadata
-	"client": "East West Partners",
-	"project": "Union Station",
-	"description_title": "Title",
-	"description": "Lorem ipsum.",
-	"url": "http://legworkstudio.com",
-	"thumbnail": "<%= asset_path 'desktop/work-union-station.jpg' %>", // NOTE: 570 x 340
-	"background": {
-		// option 1
-		"type": "video",
-		"url": "<%= asset_path 'desktop/some-video' %>"
-
-		// option 2
-		/* 
-		"type": "image",
-		"url": "<%= asset_path 'desktop/some-image.jpg' %>"
-		*/
-	},
-
-	// services
-	"services": [
-		"Branding",
-		"Illustration",
-		"UX / UI",
-		"Web Development"
-	],
-
-	// recognition
-	"recognition": [
-		"FWA SOTD",
-		"CommArts Web Pick",
-		"SXSW Finalist",
-		"Webby Awards Honorable Mention"
-	],
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
+	"title": "Union Station Neighborhood",
+	"summary": "A website for East West Partners.",
+	"thumbnail": "<%= asset_path 'desktop/work/union-station/union-station-thumb.jpg' %>",
+	"related": "exit-zero",
+	"related_name": "Related: The Exit Zero Project",
 
 	// slides
 	"slides": [
-
-		// fullscreen
+		
+		// title screen
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
-		},
+			"type": "TitleScreen",
+			"title": "Union Station Neighborhood",
+			"summary": "A website for East West Partners.",
 
-		// pull quote
-		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
+			"services": [
+				"Strategy",
+				"User Experience",
+				"Creative/Art Direction",
+				"Visual Design",
+				"Development"
+			],
 
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
+			"recognition": [
+				"Webby Awards",
+				"Awwwards",
+				"CommArts",
+				".net Mag",
+				"W3 Awards"
+			],
+			
+			"overview": [
+				"The developers of the Union Station Neighborhood needed a visionary experience that would tell their story on both a tablet in the field and through a regular desktop. Our solution was to merge classic editorial design principles with progressive development techniques to visualize the future of Denver's oldest neighborhood while tipping our hat to its history."
+			],
 
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
+			"url": "http://unionstationdenver.com",
+			
+			"background": {
 				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+				"url": "<%= asset_path 'desktop/work/union-station/union-station-ts-poster.jpg' %>"
 			}
-		},
-
-		// slideshow
-		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
 		}
 	]
 }

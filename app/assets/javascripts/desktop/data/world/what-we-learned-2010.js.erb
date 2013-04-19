@@ -1,97 +1,29 @@
-Legwork.world["what-we-learned-2010"] = {
+Legwork.World["what-we-learned-2010"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/world-wwl2010.jpg' %>"
+			"<%= asset_path 'desktop/world/wwl-2010/wwl-2010-thumb.jpg' %>"
 		],
 		"videos": [],
 		"sequences": []
 	},
 
 	// metadata
-	"title": "What We Learned 2010",
-	"description": "Here's a clue: not much.",
-	"thumbnail": "<%= asset_path 'desktop/world-wwl2010.jpg' %>", // NOTE: 570 x 340
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
+	"title": "What We Learned / 2010",
+	"summary": "A video of thoughts for the Egotist Network.",
+	"thumbnail": "<%= asset_path 'desktop/world/wwl-2010/wwl-2010-thumb.jpg' %>",
+	"related": "what-we-learned-2012",
+	"related_name": "Related: What We Learned 2012",
 
 	// slides
 	"slides": [
 
-		// fullscreen
+		// full screen (w/ video)
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
-		},
-
-		// pull quote
-		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
-
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
-
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
-				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
-			}
-		},
-
-		// slideshow
-		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/world/world-wwl2010.jpg' %>",
+			"id": "17876788"
 		}
 	]
 }

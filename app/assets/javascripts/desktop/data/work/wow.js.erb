@@ -1,127 +1,94 @@
-Legwork.work["wow"] = {
+Legwork.Work["wow"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work-wow.jpg' %>"
+			"<%= asset_path 'desktop/work/wow/wow-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/wow/wow-ts-poster.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "wow-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
 	// project metadata
-	"client": "Wow Cable",
-	"project": "Now That's What I Call Tasty.",
-	"description_title": "Title",
-	"description": "Lorem ipsum.",
-	"url": "http://legworkstudio.com",
-	"thumbnail": "<%= asset_path 'desktop/work-wow.jpg' %>", // NOTE: 570 x 340
-	"background": {
-		// option 1
-		"type": "video",
-		"url": "<%= asset_path 'desktop/some-video' %>"
-
-		// option 2
-		/* 
-		"type": "image",
-		"url": "<%= asset_path 'desktop/some-image.jpg' %>"
-		*/
-	},
-
-	// services
-	"services": [
-		"Branding",
-		"Illustration",
-		"UX / UI",
-		"Web Development"
-	],
-
-	// recognition
-	"recognition": [
-		"FWA SOTD",
-		"CommArts Web Pick",
-		"SXSW Finalist",
-		"Webby Awards Honorable Mention"
-	],
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
+	"title": "Ultra TV",
+	"summary": "A collection of videos for WOW! with Gyro.",
+	"thumbnail": "<%= asset_path 'desktop/work/wow/wow-thumb.jpg' %>",
+	"related": "under-armour",
+	"related_name": "Related: Always Lethal",
 
 	// slides
 	"slides": [
 
-		// fullscreen
+		// title screen
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
-		},
+			"type": "TitleScreen",
+			"title": "Ultra TV",
+			"summary": "A collection of videos for WOW! with Gyro.",
 
-		// pull quote
-		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
-
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
-
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
-				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+			// services
+			"services": [
+				"Art Direction",
+				"Character Development",
+				"Story Boards",
+				"3D Modeling",
+				"Animation",
+				"Live Action Capture"
+			],
+			
+			"overview": [
+				"Wow! has always used real employees to personify their brand. For the release of Ultra TV, their whole home DVR package, they wanted to create a character for the product, too. The following spots feature interactions between the two with a combination of live action footage we captured and the character we developed."
+			],
+			
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "wow-loop",
+				"src": "<%= asset_path 'desktop/work/wow/wow-ts-poster.jpg' %>"
 			}
 		},
 
-		// slideshow
+		// video
 		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
+			"type": "Video",
+			"background_color": "#89af60",
+			"id": "39001482"
+		},
+
+		// panning
+		{
+			"type": "PanningSlide",
+			"image": "<%= asset_path 'desktop/work/wow/wow-panning.jpg' %>",
+			"width": "2500",
+			"height": "1540"
+		},
+
+		// full screen (w/ video)
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/wow/wow-breakdown.jpg' %>",
+			"id": "57015356"
+		},
+
+		// full screen (w/ video)
+		{
+			"type": "Video",
+			"url": "<%= asset_path 'desktop/work/wow/wow-1.jpg' %>",
+			"id": "39000479"
+		},
+
+		// full screen (w/ video)
+		{
+			"type": "Video",
+			"url": "<%= asset_path 'desktop/work/wow/wow-2.jpg' %>",
+			"id": "38999759"
 		}
+
 	]
 }

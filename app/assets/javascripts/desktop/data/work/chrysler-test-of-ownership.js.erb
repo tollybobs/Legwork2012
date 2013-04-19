@@ -1,127 +1,61 @@
-Legwork.work["chrysler-test-of-ownership"] = {
+Legwork.Work["chrysler-test-of-ownership"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work-minivan.jpg' %>"
+			"<%= asset_path 'desktop/work/chrysler-test-of-ownership/chrysler-test-of-ownership-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/chrysler-test-of-ownership/chrysler-test-of-ownership-ts-poster.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "ownership-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
 	// project metadata
-	"client": "Chrysler",
-	"project": "Test of Ownership",
-	"description_title": "Title",
-	"description": "Lorem ipsum.",
-	"url": "http://legworkstudio.com",
-	"thumbnail": "<%= asset_path 'desktop/work-minivan.jpg' %>", // NOTE: 570 x 340
-	"background": {
-		// option 1
-		"type": "video",
-		"url": "<%= asset_path 'desktop/some-video' %>"
-
-		// option 2
-		/* 
-		"type": "image",
-		"url": "<%= asset_path 'desktop/some-image.jpg' %>"
-		*/
-	},
-
-	// services
-	"services": [
-		"Branding",
-		"Illustration",
-		"UX / UI",
-		"Web Development"
-	],
-
-	// recognition
-	"recognition": [
-		"FWA SOTD",
-		"CommArts Web Pick",
-		"SXSW Finalist",
-		"Webby Awards Honorable Mention"
-	],
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
+	"title": "Test of Ownership",
+	"summary": "A website for Chrysler with Wieden+Kennedy.",
+	"thumbnail": "<%= asset_path 'desktop/work/chrysler-test-of-ownership/chrysler-test-of-ownership-thumb.jpg' %>",
+	"related": "diesel-denim-2011",
+	"related_name": "Related: Denim F/W 2011",
 
 	// slides
 	"slides": [
-
-		// fullscreen
+		
+		// title screen
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
-		},
+			"type": "TitleScreen",
+			"title": "Test of Ownership",
+			"summary": "A website for Chrysler with Wieden+Kennedy.",
 
-		// pull quote
-		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
+			"services": [
+				"User Experience",
+				"Art Direction",
+				"Visual Design",
+				"Development",
+				"Server Configuration"
+			],
 
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
-
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
-				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+			"recognition": [
+				"FWA SOTD",
+				"FWA MOTD",
+				"Awwwards"
+			],
+			
+			"overview": [
+				"Minivans are the most researched vehicles on the road. But a lot of the information out there is written by people who only do a cursory evaluation of the cars they review. We had a much larger story to tell with real minivan owners and the data that represents their actions. We knew moms and dads would happily dive into all of the details, we just had to create a place that made it incredibly easy for them to do so."
+			],
+			
+			"url": "http://testofownership.com",
+			
+			"background": {
+				"type": "video",
+				"id": "ownership-loop",
+				"src": "<%= asset_path 'desktop/work/chrysler-test-of-ownership/chrysler-test-of-ownership-ts-poster.jpg' %>"
 			}
-		},
-
-		// slideshow
-		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
 		}
 	]
 }

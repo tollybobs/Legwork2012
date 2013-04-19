@@ -41,16 +41,16 @@ class Legwork.MobileMenu
   ###
   *------------------------------------------*
   | onTouchStart:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | User has initiated a touch.
   *----------------------------------------###
   onTouchStart: (e) =>
     e.preventDefault()
 
     @initial_time = new Date().getTime()
-    @initial_touch = if e.touches? then e.touches[0].pageY - @$menu_btn.offset().top else e.pageY - @$menu_btn.offset().top
+    @initial_touch = if e.touches? then e.touches[0].pageY - (@$menu_btn.offset().top - Legwork.$wn.scrollTop()) else e.pageY - @$menu_btn.offset().top
 
     @$header.removeClass('transition')
 
@@ -60,9 +60,9 @@ class Legwork.MobileMenu
   ###
   *------------------------------------------*
   | onTouchMove:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | User is finger blasting the device.
   *----------------------------------------###
   onTouchMove: (e) =>
@@ -82,9 +82,9 @@ class Legwork.MobileMenu
   ###
   *------------------------------------------*
   | onTouchEnd:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | User has let 'er go.
   *----------------------------------------###
   onTouchEnd: (e) =>
@@ -102,14 +102,34 @@ class Legwork.MobileMenu
         @direction = 'up'
 
       if @direction is 'up'
-        @$header.removeClass('open').addClass('transition').css('margin-top', '0px')
+        @close()
       else if @direction is 'down'
-        @$header.addClass('transition open').css('margin-top', @$nav.outerHeight() + 'px')
+        @open()
+
+  ###
+  *------------------------------------------*
+  | open:void (=)
+  |
+  | Open the menu.
+  *----------------------------------------###
+  open: =>
+    @$header.addClass('transition open').css('margin-top', @$nav.outerHeight() + 'px')
+    @$nav.one 'click', =>
+      setTimeout(@close, 250)
+
+  ###
+  *------------------------------------------*
+  | close:void (=)
+  |
+  | Close the menu.
+  *----------------------------------------###
+  close: =>
+    @$header.removeClass('open').addClass('transition').css('margin-top', '0px')
 
   ###
   *------------------------------------------*
   | resetHeader:void (-)
-  | 
+  |
   | Reset header when app layout changes.
   *----------------------------------------###
   resetHeader: ->

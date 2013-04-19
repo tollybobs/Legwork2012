@@ -1,127 +1,86 @@
-Legwork.work["colorado-lottery-dad"] = {
+Legwork.Work["colorado-lottery-dad"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work-dad.jpg' %>"
+			"<%= asset_path 'desktop/work/colorado-lottery/colorado-lottery-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/colorado-lottery/colorado-lottery-ts-poster.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "colorado-lottery-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
 	// project metadata
-	"client": "Colorado Lottery",
-	"project": "The Legend of your Dad.",
-	"description_title": "Title",
-	"description": "Lorem ipsum.",
-	"url": "http://legworkstudio.com",
-	"thumbnail": "<%= asset_path 'desktop/work-dad.jpg' %>", // NOTE: 570 x 340
-	"background": {
-		// option 1
-		"type": "video",
-		"url": "<%= asset_path 'desktop/some-video' %>"
-
-		// option 2
-		/* 
-		"type": "image",
-		"url": "<%= asset_path 'desktop/some-image.jpg' %>"
-		*/
-	},
-
-	// services
-	"services": [
-		"Branding",
-		"Illustration",
-		"UX / UI",
-		"Web Development"
-	],
-
-	// recognition
-	"recognition": [
-		"FWA SOTD",
-		"CommArts Web Pick",
-		"SXSW Finalist",
-		"Webby Awards Honorable Mention"
-	],
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
+	"title": "The Legend of Your Dad",
+	"summary": "A commercial for Colorado Lottery with Cactus.",
+	"thumbnail": "<%= asset_path 'desktop/work/colorado-lottery/colorado-lottery-thumb.jpg' %>",
+	"related": "stapleton-visitors-center",
+	"related_name": "Related: Conservatory Green",
 
 	// slides
 	"slides": [
-
-		// fullscreen
+		
+		// title screen
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
-		},
+			"type": "TitleScreen",
+			"title": "The Legend of Your Dad",
+			"summary": "A commercial for Colorado Lottery with Cactus.",
 
-		// pull quote
-		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
+			// services
+			"services": [
+				"Live Action Capture",
+				"Art Direction",
+				"Rotoscoping",
+				"Illustration",
+				"Compositing",
+				"Sound Design"
+			],
 
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
+			"overview": [
+				"Cactus Advertising approached Legwork to produce an animated spot for their Colorado Lottery Fathers Day promotion. We took their written script and pushed it as far as we could within the quick timeline, the end result is a visually exciting and humorous take on the Worlds Best Dad."
+			],
 
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
-				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "colorado-lottery-loop",
+				"src": "<%= asset_path 'desktop/work/colorado-lottery/colorado-lottery-ts-poster.jpg' %>"
 			}
 		},
 
-		// slideshow
+		// video
 		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
+			"type": "Video",
+			"background_color": "#91583b",
+			"id": "24807761"
+		},
+
+		// full screen (w/ video)
+		{
+			"type": "FullScreenVideo",
+			"url": "<%= asset_path 'desktop/work/colorado-lottery/colorado-lottery-breakdown.jpg' %>",
+			"id": "57012031"
+		},
+
+		// panning
+		{
+			"type": "PanningSlide",
+			"image": "<%= asset_path 'desktop/work/colorado-lottery/colorado-lottery-storyboards.jpg' %>",
+			"width": "2500",
+			"height": "2500"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/colorado-lottery/colorado-lottery-styleframes.jpg' %>"
 		}
+		
 	]
 }

@@ -9,7 +9,7 @@ class Legwork.Loader
   ###
   *------------------------------------------*
   | constructor:void (-)
-  | 
+  |
   | initObj:object - items to load, etc.
   |
   | Construct the fuggin' thing.
@@ -20,30 +20,61 @@ class Legwork.Loader
     @loaded = 0
     @percent = 0
     @$video_stage = $('#ye-olde-hidden-video-holder')
-    @supports_autoplay = (->
-      # TODO: stronger test
-      if navigator.userAgent.match(/iPhone/i) or navigator.userAgent.match(/iPod/i) or navigator.userAgent.match(/iPad/i)
-        return false
-      else
-        return true
-    )()
-
-    @addSequences()
+    Legwork.supports_autoplay = false
 
     @total = @assets.images.length + @assets.videos.length + 1 # +1 for Twitter
 
+    for sequence in @assets.sequences
+      @total += sequence.frames.length
+
+    @testAutoplay()
     @build()
+
 
   ###
   *------------------------------------------*
-  | addSequences:void (-)
+  | testAutoplay:void (-)
   |
-  | Add sequences to the images array.
+  | Test autoplay capability.
   *----------------------------------------###
-  addSequences: ->
-    for sequence in @assets.sequences
-      Legwork.sequences[sequence.id] = sequence
-      @assets.images = _.union(@assets.images, sequence.frames)
+  testAutoplay: ->
+    fail = 0
+    failed = false
+    start = +(new Date())
+
+    $v = $(JST['desktop/templates/html5-video']({
+      'path': 'autoplay-test',
+      'size': [16, 16],
+      'preload': false
+    }))
+    $v.appendTo(@$video_stage)
+
+    # Fail
+    # Note: we are waiting 1500ms for metadata
+    # to load. This should be well within the
+    # tolerance for global connection speeds.
+    fail = setTimeout =>
+      end = +(new Date())
+      console.log('Autoplay test failed: ' + (end - start))
+      failed = true
+      $v.remove()
+      @loadVideo()
+    , 1500
+
+    # Succeed
+    $v[0].addEventListener 'loadedmetadata', =>
+      end = +(new Date())
+      console.log('Autoplay test succeeded: ' + (end - start))
+      clearTimeout(fail)
+
+      if failed is false
+        Legwork.supports_autoplay = true
+        $v.remove()
+        @loadVideo()
+    , false
+
+    a = new Date().getTime()
+    $v[0].load()
 
   ###
   *------------------------------------------*
@@ -54,7 +85,7 @@ class Legwork.Loader
   build: ->
     @loadTwitter()
     @loadImages()
-    @loadVideo()
+    @loadSequences()
 
   ###
   *------------------------------------------*
@@ -75,18 +106,34 @@ class Legwork.Loader
   | Load the cached Twitter JSON.
   *----------------------------------------###
   loadTwitter: () ->
-    # TODO: cache this shit on our side
-    # TODO: in case of failure?
-    $.getJSON 'https://twitter.com/statuses/user_timeline.json?screen_name=legwork&trim_user=true&count=50&exclude_replies=true&callback=?', (data) =>
+    $.getJSON '/tweetyeah', (data) =>
       Legwork.twitter = data
-      
-      # filter replies, could be done server side
-      for tweet, index in Legwork.twitter
-        if ///^(@|\s@|\s\s@|.@|.\s@)///.test(tweet.text) is true
-          Legwork.twitter = _.without(Legwork.twitter, tweet)
 
       @loaded++
       @updateProgress()
+
+      # filter replies, could be done server side
+      for tweet, index in Legwork.twitter
+        if /^(@|\s@|\s\s@|.@|.\s@)/.test(tweet.text) is true
+          Legwork.twitter = _.without(Legwork.twitter, tweet)
+
+  ###
+  *------------------------------------------*
+  | loadOneImage:void (-)
+  |
+  | Load one image.
+  *----------------------------------------###
+  loadOneImage: (image) ->
+    $current = $('<img />').attr
+      'src': image
+    .one 'load', {'path': image}, (e) =>
+      @loaded++
+      @updateProgress()
+
+    if $current[0].complete is true
+      $current.trigger('load')
+
+    return $current[0]
 
   ###
   *------------------------------------------*
@@ -96,14 +143,25 @@ class Legwork.Loader
   *----------------------------------------###
   loadImages: ->
     for image in @assets.images
-      $current = $('<img />').attr
-        'src': image
-      .one 'load', {'path': image}, (e) =>
-        @loaded++
-        @updateProgress()
+      @loadOneImage(image)
 
-      if $current[0].complete is true
-        $current.trigger('load')
+    return false
+
+  ###
+  *------------------------------------------*
+  | loadSequences:void (-)
+  |
+  | Preload the specified sequences.
+  *----------------------------------------###
+  loadSequences: ->
+    for sequence in @assets.sequences
+      Legwork.sequences[sequence.id] = {
+        'fps': sequence.fps,
+        'frames': []
+      }
+
+      for image, index in sequence.frames
+        Legwork.sequences[sequence.id].frames.push(@loadOneImage(image))
 
     return false
 
@@ -114,12 +172,13 @@ class Legwork.Loader
   | Preload the specified video collection.
   *----------------------------------------###
   loadVideo: ->
-    if Modernizr.video and @supports_autoplay
+    if Modernizr.video and Legwork.supports_autoplay
+
       for video in @assets.videos
         $v = $(JST['desktop/templates/html5-video'](video))
         $v.appendTo(@$video_stage)
 
-        $v[0].addEventListener 'canplaythrough', =>
+        $v[0].addEventListener 'canplay', =>
           @loaded++
           @updateProgress()
 
@@ -141,7 +200,7 @@ class Legwork.Loader
     setTimeout =>
       @$view.fadeOut 600, =>
         @$view.remove()
-        @$el.trigger('Legwork.loaded')
+        @$el.trigger('legwork_load_complete')
     , 1000
 
   ###

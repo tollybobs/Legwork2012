@@ -1,8 +1,0 @@
-<div class="ww-inner activate-it" style="background-position: 0px 0px; background-repeat: no-repeat; 
-background-image: url(<%= @thumbnail %>)">
-  <div class="ww-details">
-    <h2><%= @client %></h2>
-    <h3><%= @project %></h3>
-  </div>
-  <a class="ajaxy" href="<%= @link %>"></a>
-</div>

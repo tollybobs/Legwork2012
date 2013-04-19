@@ -1,127 +1,68 @@
-Legwork.work["new-york-times-obama-vs-boehner"] = {
+Legwork.Work["new-york-times-obama-vs-boehner"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work-nyt.jpg' %>"
+			"<%= asset_path 'desktop/work/nyt-obama-vs-boehner/nyt-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/nyt-obama-vs-boehner/nyt-ts-poster.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "nyt-debt-deal",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
 	// project metadata
-	"client": "New York Times",
-	"project": "Obama vs Boehner.",
-	"description_title": "Title",
-	"description": "Lorem ipsum.",
-	"url": "http://legworkstudio.com",
-	"thumbnail": "<%= asset_path 'desktop/work-nyt.jpg' %>", // NOTE: 570 x 340
-	"background": {
-		// option 1
-		"type": "video",
-		"url": "<%= asset_path 'desktop/some-video' %>"
-
-		// option 2
-		/* 
-		"type": "image",
-		"url": "<%= asset_path 'desktop/some-image.jpg' %>"
-		*/
-	},
-
-	// services
-	"services": [
-		"Branding",
-		"Illustration",
-		"UX / UI",
-		"Web Development"
-	],
-
-	// recognition
-	"recognition": [
-		"FWA SOTD",
-		"CommArts Web Pick",
-		"SXSW Finalist",
-		"Webby Awards Honorable Mention"
-	],
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
+	"title": "Obama vs. Boehner",
+	"summary": "A video feature for The New York Times.",
+	"thumbnail": "<%= asset_path 'desktop/work/nyt-obama-vs-boehner/nyt-thumb.jpg' %>",
+	"related": "clyfford-still",
+	"related_name": "Related: First Light",
 
 	// slides
 	"slides": [
-
-		// fullscreen
+		
+		// title screen
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
-		},
+			"type": "TitleScreen",
+			"title": "Debt Deal: Obama vs. Boehner",
+			"summary": "A video feature for The New York Times.",
 
-		// pull quote
-		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
+			// services
+			"services": [
+				"Art Direction",
+				"Story Boards",
+				"Illustration",
+				"Animation",
+				"Sound Design"
+			],
 
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
-
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
-				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+			// recognition
+			"recognition": [
+				"Vimeo Staff Pick",
+				"newyorktimes.com"
+			],
+			
+			"overview": [
+				"The New York Times approached us to create a video that accompanied an article explaining the failed 2011 debt deal between President Obama and Speaker of the House John Boehner. We partnered with writers at The New York Times to create a piece that  acts as a high-level recount of how the deal came to be — and how it ultimately unraveled."
+			],
+			
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "nyt-debt-deal",
+				"src": "<%= asset_path 'desktop/work/nyt-obama-vs-boehner/nyt-ts-poster.jpg' %>"
 			}
 		},
 
-		// slideshow
+		// video
 		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
+			"type": "Video",
+			"id": "39365605"
 		}
 	]
 }

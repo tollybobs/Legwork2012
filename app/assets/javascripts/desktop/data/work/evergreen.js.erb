@@ -1,0 +1,67 @@
+Legwork.Work["evergreen"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work/evergreen/evergreen-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/evergreen/evergreen-ts-poster.jpg' %>"
+		],
+		"videos": [
+			{
+				"path": "evergreen",
+				"size": [960, 540]
+			}
+		],
+		"sequences": []
+	},
+
+	// project metadata
+	"title": "Evergreen Solar",
+	"summary": "A video for Airwalk.",
+	"thumbnail": "<%= asset_path 'desktop/work/evergreen/evergreen-thumb.jpg' %>",
+	"related": "clyfford-still",
+	"related_name": "Related: Clyfford Still",
+
+	// slides
+	"slides": [
+
+		// title screen
+		{
+			"type": "TitleScreen",
+			"title": "Evergreen Solar",
+			"summary": "A video with dancing trees and bunnies",
+
+			// services
+			"services": [
+				"Illustration",
+				"2D / 3D composition",
+				"Sound Design"
+			],
+			
+			"overview": [
+				"Like so many service based startups, BrightNest wanted to humanize their new product. With no real assets existing, we created a character-driven story to help make a very deep and somewhat complicated business model seem approachable and necessary for homeowners everywhere."
+			],
+			
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "evergreen",
+				"src": "<%= asset_path 'desktop/work/evergreen/evergreen-ts-poster.jpg' %>"
+			}
+		},
+
+		// video
+		{
+			"type": "Video",
+			"background_color": "#191919",
+			"id": "14398414"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/evergreen/evergreen-icons.jpg' %>"
+		}
+	]
+}

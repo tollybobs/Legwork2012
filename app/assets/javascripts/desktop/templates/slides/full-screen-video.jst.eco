@@ -1,0 +1,4 @@
+<div class="slide full-screen-video">
+  <div class="fs-iframe"></div>
+  <div class="fs-poster" style="background-image: url(<%= @url %>)"></div>
+</div>

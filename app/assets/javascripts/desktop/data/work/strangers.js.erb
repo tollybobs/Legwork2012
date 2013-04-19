@@ -1,0 +1,78 @@
+Legwork.Work["strangers"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work/strangers/strangers-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/strangers/strangers-ts-poster.jpg' %>"
+		],
+		"videos": [],
+		"sequences": []
+	},
+
+	// project metadata
+	"title": "Strangers Die Everyday",
+	"summary": "Album artwork for the band.",
+	"thumbnail": "<%= asset_path 'desktop/work/strangers/strangers-thumb.jpg' %>",
+	"related": "american-relay",
+	"related_name": "Related: American Relay",
+
+	// slides
+	"slides": [
+		
+		// title screen
+		{
+			"type": "TitleScreen",
+			"title": "Strangers Die Everyday",
+			"summary": "Album artwork for the band.",
+			
+			"services": [
+				"Creative/Art Direction",
+				"Visual Design",
+				"Illustration",
+				"Collage"
+			],
+
+			"overview": [
+				"Strangers Die Everyday is a post rock group based out of Portland, OR. They came to us for packaging design on a full length album and two song 7”. The concepts for both pieces are based off of personal interpretations of what the band sounds like. "
+			],
+
+			"callout": "View More",
+			
+			"background": {
+				"type": "image",
+				"url": "<%= asset_path 'desktop/work/strangers/strangers-ts-poster.jpg' %>"
+			}
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/strangers/strangers-front-1.jpg' %>",
+			"image_stack": [
+				"<%= asset_path 'desktop/work/strangers/strangers-front-1.jpg' %>",
+				"<%= asset_path 'desktop/work/strangers/strangers-pack-1.jpg' %>",
+				"<%= asset_path 'desktop/work/strangers/strangers-front-2.jpg' %>",
+				"<%= asset_path 'desktop/work/strangers/strangers-pack-2.jpg' %>"
+			]
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/strangers/strangers-pack-1.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/strangers/strangers-front-2.jpg' %>"
+		},	
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/strangers/strangers-pack-2.jpg' %>"
+		}
+	]
+}

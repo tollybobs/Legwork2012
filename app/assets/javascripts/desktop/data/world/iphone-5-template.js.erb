@@ -1,9 +1,9 @@
-Legwork.world["iphone-5-template"] = {
+Legwork.World["iphone-5-template"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/world-iphone5.jpg' %>"
+			"<%= asset_path 'desktop/world/iphone-5-template/iphone-5-thumb.jpg' %>"
 		],
 		"videos": [],
 		"sequences": []
@@ -11,87 +11,30 @@ Legwork.world["iphone-5-template"] = {
 
 	// metadata
 	"title": "iPhone 5 Template",
-	"description": "Another resolution to support, yay.",
-	"thumbnail": "<%= asset_path 'desktop/world-iphone5.jpg' %>", // NOTE: 570 x 340
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
+	"summary": "A design resource we want to share with you.",
+	"thumbnail": "<%= asset_path 'desktop/world/iphone-5-template/iphone-5-thumb.jpg' %>",
+	"related": "legwork-modal",
+	"related_name": "Related: Legwork Modal",
 
 	// slides
 	"slides": [
 
-		// fullscreen
+		// title screen
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
-		},
+			"type": "TitleScreen",
+			"title": "iPhone 5 Template",
+			"summary": "A design resource we wanted to share with you.",
+			
+			"overview": [
+				"Teehan+Lax makes an awesome, comprehensive <a href='http://www.teehanlax.com/tools/' target='_new'>iPhone PSD</a>. That might be what you're looking for. If you need something simple to display comps in at a few different angles though, you've come to the right place. We've got all the screens set up as smart objects so you can painlessly resize and use different angles for your designs."
+			],
 
-		// pull quote
-		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
-
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
-
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
+			"downloadlink": "https://dl.dropboxusercontent.com/u/501848/iphone5-PSD.zip",
+			
+			"background": {
 				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+				"url": "<%= asset_path 'desktop/world/iphone-5-template/iphone-5-ts-poster.png' %>"
 			}
-		},
-
-		// slideshow
-		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
 		}
 	]
 }

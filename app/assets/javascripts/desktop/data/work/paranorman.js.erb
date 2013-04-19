@@ -1,127 +1,127 @@
-Legwork.work["paranorman"] = {
+Legwork.Work["paranorman"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work-paranorman.jpg' %>"
+			"<%= asset_path 'desktop/work/paranorman/paranorman-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/paranorman/paranorman-ts-poster.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "paranorman-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
 	// project metadata
-	"client": "Paranorman",
-	"project": "Fuggin' Website Bro",
-	"description_title": "Title",
-	"description": "Lorem ipsum.",
-	"url": "http://legworkstudio.com",
-	"thumbnail": "<%= asset_path 'desktop/work-paranorman.jpg' %>", // NOTE: 570 x 340
-	"background": {
-		// option 1
-		"type": "video",
-		"url": "<%= asset_path 'desktop/some-video' %>"
-
-		// option 2
-		/* 
-		"type": "image",
-		"url": "<%= asset_path 'desktop/some-image.jpg' %>"
-		*/
-	},
-
-	// services
-	"services": [
-		"Branding",
-		"Illustration",
-		"UX / UI",
-		"Web Development"
-	],
-
-	// recognition
-	"recognition": [
-		"FWA SOTD",
-		"CommArts Web Pick",
-		"SXSW Finalist",
-		"Webby Awards Honorable Mention"
-	],
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
+	"title": "Paranorman",
+	"summary": "A website for Laika with Wieden+Kennedy and Mode Set.",
+	"thumbnail": "<%= asset_path 'desktop/work/paranorman/paranorman-thumb.jpg' %>",
+	"related": "chrysler-ifd",
+	"related_name": "Related: Imported From Detroit",
 
 	// slides
 	"slides": [
-
-		// fullscreen
+		
+		// title screen
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
+			"type": "TitleScreen",
+			"title": "Paranorman",
+			"summary": "A website for Laika with Wieden+Kennedy &amp; Mode Set.",
+
+			// services
+			"services": [
+				"User Experience",
+				"Visual Design",
+				"Image Retouch/Manipulation",
+				"Development",
+				"Server Configuration"
+			],
+
+			// recognition
+			"recognition": [
+				"FWA SOTD",
+				"FWA MOTD",
+				"Adobe Cutting Edge",
+				"Art Directors Club",
+				"Google Creative Sandbox",
+				"CommArts",
+				"Awwwards"
+			],
+
+			"overview": [
+				"Laika, the makers of ParaNorman, know a little something about attention to detail. They put so much energy into making this beautiful world, that the last thing we wanted to do was sell the visual aspect of the movie short. So, we set out to replicate the stunning world that Laika created by using custom content and scoring, creating device specific experiences, and peppering hidden worlds and behind the scenes content throughout the site."
+			],
+
+			"url": "http://paranorman.com",
+			"callout": "Details",
+
+			"background": {
+				"type": "video",
+				"id": "paranorman-loop",
+				"src": "<%= asset_path 'desktop/work/paranorman/paranorman-ts-poster.jpg' %>"
+			}
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-prototypes.jpg' %>",
+			"sidebar": {
+				"title": "Process",
+				"text": "<p>Our friends at Wieden+Kennedy came to us with a really solid concept of what they were looking for. The only thing was, it included a lot of ideas we weren't sure would be possible in the browsers we had to support. So, we focused a lot of our time upfront to ensure we were all on the same page and prototyped the interactions we weren't sure about to understand their limitations before we started on the visual design. From their we prioritized features, created, revised and kept making things better until we reached our deadline.</p><p><a href='http://test.legworkstudio.com/paranorman/desktop/' target='_new'>View Desktop Prototypes</a><br><a href='http://test.legworkstudio.com/paranorman/mobile/' target='_new'>View Mobile Prototypes</a></p>"
+			}
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-styleguide.jpg' %>"
 		},
 
 		// pull quote
 		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
-
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
-
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
+			"type": "PullQuote",
+			"background": {
 				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
-			}
+				"url": "<%= asset_path 'desktop/work/paranorman/paranorman-craft.jpg' %>"
+			},
+			"color": "#c2d94f",
+			"quote": "To create the visuals for each scene we took plates from the movie or digital photographs for specific requests and constructed custom experiences with them. Sometimes this was pretty simple, like cutting out a character to separate them from a scene, and other times (with the amazing help of our friend Tom Hamilton) it got pretty intense, like creating a photorealistic shower curtain out of nothing.<br><br>The following slides show a few examples of the image production we undertook."
 		},
 
-		// slideshow
+		// full screen (w/ image)
 		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-before.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-after.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-before-2.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-after-2.jpg' %>"
+		},
+
+		// panning
+		{
+			"type": "PanningSlide",
+			"image": "<%= asset_path 'desktop/work/paranorman/paranorman-cutout.jpg' %>",
+			"width": "2500",
+			"height": "1830"
 		}
 	]
 }

@@ -22,30 +22,54 @@ class Legwork.Application
     Legwork.$header = $('header')
     Legwork.$view = $('#legwork')
     Legwork.$footer = $('footer')
+    Legwork.$logo = $('h1', Legwork.$header)
 
+    Legwork.filters = ['interactive', 'motion', 'illustration', 'about-us', 'open-source', 'extracurricular']
+
+    Legwork.scroll_top = Legwork.$wn.scrollTop()
     Legwork.sequences = {}
+    Legwork.slide_controllers = {}
+    Legwork.open_detail_state = null
+    Legwork.current_detail_controller = null
+    Legwork.pro_tip = true
+
+    Legwork.click = 'click'
+    Legwork.mousedown = 'mousedown'
+    Legwork.mouseup = 'mouseup'
+    Legwork.mousemove = 'mousemove'
+
+    if Modernizr.touch then Legwork.click = 'touchstart'
+    if Modernizr.touch then Legwork.mousedown = 'touchstart'
+    if Modernizr.touch then Legwork.mouseup = 'touchend'
+    if Modernizr.touch then Legwork.mousemove = 'touchmove'
 
     # Class vars
     @$menu_btn = $('#menu-btn')
-    @$bg_wrap = $('#wrap-the-background')
     @$canvas_wrap = $('#wrap-the-canvas')
     @$lines = $('#lines')
-    @$line_wrap = $('#wrap-the-lines')
     @$stuff_wrap = $('#wrap-the-stuff')
+    @$filter_wrap = $('#wrap-the-filter')
+    @$filter = $('.filter')
+    @$404_wrap = $('#wrap-the-404')
     @$stuff_reveal = $('#reveal-the-stuff')
     @$detail = $('#detail')
     @$detail_inner = $('#detail-inner')
     @$detail_close = $('#detail-close-btn')
-    @$related_drawer = $('#related-drawer')
+    @$related_btn = $('#related-btn')
 
     @History = window.History
-    @stuff = []
-    @lifelines = @getLifelines()
+    @sequenced_stuff = []
+    @lifelines = []
     @line_ctx = @$lines[0].getContext('2d')
     @twitter_index = 0
     @scroll_timeout = 0
     @resize_timeout = 0
     @vector_utils = new Legwork.VectorUtils()
+    @cell_over = {}
+
+    @home_title = 'Creativity. Innovation. DIY Ethic.'
+    @lost_title = 'Hey bud, are you lost?'
+    @doc_title = @home_title
 
     @preload()
 
@@ -57,17 +81,16 @@ class Legwork.Application
   *----------------------------------------###
   preload: ->
     # Merge initial assets
-    # TODO: All or some?
-    home_assets = Legwork.home.assets
+    home_assets = Legwork.Home.assets
     site_assets = {images:[], videos:[], sequences:[]}
     main_assets = {images:[], videos:[], sequences:[]}
 
-    for id, work of Legwork.work
+    for id, work of Legwork.Work
       site_assets.images = _.union(site_assets.images, work.assets.images)
       site_assets.videos = _.union(site_assets.videos, work.assets.videos)
       site_assets.sequences = _.union(site_assets.sequences, work.assets.sequences)
 
-    for id, world of Legwork.world
+    for id, world of Legwork.World
       site_assets.images = _.union(site_assets.images, world.assets.images)
       site_assets.videos = _.union(site_assets.videos, world.assets.videos)
       site_assets.sequences = _.union(site_assets.sequences, world.assets.sequences)
@@ -79,8 +102,8 @@ class Legwork.Application
     @preloader = new Legwork.MainLoader({'$el': Legwork.$body, 'assets': main_assets})
 
     Legwork.$body
-      .off('Legwork.loaded', @onLoadComplete)
-      .one('Legwork.loaded', @onLoadComplete)
+      .off('legwork_load_complete', @onLoadComplete)
+      .one('legwork_load_complete', @onLoadComplete)
 
   ###
   *------------------------------------------*
@@ -93,15 +116,160 @@ class Legwork.Application
   onLoadComplete: (e) =>
     @build()
 
-    @$stuff_reveal.delay(111).animate
-      'width':'0%'
-    , 666, 'easeInOutExpo', =>
-      @$stuff_reveal.remove()
+    @$launch = $('.launch-btn')
+    @$sequence = $('.sequenced')
+    @lifelines = @getLifelines()
 
-      Legwork.$header.find('h1')
-        .animate
+    @observeSomeSweetEvents()
+
+    # Check initial url and set state
+    @state = @History.getState()
+    url = @state.hash.replace(/^\/|\.|\#/g, '')
+
+    @doc_title = url
+
+    if url is ''
+      @doc_title = @home_title
+      @current_state = ''
+      @homeTransition()
+    else if url in Legwork.filters
+      @$canvas_wrap.hide()
+      @$stuff_wrap.hide()
+      @$filter_wrap.show()
+      @buildFilter(url)
+
+      # Set filter button
+      Legwork.$header.find('a[id$="-' + url + '"]').addClass('selected')
+
+      @$detail_close.attr('href', '/' + url)
+      @current_state = 'filter'
+      @homeTransition()
+    else if Legwork.Work[url]? or Legwork.World[url]?
+      @$detail
+        .show()
+        .css('background-color', '#000')
+
+      @$stuff_reveal
+        .hide()
+        .css({
+          'position': 'fixed',
+          'width': '100%'
+        })
+
+      Legwork.$header.css 'margin-top','0px'
+      Legwork.$footer.css 'bottom','0px'
+      Legwork.$logo.css 'margin-bottom','0px'
+
+      Legwork.open_detail_state = url
+      @loadDetail(url)
+      @detailControlsIn()
+
+      @current_state = 'detail'
+    else
+      @$canvas_wrap.hide()
+      @$stuff_wrap.hide()
+      @$404_wrap.show()
+      @buildFourOhFour(url)
+
+      @doc_title = @lost_title
+      @current_state = '404'
+      @homeTransition()
+
+    # Set page title in browser
+    @makeTitle(@doc_title)
+
+  ###
+  *------------------------------------------*
+  | homeTransition:void (-)
+  |
+  | Transition the home or filter view in.
+  *----------------------------------------###
+  homeTransition: ->
+    Legwork.$header.animate
+      'margin-top': '0px'
+    ,
+      'duration': 500
+      'easing': 'easeInOutExpo'
+      'step': (now, fx) =>
+        Legwork.$footer.css('bottom', now + 'px')
+      'complete': =>
+        Legwork.$logo.animate
           'margin-bottom':'0px'
-        , 666, 'easeInOutExpo'
+        , 500, 'easeInOutExpo'
+
+        @reveal()
+
+  ###
+  *------------------------------------------*
+  | erase:void (-)
+  |
+  | callback:function - callback
+  |
+  | Erase the screen.
+  *----------------------------------------###
+  erase: (callback) ->
+    @resetEraseAndReveal()
+
+    @erase_trans = new Legwork.ImageSequence({
+      '$el': @$stuff_reveal,
+      'settings': Legwork.sequences['erase']
+    })
+
+    @$stuff_reveal
+      .css('background-color', 'transparent')
+      .show()
+      .off('sequence_complete')
+      .one 'sequence_complete', (e) =>
+        @$stuff_reveal.css('background-color', '#fff')
+        @erase_trans.destroy()
+        @erase_trans = null
+
+        if callback?
+          callback()
+
+  ###
+  *------------------------------------------*
+  | reveal:void (-)
+  |
+  | Reveal the screen.
+  *----------------------------------------###
+  reveal: (callback) ->
+    @resetEraseAndReveal()
+
+    @reveal_trans = new Legwork.ImageSequence({
+      '$el': @$stuff_reveal,
+      'settings': Legwork.sequences['reveal']
+    })
+
+    @$stuff_reveal
+      .off('sequence_frame')
+      .one 'sequence_frame', (e) =>
+        setTimeout =>
+          @$stuff_reveal.css('background-color', 'transparent')
+        , 100
+      .off('sequence_complete')
+      .one 'sequence_complete', (e) =>
+        @$stuff_reveal.hide()
+        @reveal_trans.destroy()
+        @reveal_trans = null
+
+        if callback?
+          callback()
+
+  ###
+  *------------------------------------------*
+  | resetEraseAndReveal:void (-)
+  |
+  | Reset erase and reveal.
+  *----------------------------------------###
+  resetEraseAndReveal: ->
+    if @reveal_trans?
+      @reveal_trans.destroy()
+      @reveal_trans = null
+
+    if @erase_trans?
+      @erase_trans.destroy()
+      @erase_trans = null
 
   ###
   *------------------------------------------*
@@ -110,26 +278,39 @@ class Legwork.Application
   | Build the lifelines object.
   *----------------------------------------###
   getLifelines: ->
-    obj = {
-      'twitter': {
-        'color': 'rgba(247, 142, 198, 1)',
-        'coords': []
-      },
-      'work': {
-        'color': 'rgba(234, 233, 56, 1)',
-        'coords': []
-      },
-      'world': {
-        'color': 'rgba(151, 213, 242, 1)',
-        'coords': []
-      }
-    }
+    levels = 8
+    side = 'l'
+    colors = [
+      'rgba(234, 233, 56, 0.0375)',
+      'rgba(151, 213, 242, 0.0375)',
+      'rgba(247, 142, 198, 0.0375)',
+      'rgba(179, 227, 148, 0.0375)'
+    ]
+    color = colors[Math.floor(Math.random() * colors.length)]
+    obj = []
 
-    for stuff, id in Legwork.home.layout
-      category = @getStuffType(stuff.type).replace(/animated|sequenced/g, '')
-      
-      if category isnt ''
-        obj[category].coords.push({'x':stuff.position[1], 'y':stuff.position[0]})
+    for j in [0..(levels - 1)]
+      line = {
+        'color': color,
+        'coords': [],
+        'tightness': (Math.random() * 1) + 3,
+        'weight': (Math.random() * 50) + (j * 20)
+      }
+
+      obj.push(line)
+
+    @$sequence.each (index, elm)->
+      for item, i in obj
+        if i % levels is 0
+          xpos = (Math.random() * (Legwork.$wn.width() * 0.4))
+          ypos = $(elm).offset().top + (Math.random() * 300)
+
+          if side is 'r'
+            xpos = Legwork.$wn.width() - xpos
+
+        item.coords.push({'x':xpos, 'y':ypos})
+
+      side = if side is 'r' then 'l' else 'r'
 
     return obj
 
@@ -139,7 +320,7 @@ class Legwork.Application
   |
   | cnv:dom - canvas
   |
-  | Clear the canvas.
+  | Clear the canvas. Now you've done it.
   *----------------------------------------###
   clear: (cnv) ->
     ctx = cnv.getContext('2d')
@@ -158,35 +339,36 @@ class Legwork.Application
   | Couldn't have done this without
   | http://bit.ly/tvuzR4. Thanks CBH!
   *----------------------------------------###
-  lines: (obj, width, tightness) ->
+  lines: (obj) ->
     p = 0
     points = obj.coords
+    tightness = obj.tightness
 
     @line_ctx.strokeStyle = obj.color
-    @line_ctx.lineWidth = width
+    @line_ctx.lineWidth = obj.weight + Math.round(Math.random() * 20)
 
     @line_ctx.beginPath()
-    @line_ctx.moveTo(@getOffset(points[0].x), @getOffset(points[0].y))
+    @line_ctx.moveTo(points[0].x, points[0].y)
 
     for p in [1..(points.length - 1)]
 
       # For the second point set the it's control points
       if p is 1
-        points[p].c1x = @getOffset(points[p - 1].x)
-        points[p].c1y = @getOffset(points[p - 1].y)
+        points[p].c1x = points[p - 1].x
+        points[p].c1y = points[p - 1].y
 
       # For the penultimate point set the it's control points
       if p is (points.length - 1)
-        points[p].c2x = @getOffset(points[p].x)
-        points[p].c2y = @getOffset(points[p].y)
+        points[p].c2x = points[p].x
+        points[p].c2y = points[p].y
       else
 
         # Thanks to JORIKI and Pumbaa80 at stackexchange for all the help with this next bit!
 
         # Set some aliases for the previous, current and next points
-        a = [@getOffset(points[p - 1].x), @getOffset(points[p - 1].y)]
-        b = [@getOffset(points[p].x), @getOffset(points[p].y)]
-        c = [@getOffset(points[p + 1].x), @getOffset(points[p + 1].y)]
+        a = [points[p - 1].x, points[p - 1].y]
+        b = [points[p].x, points[p].y]
+        c = [points[p + 1].x, points[p + 1].y]
 
         # Get the change in the vectors
         delta_a = @vector_utils.subtract(b, a)
@@ -206,7 +388,7 @@ class Legwork.Application
         points[p + 1].c1y = b[1] + ((Math.sqrt(@vector_utils.sqr(delta_c[0]) + @vector_utils.sqr(delta_c[1])) / tightness) * mc[1])
 
       # lines
-      @line_ctx.bezierCurveTo(points[p].c1x, points[p].c1y, points[p].c2x, points[p].c2y, @getOffset(points[p].x), @getOffset(points[p].y))
+      @line_ctx.bezierCurveTo(points[p].c1x, points[p].c1y, points[p].c2x, points[p].c2y, points[p].x, points[p].y)
 
     @line_ctx.stroke()
 
@@ -223,19 +405,7 @@ class Legwork.Application
     @line_ctx.translate(0, -Legwork.$wn.scrollTop())
 
     for key, value of @lifelines
-      @lines(value, 1, 3)
-
-  ###
-  *------------------------------------------*
-  | getOffset:void (-)
-  |
-  | v:number - value as % of width
-  |
-  | Get the offset of the passed val for
-  | the current app size.
-  *----------------------------------------###
-  getOffset: (v) ->
-    return (Math.floor(v * Legwork.app_width) + 1)
+      @lines(value)
 
   ###
   *------------------------------------------*
@@ -249,55 +419,47 @@ class Legwork.Application
       @mobile_menu = new Legwork.MobileMenu()
 
     # Add the stuff
-    for stuff, id in Legwork.home.layout
+    for stuff, id in Legwork.Home.layout
       category = @getStuffType(stuff.type)
-
-      # Container
-      $container = $(JST['desktop/templates/stuff'](stuff))
-      $content = ''
-      $parent = if category is 'sequenced' or category is 'animated' then @$bg_wrap else @$stuff_wrap
 
       # Content
       switch category
         when 'sequenced'
           $content = $(JST['desktop/templates/sequence'](stuff))
-          $('#' + stuff.content[0]).addClass('video-in').appendTo($content)
-          $('#' + stuff.content[1]).addClass('video-out').appendTo($content)
-        when 'animated'
-          $content = $(JST['desktop/templates/animation'](stuff))
+
+          $vid_wrap = $content.find('.sequenced-content-wrap')
+
+          $('#' + stuff.content[0]).addClass('video-in').appendTo($vid_wrap)
+          $('#' + stuff.content[1]).addClass('video-out').appendTo($vid_wrap)
+
+          # Collect
+          @sequenced_stuff.push($content)
         when 'twitter'
-          $content = $(JST['desktop/templates/twitter'](@getNextTweet()))
-        when 'work'
-          data = Legwork.work[stuff.content]
-          data.link = '/work/' + stuff.content
-          $content = $(JST['desktop/templates/work'](data))
-        when 'world'
-          data = Legwork.world[stuff.content]
-          data.link = '/world/' + stuff.content
-          $content = $(JST['desktop/templates/world'](data))
+          data = {
+            tweets: [@getNextTweet(), @getNextTweet()]
+          }
+          data.type = category
+          $content = $(JST['desktop/templates/twitter'](data))
+        when 'work', 'world'
+          data = Legwork.Work[stuff.content] or Legwork.World[stuff.content]
+          data.type = category
+          data.link = '/' + stuff.content
+          $content = $(JST['desktop/templates/ww'](data))
 
       # Append to DOM
-      $container.append($content).appendTo($parent)
-
-      # Initial Event
-      $container
-        .one('Legwork.activate', @onStuffActivate)
-
-      # Collect
-      @stuff.push($container)
-
-    @observeSomeSweetEvents()
+      # TODO: append all at once?
+      $content.appendTo(@$stuff_wrap)
 
   ###
   *------------------------------------------*
-  | getStuffType:void (-)
+  | getStuffType:string (-)
   |
   | t:string - type/class string
   |
   | What type of stuff are we dealing with?
   *----------------------------------------###
   getStuffType: (t) ->
-    return t.replace(/\s|big|small|left|right|stuff|ignore/g, '')
+    return t.replace(/\s|cf|left|right|stuff/g, '')
 
   ###
   *------------------------------------------*
@@ -307,17 +469,17 @@ class Legwork.Application
   | on scroll position.
   *----------------------------------------###
   doStuff: ->
-    for $t, index in @stuff
+    for $t, index in @sequenced_stuff
       if $t.offset().top < Legwork.event_horizon
-        $t.trigger('Legwork.activate')
+        $t.trigger('activate')
       else
-        $t.not('.ignore').trigger('Legwork.deactivate')
+        $t.trigger('deactivate')
 
   ###
   *------------------------------------------*
   | getNextTweet:object (-)
   |
-  | Get the next Tweet.
+  | Get the next Tweet. Go ahead, get 'er.
   *----------------------------------------###
   getNextTweet: ->
     tweet = Legwork.twitter[@twitter_index]
@@ -326,15 +488,16 @@ class Legwork.Application
     date = ''
     source = tweet.source
 
-    # test
-    #text = 'This rad tweet is custom built for testing a #hashtag and a @mention of someone and is exactly 140 characters long. <a href="legworkstudio.com" target="_new">http://legworkstudio.com</a>'
-
     @twitter_index++
 
     # format mentions, hashes and links
-    text = text.replace(/(^|\s)(@\w+)\b/g, ' <span class="tweet-at">$2</span>')
-    text = text.replace(/(^|\s)(#\w+)\b/g, ' <span class="tweet-hash">$2</span>')
     text = text.replace(/([A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+)/g, '<a href="$1" target="_new">$1</a>')
+    text = text.replace(/(^|\s)(@\w+)\b/g, (match, p1, p2, offset, string) ->
+      return ' <a href="http://twitter.com/' + p2.replace(/@/, '') + '" target="_new">' + p2 + '</a>'
+    )
+    text = text.replace(/(^|\s)(#\w+)\b/g, (match, p1, p2, offset, string) ->
+      return ' <a class="tweet-hash" href="http://twitter.com/search?q=' + p2.replace(/#/, '') + '" target="_new">' + p2 + '</a>'
+    )
 
     # format date
     time_since_tweet = Math.floor((new Date() - new Date(Date.parse(timestamp))) / 1000)
@@ -361,8 +524,8 @@ class Legwork.Application
       date = @toWords(Math.round(time_since_tweet / 86400)) + " days ago"
     else if time_since_tweet <= 777600
       date = "One week ago"
-    else if time_since_tweet <= 1000000
-      date = "In ancient times"
+    else
+      date = "More than a week ago"
 
     # prepare source
     source = source.replace(/(^<.+>)(.+)(<.+>$)/, '$2')
@@ -370,8 +533,7 @@ class Legwork.Application
 
     return {
       'text': text,
-      'date': date,
-      'source': source
+      'details': date.charAt(0).toUpperCase() + date.slice(1) + ' via ' + source
     }
 
   ###
@@ -399,12 +561,12 @@ class Legwork.Application
       if (x - i) % 3 is 2
         if n[i] is '1'
           str += tn[Number(n[i + 1])] + ' '
-          i++ # TODO: isn't working
+          i++
           sk = 1
-        else if n[i] isnt 0
+        else if n[i] isnt '0'
           str += tw[n[i] - 2] + ' '
           sk = 1
-      else if n[i] isnt 0
+      else if n[i] isnt '0'
         str += dg[n[i]] + ' '
         if (x - i) % 3 is 0
           str += 'hundred '
@@ -423,7 +585,8 @@ class Legwork.Application
   | Start layout.
   *----------------------------------------###
   startLayout: ->
-    @$canvas_wrap.hide()
+    if Legwork.app_width >= 740
+      @$canvas_wrap.hide()
 
   ###
   *------------------------------------------*
@@ -432,14 +595,8 @@ class Legwork.Application
   | Compute layout for current window width.
   *----------------------------------------###
   layout: ->
-    for $t, index in @stuff
-      pos = @getLayoutOffset($t.data('position'), Legwork.app_width)
-      $t.css(pos)
-
-      if (+pos.top.replace(/px/, '')) < Legwork.$wn.height()
-        $t.addClass('ignore')
-      else
-        $t.removeClass('ignore')
+    if Legwork.app_width < 1025
+      $('.sequenced-inner').find('video').hide()
 
   ###
   *------------------------------------------*
@@ -448,25 +605,27 @@ class Legwork.Application
   | Finish layout.
   *----------------------------------------###
   finishLayout: ->
-    @$lines
-      .attr('width', Legwork.app_width)
-      .attr('height', Math.floor(Legwork.$wn.height() / 2))
+    if Legwork.app_width >= 1025
 
-    @$canvas_wrap.show()
+      # Lines
+      @$lines
+        .attr('width', Legwork.app_width)
+        .attr('height', Math.floor(Legwork.$wn.height() * 0.50))
+
+      @lifelines = @getLifelines()
+
+      if @current_state isnt 'filter' and @current_state isnt '404'
+        @$canvas_wrap.show()
+
+      # Animations
+      for $t, index in @sequenced_stuff
+        $t
+          .off('activate deactivate')
+          .one('activate', @onStuffActivate)
+          .eq(0)
+          .trigger('activate')
 
     Legwork.$wn.trigger('scroll')
-
-  ###
-  *------------------------------------------*
-  | getLayoutOffset:object (-)
-  |
-  | p:array - [top, left]
-  | w:number - current container width
-  |
-  | Get the position for the passed coords.
-  *----------------------------------------###
-  getLayoutOffset: (p, w) ->
-    return {'top': Math.floor(w * p[0]) + 'px'}
 
   ###
   *------------------------------------------*
@@ -485,30 +644,37 @@ class Legwork.Application
       .one('scroll', @onScrollStart)
       .on('scroll', @onScroll)
       .trigger('resize')
-      .trigger('scroll')
+
+    # Launchers
+    Legwork.$view
+      .on('mouseenter', '.launch-btn', @onStuffHover)
+      .on('mouseleave', '.launch-btn', @onStuffHover)
 
     # Ajaxy
     Legwork.$body
       .on('click', '.ajaxy', @onAjaxyLinkClick)
 
+    return false
+
   ###
   *------------------------------------------*
   | onScrollStart:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | Window has started scrolling.
   *----------------------------------------###
   onScrollStart: (e) =>
     if Legwork.app_width >= 1025
-      @$canvas_wrap.stop(true, false).css('opacity', 1)
+      if @current_state isnt 'filter' and @current_state isnt '404'
+        @$canvas_wrap.stop(true, false).css('opacity', 1)
 
   ###
   *------------------------------------------*
   | onScroll:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | Window is being scrolled.
   *----------------------------------------###
   onScroll: (e) =>
@@ -516,7 +682,7 @@ class Legwork.Application
     clearTimeout(@scroll_timeout)
     @scroll_timeout = setTimeout(@onScrollComplete, 333)
 
-    Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() / 2)) + 34
+    Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() * 0.50))
 
     if Legwork.app_width >= 1025
       @doLines()
@@ -525,7 +691,7 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | onScrollComplete:void (=)
-  | 
+  |
   | Window is done being scrolled.
   *----------------------------------------###
   onScrollComplete: =>
@@ -534,24 +700,48 @@ class Legwork.Application
       .one('scroll', @onScrollStart)
 
     if Legwork.app_width >= 1025
-      @$canvas_wrap.stop(true, false).animate({'opacity':0.25}, 250, 'linear')
+      if @current_state isnt 'filter' and @current_state isnt '404'
+        @$canvas_wrap.stop(true, false).animate({'opacity':0.666}, 250, 'linear')
+
+  ###
+  *------------------------------------------*
+  | scrollUp:void (-)
+  |
+  | callback:function - callback
+  |
+  | Back to the top.
+  *----------------------------------------###
+  scrollUp: (callback) ->
+    $({
+      'scroll': Legwork.$wn.scrollTop()
+    }).animate({
+      'scroll': 0
+    }, {
+      'duration': 1000,
+      'easing': 'easeInOutExpo',
+      'step': (now, fx) =>
+        Legwork.$wn.scrollTop(now)
+      ,
+      'complete': (e) =>
+        callback()
+    })
 
   ###
   *------------------------------------------*
   | onResizeStart:void (=)
-  | 
+  |
   | Resize has started.
   *----------------------------------------###
   onResizeStart: (e) =>
-    if Legwork.app_width >= 740
-      @startLayout()
+    @$launch.removeClass('over')
+    @startLayout()
 
   ###
   *------------------------------------------*
   | onResize:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | Window is being resized.
   *----------------------------------------###
   onResize: (e) =>
@@ -560,7 +750,7 @@ class Legwork.Application
     @resize_timeout = setTimeout(@onResizeComplete, 333)
 
     # Global cache app size
-    Legwork.app_width = @$stuff_wrap.outerWidth()
+    Legwork.app_width = Legwork.$wn.width()
 
     # Reset the mobile header if it exists, otherwise build
     # the mobile menu if the button becomese visible
@@ -569,20 +759,12 @@ class Legwork.Application
     else if @$menu_btn.is(':visible') is true
       @mobile_menu = new Legwork.MobileMenu()
 
-    if Legwork.app_width < 1025
-      $('.sequenced-inner').find('video').hide()
-      $('.activate-it').css('display', '')
-
-    if Legwork.app_width < 740
-      $('.stuff').addClass('no-position')
-    else
-      $('.stuff').removeClass('no-position')
-      @layout()
+    @layout()
 
   ###
   *------------------------------------------*
   | onResizeComplete:void (=)
-  | 
+  |
   | Resize is finished.
   *----------------------------------------###
   onResizeComplete: =>
@@ -590,63 +772,88 @@ class Legwork.Application
     Legwork.$wn
       .one('resize', @onResizeStart)
 
-    if Legwork.app_width >= 740
-      @finishLayout()
-
-    if Legwork.app_width >= 1025
-      for $t, index in @stuff
-        $t
-          .off('Legwork.activate')
-          .off('Legwork.deactivate')
-          .one('Legwork.activate', @onStuffActivate)
-
-      Legwork.$wn.trigger('scroll')
+    @finishLayout()
 
   ###
   *------------------------------------------*
   | onStuffActivate:void (=)
-  | 
+  |
   | e:object - event object
-  | 
-  | This stuff got activated.
+  |
+  | This stuff got activated/deactivated.
   *----------------------------------------###
   onStuffActivate: (e) =>
     $t = $(e.currentTarget)
-    category = @getStuffType($t.attr('class'))
 
-    if category is 'sequenced'
+    if e.type is 'activate'
       @playSequence($t, 'in')
+      $t.one('deactivate', @onStuffActivate)
     else
-      $t.find('.activate-it').fadeIn(250)
-
-    $t.one('Legwork.deactivate', @onStuffDeactivate)
+      @playSequence($t, 'out')
+      $t.one('activate', @onStuffActivate)
 
   ###
   *------------------------------------------*
-  | onStuffDeactivate:void (=)
-  | 
+  | onStuffHover:void (=)
+  |
   | e:object - event object
-  | 
-  | This stuff got deactivated.
+  |
+  | This stuff got moused with. Get it?
   *----------------------------------------###
-  onStuffDeactivate: (e) =>
+  onStuffHover: (e) =>
+    if Legwork.app_width < 1024
+      return false
+
     $t = $(e.currentTarget)
-    category = @getStuffType($t.attr('class'))
+    $w = $t.find('.ww-hover')
+    x = Math.round(e.pageX - $t.offset().left)
+    y = Math.round(e.pageY - $t.offset().top)
+    w = $t.outerWidth()
+    category = @getStuffType($t.parents('.stuff').attr('class'))
+    type = e.type
+    sequence = if type is 'mouseenter' then 'ww_hover' else category + '_out'
+    id = $t.find('a').attr('href').replace(/\//, '')
 
-    if category is 'sequenced'
-      @playSequence($t, 'out')
-    else
-      $t.find('.activate-it').fadeOut(250)
+    x = Math.max(Math.min(x, w), 0)
+    y = Math.max(Math.min(y, 46), 0)
 
-    $t.one('Legwork.activate', @onStuffActivate)
+    $w
+      .css({
+        'top': y + 'px',
+        'left': x + 'px',
+        'margin-left': -w + 'px'
+      })
+      .off('sequence_complete')
+      .one 'sequence_complete', (e) =>
+        if type is 'mouseenter'
+          $t.addClass('over')
+        else
+          $t.removeClass('over')
+
+        @cell_over[id].destroy()
+        @cell_over[id] = null
+
+    if @cell_over[id]?
+      @cell_over[id].destroy()
+      @cell_over[id] = null
+
+      if type is 'mouseenter'
+        $t.removeClass('over')
+      else
+        $t.addClass('over')
+
+    @cell_over[id] = new Legwork.ImageSequence({
+      '$el': $w,
+      'settings': Legwork.sequences[sequence]
+    })
 
   ###
   *------------------------------------------*
   | playSequence:void (-)
-  | 
+  |
   | $parent:dom - sequence container
   | type:string - in or out
-  | 
+  |
   | Play a sequence video.
   *----------------------------------------###
   playSequence: ($parent, type) ->
@@ -663,9 +870,9 @@ class Legwork.Application
   ###
   *------------------------------------------*
   | onAjaxyLinkClick:void (=)
-  | 
+  |
   | e:object - event object
-  | 
+  |
   | User has clicked an ajaxy link.
   *----------------------------------------###
   onAjaxyLinkClick: (e) =>
@@ -675,59 +882,116 @@ class Legwork.Application
 
     $t = $(e.currentTarget)
 
-    if $t.hasClass('selected') is true
-      $t.removeClass('selected')
-      @History.pushState(null, null, '/')
+    if $t.hasClass('filter') is true
+      if $t.hasClass('selected') is true
+        $t.removeClass('selected')
+        @History.pushState(null, null, '/')
+      else
+        @History.pushState(null, null, $t.attr('href'))
     else
-      $('.ajaxy').removeClass('selected')
-      $t.addClass('selected')
       @History.pushState(null, null, $t.attr('href'))
 
   ###
   *------------------------------------------*
   | onAppStateChange:void (=)
-  | 
+  |
   | App state (URL) has changed.
   *----------------------------------------###
   onAppStateChange: =>
     @state = @History.getState()
-
     url = @state.hash.replace(/^\/|\.|\#/g, '')
-    parts = url.split('/')
 
-    @route(parts)
+    @route(url)
 
   ###
   *------------------------------------------*
   | route:void (-)
-  | 
+  |
   | to:array - url parts
-  | 
+  |
   | Route to the passed url.
   *----------------------------------------###
   route: (to) ->
-    switch to[0]
-      when ''
+    @doc_title = to
+    @$filter.removeClass('selected')
+
+    if to is ''
+      if @current_state is 'detail'
         @resetDetail()
-      when 'work', 'world'
-        if @$detail.is(':visible')
-          @loadDetail(to)
-        else
-          @openDetail(to)
-      when 'filter'
-        @openFilter(to[1])
+
+      if @current_state is 'filter'
+        @openFilter('')
+
+      if @current_state is '404'
+        @openFourOhFour('')
+
+      @current_state = ''
+      @doc_title = @home_title
+    else if to in Legwork.filters
+      if @current_state is 'detail'
+        @resetDetail()
+      else
+        @openFilter(to)
+
+      # Set filter button
+      Legwork.$header.find('a[id$="-' + to + '"]').addClass('selected')
+
+      @current_state = 'filter'
+      _gaq.push(['_trackPageview', '/' + to])
+    else if Legwork.Work[to]? or Legwork.World[to]?
+
+      if @$detail.is(':visible')
+        Legwork.current_detail_controller.deactivate()
+        @loadDetail(to)
+      else
+        Legwork.scroll_top = Legwork.$wn.scrollTop()
+        Legwork.$wn.scrollTop(Legwork.scroll_top)
+        @openDetail(to)
+
+      @current_state = 'detail'
+      _gaq.push(['_trackPageview', '/' + to])
+    else
+      if @$404_wrap.is(':visible')
+        @buildFourOhFour(to)
+      else
+        @openFourOhFour(to)
+
+      @doc_title = @lost_title
+      @current_state = '404'
+      _gaq.push(['_trackPageview', '/404/' + to])
+
+    @makeTitle(@doc_title)
+
+  ###
+  *------------------------------------------*
+  | makeTitle:void (-)
+  |
+  | Set Document Title.
+  *----------------------------------------###
+  makeTitle: (@doc_title) ->
+    if @doc_title isnt @home_title or @doc_title isnt @lost_title
+      @doc_title = @doc_title.replace(/-/g, ' ').replace(/\b[a-z]/g, (txt) ->
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+      )
+    document.title = 'Legwork Studio / ' + @doc_title
 
   ###
   *------------------------------------------*
   | openDetail:void (-)
-  | 
-  | callback:function - callback
+  |
   | item:string - work/world id
-  | 
+  |
   | Open the detail view.
   *----------------------------------------###
   openDetail: (item) ->
-    detail_in = new Legwork.ImageSequence({
+    # Set reference to what you open on
+    Legwork.open_detail_state = item
+
+    if @detail_in?
+      @detail_in.destroy()
+      @detail_in = null
+
+    @detail_in = new Legwork.ImageSequence({
       '$el': @$detail,
       'settings': Legwork.sequences['detail_open']
     })
@@ -735,69 +999,209 @@ class Legwork.Application
     @$detail
       .css('background-color', 'transparent')
       .show()
-      .off('Legwork.sequence_complete')
-      .one 'Legwork.sequence_complete', (e) =>
-        detail_in.destroy()
+      .off('sequence_complete')
+      .one 'sequence_complete', (e) =>
+        @detail_in.destroy()
+        @detail_in = null
         @$detail.css('background-color', '#000')
-
-        setTimeout =>
-          @loadDetail(item)
-        , 500
-
-        setTimeout =>
-          @$detail_close.animate
-            'margin-top': '0px'
-          ,
-            'duration': 500
-            'easing': 'easeInOutExpo'
-            'step': (now, fx) =>
-              @$related_drawer.css('margin-bottom', -201 + now + 'px')
-        , 1000
+        @loadDetail(item)
+        @detailControlsIn()
 
   ###
   *------------------------------------------*
-  | openWork:void (-)
-  | 
-  | item:array - type, id
-  | 
+  | detailControlsIn:void (-)
+  |
+  | Transition the detail controls in.
+  *----------------------------------------###
+  detailControlsIn: ()->
+    setTimeout =>
+      @$detail_close.animate
+        'margin-top': '0px'
+      ,
+        'duration': 500
+        'easing': 'easeInOutExpo'
+        'step': (now, fx) =>
+          @$related_btn.css('margin-bottom', now + 'px')
+    , 666
+
+  ###
+  *------------------------------------------*
+  | loadDetail:void (-)
+  |
+  | item:string - work/world id
+  |
   | Load a detail item.
   *----------------------------------------###
   loadDetail: (item) ->
-    if @$detail_inner.hasClass('open')
-      @$detail_inner.removeClass('open')
+    model = Legwork.Work[item] or Legwork.World[item]
 
-      setTimeout =>
-        @loadDetail(item)
-      , 1000
+    if Legwork.slide_controllers[item]?
+      controller = Legwork.slide_controllers[item]
+    else
+      if model.slides.length > 1
+        controller = Legwork.slide_controllers[item] = new Legwork.CaseStudyDetail
+          model: model
+          slug: item
+      else
+        controller = Legwork.slide_controllers[item] = new Legwork.SingleDetail
+          model: model
+          slug: item
 
-      return false
+      @$detail_inner.append controller.build()
+      controller.initialize()
 
-    # TODO: instantiate, load
-    # Note, unlike ParaNorman, detail views will be abstract
-    @$detail_inner.addClass('open')
+    controller.activate()
+    Legwork.current_detail_controller = controller
+
+    Legwork.$view.hide()
 
   ###
   *------------------------------------------*
   | resetDetail:void (-)
-  | 
+  |
   | Reset the detail view.
   *----------------------------------------###
   resetDetail: () ->
+    Legwork.$view.show()
+    Legwork.$wn.scrollTop(Legwork.scroll_top)
+
     @$detail_close.css('margin-top', '-55px')
-    @$related_drawer.css('margin-bottom', '-256px')
-    @$detail.fadeOut 'fast', =>
-      @$detail_inner.removeClass('open')
+    @$related_btn.css('margin-bottom', '-55px')
+    @$detail.fadeOut 400, =>
+      Legwork.current_detail_controller.deactivate()
+    @finishLayout()
 
   ###
   *------------------------------------------*
   | openFilter:void (-)
-  | 
+  |
   | filter:string - filter id
-  | 
+  |
   | Open a filter.
   *----------------------------------------###
   openFilter: (filter) ->
-    console.log('add 5 canvases and roll, son!')
+    if Legwork.$wn.scrollTop() isnt 0
+      @scrollUp =>
+        @openFilter(filter)
+    else
+      @$detail_close.attr('href', '/' + filter)
+      @erase =>
+        if filter isnt ''
+          @loadFilter(filter)
+        else
+          @reset()
+
+  ###
+  *------------------------------------------*
+  | loadFilter:void (-)
+  |
+  | filter:string - filter id
+  |
+  | Load a filter.
+  *----------------------------------------###
+  loadFilter: (filter) ->
+    @$canvas_wrap.hide()
+    @$stuff_wrap.hide()
+    @$404_wrap.hide()
+    @$filter_wrap
+      .empty()
+      .show()
+
+    @buildFilter(filter)
+    @reveal()
+
+  ###
+  *------------------------------------------*
+  | buildFilter:void (-)
+  |
+  | filter:string - filter id
+  |
+  | Build a filter.
+  *----------------------------------------###
+  buildFilter: (filter)->
+    manifest = Legwork[filter]
+    content = ''
+
+    for stuff, id in manifest.layout
+      category = @getStuffType(stuff.type)
+
+      # Content
+      switch category
+        when 'sequenced'
+          content += JST['desktop/templates/sequence'](stuff)
+        when 'work', 'world'
+          data = Legwork.Work[stuff.content] or Legwork.World[stuff.content]
+          data.type = category
+          data.link = '/' + stuff.content
+          content += JST['desktop/templates/ww'](data)
+
+    # Append to DOM
+    @$filter_wrap.append(content)
+
+  ###
+  *------------------------------------------*
+  | openFourOhFour:void (-)
+  |
+  | url:string - attempted url
+  |
+  | Now you've fuggin' done it.
+  *----------------------------------------###
+  openFourOhFour: (url) ->
+    if Legwork.$wn.scrollTop() isnt 0
+      @scrollUp =>
+        @openFilter(filter)
+    else
+      @erase =>
+        if url isnt ''
+          @loadFourOhFour(url)
+        else
+          @reset()
+
+  ###
+  *------------------------------------------*
+  | loadFourOhFour:void (-)
+  |
+  | url:string - attempted url
+  |
+  | Load 404.
+  *----------------------------------------###
+  loadFourOhFour: (url) ->
+    @$canvas_wrap.hide()
+    @$stuff_wrap.hide()
+    @$filter_wrap.hide()
+    @$filter.removeClass('selected')
+    @$404_wrap.show()
+
+    @buildFourOhFour(url)
+    @reveal()
+
+  ###
+  *------------------------------------------*
+  | buildFourOhFour:void (-)
+  |
+  | url:string - attempted url
+  |
+  | You did.
+  *----------------------------------------###
+  buildFourOhFour: (url) ->
+    content = '<h1>Hey bud, are you lost? No routes match "' + url.replace(/[^a-z0-9_-]+/gi, '') + '". <a class="ajaxy" href="/">Go home</a>.</h1>'
+
+    # Append to DOM
+    @$404_wrap.html(content)
+
+  ###
+  *------------------------------------------*
+  | reset:void (-)
+  |
+  | Get back on track.
+  *----------------------------------------###
+  reset: ->
+    @$filter_wrap.hide()
+    @$404_wrap.hide()
+    @$stuff_wrap.show()
+
+    @reveal()
+    @finishLayout()
 
 # Kick the tires and light the fires!
 $ ->

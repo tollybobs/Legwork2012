@@ -1,127 +1,104 @@
-Legwork.work["healing-histories"] = {
+Legwork.Work["healing-histories"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work-hh.jpg' %>"
+			"<%= asset_path 'desktop/work/healing-histories/hh-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/healing-histories/hh-ts-poster.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "healing-histories-loop",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 
 	// project metadata
-	"client": "Kellogg Foundation",
-	"project": "Healing Histories: New Orleans.",
-	"description_title": "Title",
-	"description": "Lorem ipsum.",
-	"url": "http://legworkstudio.com",
-	"thumbnail": "<%= asset_path 'desktop/work-hh.jpg' %>", // NOTE: 570 x 340
-	"background": {
-		// option 1
-		"type": "video",
-		"url": "<%= asset_path 'desktop/some-video' %>"
-
-		// option 2
-		/* 
-		"type": "image",
-		"url": "<%= asset_path 'desktop/some-image.jpg' %>"
-		*/
-	},
-
-	// services
-	"services": [
-		"Branding",
-		"Illustration",
-		"UX / UI",
-		"Web Development"
-	],
-
-	// recognition
-	"recognition": [
-		"FWA SOTD",
-		"CommArts Web Pick",
-		"SXSW Finalist",
-		"Webby Awards Honorable Mention"
-	],
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
+	"title": "Healing Histories",
+	"summary": "An interactive documentary for WKKF with Weber Shandwick.",
+	"thumbnail": "<%= asset_path 'desktop/work/healing-histories/hh-thumb.jpg' %>",
+	"related": "coke-ah",
+	"related_name": "Related: The Ahh Effect",
 
 	// slides
 	"slides": [
-
-		// fullscreen
+		
+		// title screen
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
-		},
+			"type": "TitleScreen",
+			"title": "Healing Histories",
+			"summary": "An interactive documentary for WKKF with Weber Shandwick.",
 
-		// pull quote
-		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
+			"services": [
+				"User Experience",
+				"Creative/Art Direction",
+				"Visual Design",
+				"Development",
+				"Server Configuration"
+			],
 
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
-
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
-				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+			"recognition": [
+				"Webby Awards",
+				"FWA SOTD",
+				"FWA MOTD",
+				"Awwwards",
+				"CommArts"
+			],
+			
+			"overview": [
+				"This new take on online journalism offers visitors a nonlinear way to explore stories of New Orleans residents, their struggle to rebuild their community post Hurricane Katrina and overcome racial divides. The unconventional story arc allows users to discover different elements of each story by defining their own path."
+			],
+			
+			"url": "http://healinghistories.com",
+			"callout": "Details",
+			
+			"background": {
+				"type": "video",
+				"id": "healing-histories-loop",
+				"src": "<%= asset_path 'desktop/work/healing-histories/hh-ts-poster.jpg' %>"
 			}
 		},
 
-		// slideshow
+		// full screen (w/ image)
 		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/healing-histories/hh-agile.jpg' %>",
+			"sidebar": {
+				"title": "Overcoming Challenges",
+				"text": "<p>We knew that our client was interested in a nonlinear way to thread together bits and pieces of content to craft a larger story, but none of that content had been produced yet. It was challenging to know exactly what to design for so we worked in an <a href='http://en.wikipedia.org/wiki/Agile_software_development' target='_new'>agile</a> environment to keep us flexible to changes and able to adapt the project based on the footage that was gathered. We designed templates to high level <a href='http://en.wikipedia.org/wiki/User_story' target='_new'>user stories</a> and then iterated from there as the real content started coming in.</p>"
+			}
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/healing-histories/hh-moodboard.jpg' %>",
+			"sidebar": {
+				"title": "Getting Started",
+				"text": "<p>When we got started, we compiled a collection of photographs, graphics, textures and other inspiration to ensure we were on the right path. We wanted to get the art direction in line with the end goals of the project at an early stage while things were still easily malleable.</p>"
+			}
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/healing-histories/hh-styleguide.jpg' %>",
+			"sidebar": {
+				"title": "Creating A System",
+				"text": "<p>From there we started to create a system of interface components. Going far beyond aesthetic benefits, this system ensured usability, efficiency and consistency throughout the entire project for both the end users and our development team. These elements were created with flexibility in mind to work seamlessly within the higher level structure of the project.</p>"
+			}
 		}
+
+		// full screen (w/ image)
+		// {
+		// 	"type": "FullScreenImage",
+		// 	"image": "<%= asset_path 'desktop/work/work-placeholder.jpg' %>",
+		// 	"sidebar": {
+		// 		"title": "Let's Get Technical",
+		// 		"text": "<p>We started this project thinking that an <a href='http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller' target='_new'>MVC framework</a> would be overkill, but we went ahead and built it on top of <a href='http://backbonejs.org' target='_new'>Backbone</a> as a teaching/learning exercise. In the end, it turned out there was no way we could have managed the complexities of the various application states without it. The entire site is deep-linkable and each view has hooks for being enabled and disabled when being transitioned to and from; and paused and resumed when the navigation is hidden and shown. Coming up with our own system for all of that without a solid base would have been foolish.</p>"
+		// 	}
+		// }
 	]
 }

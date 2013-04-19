@@ -1,0 +1,71 @@
+Legwork.Work["airwalk-jim"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work/airwalk-jim/airwalk-jim-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/airwalk-jim/airwalk-jim-ts-poster.jpg' %>"
+		],
+		"videos": [
+			{
+				"path": "airwalk-jim",
+				"size": [960, 540]
+			}
+		],
+		"sequences": []
+	},
+
+	// project metadata
+	"title": "The Airwalk Jim",
+	"summary": "A video for Airwalk.",
+	"thumbnail": "<%= asset_path 'desktop/work/airwalk-jim/airwalk-jim-thumb.jpg' %>",
+	"related": "clyfford-still",
+	"related_name": "Related: Clyfford Still",
+
+	// slides
+	"slides": [
+		
+		// title screen
+		{
+			"type": "TitleScreen",
+			"title": "Airwalk Jim",
+			"summary": "A video for BrightNest.",
+
+			// services
+			"services": [
+				"Illustration",
+				"2D / 3D composition",
+				"Sound Design"
+			],
+			
+			"overview": [
+				"Like so many service based startups, BrightNest wanted to humanize their new product. With no real assets existing, we created a character-driven story to help make a very deep and somewhat complicated business model seem approachable and necessary for homeowners everywhere."
+			],
+			
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "airwalk-jim",
+				"src": "<%= asset_path 'desktop/work/airwalk-jim/airwalk-jim-ts-poster.jpg' %>"
+			}
+		},
+
+		// video
+		{
+			"type": "Video",
+			"background_color": "#191919",
+			"id": "17168663"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/airwalk-jim/airwalk-jim-compositions.jpg' %>",
+			"sidebar": {
+				"title": "So Pitted",
+				"text": "<p>Ah bra, it's just like, dude you get the best barrels ever dude. It's just like you pull in and just get spit right out of them. And you just drop in and just smack the lip. Whuppah! Jus-drop down, send it baahhahhh! And then after that you just drop in and just ride the barrel and get pitted, so pitted like that.</p>"
+			}
+		}
+	]
+}

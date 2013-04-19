@@ -1,9 +1,10 @@
-Legwork.world["legwork-modal"] = {
+Legwork.World["legwork-modal"] = {
 
 	// assets to preload
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/world-code.jpg' %>"
+			"<%= asset_path 'desktop/world/legwork-modal/lw-modal-thumb.jpg' %>",
+			"<%= asset_path 'desktop/world/legwork-modal/lw-modal-ts-poster.jpg' %>"
 		],
 		"videos": [],
 		"sequences": []
@@ -11,87 +12,30 @@ Legwork.world["legwork-modal"] = {
 
 	// metadata
 	"title": "Legwork Modal v1.2",
-	"description": "They have magic powers.",
-	"thumbnail": "<%= asset_path 'desktop/world-code.jpg' %>", // NOTE: 570 x 340
-
-	// related
-	"related": [
-		"/work/this-thing",
-		"/work/that-thing",
-		"/world/other-thing"
-	],
+	"summary": "A code resource we want to share with you.",
+	"thumbnail": "<%= asset_path 'desktop/world/legwork-modal/lw-modal-thumb.jpg' %>",
+	"related": "valentines",
+	"related_name": "Related: Valentine's Vectors",
 
 	// slides
 	"slides": [
 
-		// fullscreen
+		// title screen
 		{
-			"type": "fullscreen",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pan": true,
-			"size": [1000, 800]
-		},
-
-		// pull quote
-		{
-			"type": "pull_quote",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"quote": "I just went from six to midnight."
-		},
-
-		// text
-		{
-			"type": "text",
-			"background": "<%= asset_path 'desktop/some-img.jpg' %>",
-			"pages": [
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				},
-				{
-					"title": "Some Title",
-					"text": "Lorem ipsum."
-				}
-			]
-		},
-
-		// media
-		{
-			"type": "media",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"asset": {
-				// option 1
-				"type": "vimeo",
-				"url": "vimeo_id"
-
-				// option 2
-				/*
+			"type": "TitleScreen",
+			"title": "Legwork Modal v1.2",
+			"summary": "A code resource we wanted to share with you.",
+			
+			"overview": [
+				"If you love something you must set it free. So go ahead and take this sweet vector set and make something for that special someone."
+			],
+			
+			"downloadlink": "https://github.com/legworkstudio/Legwork-Modal",
+			
+			"background": {
 				"type": "image",
-				"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				*/
+				"url": "<%= asset_path 'desktop/world/legwork-modal/lw-modal-ts-poster.jpg' %>"
 			}
-		},
-
-		// slideshow
-		{
-			"type": "slideshow",
-			"title": "Some Title",
-			"text": "Lorem ipsum",
-			"slides": [
-				{
-					"type": "vimeo",
-					"url": "vimeo_id"
-				},
-				{
-					"type": "image",
-					"url": "<%= asset_path 'desktop/some-img.jpg' %>"
-				}
-			]
 		}
 	]
 }

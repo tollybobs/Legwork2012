@@ -1,0 +1,63 @@
+Legwork.Work["under-armour"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work/under-armour/under-armour-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/under-armour/under-armour-ts-poster.jpg' %>"
+		],
+		"videos": [
+			{
+				"path": "under-armour-loop",
+				"size": [960, 540]
+			}
+		],
+		"sequences": []
+	},
+
+	// project metadata
+	"title": "Always Lethal",
+	"summary": "A collection of product demonstrations for Under Armour.",
+	"thumbnail": "<%= asset_path 'desktop/work/under-armour/under-armour-thumb.jpg' %>",
+	"related": "brightnest",
+	"related_name": "Related: BrightNest",
+
+	// slides
+	"slides": [
+		
+		// title screen 
+		{
+			"type": "TitleScreen",
+			"title": "Always Lethal",
+			"summary": "A collection of product demonstrations for Under Armour.",
+
+			// services
+			"services": [
+				"Art Direction",
+				"Visual Design",
+				"Motion tracking",
+				"Graphics Production",
+				"Animation",
+			],
+			
+			"overview": [
+				"Hunting is the newest division in a fast growing line of products from Under Armour. We were asked to create a series of short promotional videos that focus on the technical features of the line, and introduce their sponsored athletes. The spots were placed strategically in partner sites as well as on their own online properties."
+			],
+			
+			"callout": "Watch Video",
+			
+			"background": {
+				"type": "video",
+				"id": "under-armour-loop",
+				"src": "<%= asset_path 'desktop/work/under-armour/under-armour-ts-poster.jpg' %>"
+			}
+		},
+
+		// video
+		{
+			"type": "Video",
+			"background_color": "#191919",
+			"id": "46114393"
+		}
+	]
+}

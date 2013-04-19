@@ -1,0 +1,81 @@
+Legwork.Work["american-relay"] = {
+
+	// assets to preload
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work/american-relay/american-relay-ts-poster.jpg' %>"
+		],
+		"videos": [],
+		"sequences": []
+	},
+
+	// project metadata
+	"title": "American Relay",
+	"summary": "Album artwork for the band.",
+	"thumbnail": "<%= asset_path 'desktop/work/american-relay/american-relay-thumb.jpg' %>",
+	"related": "one-show",
+	"related_name": "Related: One Show Mailer",
+
+	// slides
+	"slides": [
+		
+		// title screen
+		{
+			"type": "TitleScreen",
+			"title": "American Relay",
+			"summary": "Album artwork for the band.",
+
+			"services": [
+				"Creative/Art Direction",
+				"Collage",
+				"Illustration",
+				"Visual Design"
+			],
+
+			"recognition": [
+				"PRINT Design Annual"
+			],
+			
+			"overview": [
+				"American Relay was a two man, delta-blues rock band who approached us to develop artwork for their debut album, Corn & Oil. Our concept for the final design was inspired by classic blues/folk posters and subtle references to some of the lyrics on the record."
+			],
+
+			"callout": "View More",
+			
+			"background": {
+				"type": "image",
+				"url": "<%= asset_path 'desktop/work/american-relay/american-relay-ts-poster.jpg' %>"
+			}
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/american-relay/american-relay-front.jpg' %>",
+			"image_stack": [
+				"<%= asset_path 'desktop/work/american-relay/american-relay-front.jpg' %>",
+				"<%= asset_path 'desktop/work/american-relay/american-relay-pack.jpg' %>",
+				"<%= asset_path 'desktop/work/american-relay/american-relay-open.jpg' %>",
+				"<%= asset_path 'desktop/work/american-relay/american-relay-back.jpg' %>"
+			]
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/american-relay/american-relay-pack.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/american-relay/american-relay-open.jpg' %>"
+		},
+
+		// full screen (w/ image)
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/american-relay/american-relay-back.jpg' %>"
+		}
+	]
+}

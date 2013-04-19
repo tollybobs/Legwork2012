@@ -14,3 +14,15 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+<<<<<<< HEAD
+/.vagrant
+=======
+.vagrant/machines/default/virtualbox/id
+
+Vagrantfile
+
+config/database.yml
+>>>>>>> More of the same

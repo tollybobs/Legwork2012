@@ -1,3 +1,0 @@
-<div class="<%= @type %> stuff" style="left: <%= @position[1] * 100 %>%;" data-position="[<%= @position[0] %>, <%= @position[1] %>]">
-  <div class="marker"></div>
-</div>

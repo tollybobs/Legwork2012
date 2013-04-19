@@ -71,8 +71,6 @@ class Legwork.Application
     @lost_title = 'Hey bud, are you lost?'
     @doc_title = @home_title
 
-    @filter_transition = false
-
     @preload()
 
   ###
@@ -210,9 +208,9 @@ class Legwork.Application
   | Erase the screen.
   *----------------------------------------###
   erase: (callback) ->
-    @filter_transition = true
+    @resetEraseAndReveal()
 
-    erase = new Legwork.ImageSequence({
+    @erase_trans = new Legwork.ImageSequence({
       '$el': @$stuff_reveal,
       'settings': Legwork.sequences['erase']
     })
@@ -223,7 +221,8 @@ class Legwork.Application
       .off('sequence_complete')
       .one 'sequence_complete', (e) =>
         @$stuff_reveal.css('background-color', '#fff')
-        erase.destroy()
+        @erase_trans.destroy()
+        @erase_trans = null
 
         if callback?
           callback()
@@ -235,9 +234,9 @@ class Legwork.Application
   | Reveal the screen.
   *----------------------------------------###
   reveal: (callback) ->
-    @filter_transition = true
+    @resetEraseAndReveal()
 
-    reveal = new Legwork.ImageSequence({
+    @reveal_trans = new Legwork.ImageSequence({
       '$el': @$stuff_reveal,
       'settings': Legwork.sequences['reveal']
     })
@@ -251,11 +250,26 @@ class Legwork.Application
       .off('sequence_complete')
       .one 'sequence_complete', (e) =>
         @$stuff_reveal.hide()
-        reveal.destroy()
-        @filter_transition = false
+        @reveal_trans.destroy()
+        @reveal_trans = null
 
         if callback?
           callback()
+
+  ###
+  *------------------------------------------*
+  | resetEraseAndReveal:void (-)
+  |
+  | Reset erase and reveal.
+  *----------------------------------------###
+  resetEraseAndReveal: ->
+    if @reveal_trans?
+      @reveal_trans.destroy()
+      @reveal_trans = null
+
+    if @erase_trans?
+      @erase_trans.destroy()
+      @erase_trans = null
 
   ###
   *------------------------------------------*
@@ -864,21 +878,18 @@ class Legwork.Application
   onAjaxyLinkClick: (e) =>
     e.preventDefault()
 
-    if @filter_transition is true
-      return false
-    else
-      if e.which is 2 or e.metaKey is true then return true
+    if e.which is 2 or e.metaKey is true then return true
 
-      $t = $(e.currentTarget)
+    $t = $(e.currentTarget)
 
-      if $t.hasClass('filter') is true
-        if $t.hasClass('selected') is true
-          $t.removeClass('selected')
-          @History.pushState(null, null, '/')
-        else
-          @History.pushState(null, null, $t.attr('href'))
+    if $t.hasClass('filter') is true
+      if $t.hasClass('selected') is true
+        $t.removeClass('selected')
+        @History.pushState(null, null, '/')
       else
         @History.pushState(null, null, $t.attr('href'))
+    else
+      @History.pushState(null, null, $t.attr('href'))
 
   ###
   *------------------------------------------*
@@ -973,7 +984,11 @@ class Legwork.Application
     # Set reference to what you open on
     Legwork.open_detail_state = item
 
-    detail_in = new Legwork.ImageSequence({
+    if @detail_in?
+      @detail_in.destroy()
+      @detail_in = null
+
+    @detail_in = new Legwork.ImageSequence({
       '$el': @$detail,
       'settings': Legwork.sequences['detail_open']
     })
@@ -983,7 +998,8 @@ class Legwork.Application
       .show()
       .off('sequence_complete')
       .one 'sequence_complete', (e) =>
-        detail_in.destroy()
+        @detail_in.destroy()
+        @detail_in = null
         @$detail.css('background-color', '#000')
         @loadDetail(item)
         @detailControlsIn()
@@ -1061,7 +1077,6 @@ class Legwork.Application
   *----------------------------------------###
   openFilter: (filter) ->
     if Legwork.$wn.scrollTop() isnt 0
-      @filter_transition = true
       @scrollUp =>
         @openFilter(filter)
     else

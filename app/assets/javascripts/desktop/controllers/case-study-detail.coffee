@@ -124,11 +124,11 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   resetSlides: =>
     @$slides
       .removeClass('current')
-      .css('left', '100%')
+      .css('margin-left', '100%')
 
     @$slides.eq(@current_slide_index)
       .addClass('current')
-      .css('left', '0%')
+      .css('margin-left', '0%')
       .show()
 
     @$current_cnt.text(@current_slide_index + 1)
@@ -177,9 +177,11 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   *------------------------------------------*
   | nextSlide:void (=)
   |
+  | e:object - event object
+  |
   | Next. Next slide.
   *----------------------------------------###
-  nextSlide: =>
+  nextSlide: (e) =>
     if @inmotion then return false
     else @inmotion = true
 
@@ -192,10 +194,10 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     @$current_cnt.text(@current_slide_index + 1)
 
-    @$slides.css('left','100%')
-    @current_slide_view.$el.addClass('current').css({'left': '0%', 'z-index': '1'}).show()
-    @old_slide_view.$el.removeClass('current').css({'left':'0%', 'z-index':'2'}).stop().animate
-      left: '-100%'
+    @$slides.css('margin-left','100%')
+    @current_slide_view.$el.addClass('current').css({'margin-left': '0%', 'z-index': '1'}).show()
+    @old_slide_view.$el.removeClass('current').css({'margin-left':'0%', 'z-index':'2'}).stop().animate
+      'margin-left': '-100%'
     , 666, 'easeInOutExpo', =>
       @old_slide_view.$el.hide()
       @old_slide_view.deactivate()
@@ -213,9 +215,11 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   *------------------------------------------*
   | priorSlide:void (=)
   |
+  | e:object - event object
+  |
   | Prior. Prior slide.
   *----------------------------------------###
-  priorSlide: =>
+  priorSlide: (e) =>
     if @inmotion then return false
     else @inmotion = true
 
@@ -231,10 +235,10 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     if @current_slide_index is 0
       @$back_btn.css 'top','-50px'
 
-    @$slides.css('left','100%')
-    @old_slide_view.$el.removeClass('current').css({'left': '0%', 'z-index': '1'})
-    @current_slide_view.$el.addClass('current').css({'left':'-100%', 'z-index':'2'}).show().stop().animate
-      left: '-0%'
+    @$slides.css('margin-left','100%')
+    @old_slide_view.$el.removeClass('current').css({'margin-left': '0%', 'z-index': '1'})
+    @current_slide_view.$el.addClass('current').css({'margin-left':'-100%', 'z-index':'2'}).show().stop().animate
+      'margin-left': '-0%'
     , 666, 'easeInOutExpo', =>
       @old_slide_view.$el.hide()
       @old_slide_view.deactivate()
@@ -249,6 +253,8 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   *------------------------------------------*
   | handleArrowKeys:void (=)
   |
+  | e:object - event object
+  |
   | Determine wich direction to slide
   | based on left or right arrow key hit
   *----------------------------------------###
@@ -257,11 +263,11 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     if kc is 37
       e.preventDefault()
-      @priorSlide()
+      @$back_btn.trigger('click')
 
     if kc is 39
       e.preventDefault()
-      @nextSlide()
+      @$next_btn.trigger('click')
 
   ###
   *------------------------------------------*
@@ -282,13 +288,3 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   turnOnKeyboardNav: =>
     @handlingArrowKeys = true
     Legwork.$doc.on 'keyup.slider', @handleArrowKeys
-
-
-
-
-
-
-
-
-
-

@@ -65,6 +65,7 @@ class Legwork.Application
     @scroll_timeout = 0
     @resize_timeout = 0
     @vector_utils = new Legwork.VectorUtils()
+    @cell_over = {}
 
     @home_title = 'Creativity. Innovation. DIY Ethic.'
     @lost_title = 'Hey bud, are you lost?'
@@ -797,6 +798,7 @@ class Legwork.Application
     category = @getStuffType($t.parents('.stuff').attr('class'))
     type = e.type
     sequence = if type is 'mouseenter' then 'ww_hover' else category + '_out'
+    id = $t.find('a').attr('href').replace(/\//, '')
 
     x = Math.max(Math.min(x, w), 0)
     y = Math.max(Math.min(y, 46), 0)
@@ -814,17 +816,19 @@ class Legwork.Application
         else
           $t.removeClass('over')
 
-        @cell_over.destroy()
+        @cell_over[id].destroy()
+        @cell_over[id] = null
 
-    if @cell_over?
-      @cell_over.destroy()
+    if @cell_over[id]?
+      @cell_over[id].destroy()
+      @cell_over[id] = null
 
       if type is 'mouseenter'
         $t.removeClass('over')
       else
         $t.addClass('over')
 
-    @cell_over = new Legwork.ImageSequence({
+    @cell_over[id] = new Legwork.ImageSequence({
       '$el': $w,
       'settings': Legwork.sequences[sequence]
     })
@@ -1177,8 +1181,8 @@ class Legwork.Application
     @$404_wrap.hide()
     @$stuff_wrap.show()
 
-    @reveal =>
-      @finishLayout()
+    @reveal()
+    @finishLayout()
 
 # Kick the tires and light the fires!
 $ ->

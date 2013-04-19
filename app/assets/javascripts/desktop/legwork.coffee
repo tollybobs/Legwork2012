@@ -937,6 +937,7 @@ class Legwork.Application
       Legwork.$header.find('a[id$="-' + to + '"]').addClass('selected')
 
       @current_state = 'filter'
+      _gaq.push(['_trackPageview', '/' + to])
     else if Legwork.Work[to]? or Legwork.World[to]?
 
       if @$detail.is(':visible')
@@ -948,6 +949,7 @@ class Legwork.Application
         @openDetail(to)
 
       @current_state = 'detail'
+      _gaq.push(['_trackPageview', '/' + to])
     else
       if @$404_wrap.is(':visible')
         @buildFourOhFour(to)
@@ -956,6 +958,7 @@ class Legwork.Application
 
       @doc_title = @lost_title
       @current_state = '404'
+      _gaq.push(['_trackPageview', '/404/' + to])
 
     @makeTitle(@doc_title)
 
@@ -1064,8 +1067,9 @@ class Legwork.Application
 
     @$detail_close.css('margin-top', '-55px')
     @$related_btn.css('margin-bottom', '-55px')
-    @$detail.fadeOut 'fast', =>
+    @$detail.fadeOut 400, =>
       Legwork.current_detail_controller.deactivate()
+    @finishLayout()
 
   ###
   *------------------------------------------*

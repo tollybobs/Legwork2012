@@ -310,10 +310,14 @@
                     font: normal normal normal 11px/11px 'Helvetica Neue', Helvetica, Arial, sans-serif
                     color: #666
 
-                  .launch-btn
+                  .launch-wrap
                     position: absolute
                     top: 0px
                     left: 0px
+                    width: 100%
+                    height: 100%
+
+                  .launch-btn
                     width: 100%
                     height: 100%
 
@@ -1483,7 +1487,6 @@
                 .ww-details-title-inner
                   display: table-cell
                   vertical-align: middle
-                  overflow: hidden
 
                   h2
                     font: normal normal normal 24px/24px "MuseoSlab700", Verdana, sans-serif
@@ -1494,63 +1497,73 @@
                     font: normal normal normal 12px/12px 'Helvetica Neue', Helvetica, Arial, sans-serif
                     margin-bottom: 32px
 
-                  .launch-btn
+                  .launch-wrap
                     position: relative
-                    display: inline-block
+                    top: auto
+                    left: auto
                     width: auto
-                    height: 46px
-                    margin-left: -1px
-                    background-color: $yellow
+                    height: 44px
                     overflow: hidden
 
-                    .ww-hover
-                      display: block
+                    .launch-btn
                       position: absolute
-                      width: 200%
-                      height: 92px
-                      margin-top: -46px
+                      top: -1px
+                      left: -1px
+                      display: inline-block
+                      width: auto
+                      height: 46px
+                      background-color: $yellow
+                      overflow: hidden
 
-                      .image-sequence-wrap
-                        width: 100%
-                        height: 100%
+                      .ww-hover
+                        display: block
+                        position: absolute
+                        width: 200%
+                        height: 92px
+                        margin-top: -46px
 
-                        img, canvas
-                          display: block
+                        .image-sequence-wrap
                           width: 100%
                           height: 100%
 
-                    a
-                      position: relative
-                      display: block
-                      width: auto
-                      height: 100%
-                      padding: 0 48px 0 20px
-                      text-decoration: none
+                          img, canvas
+                            display: block
+                            width: 100%
+                            height: 100%
 
-                      .label
+                      a
+                        position: relative
                         display: block
-                        font: normal normal bold 12px/46px 'Helvetica Neue', Helvetica, Arial, sans-serif
-                        color: $black
-                        white-space: nowrap
+                        width: auto
+                        height: 100%
+                        padding: 0 48px 0 20px
+                        text-decoration: none
 
-                      .icon
-                        display: block
-                        position: absolute
-                        top: 18px
-                        right: 22px
-                        width: 7px
-                        height: 7px
-                        border-top: 3px solid $black
-                        border-right: 3px solid $black
-                        @include rotate(45deg)
+                        .label
+                          display: block
+                          font: normal normal bold 12px/46px 'Helvetica Neue', Helvetica, Arial, sans-serif
+                          color: $black
+                          white-space: nowrap
+
+                        .icon
+                          display: block
+                          position: absolute
+                          top: 18px
+                          right: 22px
+                          width: 7px
+                          height: 7px
+                          border-top: 3px solid $black
+                          border-right: 3px solid $black
+                          @include rotate(45deg)
 
         .world.stuff
           .ww-details
             .ww-details-inner
               .ww-details-title
                 .ww-details-title-inner
-                  .launch-btn
-                    background-color: $blue
+                  .launch-wrap
+                    .launch-btn
+                      background-color: $blue
 
         .twitter.stuff
           height: auto
@@ -2059,36 +2072,38 @@
                     font: normal normal normal 12px/14px 'Helvetica Neue', Helvetica, Arial, sans-serif
                     color: #666
 
-                  .launch-btn
-                    a
-                      .label
-                        font: normal normal bold 12px/46px 'Helvetica Neue', Helvetica, Arial, sans-serif
+                  .launch-wrap
+                    .launch-btn
+                      a
+                        .label
+                          font: normal normal bold 12px/46px 'Helvetica Neue', Helvetica, Arial, sans-serif
 
-                  .launch-btn:hover
-                    a
-                      .label
-                        color: $yellow
+                    .launch-btn:hover
+                      a
+                        .label
+                          color: $yellow
 
-                      .icon
-                        border-top: 3px solid $yellow
-                        border-right: 3px solid $yellow
+                        .icon
+                          border-top: 3px solid $yellow
+                          border-right: 3px solid $yellow
 
-                  .launch-btn.over
-                    background-color: $black
+                    .launch-btn.over
+                      background-color: $black
 
         .world.stuff
           .ww-details
             .ww-details-inner
               .ww-details-title
                 .ww-details-title-inner
-                  .launch-btn:hover
-                    a
-                      .label
-                        color: $blue
+                  .launch-wrap
+                    .launch-btn:hover
+                      a
+                        .label
+                          color: $blue
 
-                      .icon
-                        border-top: 3px solid $blue
-                        border-right: 3px solid $blue
+                        .icon
+                          border-top: 3px solid $blue
+                          border-right: 3px solid $blue
 
         .twitter.stuff
           .twitter-inner

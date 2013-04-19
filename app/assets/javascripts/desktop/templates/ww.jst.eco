@@ -1,5 +1,5 @@
 <div class="<%= @type %> stuff cf">
-  <div class="ww-inner" style="background-position: 0px 0px; background-repeat: no-repeat; 
+  <div class="ww-inner" style="background-position: 0px 0px; background-repeat: no-repeat;
   background-image: url(<%= @thumbnail %>)">
     <a class="ajaxy" href="<%= @link %>"></a>
   </div>
@@ -9,12 +9,14 @@
         <div class="ww-details-title-inner">
           <h2><%= @title %></h2>
           <h3><%= @summary %></h3>
-          <div class="launch-btn">
-            <div class="ww-hover"></div>
-            <a class="ajaxy" href="<%= @link %>">
-              <span class="label">View Details</span>
-              <span class="icon"></span>
-            </a>
+          <div class="launch-wrap">
+            <div class="launch-btn">
+              <div class="ww-hover"></div>
+              <a class="ajaxy" href="<%= @link %>">
+                <span class="label">View Details</span>
+                <span class="icon"></span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

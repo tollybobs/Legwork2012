@@ -917,6 +917,7 @@ class Legwork.Application
 
     if to is ''
       if @current_state is 'detail'
+        @current_state = ''
         @resetDetail()
 
       if @current_state is 'filter'

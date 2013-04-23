@@ -620,6 +620,17 @@
                       margin: 0 0 5px
                       font: normal normal normal 16px/20px "MuseoSlab700", Verdana, sans-serif
 
+                    a
+                      text-decoration: none
+                      color: #fff
+
+                    a.highlighted
+                      border-bottom: 1px solid #8c8c8c
+                      @include transition(border-bottom, 250ms, linear)
+
+                    a.highlighted:hover
+                      border-bottom: 1px solid #fff
+
                   &:last-child
                     margin: 0
 
@@ -1647,13 +1658,13 @@
                   display: table-cell
 
               .project-title
-                margin: 0 50px 90px 26px
+                margin: 0 50px 90px 44px
 
                 h2
                   font: normal normal normal 36px/36px "MuseoSlab700", Verdana, sans-serif
 
               .project-info
-                margin: 0 50px 0 26px
+                margin: 0 50px 0 44px
 
                 ul
                   margin: 0
@@ -1670,7 +1681,7 @@
                   margin: 0
 
               .project-callouts
-                margin: 90px 50px 0 26px
+                margin: 90px 50px 0 44px
 
                 li
                   display: block
@@ -1681,7 +1692,7 @@
             // video slide
             .video-slide
               .video-holder
-                margin: 0 76px 0 26px
+                margin: 0 15%
 
             // pull quote slide
             .pull-quote
@@ -2174,11 +2185,6 @@
 
                 ul:last-child
                   width: 36%
-
-            // video slide
-            .video-slide
-              .video-holder
-                margin: 0 126px
 
             // pull quote slide
             .pull-quote

@@ -64,7 +64,7 @@ class Legwork.SingleDetail extends Legwork.Controllers.BaseDetail
     @current_slide_view = @slide_views[0]
     @current_slide_view.activate()
 
-    @$slides.first().css('left','0%')
+    @$slides.first().css('left','0%').show()
     @$el.find('.next-slide-btn').remove()
 
   ###

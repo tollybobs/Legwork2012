@@ -614,7 +614,7 @@ class Legwork.Application
 
       @lifelines = @getLifelines()
 
-      if @current_state isnt 'filter' and @current_state isnt '404'
+      if @current_state is ''
         @$canvas_wrap.show()
 
       # Animations
@@ -917,6 +917,7 @@ class Legwork.Application
 
     if to is ''
       if @current_state is 'detail'
+        @current_state = ''
         @resetDetail()
 
       if @current_state is 'filter'

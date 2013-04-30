@@ -22,18 +22,10 @@ class Legwork.Loader
     @$video_stage = $('#ye-olde-hidden-video-holder')
     Legwork.supports_autoplay = false
 
-    # Test
-    @video = 0
-    @image = 0
-    @total_images = 0
-
     @total = @assets.images.length + @assets.videos.length + 1 # +1 for Twitter
 
     for sequence in @assets.sequences
       @total += sequence.frames.length
-      @total_images += sequence.frames.length
-
-    @total_images += @assets.images.length
 
     @testAutoplay()
     @build()
@@ -138,10 +130,6 @@ class Legwork.Loader
       @loaded++
       @updateProgress()
 
-      @image++
-
-      console.log('image: ' + @image + ' of ' + @total_images)
-
     if $current[0].complete is true
       $current.trigger('load')
 
@@ -190,15 +178,9 @@ class Legwork.Loader
         $v = $(JST['desktop/templates/html5-video'](video))
         $v.appendTo(@$video_stage)
 
-        $v[0].addEventListener 'canplay', =>
+        $v.one 'canplaythrough', (e) =>
           @loaded++
           @updateProgress()
-
-          @video++
-
-          console.log('video: ' + @video + ' of ' + @assets.videos.length)
-
-        , false
     else
       @loaded += @assets.videos.length
       @updateProgress()

@@ -118,7 +118,7 @@ class Legwork.Application
 
     @$launch = $('.launch-btn')
     @$sequence = $('.sequenced')
-    @lifelines = @getLifelines()
+    @lifeline = @getLifeline()
 
     @observeSomeSweetEvents()
 
@@ -273,46 +273,31 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
-  | getLifelines:object (-)
+  | getLifeline:object (-)
   |
-  | Build the lifelines object.
+  | Build the lifeline object.
   *----------------------------------------###
-  getLifelines: ->
-    levels = 8
+  getLifeline: ->
     side = 'l'
-    colors = [
-      'rgba(234, 233, 56, 0.0375)',
-      'rgba(151, 213, 242, 0.0375)',
-      'rgba(247, 142, 198, 0.0375)',
-      'rgba(179, 227, 148, 0.0375)'
-    ]
-    color = colors[Math.floor(Math.random() * colors.length)]
-    obj = []
-
-    for j in [0..(levels - 1)]
-      line = {
-        'color': color,
-        'coords': [],
-        'tightness': (Math.random() * 1) + 3,
-        'weight': (Math.random() * 50) + (j * 20)
-      }
-
-      obj.push(line)
+    line = {
+      'color': 'rgba(0, 0, 0, 0.07)',
+      'coords': [],
+      'tightness': (Math.random() * 1) + 3,
+      'weight': 1.25
+    }
 
     @$sequence.each (index, elm)->
-      for item, i in obj
-        if i % levels is 0
-          xpos = (Math.random() * (Legwork.$wn.width() * 0.4))
-          ypos = $(elm).offset().top + (Math.random() * 300)
+      xpos = (Math.random() * (Legwork.$wn.width() * 0.4))
+      ypos = $(elm).offset().top + (Math.random() * 300)
 
-          if side is 'r'
-            xpos = Legwork.$wn.width() - xpos
+      if side is 'r'
+        xpos = Legwork.$wn.width() - xpos
 
-        item.coords.push({'x':xpos, 'y':ypos})
+      line.coords.push({'x': xpos, 'y': ypos})
 
       side = if side is 'r' then 'l' else 'r'
 
-    return obj
+    return line
 
   ###
   *------------------------------------------*
@@ -329,23 +314,21 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
-  | lines:void (-)
+  | line:void (-)
   |
-  | obj:object - ref to lifelines item
-  | width:number - stroke size
-  | tightness:number - how curvatious?
+  | obj:object - ref to lifeline item
   |
-  | Draw lines.
+  | Draw lifeline.
   | Couldn't have done this without
   | http://bit.ly/tvuzR4. Thanks CBH!
   *----------------------------------------###
-  lines: (obj) ->
+  line: (obj) ->
     p = 0
     points = obj.coords
     tightness = obj.tightness
 
     @line_ctx.strokeStyle = obj.color
-    @line_ctx.lineWidth = obj.weight + Math.round(Math.random() * 20)
+    @line_ctx.lineWidth = obj.weight
 
     @line_ctx.beginPath()
     @line_ctx.moveTo(points[0].x, points[0].y)
@@ -392,20 +375,33 @@ class Legwork.Application
 
     @line_ctx.stroke()
 
+    # Scribble
+    @scribble_x = (=>
+      data = @line_ctx.getImageData(0, @$lines[0].height - 1, @$lines[0].width, 1).data
+
+      for i in [3..data.length] by 4
+        if data[i] isnt 0
+          return Math.floor(i / 4)
+    )()
+
+    # Dashes
+    for i in [0..(points[points.length - 1].y)] by 8
+      @line_ctx.clearRect(0, i, @$lines[0].width, 4)
+
   ###
   *------------------------------------------*
   | doLines:void (-)
   |
   | v:number - value as % of width
   |
-  | Where's the fuggin' mirror?
+  | Where's the fuggin' mirror? J/K, we
+  | don't do drugs.
   *----------------------------------------###
   doLines: ->
     @clear(@$lines[0])
     @line_ctx.translate(0, -Legwork.$wn.scrollTop())
 
-    for key, value of @lifelines
-      @lines(value)
+    @line(@lifeline)
 
   ###
   *------------------------------------------*
@@ -447,8 +443,11 @@ class Legwork.Application
           $content = $(JST['desktop/templates/ww'](data))
 
       # Append to DOM
-      # TODO: append all at once?
       $content.appendTo(@$stuff_wrap)
+
+    # Scribbles
+    @$scribble = $('#scribble-test')
+    @$scribble.prependTo(@$canvas_wrap)
 
   ###
   *------------------------------------------*
@@ -612,7 +611,7 @@ class Legwork.Application
         .attr('width', Legwork.app_width)
         .attr('height', Math.floor(Legwork.$wn.height() * 0.50))
 
-      @lifelines = @getLifelines()
+      @lifeline = @getLifeline()
 
       if @current_state is ''
         @$canvas_wrap.show()
@@ -666,8 +665,9 @@ class Legwork.Application
   *----------------------------------------###
   onScrollStart: (e) =>
     if Legwork.app_width >= 1025
-      if @current_state isnt 'filter' and @current_state isnt '404'
-        @$canvas_wrap.stop(true, false).css('opacity', 1)
+      clearTimeout(@scribble_to)
+      @$scribble.hide()
+      @$scribble[0].pause()
 
   ###
   *------------------------------------------*
@@ -700,8 +700,13 @@ class Legwork.Application
       .one('scroll', @onScrollStart)
 
     if Legwork.app_width >= 1025
-      if @current_state isnt 'filter' and @current_state isnt '404'
-        @$canvas_wrap.stop(true, false).animate({'opacity':0.666}, 250, 'linear')
+      if @current_state isnt 'filter' and @current_state isnt '404' and Legwork.$wn.scrollTop() > 100
+        @$scribble[0].currentTime = 0
+
+        @scribble_to = setTimeout =>
+          @$scribble.css('left', @scribble_x + 'px').show()
+          @$scribble[0].play()
+        , 1200
 
   ###
   *------------------------------------------*

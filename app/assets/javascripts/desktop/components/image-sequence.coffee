@@ -21,6 +21,7 @@ class Legwork.ImageSequence
     @fresh = Modernizr.canvas
     @total_frames = @frames.length
     @fps = init_obj.settings.fps
+    @auto = if init_obj.auto? then init_obj.auto else true
     @current_frame = 0
 
     # Render engine

@@ -1375,19 +1375,6 @@
 
       #wrap-the-canvas
         display: none
-        position: fixed
-        top: 74px
-        width: 100%
-        height: 50%
-
-        #lines-leader
-          position: absolute
-          bottom: 0px
-          left: 0px
-          width: 100%
-          height: 80px
-          background: asset-url("desktop/lines-leader.png", image) no-repeat bottom left
-          @include background_size(100%, 100%)
 
       #wrap-the-stuff,
       #wrap-the-filter
@@ -2030,7 +2017,24 @@
 
       #wrap-the-canvas
         display: block
+        position: fixed
         top: 54px
+        width: 100%
+        height: 50%
+
+        #scribble-test
+          position: absolute
+          top: 100%
+          left: 0px
+          width: 400px
+          height: 225px
+          margin: -24px 0 0 -12px
+          opacity: 0.33
+
+        #lines
+          position: absolute
+          top: 0px
+          left: 0px
 
       #wrap-the-stuff,
       #wrap-the-filter

@@ -22,10 +22,18 @@ class Legwork.Loader
     @$video_stage = $('#ye-olde-hidden-video-holder')
     Legwork.supports_autoplay = false
 
+    # Test
+    @video = 0
+    @image = 0
+    @total_images = 0
+
     @total = @assets.images.length + @assets.videos.length + 1 # +1 for Twitter
 
     for sequence in @assets.sequences
       @total += sequence.frames.length
+      @total_images += sequence.frames.length
+
+    @total_images += @assets.images.length
 
     @testAutoplay()
     @build()
@@ -112,8 +120,6 @@ class Legwork.Loader
       @loaded++
       @updateProgress()
 
-      console.log('twitter: ' + @loaded + ' of ' + @total)
-
       # filter replies, could be done server side
       for tweet, index in Legwork.twitter
         if /^(@|\s@|\s\s@|.@|.\s@)/.test(tweet.text) is true
@@ -132,7 +138,9 @@ class Legwork.Loader
       @loaded++
       @updateProgress()
 
-      console.log('image: ' + @loaded + ' of ' + @total)
+      @image++
+
+      console.log('image: ' + @image + ' of ' + @total_images)
 
     if $current[0].complete is true
       $current.trigger('load')
@@ -186,7 +194,9 @@ class Legwork.Loader
           @loaded++
           @updateProgress()
 
-          console.log('video: ' + @loaded + ' of ' + @total)
+          @video++
+
+          console.log('video: ' + @video + ' of ' + @assets.videos.length)
 
         , false
     else

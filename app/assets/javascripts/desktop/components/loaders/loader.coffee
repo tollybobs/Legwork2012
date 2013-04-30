@@ -112,6 +112,8 @@ class Legwork.Loader
       @loaded++
       @updateProgress()
 
+      console.log('twitter: ' + @loaded + ' of ' + @total)
+
       # filter replies, could be done server side
       for tweet, index in Legwork.twitter
         if /^(@|\s@|\s\s@|.@|.\s@)/.test(tweet.text) is true
@@ -124,13 +126,13 @@ class Legwork.Loader
   | Load one image.
   *----------------------------------------###
   loadOneImage: (image) ->
-    console.log(image)
-
     $current = $('<img />').attr
       'src': image
     .one 'load', (e) =>
       @loaded++
       @updateProgress()
+
+      console.log('image: ' + @loaded + ' of ' + @total)
 
     if $current[0].complete is true
       $current.trigger('load')
@@ -183,6 +185,8 @@ class Legwork.Loader
         $v[0].addEventListener 'canplay', =>
           @loaded++
           @updateProgress()
+
+          console.log('video: ' + @loaded + ' of ' + @total)
 
         , false
     else

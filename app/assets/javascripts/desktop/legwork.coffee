@@ -124,7 +124,7 @@ class Legwork.Application
 
     # Check initial url and set state
     @state = @History.getState()
-    url = @state.hash.replace(/^\/|\.|\#/g, '')
+    url = @state.hash.replace(/[^a-z0-9_-]+/gi, '')
 
     @doc_title = url
 
@@ -904,7 +904,7 @@ class Legwork.Application
   *----------------------------------------###
   onAppStateChange: =>
     @state = @History.getState()
-    url = @state.hash.replace(/^\/|\.|\#/g, '')
+    url = @state.hash.replace(/[^a-z0-9_-]+/gi, '')
 
     @route(url)
 

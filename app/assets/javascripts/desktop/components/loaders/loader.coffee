@@ -124,9 +124,11 @@ class Legwork.Loader
   | Load one image.
   *----------------------------------------###
   loadOneImage: (image) ->
+    console.log(image)
+
     $current = $('<img />').attr
       'src': image
-    .one 'load', {'path': image}, (e) =>
+    .one 'load', (e) =>
       @loaded++
       @updateProgress()
 

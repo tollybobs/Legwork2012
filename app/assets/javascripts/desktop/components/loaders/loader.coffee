@@ -50,7 +50,7 @@ class Legwork.Loader
     $v.appendTo(@$video_stage)
 
     # Fail
-    # Note: we are waiting 1500ms for metadata
+    # Note: we are waiting 2s for metadata
     # to load. This should be well within the
     # tolerance for global connection speeds.
     fail = setTimeout =>
@@ -59,7 +59,7 @@ class Legwork.Loader
       failed = true
       $v.remove()
       @loadVideo()
-    , 1500
+    , 2000
 
     # Succeed
     $v[0].addEventListener 'loadedmetadata', =>

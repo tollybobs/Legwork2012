@@ -64,7 +64,6 @@
               overflow: hidden
               @include background_size(37px, 540px)
               @include inner_shadow(0, 0, -1px, #2b2b2b)
-              @include text_shadow(-1px, -1px, 1px, $more_black)
 
             a#work-interactive
               background-position: 50% 10px
@@ -790,6 +789,15 @@
               h1
                 margin: 0 20px
                 font: normal normal normal 14px/20px "MuseoSlab700", Verdana, sans-serif
+                
+                a
+                  color: #fff
+                  text-decoration: none
+                  border-bottom: 1px solid #8c8c8c
+                  @include transition(border-bottom, 250ms, linear)
+
+                a:hover
+                  border-bottom: 1px solid #fff
 
             // media slide
             .media

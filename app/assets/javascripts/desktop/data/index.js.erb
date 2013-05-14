@@ -1,6 +1,4 @@
 Legwork.Home = {
-
-	// Preloader images
 	"preloader": {
 		"images": [
 			"<%= asset_path 'desktop/loaders/bird-beer.gif' %>",
@@ -8,8 +6,6 @@ Legwork.Home = {
 			"<%= asset_path 'desktop/loaders/worm-man.gif' %>"
 		]
 	},
-
-	// Assets to preload
 	"assets": {
 		"images": [
 			"<%= asset_path 'desktop/foot.png' %>",
@@ -48,8 +44,8 @@ Legwork.Home = {
 				"size": [876, 650]
 			},
 			{
-				"path": "scribble-test",
-				"size": [640, 360]
+				"path": "keithman",
+				"size": [200, 200]
 			}
 		],
 		"sequences": [
@@ -183,22 +179,11 @@ Legwork.Home = {
 			}
 		]
 	},
-
-	// Layout
-	//
-	// Array guarantees order.
-	//
-	// Type will be parsed to get the relative template
-	// and will be added as the class attribute.
-	//
-	// Content points to a JSON file, except in the
-	// case of a sequence or animation, where it should
-	// just point directly to the image/video.
 	"layout": [
 		{
 			"type": "left sequenced",
 			"title": "Built on creativity,<br/>innovation &amp; a DIY ethic.",
-			"content": ['foot-in', 'foot-out'],
+			"content": ["foot-in", "foot-out"],
 			"alt_content": "<%= asset_path 'desktop/foot.png' %>"
 		},
 		{
@@ -214,7 +199,7 @@ Legwork.Home = {
 			"content": "what-we-learned-2012"
 		},
 		{
-			"type": "twitter",
+			"type": "twitter"
 		},
 		{
 			"type": "work",
@@ -229,7 +214,7 @@ Legwork.Home = {
 			"content": "new-york-times-obama-vs-boehner"
 		},
 		{
-			"type": "twitter",
+			"type": "twitter"
 		},
 		{
 			"type": "work",
@@ -246,23 +231,19 @@ Legwork.Home = {
 		{
 			"type": "right sequenced",
 			"title": "We crush deadlines<br/>&amp; beers.",
-			"content": ['crush-in', 'crush-out'],
+			"content": ["crush-in", "crush-out"],
 			"alt_content": "<%= asset_path 'desktop/crush.png' %>"
 		},
 		{
 			"type": "work",
 			"content": "strangers"
 		},
-//		{
-//			"type": "world",
-//			"content": "nexus-4-template"
-//		},
 		{
 			"type": "work",
 			"content": "coke-ah"
 		},
 		{
-			"type": "twitter",
+			"type": "twitter"
 		},
 		{
 			"type": "work",
@@ -279,7 +260,7 @@ Legwork.Home = {
 		{
 			"type": "left sequenced",
 			"title": "Less talk.<br>More rock.",
-			"content": ['rock-in', 'rock-out'],
+			"content": ["rock-in", "rock-out"],
 			"alt_content": "<%= asset_path 'desktop/metal.png' %>"
 		}
 	]

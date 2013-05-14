@@ -51,7 +51,6 @@ class Legwork.MainLoader extends Legwork.Loader
   *----------------------------------------###
   updateProgress: ->
     super()
-
     @$progress.text('GIVN\'R ' + Math.round((@percent / 100) * 110) + '%')
 
   ###

@@ -1,6 +1,4 @@
 Legwork.Work["healing-histories"] = {
-
-	// assets to preload
 	"assets": {
 		"images": [
 			"<%= asset_path 'desktop/work/healing-histories/hh-thumb.jpg' %>",
@@ -14,23 +12,16 @@ Legwork.Work["healing-histories"] = {
 		],
 		"sequences": []
 	},
-
-	// project metadata
 	"title": "Healing Histories",
 	"summary": "An interactive documentary for WKKF with Weber Shandwick.",
 	"thumbnail": "<%= asset_path 'desktop/work/healing-histories/hh-thumb.jpg' %>",
 	"related": "coke-ah",
 	"related_name": "Related: The Ahh Effect",
-
-	// slides
 	"slides": [
-		
-		// title screen
 		{
 			"type": "TitleScreen",
 			"title": "Healing Histories",
 			"summary": "An interactive documentary for WKKF with Weber Shandwick.",
-
 			"services": [
 				"User Experience",
 				"Art Direction",
@@ -38,7 +29,6 @@ Legwork.Work["healing-histories"] = {
 				"Development",
 				"Server Configuration"
 			],
-
 			"recognition": [
 				"Webby Awards",
 				"FWA SOTD",
@@ -46,22 +36,17 @@ Legwork.Work["healing-histories"] = {
 				"Awwwards",
 				"CommArts"
 			],
-			
 			"overview": [
 				"This new take on online journalism offers visitors a nonlinear way to explore stories of New Orleans residents amid their struggle to rebuild their community post Hurricane Katrina and to overcome racial divides. The unconventional story arc allows users to discover different elements of each story by defining their own path."
 			],
-			
 			"url": "http://healinghistories.com",
 			"callout": "Details",
-			
 			"background": {
 				"type": "video",
 				"id": "healing-histories-loop",
 				"src": "<%= asset_path 'desktop/work/healing-histories/hh-ts-poster.jpg' %>"
 			}
 		},
-
-		// full screen (w/ image)
 		{
 			"type": "FullScreenImage",
 			"image": "<%= asset_path 'desktop/work/healing-histories/hh-agile.jpg' %>",
@@ -70,8 +55,6 @@ Legwork.Work["healing-histories"] = {
 				"text": "<p>We knew that our client was interested in a nonlinear way to thread together bits and pieces of content to craft a larger story, but none of that content had been produced yet. It was challenging to know exactly what to design for so we worked in an <a href='http://en.wikipedia.org/wiki/Agile_software_development' target='_new'>agile</a> environment to keep us flexible to changes and able to adapt the project based on the footage that was gathered. We designed templates to high level <a href='http://en.wikipedia.org/wiki/User_story' target='_new'>user stories</a> and then iterated from there as the real content started coming in.</p>"
 			}
 		},
-
-		// full screen (w/ image)
 		{
 			"type": "FullScreenImage",
 			"image": "<%= asset_path 'desktop/work/healing-histories/hh-styleguide.jpg' %>",
@@ -80,15 +63,5 @@ Legwork.Work["healing-histories"] = {
 				"text": "<p>Part of our process included creating a system of interface components. Going far beyond aesthetic benefits, this system ensured usability, efficiency and consistency throughout the entire project for both the end users and our development team. These elements were created with flexibility in mind to work seamlessly within the higher level structure of the project.</p>"
 			}
 		}
-
-		// full screen (w/ image)
-		// {
-		// 	"type": "FullScreenImage",
-		// 	"image": "<%= asset_path 'desktop/work/work-placeholder.jpg' %>",
-		// 	"sidebar": {
-		// 		"title": "Let's Get Technical",
-		// 		"text": "<p>We started this project thinking that an <a href='http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller' target='_new'>MVC framework</a> would be overkill, but we went ahead and built it on top of <a href='http://backbonejs.org' target='_new'>Backbone</a> as a teaching/learning exercise. In the end, it turned out there was no way we could have managed the complexities of the various application states without it. The entire site is deep-linkable and each view has hooks for being enabled and disabled when being transitioned to and from; and paused and resumed when the navigation is hidden and shown. Coming up with our own system for all of that without a solid base would have been foolish.</p>"
-		// 	}
-		// }
 	]
 }

@@ -1,6 +1,4 @@
 Legwork.Work["stapleton-whats-next"] = {
-
-	// assets to preload
 	"assets": {
 		"images": [
 			"<%= asset_path 'desktop/work/stapleton-whats-next/stapleton-thumb.jpg' %>",
@@ -14,55 +12,40 @@ Legwork.Work["stapleton-whats-next"] = {
 		],
 		"sequences": []
 	},
-
-	// project metadata
 	"title": "What’s Next?",
 	"summary": "A teaser video for Forest City with Strada.",
 	"thumbnail": "<%= asset_path 'desktop/work/stapleton-whats-next/stapleton-thumb.jpg' %>",
 	"related": "clyfford-still",
 	"related_name": "Related: Clyfford Still",
-
-	// slides
 	"slides": [
-		
-		// title screen
 		{
 			"type": "TitleScreen",
 			"title": "What’s Next?",
 			"summary": "A teaser video for Forest City with Strada.",
-
-			// services
 			"services": [
 				"Design Build",
 				"Animation",
 				"Sound Design"
 			],
-			
 			"overview": [
 				"Stapleton, one of Forest City’s most successful developments, is going through a period of dramatic expansion. This video is intended to inform the real estate community and potential residents about all of the new design concepts to be implemented over the next 10 years."
 			],
-			
 			"callout": "Watch Video",
-			
 			"background": {
 				"type": "video",
 				"id": "stapleton-whats-next-loop",
 				"src": "<%= asset_path 'desktop/work/stapleton-whats-next/stapleton-ts-poster.jpg' %>"
 			}
 		},
-
-		// video
 		{
 			"type": "Video",
 			"background_color": "#84975a",
 			"id": "52264316"
 		},
-
-		// full screen (w/ video)
 		{
 			"type": "FullScreenVideo",
 			"url": "<%= asset_path 'desktop/work/stapleton-whats-next/stapleton-breakdown.jpg' %>",
 			"id": "57018313"
-		},
+		}
 	]
 }

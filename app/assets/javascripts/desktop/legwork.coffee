@@ -446,7 +446,7 @@ class Legwork.Application
       $content.appendTo(@$stuff_wrap)
 
     # Scribbles
-    @$scribble = $('#scribble-test')
+    @$scribble = $('#keithman')
     @$scribble.prependTo(@$canvas_wrap)
 
   ###
@@ -621,8 +621,8 @@ class Legwork.Application
         $t
           .off('activate deactivate')
           .one('activate', @onStuffActivate)
-          .eq(0)
-          .trigger('activate')
+
+      @sequenced_stuff[0].trigger('activate')
 
     Legwork.$wn.trigger('scroll')
 

@@ -1,6 +1,6 @@
 <div class="<%= @type %> stuff cf">
   <div class="sequenced-inner">
-    <div class="sequenced-content-wrap" style="background-image: url(<%= @alt_content %>)" data-content="<%= @content[0]%>, <%= @content[1]%>">
+    <div class="sequenced-content-wrap" style="background-image: url(<%= @alt_content %>)" <% if @content?: %>data-content="<%= @content[0]%>, <%= @content[1]%>"<% end %>>
       <div class="sequenced-title-wrap">
         <div class="sequenced-tagline">
           <h1><%- @title %></h1>

@@ -29,19 +29,3 @@ class Legwork.Slides.FullScreenImage extends Legwork.Slides.Slide
   build: ->
     @$el = @renderTemplate('full-screen-image', @model)
     return @$el
-
-  ###
-  *------------------------------------------*
-  | activate:void (-)
-  |
-  | Activate new/current slide
-  *----------------------------------------###
-  activate: ->
-
-  ###
-  *------------------------------------------*
-  | deactivate:void (-)
-  |
-  | Deactivate old slide
-  *----------------------------------------###
-  deactivate: ->

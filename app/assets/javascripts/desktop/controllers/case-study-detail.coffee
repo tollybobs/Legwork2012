@@ -34,13 +34,6 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
     @$current_cnt = @$el.find('.current-cnt')
     @inmotion
 
-    for slide in @model.slides
-      slide_view = new Legwork.Slides[slide.type]({model: slide})
-      $slides_wrap.append slide_view.build()
-      @slide_views.push(slide_view)
-
-    @$slides = $('.slide', @$el)
-
     return @$el
 
   ###
@@ -121,7 +114,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
   | Reset the slides so that the
   | title-screen slide is first/current
   *----------------------------------------###
-  resetSlides: =>
+  resetSlides: ->
     @$slides
       .removeClass('current')
       .css('margin-left', '100%')
@@ -271,20 +264,20 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
-  | turnOffKeyboardNav:void (=)
+  | turnOffKeyboardNav:void (-)
   |
   | Turn off keyboard nav
   *----------------------------------------###
-  turnOffKeyboardNav: =>
+  turnOffKeyboardNav: ->
     @handlingArrowKeys = false
     Legwork.$doc.off 'keyup.slider', @handleArrowKeys
 
   ###
   *------------------------------------------*
-  | turnOnKeyboardNav:void (=)
+  | turnOnKeyboardNav:void (-)
   |
   | Turn on keyboard nav
   *----------------------------------------###
-  turnOnKeyboardNav: =>
+  turnOnKeyboardNav: ->
     @handlingArrowKeys = true
     Legwork.$doc.on 'keyup.slider', @handleArrowKeys

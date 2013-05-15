@@ -47,6 +47,7 @@ class Legwork.Application
     @$menu_btn = $('#menu-btn')
     @$canvas_wrap = $('#wrap-the-canvas')
     @$lines = $('#lines')
+    @$scribble = $('#scribble')
     @$stuff_wrap = $('#wrap-the-stuff')
     @$filter_wrap = $('#wrap-the-filter')
     @$filter = $('.filter')
@@ -58,9 +59,10 @@ class Legwork.Application
     @$related_btn = $('#related-btn')
 
     @History = window.History
-    @sequenced_stuff = []
     @lifelines = []
     @line_ctx = @$lines[0].getContext('2d')
+    @line_cache = document.createElement('canvas')
+    @line_cache_ctx = @line_cache.getContext('2d')
     @twitter_index = 0
     @scroll_timeout = 0
     @resize_timeout = 0
@@ -124,7 +126,7 @@ class Legwork.Application
 
     # Check initial url and set state
     @state = @History.getState()
-    url = @state.hash.replace(/^\/|\.|\#/g, '')
+    url = @state.hash.replace(/[^a-z0-9_-]+/gi, '')
 
     @doc_title = url
 
@@ -280,10 +282,10 @@ class Legwork.Application
   getLifeline: ->
     side = 'l'
     line = {
-      'color': 'rgba(0, 0, 0, 0.07)',
+      'color': 'rgba(0, 0, 0, 0.08)',
       'coords': [],
       'tightness': (Math.random() * 1) + 3,
-      'weight': 1.25
+      'weight': 1.5
     }
 
     @$sequence.each (index, elm)->
@@ -327,11 +329,14 @@ class Legwork.Application
     points = obj.coords
     tightness = obj.tightness
 
-    @line_ctx.strokeStyle = obj.color
-    @line_ctx.lineWidth = obj.weight
+    @line_cache.width = Legwork.$wn.width()
+    @line_cache.height = points[points.length - 1].y
 
-    @line_ctx.beginPath()
-    @line_ctx.moveTo(points[0].x, points[0].y)
+    @line_cache_ctx.strokeStyle = obj.color
+    @line_cache_ctx.lineWidth = obj.weight
+
+    @line_cache_ctx.beginPath()
+    @line_cache_ctx.moveTo(points[0].x, points[0].y)
 
     for p in [1..(points.length - 1)]
 
@@ -371,22 +376,13 @@ class Legwork.Application
         points[p + 1].c1y = b[1] + ((Math.sqrt(@vector_utils.sqr(delta_c[0]) + @vector_utils.sqr(delta_c[1])) / tightness) * mc[1])
 
       # lines
-      @line_ctx.bezierCurveTo(points[p].c1x, points[p].c1y, points[p].c2x, points[p].c2y, points[p].x, points[p].y)
+      @line_cache_ctx.bezierCurveTo(points[p].c1x, points[p].c1y, points[p].c2x, points[p].c2y, points[p].x, points[p].y)
 
-    @line_ctx.stroke()
-
-    # Scribble
-    @scribble_x = (=>
-      data = @line_ctx.getImageData(0, @$lines[0].height - 1, @$lines[0].width, 1).data
-
-      for i in [3..data.length] by 4
-        if data[i] isnt 0
-          return Math.floor(i / 4)
-    )()
+    @line_cache_ctx.stroke()
 
     # Dashes
     for i in [0..(points[points.length - 1].y)] by 8
-      @line_ctx.clearRect(0, i, @$lines[0].width, 4)
+      @line_cache_ctx.clearRect(0, i, @$lines[0].width, 4)
 
   ###
   *------------------------------------------*
@@ -398,10 +394,20 @@ class Legwork.Application
   | don't do drugs.
   *----------------------------------------###
   doLines: ->
-    @clear(@$lines[0])
-    @line_ctx.translate(0, -Legwork.$wn.scrollTop())
+    lines = @$lines[0]
+    o = Legwork.$wn.scrollTop()
 
-    @line(@lifeline)
+    @clear(lines)
+
+    # Option 1
+    @line_ctx.translate(0, -o)
+    @line_ctx.drawImage(@line_cache_ctx.canvas, 0, 0)
+
+    # Option 2
+    #@line_ctx.drawImage(@line_cache_ctx.canvas, 0, o, w, h, 0, 0, w, h)
+
+    # Option 3
+    #@line(@lifeline)
 
   ###
   *------------------------------------------*
@@ -414,6 +420,8 @@ class Legwork.Application
     if @$menu_btn.is(':visible') is true
       @mobile_menu = new Legwork.MobileMenu()
 
+    html = ''
+
     # Add the stuff
     for stuff, id in Legwork.Home.layout
       category = @getStuffType(stuff.type)
@@ -421,33 +429,36 @@ class Legwork.Application
       # Content
       switch category
         when 'sequenced'
-          $content = $(JST['desktop/templates/sequence'](stuff))
-
-          $vid_wrap = $content.find('.sequenced-content-wrap')
-
-          $('#' + stuff.content[0]).addClass('video-in').appendTo($vid_wrap)
-          $('#' + stuff.content[1]).addClass('video-out').appendTo($vid_wrap)
-
-          # Collect
-          @sequenced_stuff.push($content)
+          content = JST['desktop/templates/sequence'](stuff)
         when 'twitter'
           data = {
             tweets: [@getNextTweet(), @getNextTweet()]
           }
           data.type = category
-          $content = $(JST['desktop/templates/twitter'](data))
+          content = JST['desktop/templates/twitter'](data)
         when 'work', 'world'
           data = Legwork.Work[stuff.content] or Legwork.World[stuff.content]
           data.type = category
           data.link = '/' + stuff.content
-          $content = $(JST['desktop/templates/ww'](data))
+          content = JST['desktop/templates/ww'](data)
 
-      # Append to DOM
-      $content.appendTo(@$stuff_wrap)
+      html += content
+
+    # Append to DOM
+    @$stuff_wrap.html(html)
+
+    # Sequenced
+    @$sequenced_stuff = $('.sequenced')
+    @$sequenced_stuff.each (index, elm) =>
+      $vid_wrap = $(elm).find('.sequenced-content-wrap')
+      vid = $vid_wrap.data('content').split(', ')
+
+      $('#' + vid[0]).addClass('video-in').appendTo($vid_wrap)
+      $('#' + vid[1]).addClass('video-out').appendTo($vid_wrap)
 
     # Scribbles
-    @$scribble = $('#scribble-test')
-    @$scribble.prependTo(@$canvas_wrap)
+    @$scribbles = $('video[id$="-scribble"]')
+    @$scribble.html(@$scribbles)
 
   ###
   *------------------------------------------*
@@ -468,11 +479,12 @@ class Legwork.Application
   | on scroll position.
   *----------------------------------------###
   doStuff: ->
-    for $t, index in @sequenced_stuff
+    @$sequenced_stuff.each (index, elm) =>
+      $t = $(elm)
       if $t.offset().top < Legwork.event_horizon
-        $t.trigger('activate')
+        $t.trigger('get_it_girl')
       else
-        $t.trigger('deactivate')
+        $t.trigger('ok_see_ya')
 
   ###
   *------------------------------------------*
@@ -612,17 +624,17 @@ class Legwork.Application
         .attr('height', Math.floor(Legwork.$wn.height() * 0.50))
 
       @lifeline = @getLifeline()
+      @line(@lifeline)
 
       if @current_state is ''
         @$canvas_wrap.show()
 
       # Animations
-      for $t, index in @sequenced_stuff
-        $t
-          .off('activate deactivate')
-          .one('activate', @onStuffActivate)
-          .eq(0)
-          .trigger('activate')
+      @$sequenced_stuff
+        .off('get_it_girl ok_see_ya')
+        .one('get_it_girl', @onStuffActivate)
+
+      @$sequenced_stuff.eq(0).trigger('get_it_girl')
 
     Legwork.$wn.trigger('scroll')
 
@@ -666,8 +678,8 @@ class Legwork.Application
   onScrollStart: (e) =>
     if Legwork.app_width >= 1025
       clearTimeout(@scribble_to)
+      @$scribbles.hide()
       @$scribble.hide()
-      @$scribble[0].pause()
 
   ###
   *------------------------------------------*
@@ -701,11 +713,25 @@ class Legwork.Application
 
     if Legwork.app_width >= 1025
       if @current_state isnt 'filter' and @current_state isnt '404' and Legwork.$wn.scrollTop() > 100
-        @$scribble[0].currentTime = 0
-
         @scribble_to = setTimeout =>
-          @$scribble.css('left', @scribble_x + 'px').show()
-          @$scribble[0].play()
+          @scribble_x = ((y) =>
+            data = @line_ctx.getImageData(0, y, @$lines[0].width, 1).data
+
+            for i in [3..data.length] by 4
+              if data[i] isnt 0
+                return Math.floor(i / 4)
+
+            # Recurse if needed
+            arguments.callee(y - 1)
+          )(@$lines[0].height - 1)
+          @$scribble.css('margin-left', @scribble_x + 'px').show()
+          scribble = @$scribbles.eq(Math.floor(Math.random() * @$scribbles.length))
+          scribble.show()
+          scribble[0].currentTime = 0
+
+          setTimeout =>
+            scribble[0].play()
+          , 100
         , 1200
 
   ###
@@ -790,12 +816,12 @@ class Legwork.Application
   onStuffActivate: (e) =>
     $t = $(e.currentTarget)
 
-    if e.type is 'activate'
+    if e.type is 'get_it_girl'
       @playSequence($t, 'in')
-      $t.one('deactivate', @onStuffActivate)
+      $t.one('ok_see_ya', @onStuffActivate)
     else
       @playSequence($t, 'out')
-      $t.one('activate', @onStuffActivate)
+      $t.one('get_it_girl', @onStuffActivate)
 
   ###
   *------------------------------------------*
@@ -904,7 +930,7 @@ class Legwork.Application
   *----------------------------------------###
   onAppStateChange: =>
     @state = @History.getState()
-    url = @state.hash.replace(/^\/|\.|\#/g, '')
+    url = @state.hash.replace(/[^a-z0-9_-]+/gi, '')
 
     @route(url)
 

@@ -99,4 +99,3 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
 
   videoEnded: =>
     @playVideo()
-

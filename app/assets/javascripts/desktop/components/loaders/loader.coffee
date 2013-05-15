@@ -27,9 +27,19 @@ class Legwork.Loader
     for sequence in @assets.sequences
       @total += sequence.frames.length
 
-    @testAutoplay()
     @build()
 
+  ###
+  *------------------------------------------*
+  | build:void (-)
+  |
+  | DOM manipulations, instantiations, etc.
+  *----------------------------------------###
+  build: ->
+    @testAutoplay()
+    @loadTwitter()
+    @loadImages()
+    @loadSequences()
 
   ###
   *------------------------------------------*
@@ -40,7 +50,6 @@ class Legwork.Loader
   testAutoplay: ->
     fail = 0
     failed = false
-    start = +(new Date())
 
     $v = $(JST['desktop/templates/html5-video']({
       'path': 'autoplay-test',
@@ -50,21 +59,17 @@ class Legwork.Loader
     $v.appendTo(@$video_stage)
 
     # Fail
-    # Note: we are waiting 1500ms for metadata
+    # Note: we are waiting 2s for metadata
     # to load. This should be well within the
     # tolerance for global connection speeds.
     fail = setTimeout =>
-      end = +(new Date())
-      console.log('Autoplay test failed: ' + (end - start))
       failed = true
       $v.remove()
       @loadVideo()
-    , 1500
+    , 2000
 
     # Succeed
-    $v[0].addEventListener 'loadedmetadata', =>
-      end = +(new Date())
-      console.log('Autoplay test succeeded: ' + (end - start))
+    $v[0].addEventListener 'loadedmetadata', (e) =>
       clearTimeout(fail)
 
       if failed is false
@@ -73,19 +78,7 @@ class Legwork.Loader
         @loadVideo()
     , false
 
-    a = new Date().getTime()
     $v[0].load()
-
-  ###
-  *------------------------------------------*
-  | build:void (-)
-  |
-  | DOM manipulations, instantiations, etc.
-  *----------------------------------------###
-  build: ->
-    @loadTwitter()
-    @loadImages()
-    @loadSequences()
 
   ###
   *------------------------------------------*
@@ -126,7 +119,7 @@ class Legwork.Loader
   loadOneImage: (image) ->
     $current = $('<img />').attr
       'src': image
-    .one 'load', {'path': image}, (e) =>
+    .one 'load', (e) =>
       @loaded++
       @updateProgress()
 
@@ -173,16 +166,15 @@ class Legwork.Loader
   *----------------------------------------###
   loadVideo: ->
     if Modernizr.video and Legwork.supports_autoplay
-
       for video in @assets.videos
         $v = $(JST['desktop/templates/html5-video'](video))
         $v.appendTo(@$video_stage)
 
-        $v[0].addEventListener 'canplay', =>
+        $v.one 'canplaythrough', (e) =>
           @loaded++
           @updateProgress()
 
-        , false
+        $v[0].load()
     else
       @loaded += @assets.videos.length
       @updateProgress()
@@ -210,5 +202,4 @@ class Legwork.Loader
   | Hey guys, Big Gulps eh? Well, see ya!
   *----------------------------------------###
   destroy: ->
-    # TODO: cancel loading?
     @$view.remove()

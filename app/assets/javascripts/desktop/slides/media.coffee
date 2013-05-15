@@ -80,8 +80,4 @@ class Legwork.Slides.Media extends Legwork.Slides.Slide
 
   playVimeo: =>
     @$vimeo.empty().append("<iframe src='http://player.vimeo.com/video/#{@id}?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff&amp;autoplay=1' width='730' height='411' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>")
-
     @$poster.delay(333).fadeOut(666)
-
-
-

@@ -33,6 +33,16 @@ class Legwork.Controllers.BaseDetail
     @$related = $('#related-btn')
     @rel = @model.related
 
+    $slides_wrap = @$el.find('.slides')
+    html = ''
+
+    for slide in @model.slides
+      slide_view = new Legwork.Slides[slide.type]({model: slide})
+      $slides_wrap.append(slide_view.build())
+      @slide_views.push(slide_view)
+
+    @$slides = $('.slide', @$el)
+
   ###
   *------------------------------------------*
   | initialize:void (-)
@@ -45,11 +55,11 @@ class Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
-  | activate:void (=)
+  | activate:void (-)
   |
   | Shows the element
   *----------------------------------------###
-  activate: =>
+  activate: ->
     @$el.show()
     setTimeout =>
       @$el.addClass('open')
@@ -66,11 +76,11 @@ class Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
-  | deactivate:void (=)
+  | deactivate:void (-)
   |
   | Hides the element
   *----------------------------------------###
-  deactivate: =>
+  deactivate: ->
     @$el.removeClass('open')
     setTimeout =>
       @$el.hide()
@@ -92,20 +102,20 @@ class Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
-  | switchProjects:void (=)
+  | switchProjects:void (-)
   |
   | Change url to show next related project
   *----------------------------------------###
-  switchProjects: =>
+  switchProjects: ->
     History.pushState(null, null, "/#{@rel}")
 
   ###
   *------------------------------------------*
-  | switchProjects:void (=)
+  | switchProjects:void (-)
   |
   | Change url to show next related project
   *----------------------------------------###
-  hintThereIsNoMore: =>
+  hintThereIsNoMore: ->
     @$detail_inner.addClass('bump')
 
     setTimeout =>
@@ -116,6 +126,8 @@ class Legwork.Controllers.BaseDetail
   *------------------------------------------*
   | handleArrowKeys:void (=)
   |
+  | e:object - event object
+  |
   | if down, go to next project
   *----------------------------------------###
   handleArrowKey: (e) =>
@@ -124,7 +136,7 @@ class Legwork.Controllers.BaseDetail
     if e.keyCode is 38
       if @model.related
         state = History.getState()
-        url = state.hash.replace(/^\/|\.|\#/g, '')
+        url = state.hash.replace(/[^a-z0-9_-]+/gi, '')
 
         if url? and url is Legwork.open_detail_state then @hintThereIsNoMore()
         else History.back()

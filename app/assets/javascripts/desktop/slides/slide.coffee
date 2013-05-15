@@ -16,9 +16,7 @@ class Legwork.Slides.Slide
   *----------------------------------------###
   constructor: (options) ->
     # Class vars
-    @options = options
     @model = options.model
-    @$el = options.$el
 
   ###
   *------------------------------------------*
@@ -71,7 +69,6 @@ class Legwork.Slides.Slide
   | Clean white space to render templates
   *----------------------------------------###
   renderTemplate: (template, context) ->
-    # TODO: research
     $(JST["desktop/templates/slides/#{template}"](context).replace(/^[\s]+/gm, ''))
 
 

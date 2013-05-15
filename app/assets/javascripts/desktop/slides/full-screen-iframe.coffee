@@ -49,8 +49,3 @@ class Legwork.Slides.FullScreenIframe extends Legwork.Slides.Slide
   deactivate: ->
     $('iframe', @$el).fadeOut 333, =>
       @$el.empty()
-
-
-
-
-

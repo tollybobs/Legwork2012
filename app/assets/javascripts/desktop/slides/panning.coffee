@@ -62,14 +62,6 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
-  | deactivate:void (-)
-  |
-  | Deactivate old slide
-  *----------------------------------------###
-  deactivate: ->
-
-  ###
-  *------------------------------------------*
   | onResize:void (=)
   |
   | w:number - window width

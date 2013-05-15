@@ -45,9 +45,7 @@ class Legwork.Application
 
     # Class vars
     @$menu_btn = $('#menu-btn')
-    @$canvas_wrap = $('#wrap-the-canvas')
-    @$lines = $('#lines')
-    @$scribble = $('#scribble')
+    @$scribble = $('#wrap-the-scribble')
     @$stuff_wrap = $('#wrap-the-stuff')
     @$filter_wrap = $('#wrap-the-filter')
     @$filter = $('.filter')
@@ -59,14 +57,9 @@ class Legwork.Application
     @$related_btn = $('#related-btn')
 
     @History = window.History
-    @lifelines = []
-    @line_ctx = @$lines[0].getContext('2d')
-    @line_cache = document.createElement('canvas')
-    @line_cache_ctx = @line_cache.getContext('2d')
     @twitter_index = 0
     @scroll_timeout = 0
     @resize_timeout = 0
-    @vector_utils = new Legwork.VectorUtils()
     @cell_over = {}
 
     @home_title = 'Creativity. Innovation. DIY Ethic.'
@@ -120,7 +113,6 @@ class Legwork.Application
 
     @$launch = $('.launch-btn')
     @$sequence = $('.sequenced')
-    @lifeline = @getLifeline()
 
     @observeSomeSweetEvents()
 
@@ -135,7 +127,6 @@ class Legwork.Application
       @current_state = ''
       @homeTransition()
     else if url in Legwork.filters
-      @$canvas_wrap.hide()
       @$stuff_wrap.hide()
       @$filter_wrap.show()
       @buildFilter(url)
@@ -168,7 +159,7 @@ class Legwork.Application
 
       @current_state = 'detail'
     else
-      @$canvas_wrap.hide()
+      @$scribble.hide()
       @$stuff_wrap.hide()
       @$404_wrap.show()
       @buildFourOhFour(url)
@@ -272,142 +263,6 @@ class Legwork.Application
     if @erase_trans?
       @erase_trans.destroy()
       @erase_trans = null
-
-  ###
-  *------------------------------------------*
-  | getLifeline:object (-)
-  |
-  | Build the lifeline object.
-  *----------------------------------------###
-  getLifeline: ->
-    side = 'l'
-    line = {
-      'color': 'rgba(0, 0, 0, 0.08)',
-      'coords': [],
-      'tightness': (Math.random() * 1) + 3,
-      'weight': 1.5
-    }
-
-    @$sequence.each (index, elm)->
-      xpos = (Math.random() * (Legwork.$wn.width() * 0.4))
-      ypos = $(elm).offset().top + (Math.random() * 300)
-
-      if side is 'r'
-        xpos = Legwork.$wn.width() - xpos
-
-      line.coords.push({'x': xpos, 'y': ypos})
-
-      side = if side is 'r' then 'l' else 'r'
-
-    return line
-
-  ###
-  *------------------------------------------*
-  | clear:void (-)
-  |
-  | cnv:dom - canvas
-  |
-  | Clear the canvas. Now you've done it.
-  *----------------------------------------###
-  clear: (cnv) ->
-    ctx = cnv.getContext('2d')
-    ctx.clearRect(0, 0, cnv.width, cnv.height)
-    cnv.width = cnv.width
-
-  ###
-  *------------------------------------------*
-  | line:void (-)
-  |
-  | obj:object - ref to lifeline item
-  |
-  | Draw lifeline.
-  | Couldn't have done this without
-  | http://bit.ly/tvuzR4. Thanks CBH!
-  *----------------------------------------###
-  line: (obj) ->
-    p = 0
-    points = obj.coords
-    tightness = obj.tightness
-
-    @line_cache.width = Legwork.$wn.width()
-    @line_cache.height = points[points.length - 1].y
-
-    @line_cache_ctx.strokeStyle = obj.color
-    @line_cache_ctx.lineWidth = obj.weight
-
-    @line_cache_ctx.beginPath()
-    @line_cache_ctx.moveTo(points[0].x, points[0].y)
-
-    for p in [1..(points.length - 1)]
-
-      # For the second point set the it's control points
-      if p is 1
-        points[p].c1x = points[p - 1].x
-        points[p].c1y = points[p - 1].y
-
-      # For the penultimate point set the it's control points
-      if p is (points.length - 1)
-        points[p].c2x = points[p].x
-        points[p].c2y = points[p].y
-      else
-
-        # Thanks to JORIKI and Pumbaa80 at stackexchange for all the help with this next bit!
-
-        # Set some aliases for the previous, current and next points
-        a = [points[p - 1].x, points[p - 1].y]
-        b = [points[p].x, points[p].y]
-        c = [points[p + 1].x, points[p + 1].y]
-
-        # Get the change in the vectors
-        delta_a = @vector_utils.subtract(b, a)
-        delta_c = @vector_utils.subtract(c, b)
-
-        # Get vector (m) perpendicular bisector
-        m = @vector_utils.normalize(@vector_utils.add(@vector_utils.normalize(delta_a), @vector_utils.normalize(delta_c)))
-
-        # Get ma and mc
-        ma = [-m[0], -m[1]]
-        mc = m
-
-        # Get the control point coordinates
-        points[p].c2x = b[0] + ((Math.sqrt(@vector_utils.sqr(delta_a[0]) + @vector_utils.sqr(delta_a[1])) / tightness) * ma[0])
-        points[p].c2y = b[1] + ((Math.sqrt(@vector_utils.sqr(delta_a[0]) + @vector_utils.sqr(delta_a[1])) / tightness) * ma[1])
-        points[p + 1].c1x = b[0] + ((Math.sqrt(@vector_utils.sqr(delta_c[0]) + @vector_utils.sqr(delta_c[1])) / tightness) * mc[0])
-        points[p + 1].c1y = b[1] + ((Math.sqrt(@vector_utils.sqr(delta_c[0]) + @vector_utils.sqr(delta_c[1])) / tightness) * mc[1])
-
-      # lines
-      @line_cache_ctx.bezierCurveTo(points[p].c1x, points[p].c1y, points[p].c2x, points[p].c2y, points[p].x, points[p].y)
-
-    @line_cache_ctx.stroke()
-
-    # Dashes
-    for i in [0..(points[points.length - 1].y)] by 8
-      @line_cache_ctx.clearRect(0, i, @$lines[0].width, 4)
-
-  ###
-  *------------------------------------------*
-  | doLines:void (-)
-  |
-  | v:number - value as % of width
-  |
-  | Where's the fuggin' mirror? J/K, we
-  | don't do drugs.
-  *----------------------------------------###
-  doLines: ->
-    lines = @$lines[0]
-    o = Legwork.$wn.scrollTop()
-
-    @clear(lines)
-
-    # Option 1
-    @line_ctx.translate(0, -o)
-    @line_ctx.drawImage(@line_cache_ctx.canvas, 0, 0)
-
-    # Option 2
-    #@line_ctx.drawImage(@line_cache_ctx.canvas, 0, o, w, h, 0, 0, w, h)
-
-    # Option 3
-    #@line(@lifeline)
 
   ###
   *------------------------------------------*
@@ -596,8 +451,7 @@ class Legwork.Application
   | Start layout.
   *----------------------------------------###
   startLayout: ->
-    if Legwork.app_width >= 740
-      @$canvas_wrap.hide()
+    @$scribble.hide()
 
   ###
   *------------------------------------------*
@@ -617,17 +471,8 @@ class Legwork.Application
   *----------------------------------------###
   finishLayout: ->
     if Legwork.app_width >= 1025
-
-      # Lines
-      @$lines
-        .attr('width', Legwork.app_width)
-        .attr('height', Math.floor(Legwork.$wn.height() * 0.50))
-
-      @lifeline = @getLifeline()
-      @line(@lifeline)
-
-      if @current_state is ''
-        @$canvas_wrap.show()
+      @turnScrollEvents('on')
+      @$scribble.show()
 
       # Animations
       @$sequenced_stuff
@@ -635,8 +480,9 @@ class Legwork.Application
         .one('get_it_girl', @onStuffActivate)
 
       @$sequenced_stuff.eq(0).trigger('get_it_girl')
-
-    Legwork.$wn.trigger('scroll')
+      Legwork.$wn.trigger('scroll')
+    else
+      @turnScrollEvents('off')
 
   ###
   *------------------------------------------*
@@ -669,6 +515,22 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
+  | turnScrollEvents:void (-)
+  |
+  | s:string - on/off
+  |
+  | Turn scroll events on or off.
+  *----------------------------------------###
+  turnScrollEvents: (s) ->
+    Legwork.$wn.off('scroll')
+
+    if s is 'on'
+      Legwork.$wn
+        .one('scroll', @onScrollStart)
+        .on('scroll', @onScroll)
+
+  ###
+  *------------------------------------------*
   | onScrollStart:void (=)
   |
   | e:object - event object
@@ -697,7 +559,6 @@ class Legwork.Application
     Legwork.event_horizon = Math.floor(Legwork.$wn.scrollTop() + (Legwork.$wn.height() * 0.50))
 
     if Legwork.app_width >= 1025
-      @doLines()
       @doStuff()
 
   ###
@@ -712,27 +573,33 @@ class Legwork.Application
       .one('scroll', @onScrollStart)
 
     if Legwork.app_width >= 1025
-      if @current_state isnt 'filter' and @current_state isnt '404' and Legwork.$wn.scrollTop() > 100
+      if @current_state isnt '404'
         @scribble_to = setTimeout =>
-          @scribble_x = ((y) =>
-            data = @line_ctx.getImageData(0, y, @$lines[0].width, 1).data
+          scribble_y = (=>
+            $ww = $('.ww-inner:visible')
+            h = $ww.eq(0).outerHeight()
+            s = Legwork.$wn.scrollTop()
+            wh = Legwork.$wn.height()
 
-            for i in [3..data.length] by 4
-              if data[i] isnt 0
-                return Math.floor(i / 4)
+            for i in [0..($ww.length - 1)]
+              t = $ww.eq(i).offset().top
 
-            # Recurse if needed
-            arguments.callee(y - 1)
-          )(@$lines[0].height - 1)
-          @$scribble.css('margin-left', @scribble_x + 'px').show()
-          scribble = @$scribbles.eq(Math.floor(Math.random() * @$scribbles.length))
-          scribble.show()
-          scribble[0].currentTime = 0
+              if t > s and (t + h) < (s + wh)
+                return $ww.eq(i).offset().top
 
-          setTimeout =>
-            scribble[0].play()
-          , 100
-        , 1200
+            return false
+          )()
+
+          if scribble_y isnt false
+            @$scribble.css('top', scribble_y + 'px').show()
+            $scribble = @$scribbles.eq(Math.floor(Math.random() * @$scribbles.length))
+            $scribble[0].currentTime = 0
+
+            setTimeout =>
+              $scribble.show()
+              $scribble[0].play()
+            , 500
+        , 1000
 
   ###
   *------------------------------------------*
@@ -1045,7 +912,7 @@ class Legwork.Application
   |
   | Transition the detail controls in.
   *----------------------------------------###
-  detailControlsIn: ()->
+  detailControlsIn: ->
     setTimeout =>
       @$detail_close.animate
         'margin-top': '0px'
@@ -1065,6 +932,7 @@ class Legwork.Application
   | Load a detail item.
   *----------------------------------------###
   loadDetail: (item) ->
+    @turnScrollEvents('off')
     model = Legwork.Work[item] or Legwork.World[item]
 
     if Legwork.slide_controllers[item]?
@@ -1132,7 +1000,6 @@ class Legwork.Application
   | Load a filter.
   *----------------------------------------###
   loadFilter: (filter) ->
-    @$canvas_wrap.hide()
     @$stuff_wrap.hide()
     @$404_wrap.hide()
     @$filter_wrap
@@ -1198,7 +1065,8 @@ class Legwork.Application
   | Load 404.
   *----------------------------------------###
   loadFourOhFour: (url) ->
-    @$canvas_wrap.hide()
+    @turnScrollEvents('off')
+    @$scribble.hide()
     @$stuff_wrap.hide()
     @$filter_wrap.hide()
     @$filter.removeClass('selected')

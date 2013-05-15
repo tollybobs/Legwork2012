@@ -27,9 +27,6 @@
 //= require desktop/components/mobile-menu
 //= require desktop/components/image-sequence
 //
-// Helpers
-//= require_tree ./desktop/helpers
-//
 // Main
 //= require desktop/legwork
 //

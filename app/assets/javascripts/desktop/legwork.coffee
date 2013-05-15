@@ -451,8 +451,7 @@ class Legwork.Application
   | Start layout.
   *----------------------------------------###
   startLayout: ->
-    if Legwork.app_width >= 740
-      @$scribble.hide()
+    @$scribble.hide()
 
   ###
   *------------------------------------------*
@@ -600,7 +599,7 @@ class Legwork.Application
               $scribble.show()
               $scribble[0].play()
             , 500
-        , 1500
+        , 1000
 
   ###
   *------------------------------------------*

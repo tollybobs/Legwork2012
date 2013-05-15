@@ -280,10 +280,10 @@ class Legwork.Application
   getLifeline: ->
     side = 'l'
     line = {
-      'color': 'rgba(0, 0, 0, 0.07)',
+      'color': 'rgba(0, 0, 0, 0.08)',
       'coords': [],
       'tightness': (Math.random() * 1) + 3,
-      'weight': 1.25
+      'weight': 1.5
     }
 
     @$sequence.each (index, elm)->

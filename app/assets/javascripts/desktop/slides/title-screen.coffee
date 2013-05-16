@@ -1,6 +1,6 @@
 ###
 
-Copyright (c) 2012 Legwork Studio. All Rights Reserved. Your wife is still hot.
+Copyright (c) 2012 Legwork Studio. All Rights Reserved.
 
 ###
 
@@ -17,7 +17,6 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   | Construct the fuggin' thing.
   *----------------------------------------###
   constructor: (options) ->
-    # POWERFUL!
     super(options)
 
   ###
@@ -93,9 +92,23 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   | Private Methods
   |
   *----------------------------------------###
+
+  ###
+  *------------------------------------------*
+  | playVideo:void (=)
+  |
+  | Set current time to 0
+  | And play that video
+  *----------------------------------------###
   playVideo: =>
     @$v[0].currentTime = 0
     @$v[0].play()
 
+  ###
+  *------------------------------------------*
+  | videoEnded:void (=)
+  |
+  | Go ahead, play it again
+  *----------------------------------------###
   videoEnded: =>
     @playVideo()

@@ -1,6 +1,6 @@
 ###
 
-Copyright (c) 2012 Legwork Studio. All Rights Reserved. Your wife is still hot.
+Copyright (c) 2012 Legwork Studio. All Rights Reserved.
 
 ###
 
@@ -17,7 +17,6 @@ class Legwork.Slides.FullScreenVideo extends Legwork.Slides.Slide
   | Construct the fuggin' thing.
   *----------------------------------------###
   constructor: (options) ->
-    # POWERFUL!
     super(options)
 
   ###
@@ -94,6 +93,13 @@ class Legwork.Slides.FullScreenVideo extends Legwork.Slides.Slide
   |
   | Private Methods
   |
+  *----------------------------------------###
+
+  ###
+  *------------------------------------------*
+  | playVimeo:void (=)
+  |
+  | Append video and autoplay it
   *----------------------------------------###
   playVimeo: =>
     @$vimeo.empty().append("<iframe src='http://player.vimeo.com/video/#{@id}?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff&amp;autoplay=1' width='960' height='540' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>")

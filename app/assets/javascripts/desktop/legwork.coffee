@@ -577,24 +577,25 @@ class Legwork.Application
           s = Legwork.$wn.scrollTop()
           wh = Legwork.$wn.height()
 
+          if $ww.length is 0
+            return false
+
           for i in [($ww.length - 1)..0]
             t = $ww.eq(i).offset().top
 
             if t > s and (t + h) < (s + wh)
               return $ww.eq(i).offset().top
-
-          return false
         )()
 
         if scribble_y isnt false
           @$scribble.css('top', scribble_y + 'px').show()
           $scribble = @$scribbles.eq(Math.floor(Math.random() * @$scribbles.length))
           $scribble[0].currentTime = 0
+          $scribble[0].play()
 
           setTimeout =>
             $scribble.show()
-            $scribble[0].play()
-          , 500
+          , 33
       , 1000
 
   ###

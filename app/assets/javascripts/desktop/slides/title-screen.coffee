@@ -88,13 +88,6 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
-  |
-  | Private Methods
-  |
-  *----------------------------------------###
-
-  ###
-  *------------------------------------------*
   | playVideo:void (=)
   |
   | Set current time to 0

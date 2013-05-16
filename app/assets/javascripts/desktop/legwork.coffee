@@ -754,13 +754,13 @@ class Legwork.Application
   playSequence: ($parent, type) ->
     $vid = $parent.find('.video-' + type)
 
-    $parent.find('video').hide()
     $vid[0].currentTime = 0
-    $vid[0].play()
 
     setTimeout ->
+      $parent.find('video').hide()
       $vid.show()
-    , 33
+      $vid[0].play()
+    , 50
 
   ###
   *------------------------------------------*

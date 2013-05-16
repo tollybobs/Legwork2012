@@ -51,8 +51,7 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   activate: ->
     Legwork.$wn.trigger('resize.detail')
     if @$bgvid.length > 0 and Legwork.supports_autoplay
-      @$v[0].load()
-      @$v[0].addEventListener 'canplaythrough', @playVideo, false
+      @playVideo()
       @$v[0].addEventListener 'ended', @videoEnded, false
 
   ###
@@ -63,8 +62,8 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   *----------------------------------------###
   deactivate: ->
     if @$bgvid.length > 0 and Legwork.supports_autoplay
-      @$v[0].removeEventListener 'canplaythrough', @playVideo, false
       @$v[0].removeEventListener 'ended', @videoEnded, false
+      @$v[0].pause()
 
   ###
   *------------------------------------------*
@@ -95,7 +94,10 @@ class Legwork.Slides.TitleScreen extends Legwork.Slides.Slide
   *----------------------------------------###
   playVideo: =>
     @$v[0].currentTime = 0
-    @$v[0].play()
+
+    setTimeout =>
+      @$v[0].play()
+    , 33
 
   ###
   *------------------------------------------*

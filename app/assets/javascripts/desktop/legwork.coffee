@@ -110,10 +110,7 @@ class Legwork.Application
   *----------------------------------------###
   onLoadComplete: (e) =>
     @build()
-
     @$launch = $('.launch-btn')
-    @$sequence = $('.sequenced')
-
     @observeSomeSweetEvents()
 
     # Check initial url and set state
@@ -470,7 +467,7 @@ class Legwork.Application
   | Finish layout.
   *----------------------------------------###
   finishLayout: ->
-    if Legwork.app_width >= 1025
+    if Legwork.app_width >= 1025 and (@current_state is '' or @current_state is 'filter')
       @turnScrollEvents('on')
       @$scribble.show()
 
@@ -573,33 +570,32 @@ class Legwork.Application
       .one('scroll', @onScrollStart)
 
     if Legwork.app_width >= 1025
-      if @current_state isnt '404'
-        @scribble_to = setTimeout =>
-          scribble_y = (=>
-            $ww = $('.ww-inner:visible')
-            h = $ww.eq(0).outerHeight()
-            s = Legwork.$wn.scrollTop()
-            wh = Legwork.$wn.height()
+      @scribble_to = setTimeout =>
+        scribble_y = (=>
+          $ww = $('.ww-inner:visible')
+          h = $ww.eq(0).outerHeight()
+          s = Legwork.$wn.scrollTop()
+          wh = Legwork.$wn.height()
 
-            for i in [0..($ww.length - 1)]
-              t = $ww.eq(i).offset().top
+          for i in [($ww.length - 1)..0]
+            t = $ww.eq(i).offset().top
 
-              if t > s and (t + h) < (s + wh)
-                return $ww.eq(i).offset().top
+            if t > s and (t + h) < (s + wh)
+              return $ww.eq(i).offset().top
 
-            return false
-          )()
+          return false
+        )()
 
-          if scribble_y isnt false
-            @$scribble.css('top', scribble_y + 'px').show()
-            $scribble = @$scribbles.eq(Math.floor(Math.random() * @$scribbles.length))
-            $scribble[0].currentTime = 0
+        if scribble_y isnt false
+          @$scribble.css('top', scribble_y + 'px').show()
+          $scribble = @$scribbles.eq(Math.floor(Math.random() * @$scribbles.length))
+          $scribble[0].currentTime = 0
 
-            setTimeout =>
-              $scribble.show()
-              $scribble[0].play()
-            , 500
-        , 1000
+          setTimeout =>
+            $scribble.show()
+            $scribble[0].play()
+          , 500
+      , 1000
 
   ###
   *------------------------------------------*

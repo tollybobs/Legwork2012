@@ -68,13 +68,6 @@ class Legwork.Slides.Video extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
-  |
-  | Private Methods
-  |
-  *----------------------------------------###
-
-  ###
-  *------------------------------------------*
   | fetchVimeoThumbnail:void (=)
   |
   | Fetch vimeo thumbnail for poster

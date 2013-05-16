@@ -90,13 +90,6 @@ class Legwork.Slides.FullScreenVideo extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
-  |
-  | Private Methods
-  |
-  *----------------------------------------###
-
-  ###
-  *------------------------------------------*
   | playVimeo:void (=)
   |
   | Append video and autoplay it

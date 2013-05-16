@@ -156,7 +156,7 @@ class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
     if w <= 740
 
-      if @current_slide_index isnt 0
+      if @current_slide_index > 1
         @current_slide_view.deactivate()
         @current_slide_index = 0
         @current_slide_view = @slide_views[@current_slide_index]

@@ -34,7 +34,6 @@ class Legwork.Controllers.BaseDetail
     @rel = @model.related
 
     $slides_wrap = @$el.find('.slides')
-    html = ''
 
     for slide in @model.slides
       slide_view = new Legwork.Slides[slide.type]({model: slide})

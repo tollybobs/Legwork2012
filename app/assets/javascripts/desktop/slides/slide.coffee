@@ -1,6 +1,6 @@
 ###
 
-Copyright (c) 2012 Legwork Studio. All Rights Reserved. Your wife is still hot.
+Copyright (c) 2012 Legwork Studio. All Rights Reserved.
 
 ###
 
@@ -70,5 +70,3 @@ class Legwork.Slides.Slide
   *----------------------------------------###
   renderTemplate: (template, context) ->
     $(JST["desktop/templates/slides/#{template}"](context).replace(/^[\s]+/gm, ''))
-
-

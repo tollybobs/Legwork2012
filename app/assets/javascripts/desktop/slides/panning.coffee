@@ -77,13 +77,6 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
-  |
-  | Private Methods
-  |
-  *----------------------------------------###
-
-  ###
-  *------------------------------------------*
   | resetToCenter:void (=)
   |
   | Reset image to center top
@@ -110,18 +103,18 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
           'iMouseY': e.pageY
           'iPosX': $t.position().left
           'iPosY': $t.position().top
-        ).on(Legwork.mousemove, @_clickedDrag)
+        ).on(Legwork.mousemove, @clickedDrag)
 
-        Legwork.$doc.one(Legwork.mouseup, @_constrainDrag)
+        Legwork.$doc.one(Legwork.mouseup, @constrainDrag)
         e.preventDefault()
 
   ###
   *------------------------------------------*
-  | _clickedDrag:void (=)
+  | clickedDrag:void (=)
   |
   | Go ahead, drag around
   *----------------------------------------###
-  _clickedDrag: (e) =>
+  clickedDrag: (e) =>
     data = $(e.currentTarget).data('pan')
     deltaX = e.pageX - data.iMouseX
     deltaY = e.pageY - data.iMouseY
@@ -138,12 +131,12 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
 
   ###
   *------------------------------------------*
-  | _constrainDrag:void (=)
+  | constrainDrag:void (=)
   |
   | On mouseup, either leave at new spot
   | Or snap to nearest bounds
   *----------------------------------------###
-  _constrainDrag: =>
+  constrainDrag: =>
     pX = @$pan_image.position().left
     pY = @$pan_image.position().top
     bX = @bw - @pw
@@ -151,7 +144,7 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
     x = pX
     y = pY
 
-    @$pan_image.unbind(Legwork.mousemove, @_clickedDrag).addClass('constrain').removeClass('grabbing')
+    @$pan_image.unbind(Legwork.mousemove, @clickedDrag).addClass('constrain').removeClass('grabbing')
 
     if pX > 0 then x = 0
     if pY > 0 then y = 0

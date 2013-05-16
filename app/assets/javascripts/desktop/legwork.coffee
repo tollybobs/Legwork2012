@@ -448,7 +448,9 @@ class Legwork.Application
   | Start layout.
   *----------------------------------------###
   startLayout: ->
+    clearTimeout(@scribble_to)
     @$scribble.hide()
+    @turnScrollEvents('off')
 
   ###
   *------------------------------------------*
@@ -457,6 +459,7 @@ class Legwork.Application
   | Compute layout for current window width.
   *----------------------------------------###
   layout: ->
+    clearTimeout(@scribble_to)
     if Legwork.app_width < 1025
       $('.sequenced-inner').find('video').hide()
 
@@ -478,8 +481,6 @@ class Legwork.Application
 
       @$sequenced_stuff.eq(0).trigger('get_it_girl')
       Legwork.$wn.trigger('scroll')
-    else
-      @turnScrollEvents('off')
 
   ###
   *------------------------------------------*
@@ -535,8 +536,8 @@ class Legwork.Application
   | Window has started scrolling.
   *----------------------------------------###
   onScrollStart: (e) =>
+    clearTimeout(@scribble_to)
     if Legwork.app_width >= 1025
-      clearTimeout(@scribble_to)
       @$scribbles.hide()
       @$scribble.hide()
 
@@ -585,6 +586,8 @@ class Legwork.Application
 
             if t > s and (t + h) < (s + wh)
               return $ww.eq(i).offset().top
+
+          return false
         )()
 
         if scribble_y isnt false
@@ -754,13 +757,13 @@ class Legwork.Application
   playSequence: ($parent, type) ->
     $vid = $parent.find('.video-' + type)
 
-    $parent.find('video').hide()
     $vid[0].currentTime = 0
-    $vid[0].play()
 
     setTimeout ->
+      $parent.find('video').hide()
       $vid.show()
-    , 33
+      $vid[0].play()
+    , 50
 
   ###
   *------------------------------------------*

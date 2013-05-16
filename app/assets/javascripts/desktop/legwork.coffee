@@ -263,6 +263,17 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
+  | resetScribble:void (-)
+  |
+  | Reset the scribble.
+  *----------------------------------------###
+  resetScribble: ->
+    clearTimeout(@scribble_to)
+    @$scribbles.hide()
+    @$scribble.hide()
+
+  ###
+  *------------------------------------------*
   | build:void (-)
   |
   | DOM manipulations, instantiations, etc.
@@ -448,8 +459,7 @@ class Legwork.Application
   | Start layout.
   *----------------------------------------###
   startLayout: ->
-    clearTimeout(@scribble_to)
-    @$scribble.hide()
+    @resetScribble()
     @turnScrollEvents('off')
 
   ###
@@ -459,7 +469,7 @@ class Legwork.Application
   | Compute layout for current window width.
   *----------------------------------------###
   layout: ->
-    clearTimeout(@scribble_to)
+    @resetScribble()
     if Legwork.app_width < 1025
       $('.sequenced-inner').find('video').hide()
 
@@ -471,6 +481,7 @@ class Legwork.Application
   *----------------------------------------###
   finishLayout: ->
     if Legwork.app_width >= 1025 and (@current_state is '' or @current_state is 'filter')
+      @resetScribble()
       @turnScrollEvents('on')
       @$scribble.show()
 
@@ -536,10 +547,7 @@ class Legwork.Application
   | Window has started scrolling.
   *----------------------------------------###
   onScrollStart: (e) =>
-    clearTimeout(@scribble_to)
-    if Legwork.app_width >= 1025
-      @$scribbles.hide()
-      @$scribble.hide()
+    @resetScribble()
 
   ###
   *------------------------------------------*
@@ -796,6 +804,7 @@ class Legwork.Application
   | App state (URL) has changed.
   *----------------------------------------###
   onAppStateChange: =>
+    @resetScribble()
     @state = @History.getState()
     url = @state.hash.replace(/[^a-z0-9_-]+/gi, '')
 
@@ -1008,6 +1017,7 @@ class Legwork.Application
 
     @buildFilter(filter)
     @reveal()
+    @finishLayout()
 
   ###
   *------------------------------------------*

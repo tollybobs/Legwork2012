@@ -448,7 +448,9 @@ class Legwork.Application
   | Start layout.
   *----------------------------------------###
   startLayout: ->
+    clearTimeout(@scribble_to)
     @$scribble.hide()
+    @turnScrollEvents('off')
 
   ###
   *------------------------------------------*
@@ -478,8 +480,6 @@ class Legwork.Application
 
       @$sequenced_stuff.eq(0).trigger('get_it_girl')
       Legwork.$wn.trigger('scroll')
-    else
-      @turnScrollEvents('off')
 
   ###
   *------------------------------------------*
@@ -535,8 +535,8 @@ class Legwork.Application
   | Window has started scrolling.
   *----------------------------------------###
   onScrollStart: (e) =>
+    clearTimeout(@scribble_to)
     if Legwork.app_width >= 1025
-      clearTimeout(@scribble_to)
       @$scribbles.hide()
       @$scribble.hide()
 

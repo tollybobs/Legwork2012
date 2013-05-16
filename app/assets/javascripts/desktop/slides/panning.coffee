@@ -1,6 +1,6 @@
 ###
 
-Copyright (c) 2012 Legwork Studio. All Rights Reserved. Your wife is still hot.
+Copyright (c) 2012 Legwork Studio. All Rights Reserved.
 
 ###
 
@@ -17,7 +17,6 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   | Construct the fuggin' thing.
   *----------------------------------------###
   constructor: (options) ->
-    # POWERFUL!
     super(options)
 
   ###
@@ -82,12 +81,25 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
   | Private Methods
   |
   *----------------------------------------###
+
+  ###
+  *------------------------------------------*
+  | resetToCenter:void (=)
+  |
+  | Reset image to center top
+  *----------------------------------------###
   resetToCenter: =>
     @$pan_image
       .css
         'top': '0px'
         'left':  @horz_center + 'px'
 
+  ###
+  *------------------------------------------*
+  | initPanning:void (=)
+  |
+  | Initialize panning with a click
+  *----------------------------------------###
   initPanning: =>
     @$pan_image
       .on Legwork.mousedown, (e) =>
@@ -103,6 +115,12 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
         Legwork.$doc.one(Legwork.mouseup, @_constrainDrag)
         e.preventDefault()
 
+  ###
+  *------------------------------------------*
+  | _clickedDrag:void (=)
+  |
+  | Go ahead, drag around
+  *----------------------------------------###
   _clickedDrag: (e) =>
     data = $(e.currentTarget).data('pan')
     deltaX = e.pageX - data.iMouseX
@@ -118,6 +136,13 @@ class Legwork.Slides.PanningSlide extends Legwork.Slides.Slide
         'top': normalY + 'px'
         'left': normalX + 'px'
 
+  ###
+  *------------------------------------------*
+  | _constrainDrag:void (=)
+  |
+  | On mouseup, either leave at new spot
+  | Or snap to nearest bounds
+  *----------------------------------------###
   _constrainDrag: =>
     pX = @$pan_image.position().left
     pY = @$pan_image.position().top

@@ -1,6 +1,6 @@
 ###
 
-Copyright (c) 2012 Legwork Studio. All Rights Reserved. Your wife is still hot.
+Copyright (c) 2012 Legwork Studio. All Rights Reserved.
 
 ###
 
@@ -17,7 +17,6 @@ class Legwork.Slides.PullQuote extends Legwork.Slides.Slide
   | Construct the fuggin' thing.
   *----------------------------------------###
   constructor: (options) ->
-    # POWERFUL!
     super(options)
 
   ###
@@ -29,26 +28,3 @@ class Legwork.Slides.PullQuote extends Legwork.Slides.Slide
   build: ->
     @$el = @renderTemplate('pull-quote', @model)
     return @$el
-
-  ###
-  *------------------------------------------*
-  | activate:void (-)
-  |
-  | Activate new/current slide
-  *----------------------------------------###
-  activate: ->
-
-  ###
-  *------------------------------------------*
-  | deactivate:void (-)
-  |
-  | Deactivate old slide
-  *----------------------------------------###
-  deactivate: ->
-
-  ###
-  *------------------------------------------*
-  |
-  | Private Methods
-  |
-  *----------------------------------------###

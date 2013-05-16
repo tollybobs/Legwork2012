@@ -1,8 +1,9 @@
 ###
 
-Copyright (c) 2012 Legwork Studio. All Rights Reserved. Your wife is hot.
+Copyright (c) 2012 Legwork Studio. All Rights Reserved.
 
 ###
+
 class Legwork.CaseStudyDetail extends Legwork.Controllers.BaseDetail
 
   ###

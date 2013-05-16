@@ -459,6 +459,7 @@ class Legwork.Application
   | Compute layout for current window width.
   *----------------------------------------###
   layout: ->
+    clearTimeout(@scribble_to)
     if Legwork.app_width < 1025
       $('.sequenced-inner').find('video').hide()
 
@@ -585,6 +586,8 @@ class Legwork.Application
 
             if t > s and (t + h) < (s + wh)
               return $ww.eq(i).offset().top
+
+          return false
         )()
 
         if scribble_y isnt false

@@ -102,11 +102,11 @@ class Legwork.Controllers.BaseDetail
 
   ###
   *------------------------------------------*
-  | switchProjects:void (-)
+  | switchProjects:void (=)
   |
   | Change url to show next related project
   *----------------------------------------###
-  switchProjects: ->
+  switchProjects: =>
     History.pushState(null, null, "/#{@rel}")
 
   ###

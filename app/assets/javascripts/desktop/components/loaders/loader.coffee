@@ -170,7 +170,7 @@ class Legwork.Loader
         $v = $(JST['desktop/templates/html5-video'](video))
         $v.appendTo(@$video_stage)
 
-        $v.one 'canplaythrough', (e) =>
+        $v.one 'canplay', (e) =>
           @loaded++
           @updateProgress()
 

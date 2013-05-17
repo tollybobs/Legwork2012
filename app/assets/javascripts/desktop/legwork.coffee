@@ -600,7 +600,17 @@ class Legwork.Application
 
         if scribble_y isnt false
           @$scribble.css('top', scribble_y + 'px').show()
-          $scribble = @$scribbles.eq(Math.floor(Math.random() * @$scribbles.length))
+          rnd = Math.floor(Math.random() * @$scribbles.length)
+
+          # Different random
+          # The chance of hanging the site decreases
+          # exponentially with each iteration, I'll
+          # take those odds
+          while rnd is @scribble_index
+            rnd = Math.floor(Math.random() * @$scribbles.length)
+
+          @scribble_index = rnd
+          $scribble = @$scribbles.eq(@scribble_index)
           $scribble[0].currentTime = 0
           $scribble[0].play()
 

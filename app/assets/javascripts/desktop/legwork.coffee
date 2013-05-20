@@ -578,46 +578,46 @@ class Legwork.Application
     Legwork.$wn
       .one('scroll', @onScrollStart)
 
-    if Legwork.app_width >= 1025
-      @scribble_to = setTimeout =>
-        scribble_y = (=>
-          $ww = $('.ww-inner:visible')
-          h = $ww.eq(0).outerHeight()
-          s = Legwork.$wn.scrollTop()
-          wh = Legwork.$wn.height()
+    # if Legwork.app_width >= 1025
+    #   @scribble_to = setTimeout =>
+    #     scribble_y = (=>
+    #       $ww = $('.ww-inner:visible')
+    #       h = $ww.eq(0).outerHeight()
+    #       s = Legwork.$wn.scrollTop()
+    #       wh = Legwork.$wn.height()
 
-          if $ww.length is 0
-            return false
+    #       if $ww.length is 0
+    #         return false
 
-          for i in [($ww.length - 1)..0]
-            t = $ww.eq(i).offset().top
+    #       for i in [($ww.length - 1)..0]
+    #         t = $ww.eq(i).offset().top
 
-            if t > s and (t + h) < (s + wh)
-              return $ww.eq(i).offset().top
+    #         if t > s and (t + h) < (s + wh)
+    #           return $ww.eq(i).offset().top
 
-          return false
-        )()
+    #       return false
+    #     )()
 
-        if scribble_y isnt false
-          @$scribble.css('top', scribble_y + 'px').show()
-          rnd = Math.floor(Math.random() * @$scribbles.length)
+    #     if scribble_y isnt false
+    #       @$scribble.css('top', scribble_y + 'px').show()
+    #       rnd = Math.floor(Math.random() * @$scribbles.length)
 
-          # Different random
-          # The chance of hanging the site decreases
-          # exponentially with each iteration, I'll
-          # take those odds
-          while rnd is @scribble_index
-            rnd = Math.floor(Math.random() * @$scribbles.length)
+    #       # Different random
+    #       # The chance of hanging the site decreases
+    #       # exponentially with each iteration, I'll
+    #       # take those odds
+    #       while rnd is @scribble_index
+    #         rnd = Math.floor(Math.random() * @$scribbles.length)
 
-          @scribble_index = rnd
-          $scribble = @$scribbles.eq(@scribble_index)
-          $scribble[0].currentTime = 0
-          $scribble[0].play()
+    #       @scribble_index = rnd
+    #       $scribble = @$scribbles.eq(@scribble_index)
+    #       $scribble[0].currentTime = 0
+    #       $scribble[0].play()
 
-          setTimeout =>
-            $scribble.show()
-          , 33
-      , 1000
+    #       setTimeout =>
+    #         $scribble.show()
+    #       , 33
+    #   , 1000
 
   ###
   *------------------------------------------*

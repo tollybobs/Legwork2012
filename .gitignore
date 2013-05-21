@@ -22,3 +22,4 @@ pickle-email-*.html
 Vagrantfile
 config/database.yml
 config/puppet/*
+/.vagrant

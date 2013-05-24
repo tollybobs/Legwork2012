@@ -43,6 +43,7 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     daemons (1.1.8)
+    dalli (2.6.3)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -86,6 +87,7 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcachier (0.0.2)
     method_source (0.8.1)
     mime-types (1.19)
     multi_json (1.6.1)
@@ -161,10 +163,12 @@ PLATFORMS
 DEPENDENCIES
   asset_sync
   coffee-rails (~> 3.2.1)
+  dalli
   eco
   heroku
   httpclient
   jquery-rails
+  memcachier
   pg
   pry
   pry-rails

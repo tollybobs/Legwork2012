@@ -17,8 +17,10 @@ gem 'jquery-rails'
 gem 'eco'
 gem 'httpclient'
 
+gem 'pry'
+gem 'pry-rails'
+
 group :development do
   gem 'heroku'
-  gem 'pry'
-  gem 'pry-rails'
 end
+

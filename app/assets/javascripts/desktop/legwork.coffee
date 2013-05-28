@@ -271,6 +271,7 @@ class Legwork.Application
     clearTimeout(@scribble_to)
     @$scribbles.hide()
     @$scribble.hide()
+    @scribble_index = 0
 
   ###
   *------------------------------------------*
@@ -320,8 +321,10 @@ class Legwork.Application
       $('#' + vid[1]).addClass('video-out').appendTo($vid_wrap)
 
     # Scribbles
-    @$scribbles = $('video[id$="-scribble"]')
-    @$scribble.html(@$scribbles)
+    $scribble_vids = $('video[id$="-scribble"]')
+    @$scribble.html($scribble_vids)
+    @$scribble.find('video').wrap('<div class="scribble" />')
+    @$scribbles = $('.scribble')
 
   ###
   *------------------------------------------*
@@ -578,46 +581,63 @@ class Legwork.Application
     Legwork.$wn
       .one('scroll', @onScrollStart)
 
-    # if Legwork.app_width >= 1025
-    #   @scribble_to = setTimeout =>
-    #     scribble_y = (=>
-    #       $ww = $('.ww-inner:visible')
-    #       h = $ww.eq(0).outerHeight()
-    #       s = Legwork.$wn.scrollTop()
-    #       wh = Legwork.$wn.height()
+    if Legwork.app_width >= 1025
+      @resetScribble()
+      @$scribble.show()
+      @scribble_order = _.shuffle([0, 1, 2, 3])
+      #@scribble_to = setTimeout(@scribble, 12000)
 
-    #       if $ww.length is 0
-    #         return false
+  ###
+  *------------------------------------------*
+  | scribble:void (=)
+  |
+  | Didn't you ever get bored in school?
+  *----------------------------------------###
+  scribble: =>
+    $remaining = @$scribbles.filter(':hidden')
+    rand = Math.floor(Math.random() * $remaining.length)
+    $current = $remaining.eq(rand)
+    ww = Legwork.$wn.width()
+    wh = Legwork.$wn.height()
 
-    #       for i in [($ww.length - 1)..0]
-    #         t = $ww.eq(i).offset().top
+    x = Math.round(Math.random() * (ww * 0.4))
+    y = Math.round(Math.random() * ((wh * 0.5) - (ww * 0.1)))
 
-    #         if t > s and (t + h) < (s + wh)
-    #           return $ww.eq(i).offset().top
+    switch @scribble_index
+      when @scribble_order[0]
+        x -= (ww * 0.1)
+        y -= (ww * 0.1)
+      when @scribble_order[1]
+        x += Math.round(ww * 0.5)
+        y -= (ww * 0.1)
+      when @scribble_order[2]
+        x += Math.round(ww * 0.5)
+        y += Math.round(wh * 0.5)
+      when @scribble_order[3]
+        x -= (ww * 0.1)
+        y += Math.round(wh * 0.5)
 
-    #       return false
-    #     )()
+    vid = $current.find('video')[0]
+    vid.currentTime = 0
+    vid.play()
 
-    #     if scribble_y isnt false
-    #       @$scribble.css('top', scribble_y + 'px').show()
-    #       rnd = Math.floor(Math.random() * @$scribbles.length)
+    setTimeout =>
+      $current
+        .css({'top': y + 'px','left': x + 'px'})
+        .show()
+    , 33
 
-    #       # Different random
-    #       # The chance of hanging the site decreases
-    #       # exponentially with each iteration, I'll
-    #       # take those odds
-    #       while rnd is @scribble_index
-    #         rnd = Math.floor(Math.random() * @$scribbles.length)
+    @scribble_index++
 
-    #       @scribble_index = rnd
-    #       $scribble = @$scribbles.eq(@scribble_index)
-    #       $scribble[0].currentTime = 0
-    #       $scribble[0].play()
-
-    #       setTimeout =>
-    #         $scribble.show()
-    #       , 33
-    #   , 1000
+    if @scribble_index < 4
+      @scribble_to = setTimeout(@scribble, 7000)
+    else
+      @scribble_to = setTimeout =>
+        @resetScribble()
+        @$scribble.show()
+        @scribble_order = _.shuffle([0, 1, 2, 3])
+        @scribble()
+      , 12000
 
   ###
   *------------------------------------------*

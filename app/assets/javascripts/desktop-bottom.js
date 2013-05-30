@@ -16,7 +16,15 @@
 //= require_tree ./desktop/slides
 //
 // Data
-//= require_tree ./desktop/data
+//= require_tree ./desktop/data/work
+//= require_tree ./desktop/data/world
+//= require desktop/data/about-us
+//= require desktop/data/extracurricular
+//= require desktop/data/illustration
+//= require desktop/data/index
+//= require desktop/data/interactive
+//= require desktop/data/motion
+//= require desktop/data/open-source
 //
 // Templates
 //= require_tree ./desktop/templates

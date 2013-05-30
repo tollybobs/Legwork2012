@@ -1,4 +1,4 @@
-<div class="<%= @type %> stuff cf">
+<div class="<% if Legwork.supports_autoplay is true: %>autoplay-supported<% end %> <%= @type %> stuff cf">
   <div class="sequenced-inner">
     <div class="sequenced-content-wrap" style="background-image: url(<%= @alt_content %>)" <% if @content?: %>data-content="<%= @content[0]%>, <%= @content[1]%>"<% end %>>
       <div class="sequenced-title-wrap">

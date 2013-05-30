@@ -225,7 +225,7 @@
       #wrap-the-scribble
         display: none
 
-        .scribble
+        video
           display: none
 
       #wrap-the-stuff,
@@ -1960,26 +1960,19 @@
 
       #wrap-the-scribble
         display: block
-        position: fixed
+        position: absolute
         top: 0px
         left: 0px
-        width: 100%
-        height: 100%
+        width: 60%
+        height: 0px
+        padding-bottom: 33.75%
 
-        .scribble
+        video
           position: absolute
           top: 0px
           left: 0px
-          width: 20%
-          height: 0
-          padding-bottom: 20%
-
-          video
-            position: absolute
-            top: 0px
-            left: 0px
-            width: 100%
-            height: 100%
+          width: 100%
+          height: 100%
 
       #wrap-the-stuff,
       #wrap-the-filter
@@ -2087,8 +2080,8 @@
                 font: normal normal normal 12px/14px 'Helvetica Neue', Helvetica, Arial, sans-serif
 
       #wrap-the-stuff
-        .sequenced.stuff,
-        .sequenced.stuff:first-child
+        .autoplay-supported.sequenced.stuff.stuff,
+        .autoplay-supported.sequenced.stuff.stuff:first-child
           .sequenced-inner
             .sequenced-content-wrap
               background: #fff !important
@@ -2121,13 +2114,14 @@
         .slides-wrapper
           .slides
             // title screen slide
-            .title-screen
+            .autoplay-supported.title-screen
               .bg-project-video
                 display: block
 
               .bg-project-image
                 display: none
 
+            .title-screen
               .project-info
                 ul
                   width: 17%

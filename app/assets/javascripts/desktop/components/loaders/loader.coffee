@@ -48,6 +48,14 @@ class Legwork.Loader
   | Test autoplay capability.
   *----------------------------------------###
   testAutoplay: ->
+
+    # Some machines w/ IE9 can't quite handle
+    # the videos due to memory limitations. So,
+    # they get some sweet images instead.
+    if $('html').hasClass('ie9') is true
+      @loadVideo()
+      return false
+
     fail = 0
     failed = false
 
@@ -62,6 +70,7 @@ class Legwork.Loader
     # Note: we are waiting 2s for metadata
     # to load. This should be well within the
     # tolerance for global connection speeds.
+    # If this fails, we just show images.
     fail = setTimeout =>
       failed = true
       $v.remove()

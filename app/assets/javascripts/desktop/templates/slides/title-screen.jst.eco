@@ -1,4 +1,4 @@
-<div class="slide title-screen" <% if @background.type is 'image': %>style="background-image: url(<%= @background.url %>)"<% end %>>
+<div class="<% if Legwork.supports_autoplay is true: %>autoplay-supported<% end %> slide title-screen" <% if @background.type is 'image': %>style="background-image: url(<%= @background.url %>)"<% end %>>
   <% if @background.type is 'video': %>
     <div class="bg-project-video">
     </div>

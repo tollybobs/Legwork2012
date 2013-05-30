@@ -581,8 +581,7 @@ class Legwork.Application
 
     if Legwork.app_width >= 1025 and Legwork.supports_autoplay
       @resetScribble()
-      @$scribble.show()
-      @scribble_to = setTimeout(@scribble, 82801)
+      #@scribble_to = setTimeout(@scribble, 82801)
 
   ###
   *------------------------------------------*

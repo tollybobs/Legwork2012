@@ -490,6 +490,7 @@ class Legwork.Application
       @$sequenced_stuff
         .off('get_it_girl ok_see_ya')
         .one('get_it_girl', @onStuffActivate)
+        .find('video').hide()
 
       #@$sequenced_stuff.eq(0).trigger('get_it_girl')
       Legwork.$wn.trigger('scroll')

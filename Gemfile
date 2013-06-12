@@ -16,6 +16,7 @@ end
 gem 'jquery-rails'
 gem 'eco'
 gem 'httpclient'
+gem 'twitter'
 
 gem 'pry'
 gem 'pry-rails'

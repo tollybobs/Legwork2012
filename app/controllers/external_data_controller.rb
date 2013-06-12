@@ -7,23 +7,20 @@ class ExternalDataController < ApplicationController
 
     begin
       data = Rails.cache.fetch("tweetyeah", :expires_in => 1.hour + 5.minutes) do
-        uri = URI.parse("https://api.twitter.com/1/statuses/user_timeline/Legwork.json?&trim_user=true&count=100&exclude_replies=true&callback=?")
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        request = Net::HTTP::Get.new(uri.request_uri)
-        response = http.request(request)
-        if (response.code == "200")
-          Rails.cache.write('tweetno', response.body)
-        else
-          throw :no_bueno
-        end
-        response.body
+        client = Twitter::Client.new(
+          :consumer_key => "2NMtG86kPDlsCR1LpbVGyw",
+          :consumer_secret => "MnLQnhR0udNQshMgF8bAFHmipSVZ66JyZwlDhx8ug",
+          :oauth_token => "17035743-RgjgZQWBknSC8zzs6KkrnQOkMf1DnEx6baFwGEFR7",
+          :oauth_token_secret => "YBeyoBVwD99T5FF37gBmtLAcfomMaHZRJm0rtnOY"
+        )
+        client.user_timeline('legwork')
       end
-      render :json => JSON.parse(data)
+      render :json => data
     rescue => detail
       Rails.cache.delete("tweetyeah")
-      render :json => JSON.parse(Rails.cache.read('tweetno'))
+      render :json => Rails.cache.read('tweetno')
+    ensure
+      Rails.cache.write('tweetno', response.body)
     end
 
   end

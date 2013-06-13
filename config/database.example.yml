@@ -1,4 +1,7 @@
 development:
   adapter: postgresql
-  database: legwork_local
-  host: localhost
+  encoding: unicode
+  database: legwork_development
+  pool: 5
+  username: devleg 
+  password: l3gw0rk!

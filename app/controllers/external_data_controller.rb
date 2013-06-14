@@ -13,7 +13,7 @@ class ExternalDataController < ApplicationController
           :oauth_token => "17035743-RgjgZQWBknSC8zzs6KkrnQOkMf1DnEx6baFwGEFR7",
           :oauth_token_secret => "YBeyoBVwD99T5FF37gBmtLAcfomMaHZRJm0rtnOY"
         )
-        client.user_timeline('legwork')
+        client.user_timeline('legwork', :count => 30)
       end
       render :json => data
     rescue => detail

@@ -129,13 +129,8 @@ class Legwork.Loader
 
       # filter replies, could be done server side
       for tweet, index in Legwork.twitter
-        if /^(@|\s@|\s\s@|.@|.\s@)/.test(tweet.text) is true
-          Legwork.twitter = _.without(Legwork.twitter, tweet)
-
-        ###
         if /^(@|\s@|\s\s@|.@|.\s@|RT\s*@)/.test(tweet.text) is true
           Legwork.twitter = _.without(Legwork.twitter, tweet)
-        ###
 
   ###
   *------------------------------------------*

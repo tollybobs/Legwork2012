@@ -78,7 +78,7 @@ h2 {
 	position: relative;
 	margin: 40px 0 20px;
 	padding: 40px 0 0;
-	font: normal normal normal 24px/24px "MuseoSlab700", Verdana, sans-serif
+	font: normal normal normal 24px/24px "Archer SSm A", "Archer SSm B", Verdana, sans-serif
 }
 
 h2:first-child {
@@ -102,7 +102,7 @@ h2:first-child:after {
 
 h3 {
 	margin: 40px 0 20px;
-	font: normal normal normal 18px/18px "MuseoSlab700", Verdana, sans-serif
+	font: normal normal normal 18px/18px "Archer SSm A", "Archer SSm B", Verdana, sans-serif
 }
 
 p {

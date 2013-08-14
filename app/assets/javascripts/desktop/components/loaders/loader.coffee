@@ -123,9 +123,7 @@ class Legwork.Loader
       @loaded++
       @updateProgress()
 
-      ###
       console.log('Loaded Twitter 1/1')
-      ###
 
       # filter replies, could be done server side
       for tweet, index in Legwork.twitter

@@ -23,12 +23,10 @@ class Legwork.Loader
     Legwork.supports_autoplay = false
 
     # Test
-    ###
     @images_loaded = 0
     @videos_loaded = 0
     @images_total = @assets.images.length
     @videos_total = @assets.videos.length
-    ###
 
     @total = @assets.images.length + @assets.videos.length + 1 # +1 for Twitter
 
@@ -145,10 +143,8 @@ class Legwork.Loader
       @loaded++
       @updateProgress()
 
-      ###
       @images_loaded++
       console.log('Loaded image ' + @images_loaded + '/' + @images_total)
-      ###
 
     if $current[0].complete is true
       $current.trigger('load')
@@ -201,10 +197,8 @@ class Legwork.Loader
           @loaded++
           @updateProgress()
 
-          ###
           @videos_loaded++
           console.log('Loaded video ' + @videos_loaded + '/' + @videos_total)
-          ###
 
         $v[0].load()
     else

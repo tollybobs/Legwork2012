@@ -184,23 +184,32 @@ class Legwork.Loader
     if Modernizr.video and Legwork.supports_autoplay
       for video in @assets.videos
         $v = $(JST['desktop/templates/html5-video'](video))
-        $v.appendTo(@$video_stage)
 
-        @vids.push(video.path)
-
-        $v.one 'canplay', (e) =>
-          @loaded++
-          @updateProgress()
-
-          @vids = _.without(@vids, e.currentTarget.id)
-          console.log(@vids)
+        $v
+          .one 'canplay', (e) =>
+            @loaded++
+            @updateProgress()
+          .appendTo(@$video_stage)
 
         $v[0].load()
+        @failSafe($v)
     else
       @loaded += @assets.videos.length
       @updateProgress()
 
     return false
+
+  ###
+  *------------------------------------------*
+  | failSafe:void (-)
+  |
+  | Temp.
+  *----------------------------------------###
+  failSafe: ($v) ->
+    # Max 5 second wait for video
+    setTimeout(=>
+      $v.trigger('canplay')
+    , 5000)
 
   ###
   *------------------------------------------*

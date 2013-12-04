@@ -188,8 +188,6 @@ class Legwork.Loader
 
         @vids.push(video.path)
 
-        console.log($v[0].readyState)
-
         $v.one 'canplay', (e) =>
           @loaded++
           @updateProgress()

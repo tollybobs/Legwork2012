@@ -188,14 +188,14 @@ class Legwork.Loader
         $v = $(JST['desktop/templates/html5-video'](video))
         $v.appendTo(@$video_stage)
 
-        console.log('Started loading ' + video)
+        console.log('Started loading ' + video.path)
 
         $v.one 'canplay', (e) =>
           @loaded++
           @updateProgress()
 
           @videos_loaded++
-          console.log('Loaded video ' + @videos_loaded + '/' + @videos_total + ' : ' + $v.attr('id'))
+          console.log('Loaded video ' + @videos_loaded + '/' + @videos_total + ' : ' + $(e.currentTarget).attr('id'))
 
         $v[0].load()
     else

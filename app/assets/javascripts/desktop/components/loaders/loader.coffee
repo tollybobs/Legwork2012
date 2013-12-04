@@ -184,8 +184,11 @@ class Legwork.Loader
     if Modernizr.video and Legwork.supports_autoplay
       for video in @assets.videos
         $v = $(JST['desktop/templates/html5-video'](video))
+        $v.appendTo(@$video_stage)
 
         @vids.push(video.path)
+
+        console.log($v[0].readyState)
 
         $v.one 'canplay', (e) =>
           @loaded++
@@ -194,7 +197,6 @@ class Legwork.Loader
           @vids = _.without(@vids, e.currentTarget.id)
           console.log(@vids)
 
-        $v.appendTo(@$video_stage)
         $v[0].load()
     else
       @loaded += @assets.videos.length

@@ -196,6 +196,9 @@ class Legwork.Loader
           console.log(@vids)
 
         $v[0].load()
+
+        if $v[0].readyState is 4
+          $v.trigger('canplay')
     else
       @loaded += @assets.videos.length
       @updateProgress()

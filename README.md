@@ -7,30 +7,30 @@ Thanks!
 
 #Environment setup instructions
 
-##Install VM dependencies
+1. Install VM dependencies
 Before setting up your local environment you will need VirtualBox, and Vagrant installed
 
 https://www.virtualbox.org/
 http://www.vagrantup.com/
 
-##Clone repository and cd into directory
+2. Clone repository and cd into directory
 
 `git clone git@github.com:legworkstudio/Legwork2012.git`
 `cd Legwork2012`
 
-##change file names
+3. Edit file names
 
 change Vagrant.example to Vagrant
 `mv Vagrant.example Vagrant`
 
 change config/database.example.yml to config/database.yml
 
-##Build the virtual machine
+4. Build the virtual machine
 
 `vagrant up`
 grab a cup of coffee, this may take a bit.
 
-##Set up Rails application
+5. Set up Rails application
 
 install dependencies
 `bundle install`
@@ -43,6 +43,6 @@ create database
 start server
 `rails s`
 
-##Set up Heroku remotes
+6. Set up Heroku remotes
 
 you must be a collaborator for this step

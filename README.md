@@ -19,7 +19,8 @@ Thanks!
 3. **Edit file names** <br />
 	change Vagrant.example to Vagrant<br />
 	`mv Vagrant.example Vagrant`<br />
-	change config/database.example.yml to config/database.yml
+	change config/database.example.yml to config/database.yml<br />
+	`mv config/database.example.yml config/database.yml`
 
 4. **Build the virtual machine**<br />
 	`vagrant up`<br />

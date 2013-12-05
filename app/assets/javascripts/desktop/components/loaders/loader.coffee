@@ -185,14 +185,16 @@ class Legwork.Loader
       for video in @assets.videos
         $v = $(JST['desktop/templates/html5-video'](video))
 
-        $v.one 'canplay', (e) =>
-          @loaded++
-          @updateProgress()
+        $v
+          .one('canplay', (e) =>
+            @loaded++
+            @updateProgress()
+          )
+          .appendTo(@$video_stage)
+          .get(0).load()
 
-        _.defer(($dv) =>
-          $dv.appendTo(@$video_stage)
-          $dv[0].load()
-        , $v)
+        # Max wait for video
+        @failsafe($v)
     else
       @loaded += @assets.videos.length
       @updateProgress()
@@ -203,13 +205,14 @@ class Legwork.Loader
   *------------------------------------------*
   | failSafe:void (-)
   |
-  | Temp.
+  | $v:array - jquery object
+  |
+  | Max video load time.
   *----------------------------------------###
-  failSafe: ($v) ->
-    # Max 5 second wait for video
+  failsafe: ($v) ->
     setTimeout(=>
       $v.trigger('canplay')
-    , 5000)
+    , 7000)
 
   ###
   *------------------------------------------*

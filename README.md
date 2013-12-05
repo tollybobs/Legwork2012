@@ -5,7 +5,7 @@ This is the source code for our 2012 (well, it was suppose to launch then anyway
 
 Thanks!
 
-#Environment setup instructions
+##Environment setup instructions
 
 1. **Install VM dependencies**<br />
     Before setting up your local environment you will need VirtualBox, and Vagrant installed<br />

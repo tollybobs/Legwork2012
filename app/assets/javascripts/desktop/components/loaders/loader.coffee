@@ -185,14 +185,14 @@ class Legwork.Loader
       for video in @assets.videos
         $v = $(JST['desktop/templates/html5-video'](video))
 
-        $v
-          .one 'canplay', (e) =>
-            @loaded++
-            @updateProgress()
-          .appendTo(@$video_stage)
+        $v.one 'canplay', (e) =>
+          @loaded++
+          @updateProgress()
 
-        $v[0].load()
-        @failSafe($v)
+        _.defer(($dv) =>
+          $dv.appendTo(@$video_stage)
+          $dv[0].load()
+        , $v)
     else
       @loaded += @assets.videos.length
       @updateProgress()

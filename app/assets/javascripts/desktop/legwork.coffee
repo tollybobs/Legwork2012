@@ -45,7 +45,6 @@ class Legwork.Application
 
     # Class vars
     @$menu_btn = $('#menu-btn')
-    @$scribble = $('#wrap-the-scribble')
     @$stuff_wrap = $('#wrap-the-stuff')
     @$filter_wrap = $('#wrap-the-filter')
     @$filter = $('.filter')
@@ -156,7 +155,6 @@ class Legwork.Application
 
       @current_state = 'detail'
     else
-      @$scribble.hide()
       @$stuff_wrap.hide()
       @$404_wrap.show()
       @buildFourOhFour(url)
@@ -263,18 +261,6 @@ class Legwork.Application
 
   ###
   *------------------------------------------*
-  | resetScribble:void (-)
-  |
-  | Reset the scribble.
-  *----------------------------------------###
-  resetScribble: ->
-    clearTimeout(@scribble_to)
-    @$scribbles.hide()
-    @$scribble.hide()
-    #@scribble_index = 0
-
-  ###
-  *------------------------------------------*
   | build:void (-)
   |
   | DOM manipulations, instantiations, etc.
@@ -319,10 +305,6 @@ class Legwork.Application
 
       $('#' + vid[0]).addClass('video-in').appendTo($vid_wrap)
       $('#' + vid[1]).addClass('video-out').appendTo($vid_wrap)
-
-    # Scribbles
-    @$scribbles = $('video[id$="-scribble"]')
-    @$scribble.html(@$scribbles)
 
   ###
   *------------------------------------------*
@@ -460,7 +442,6 @@ class Legwork.Application
   | Start layout.
   *----------------------------------------###
   startLayout: ->
-    @resetScribble()
     @turnScrollEvents('off')
 
   ###
@@ -470,7 +451,6 @@ class Legwork.Application
   | Compute layout for current window width.
   *----------------------------------------###
   layout: ->
-    @resetScribble()
     if Legwork.app_width < 1025
       $('.sequenced-inner').find('video').hide()
 
@@ -482,9 +462,7 @@ class Legwork.Application
   *----------------------------------------###
   finishLayout: ->
     if Legwork.app_width >= 1025 and (@current_state is '' or @current_state is 'filter')
-      @resetScribble()
       @turnScrollEvents('on')
-      @$scribble.show()
 
       # Animations
       @$sequenced_stuff
@@ -549,7 +527,6 @@ class Legwork.Application
   | Window has started scrolling.
   *----------------------------------------###
   onScrollStart: (e) =>
-    @resetScribble()
 
   ###
   *------------------------------------------*
@@ -579,55 +556,6 @@ class Legwork.Application
     # Re-add event for onScrollStart
     Legwork.$wn
       .one('scroll', @onScrollStart)
-
-    if Legwork.app_width >= 1025 and Legwork.supports_autoplay
-      @resetScribble()
-      #@scribble_to = setTimeout(@scribble, 82801)
-
-  ###
-  *------------------------------------------*
-  | scribble:void (=)
-  |
-  | Didn't you ever get bored in school?
-  *----------------------------------------###
-  scribble: =>
-    scribble_y = (=>
-      $ww = $('.work:visible, .world:visible')
-      h = $ww.eq(0).outerHeight()
-      s = Legwork.$wn.scrollTop()
-      wh = Legwork.$wn.height()
-
-      if $ww.length is 0
-        return false
-
-      for i in [($ww.length - 1)..0]
-        t = $ww.eq(i).offset().top
-
-        if t > s and (t + h) < (s + wh)
-          return $ww.eq(i).offset().top + Math.round(wh * 0.015)
-
-      return false
-    )()
-
-    if scribble_y isnt false
-      @$scribble.css('top', scribble_y + 'px').show()
-      rnd = Math.floor(Math.random() * @$scribbles.length)
-
-      # Different random
-      # The chance of hanging the site decreases
-      # exponentially with each iteration, I'll
-      # take those odds
-      while rnd is @scribble_index
-        rnd = Math.floor(Math.random() * @$scribbles.length)
-
-      @scribble_index = rnd
-      $scribble = @$scribbles.eq(@scribble_index)
-      $scribble[0].currentTime = 0
-      $scribble[0].play()
-
-      setTimeout =>
-        $scribble.show()
-      , 33
 
   ###
   *------------------------------------------*
@@ -824,7 +752,6 @@ class Legwork.Application
   | App state (URL) has changed.
   *----------------------------------------###
   onAppStateChange: =>
-    @resetScribble()
     @state = @History.getState()
     url = @state.hash.replace(/[^a-z0-9_-]+/gi, '')
 
@@ -1096,7 +1023,6 @@ class Legwork.Application
   *----------------------------------------###
   loadFourOhFour: (url) ->
     @turnScrollEvents('off')
-    @$scribble.hide()
     @$stuff_wrap.hide()
     @$filter_wrap.hide()
     @$filter.removeClass('selected')

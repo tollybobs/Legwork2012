@@ -22,15 +22,9 @@ class Legwork.Loader
     @$video_stage = $('#ye-olde-hidden-video-holder')
     Legwork.supports_autoplay = false
 
-    # Test
-    ###
-    @images_loaded = 0
-    @videos_loaded = 0
-    @images_total = @assets.images.length
-    @videos_total = @assets.videos.length
-    ###
-
     @total = @assets.images.length + @assets.videos.length + 1 # +1 for Twitter
+
+    @vids = []
 
     for sequence in @assets.sequences
       @total += sequence.frames.length
@@ -145,11 +139,6 @@ class Legwork.Loader
       @loaded++
       @updateProgress()
 
-      ###
-      @images_loaded++
-      console.log('Loaded image ' + @images_loaded + '/' + @images_total)
-      ###
-
     if $current[0].complete is true
       $current.trigger('load')
 
@@ -195,23 +184,35 @@ class Legwork.Loader
     if Modernizr.video and Legwork.supports_autoplay
       for video in @assets.videos
         $v = $(JST['desktop/templates/html5-video'](video))
-        $v.appendTo(@$video_stage)
 
-        $v.one 'canplay', (e) =>
-          @loaded++
-          @updateProgress()
+        $v
+          .one('canplay', (e) =>
+            @loaded++
+            @updateProgress()
+          )
+          .appendTo(@$video_stage)
+          .get(0).load()
 
-          ###
-          @videos_loaded++
-          console.log('Loaded video ' + @videos_loaded + '/' + @videos_total)
-          ###
-
-        $v[0].load()
+        # Max wait for video
+        @failsafe($v)
     else
       @loaded += @assets.videos.length
       @updateProgress()
 
     return false
+
+  ###
+  *------------------------------------------*
+  | failSafe:void (-)
+  |
+  | $v:array - jquery object
+  |
+  | Max video load time.
+  *----------------------------------------###
+  failsafe: ($v) ->
+    setTimeout(=>
+      $v.trigger('canplay')
+    , 7000)
 
   ###
   *------------------------------------------*

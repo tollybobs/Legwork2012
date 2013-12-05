@@ -7,9 +7,9 @@ Thanks!
 
 #Environment setup instructions
 
-1. **Install VM dependencies**
-    Before setting up your local environment you will need VirtualBox, and Vagrant installed
-	https://www.virtualbox.org/
+1. **Install VM dependencies**<br />
+    Before setting up your local environment you will need VirtualBox, and Vagrant installed<br />
+	https://www.virtualbox.org/<br />
 	http://www.vagrantup.com/
 
 2. **Clone repository and cd into directory** <br />

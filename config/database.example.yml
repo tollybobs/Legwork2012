@@ -1,7 +1,0 @@
-development:
-  adapter: postgresql
-  encoding: unicode
-  database: legwork_development
-  pool: 5
-  username: devleg 
-  password: l3gw0rk!

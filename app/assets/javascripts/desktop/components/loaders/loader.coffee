@@ -177,7 +177,7 @@ class Legwork.Loader
 
     $.ajax({
       'type': 'GET',
-      'dataType': 'JSON',
+      'dataType': 'JSONP',
       'crossDomain': true,
       'url': sequence.src,
       'async': false,
@@ -192,9 +192,6 @@ class Legwork.Loader
 
         @loaded++
         @updateProgress()
-      ,
-      'error': (data) =>
-        debugger
     })
 
   ###

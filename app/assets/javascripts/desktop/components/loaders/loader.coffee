@@ -175,24 +175,18 @@ class Legwork.Loader
   getSequenceFrames: (sequence) ->
     name = sequence.id
 
-    $.ajax({
-      'type': 'GET',
-      'dataType': 'JSONP',
-      'crossDomain': true,
-      'url': sequence.src,
-      'async': false,
-      'success': (data, status, xhr) =>
-        Legwork.sequences[name].frames = data
+    $.getJSON(sequence.src, (data) =>
+      Legwork.sequences[name].frames = data
 
-        # Prepare frames
-        for i in [0..(Legwork.sequences[name].frames.length - 1)]
-          img = new Image()
-          img.src = Legwork.sequences[name].frames[i]
-          Legwork.sequences[name].frames[i] = img
+      # Prepare frames
+      for i in [0..(Legwork.sequences[name].frames.length - 1)]
+        img = new Image()
+        img.src = Legwork.sequences[name].frames[i]
+        Legwork.sequences[name].frames[i] = img
 
-        @loaded++
-        @updateProgress()
-    })
+      @loaded++
+      @updateProgress()
+    )
 
   ###
   *------------------------------------------*

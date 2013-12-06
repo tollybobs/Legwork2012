@@ -22,6 +22,8 @@ class Legwork.ImageSequence
     @total_frames = @frames.length
     @fps = init_obj.settings.fps
     @auto = if init_obj.auto? then init_obj.auto else true
+    @w = init_obj.settings.base_size[0]
+    @h = init_obj.settings.base_size[1]
     @current_frame = 0
 
     # Render engine
@@ -63,8 +65,8 @@ class Legwork.ImageSequence
 
     if @fresh is true
       @cnv = document.createElement('canvas')
-      @cnv.width = @frames[0].width
-      @cnv.height = @frames[0].height
+      @cnv.width = @w
+      @cnv.height = @h
       @ctx = @cnv.getContext('2d')
       @$view.html(@cnv)
     else

@@ -4,7 +4,12 @@ Legwork.Work["mhcd"] = {
 			"<%= asset_path 'desktop/work/mhcd/mhcd-thumb.jpg' %>",
 			"<%= asset_path 'desktop/work/mhcd/mhcd-ts-poster.jpg' %>"
 		],
-		"videos": [],
+		"videos": [
+			{
+				"path": "mhcd",
+				"size": [960, 540]
+			}
+		],
 		"sequences": []
 	},
 	"title": "Mental Health Denver",
@@ -30,7 +35,7 @@ Legwork.Work["mhcd"] = {
 			"callout": "Watch Video",
 			"background": {
 				"type": "video",
-				"id": "simpler-times-loop",
+				"id": "mhcd",
 				"src": "<%= asset_path 'desktop/work/simpler-times/simpler-times-ts-poster.jpg' %>"
 			}
 		},
@@ -40,10 +45,12 @@ Legwork.Work["mhcd"] = {
 			"id": "79929946"
 		},
 		{
-			"type": "PanningSlide",
+			"type": "FullScreenImage",
 			"image": "<%= asset_path 'desktop/work/mhcd/mhcd-panning.jpg' %>",
-			"width": "1280",
-			"height": "1080"
+			"sidebar": {
+				"title": "Rotoscope Tecnique",
+				"text": "<p>For almost the whole piece we used 3D Sketch and Toon renders as the base. After Effects would select random frames from the base renders to give it that jittery look. Next we would draw loosely over each frame in Photoshop to give it a loose hand drawn style, followed by a shadow and highlight pass. Once we had all the scenes laid out and timed correctly we did a final pass over the top of shading, a white wash, and color.</p>"
+			}
 		}
 	]
 }

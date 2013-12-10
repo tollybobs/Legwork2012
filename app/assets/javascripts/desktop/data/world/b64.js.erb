@@ -1,0 +1,30 @@
+Legwork.World["b64"] = {
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/world/perfect-masonry/perfect-masonry-thumb.gif' %>",
+			"<%= asset_path 'desktop/world/perfect-masonry/perfect-masonry-poster.gif' %>"
+		],
+		"videos": [],
+		"sequences": []
+	},
+	"title": "b64",
+	"summary": "All your png are base64 encode.",
+	"thumbnail": "<%= asset_path 'desktop/world/perfect-masonry/perfect-masonry-thumb.gif' %>",
+	"related": "browser-elements",
+	"related_name": "Related: Browser Elements",
+	"slides": [
+		{
+			"type": "TitleScreen",
+			"title": "b64",
+			"summary": "All your png are base64 encode.",
+			"overview": [
+				"We find ourselves creating base64 encoded image sets on a regular basis. Typically, we will build sequences in After Effects, export them as png sequences, run them through a compressor (like <a href=\"http://nukesaq88.github.io/Pngyu/\" target=\"_new\">Pngyu</a> or <a href=\"http://tinypng.org\" target=\"_new\">tinypng.org</a>), base64 encode them and gzip / minify them (with something like <a href=\"https://developers.google.com/closure/compiler/\" target=\"_new\">Closure Compiler</a>.) This simple shell script simplifies the base64 encoding step by batch encoding all of the pngs in the current directory."
+			],
+			"url": "https://github.com/wigz/b64",
+			"background": {
+				"type": "image",
+				"url": "<%= asset_path 'desktop/world/perfect-masonry/perfect-masonry-poster.gif' %>"
+			}
+		}
+	]
+}

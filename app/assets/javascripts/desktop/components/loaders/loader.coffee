@@ -214,6 +214,8 @@ class Legwork.Loader
           )
           .appendTo(@$video_stage)
           .get(0).load()
+
+        _.defer(-> if $v.get(0).readyState > 3 then console.log('video ready immediately'))
     else
       @loaded += @assets.videos.length
       @updateProgress()

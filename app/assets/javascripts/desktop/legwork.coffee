@@ -33,15 +33,31 @@ class Legwork.Application
     Legwork.current_detail_controller = null
     Legwork.pro_tip = true
 
-    Legwork.click = 'click'
-    Legwork.mousedown = 'mousedown'
-    Legwork.mouseup = 'mouseup'
-    Legwork.mousemove = 'mousemove'
+    Legwork.isMobile = {
+        Android: ->
+            return navigator.userAgent.match(/Android/i)
+        ,
+        BlackBerry: ->
+            return navigator.userAgent.match(/BlackBerry/i)
+        ,
+        iOS: ->
+            return navigator.userAgent.match(/iPhone|iPad|iPod/i)
+        ,
+        Opera: ->
+            return navigator.userAgent.match(/Opera Mini/i)
+        ,
+        Windows: ->
+            return navigator.userAgent.match(/IEMobile/i)
+        ,
+        any: ->
+            return (Legwork.isMobile.Android() || Legwork.isMobile.BlackBerry() || Legwork.isMobile.iOS() || Legwork.isMobile.Opera() || Legwork.isMobile.Windows())
+    }
 
-    #if Modernizr.touch then Legwork.click = 'touchstart'
-    #if Modernizr.touch then Legwork.mousedown = 'touchstart'
-    #if Modernizr.touch then Legwork.mouseup = 'touchend'
-    #if Modernizr.touch then Legwork.mousemove = 'touchmove'
+    touch = Modernizr.touch and Legwork.isMobile.any()
+    Legwork.click = if touch then 'touchstart' else 'click'
+    Legwork.mousedown = if touch then 'touchstart' else 'mousedown'
+    Legwork.mouseup = if touch then 'touchend' else 'mouseup'
+    Legwork.mousemove = if touch then 'touchmove' else 'mousemove'
 
     # Class vars
     @$menu_btn = $('#menu-btn')

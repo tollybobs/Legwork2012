@@ -210,31 +210,15 @@ class Legwork.Loader
             @updateProgress()
 
             @vids = _.without(@vids, e.currentTarget.id)
+            console.log(@vids)
           )
           .appendTo(@$video_stage)
           .get(0).load()
-
-        # Max wait for video
-        @failsafe($v)
     else
       @loaded += @assets.videos.length
       @updateProgress()
 
     return false
-
-  ###
-  *------------------------------------------*
-  | failSafe:void (-)
-  |
-  | $v:array - jquery object
-  |
-  | Max video load time.
-  *----------------------------------------###
-  failsafe: ($v) ->
-    setTimeout(=>
-      console.log(@vids)
-      $v.trigger('canplay')
-    , 7000)
 
   ###
   *------------------------------------------*

@@ -200,11 +200,11 @@ class Legwork.Loader
   loadVideo: ->
     if Modernizr.video and Legwork.supports_autoplay
       for video in @assets.videos
-        $v = $(JST['desktop/templates/html5-video'](video))
+        v = JST['desktop/templates/html5-video'](video)
 
         @vids.push(video.path)
 
-        $v
+        $(v)
           .one('canplay', (e) =>
             @loaded++
             @updateProgress()
@@ -214,8 +214,6 @@ class Legwork.Loader
           )
           .appendTo(@$video_stage)
           .get(0).load()
-
-        _.defer(-> if $v.get(0).readyState > 3 then console.log('video ready immediately'))
     else
       @loaded += @assets.videos.length
       @updateProgress()

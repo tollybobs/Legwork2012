@@ -22,13 +22,7 @@ class Legwork.Loader
     @$video_stage = $('#ye-olde-hidden-video-holder')
     Legwork.supports_autoplay = false
 
-    @total = @assets.images.length + @assets.videos.length + 1 # +1 for Twitter
-
-    @vids = []
-
-    for sequence in @assets.sequences
-      @total += sequence.frames.length
-      @images_total += sequence.frames.length
+    @total = @assets.images.length + @assets.videos.length + @assets.sequences.length + 1 # +1 for Twitter
 
     @build()
 
@@ -117,10 +111,6 @@ class Legwork.Loader
       @loaded++
       @updateProgress()
 
-      ###
-      console.log('Loaded Twitter 1/1')
-      ###
-
       # filter replies, could be done server side
       for tweet, index in Legwork.twitter
         if /^(@|\s@|\s\s@|.@|.\s@|RT\s*@)/.test(tweet.text) is true
@@ -166,13 +156,37 @@ class Legwork.Loader
     for sequence in @assets.sequences
       Legwork.sequences[sequence.id] = {
         'fps': sequence.fps,
-        'frames': []
+        'frames': [],
+        'base_size': sequence.base_size
       }
 
-      for image, index in sequence.frames
-        Legwork.sequences[sequence.id].frames.push(@loadOneImage(image))
+      @getSequenceFrames(sequence)
 
     return false
+
+  ###
+  *------------------------------------------*
+  | getSequenceFrames:void (-)
+  |
+  | sequence:object - sequence
+  |
+  | Get sequence frames.
+  *----------------------------------------###
+  getSequenceFrames: (sequence) ->
+    name = sequence.id
+
+    $.getJSON(sequence.src, (data) =>
+      Legwork.sequences[name].frames = data
+
+      # Prepare frames
+      for i in [0..(Legwork.sequences[name].frames.length - 1)]
+        img = new Image()
+        img.src = Legwork.sequences[name].frames[i]
+        Legwork.sequences[name].frames[i] = img
+
+      @loaded++
+      @updateProgress()
+    )
 
   ###
   *------------------------------------------*

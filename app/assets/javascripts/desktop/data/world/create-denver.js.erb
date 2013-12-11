@@ -1,14 +1,10 @@
 Legwork.World["create-denver"] = {
 	"assets": {
 		"images": [
-			"<%= asset_path 'desktop/work/create-denver/create-denver-thumb.jpg' %>"
+			"<%= asset_path 'desktop/work/create-denver/create-denver-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/create-denver/create-denver-background.jpg' %>"
 		],
-		"videos": [
-			{
-				"path": "create-denver-loop",
-				"size": [960, 540]
-			}
-		],
+		"videos": [],
 		"sequences": []
 	},
 	"title": "Create Denver",
@@ -35,8 +31,8 @@ Legwork.World["create-denver"] = {
 			],
 			"callout": "Watch Video",
 			"background": {
-				"type": "video",
-				"id": "create-denver-loop"
+				"type": "image",
+				"url": "<%= asset_path 'desktop/work/create-denver/create-denver-background.jpg' %>"
 			}
 		},
 		{

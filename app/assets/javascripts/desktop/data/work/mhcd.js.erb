@@ -1,0 +1,56 @@
+Legwork.Work["mhcd"] = {
+	"assets": {
+		"images": [
+			"<%= asset_path 'desktop/work/mhcd/mhcd-thumb.jpg' %>",
+			"<%= asset_path 'desktop/work/mhcd/mhcd-ts-poster.jpg' %>"
+		],
+		"videos": [
+			{
+				"path": "mhcd",
+				"size": [960, 540]
+			}
+		],
+		"sequences": []
+	},
+	"title": "Common Thread",
+	"summary": "A PSA for Mental Health Center of Denver with Cactus.",
+	"thumbnail": "<%= asset_path 'desktop/work/mhcd/mhcd-thumb.jpg' %>",
+	"related": "bc4u",
+	"related_name": "Up Next: Birth Control Myths",
+	"slides": [
+		{
+			"type": "TitleScreen",
+			"title": "Common Thread",
+			"summary": "A PSA for Mental Health Center of Denver with Cactus.",
+			"services": [
+				"Art Direction",
+				"Illustration",
+				"Storyboards",
+				"Cel Animation",
+				"3D Animation"
+			],
+			"overview": [
+				"Cactus approached Legwork to create a PSA for The Mental Health Center of Denver. Their concept required us to develop a visual representation of a common thread, or how mental health impacts many aspects of life and how treatment will lead the way to productivity and health in the community. We knew we wanted to represent a ‘connection’ of all elements through the style, so we opted for a thread-like scribble look that would require us to cel animate a large portion of the sequences. With just under one week for production, we built a base 3D layer for many of the scenes. We did multiple render passes with varying sketch lines, then frame-by-frame we rotoscoped additional layers of line work."
+			],
+			"callout": "Watch Video",
+			"background": {
+				"type": "video",
+				"id": "mhcd",
+				"src": "<%= asset_path 'desktop/work/mhcd/mhcd-ts-poster.jpg' %>"
+			}
+		},
+		{
+			"type": "Video",
+			"background_color": "#93a5ae",
+			"id": "79929946"
+		},
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/mhcd/mhcd-panning.jpg' %>",
+			"sidebar": {
+				"title": "Rotoscope Tecnique",
+				"text": "<p>For almost the whole piece we used 3D Sketch and Toon renders as the base. After Effects would select random frames from the base renders to give it that jittery look. Next we would draw loosely over each frame in Photoshop to give it a loose hand drawn style, followed by a shadow and highlight pass. Once we had all the scenes laid out and timed correctly we did a final pass over the top of shading, a white wash, and color.</p>"
+			}
+		}
+	]
+}

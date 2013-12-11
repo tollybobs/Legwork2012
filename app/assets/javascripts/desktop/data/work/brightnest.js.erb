@@ -2,21 +2,16 @@ Legwork.Work["brightnest"] = {
 	"assets": {
 		"images": [
 			"<%= asset_path 'desktop/work/brightnest/brightnest-thumb.jpg' %>",
-			"<%= asset_path 'desktop/work/brightnest/brightnest-ts-poster.jpg' %>"
+			"<%= asset_path 'desktop/work/brightnest/brightnest-background.jpg' %>"
 		],
-		"videos": [
-			{
-				"path": "brightnest-loop",
-				"size": [960, 540]
-			}
-		],
+		"videos": [],
 		"sequences": []
 	},
 	"title": "Your Home Will Thank You",
 	"summary": "An explainer video for BrightNest.",
 	"thumbnail": "<%= asset_path 'desktop/work/brightnest/brightnest-thumb.jpg' %>",
-	"related": "airwalk-proto",
-	"related_name": "Related: Airwalk Prototype",
+	"related": "stapleton-whats-next",
+	"related_name": "Related: Stapleton What's Next",
 	"slides": [
 		{
 			"type": "TitleScreen",
@@ -35,9 +30,8 @@ Legwork.Work["brightnest"] = {
 			],
 			"callout": "Watch Video",
 			"background": {
-				"type": "video",
-				"id": "brightnest-loop",
-				"src": "<%= asset_path 'desktop/work/brightnest/brightnest-ts-poster.jpg' %>"
+				"type": "image",
+				"url": "<%= asset_path 'desktop/work/brightnest/brightnest-background.jpg' %>"
 			}
 		},
 		{
@@ -50,10 +44,6 @@ Legwork.Work["brightnest"] = {
 			"url": "<%= asset_path 'desktop/work/brightnest/brightnest-breakdown.jpg' %>",
 			"id": "57025460"
 		},
-		// {
-		// 	"type": "FullScreenImage",
-		// 	"image": "<%= asset_path 'desktop/work/brightnest/brightnest-compositions.jpg' %>"
-		// },
 		{
 			"type": "PanningSlide",
 			"image": "<%= asset_path 'desktop/work/brightnest/brightnest-panning.jpg' %>",

@@ -38,10 +38,10 @@ class Legwork.Application
     Legwork.mouseup = 'mouseup'
     Legwork.mousemove = 'mousemove'
 
-    if Modernizr.touch then Legwork.click = 'touchstart'
-    if Modernizr.touch then Legwork.mousedown = 'touchstart'
-    if Modernizr.touch then Legwork.mouseup = 'touchend'
-    if Modernizr.touch then Legwork.mousemove = 'touchmove'
+    #if Modernizr.touch then Legwork.click = 'touchstart'
+    #if Modernizr.touch then Legwork.mousedown = 'touchstart'
+    #if Modernizr.touch then Legwork.mouseup = 'touchend'
+    #if Modernizr.touch then Legwork.mousemove = 'touchmove'
 
     # Class vars
     @$menu_btn = $('#menu-btn')

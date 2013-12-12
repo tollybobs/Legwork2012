@@ -1,1 +1,4 @@
-<div class="slide full-screen-iframe" data-url="<%= @url %>"></div>
+<div class="slide full-screen-iframe" data-url="<%= @url %>">
+	<div class="iframe-wrapper"></div>
+	<div class="iframe-coverup"></div>
+</div>

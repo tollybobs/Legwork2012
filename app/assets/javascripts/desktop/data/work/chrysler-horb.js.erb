@@ -30,7 +30,7 @@ Legwork.Work["chrysler-horb"] = {
 				"Animation"
 			],
 			"overview": [
-				"An opportunity to win an old wooden ship.  The user who fondles Ron the most over the course of week wins.  Some users sat down for a three day long intimate experience with San Diego's most famous news man."
+				"Weiden + Kennedy came to us to bring the concept where a person who touches a car the longest wins it to the internet. Inspired by actual contests held at dealerships and the documentary film \"Hands on a Hard Body,\" the online version stayed true by requiring participants to touch (either with their mouse on a computer or thier finger on a device) Ron Burgundy. The user with longest cumulative streak won a Dodge Durango."
 			],
 			"background": {
 				"type": "video",
@@ -48,7 +48,7 @@ Legwork.Work["chrysler-horb"] = {
 			"image": "<%= asset_path 'desktop/work/chrysler-horb/design.gif' %>",
 			"sidebar": {
 				"title": "Design",
-				"text": "<p>The contest experience was a unique challenge that unlike anything we had done before.  It required a lot of upfront work to nail down how the experience would flow.  We accomplished this through a series of interactive wireframes. Check them out <a href=\"http://test.legworkstudio.com/hohb-wires/\">here</a></p>"
+				"text": "<p>This experience was unlike anything we had ever built. Time was also tight as the client had a short window before the film was released. No one was sure how it should flow so that it was the right amount of challenge vs. retention. So, we started with a set of interactive wireframes that allowed us to test the flow prior to design. This allowed us to design something the client was almost completely on board with in the first pass.</p><p><a href=\"http://test.legworkstudio.com/hohb-wires/\" target=\"_new\">Check out the wireframes</a></p>"
 			}
 		},
 		{
@@ -56,7 +56,7 @@ Legwork.Work["chrysler-horb"] = {
 			"image": "<%= asset_path 'desktop/work/chrysler-horb/server.gif' %>",
 			"sidebar": {
 				"title": "Architecture",
-				"text": "<p>This experience was divided between two separate applications on two separate AWS EC2 instances. One controlled the front end experience, while the other handled all of the contest management. Both had their own security measures built into them and they could communicate with one another through a common API.</p>"
+				"text": "<p>With the tight timeline we faced, Weiden + Kennedy tasked us with building the frontend of the game while they focused on a backend API. The backend API was built using Python on an Amazon EC2 instance. The frontend was entirely comprised of static files (html, js, css) that interfaced with the backend API via AJAX/JSON and was hosted on an Amazon CloudFront distribution. We worked together to build a technical specification that detailed every request and the data being passed back and forth and we collaborated via a Github repository with post-commit hooks for deployment.</p>"
 			}
 		},
 		{
@@ -64,7 +64,7 @@ Legwork.Work["chrysler-horb"] = {
 			"image": "<%= asset_path 'desktop/work/chrysler-horb/security.gif' %>",
 			"sidebar": {
 				"title": "Security Measures",
-				"text": "<p>With an SUV on the line amongst other high value prizes, we had to take every measure to ensure that players could not cheat.  We spent weeks poking holes in our system and implementing security measures to to keep this contest fair.</p>"
+				"text": "<p>We knew this contest would be a target. If you could script against it, you could easily win a car. So, we implemented several security features to make sure that didn't happen. First, we made scripted events much harder to use by requiring real event input. Next, we built a human verification service by asking users to select an image of Ron Burgundy where only the server knew the right answer. Finally, on the server side, we ensured that users could only be logged in in one place, that their score never exceeded the time they spent on the site and required cross site forgery protection in headers for all requests back and forth. As a result, no one was able to cheat.</p><p><a href=\"http://www.ronburgundyshumanverificationservice.com/\" target=\"_new\">Ron Burgundy Human Verification Service</a></p>"
 			}
 		},
 		{
@@ -72,13 +72,8 @@ Legwork.Work["chrysler-horb"] = {
 			"image": "<%= asset_path 'desktop/work/chrysler-horb/engagement.gif' %>",
 			"sidebar": {
 				"title": "User Engagement",
-				"text": "<p>All said in done we saw an astonishing engagement rate.  The winning score required a 72+ hour streak!</p>"
+				"text": "<p>It was a major goal for the client to have a high retention rate. We needed to find the balance between endurance and fun. So, in addition to touching Ron, we built in several breaks where users could watch videos or play mini games. We worked with Weiden + Kennedy to concept and build five different mini games for the contest. By doing well in the games, you could add bonus points to your score. This was especially the case later in the game, as the bonus score was a percentage of your time score.</p><p>Here are <a href=\"http://test.legworkstudio.com/burgundy-games/\" target=\"_new\">a few of the mini games</a> that we created for the contest.</p>"
 			}
-		},
-		{
-			"type": "FullScreenIframe",
-			"url": "http://test.legworkstudio.com/burgandy-games/"
-		},
-
+		}
 	]
 }

@@ -2,7 +2,7 @@
   <div class="slide-inner">
     <div class="slide-inner-content">
       <div class="video-holder">
-        <div class="video-holder-inner">
+        <div class="video-holder-inner" <% if @aspect?: %>style="padding-bottom: <%= @aspect %>;"<% end %>>
           <div class="vimeo-iframe"></div>
           <div class="vimeo-poster"></div>
         </div>

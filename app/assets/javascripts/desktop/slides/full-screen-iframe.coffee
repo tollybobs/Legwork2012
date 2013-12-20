@@ -27,6 +27,8 @@ class Legwork.Slides.FullScreenIframe extends Legwork.Slides.Slide
   *----------------------------------------###
   build: ->
     @$el = @renderTemplate('full-screen-iframe', @model)
+    @$iframeWrapper = @$el.children(".iframe-wrapper")
+    @$cover = @$el.children('.iframe-coverup')
     @url = @$el.data('url')
     return @$el
 
@@ -37,7 +39,11 @@ class Legwork.Slides.FullScreenIframe extends Legwork.Slides.Slide
   | Activate new/current slide
   *----------------------------------------###
   activate: ->
-    @$el.empty().append("<iframe src='#{@url}' height='100%' width='100%'></iframe>")
+    @$iframeWrapper.empty().append("<iframe src='#{@url}' height='100%' width='100%'></iframe>")
+    setTimeout () => 
+      console.log(@$cover)
+      @$cover.fadeOut(1000)
+    , 1000
 
   ###
   *------------------------------------------*
@@ -46,5 +52,6 @@ class Legwork.Slides.FullScreenIframe extends Legwork.Slides.Slide
   | Deactivate old slide
   *----------------------------------------###
   deactivate: ->
-    $('iframe', @$el).fadeOut 333, =>
-      @$el.empty()
+    $('iframe', @$el).hide()
+    @$iframeWrapper.empty()
+    @$cover.show()

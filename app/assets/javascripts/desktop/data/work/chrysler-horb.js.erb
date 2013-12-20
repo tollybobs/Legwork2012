@@ -2,56 +2,78 @@ Legwork.Work["chrysler-horb"] = {
 	"assets": {
 		"images": [
 			"<%= asset_path 'desktop/work/chrysler-horb/chrysler-horb-thumb.jpg' %>",
-			"<%= asset_path 'desktop/work/rollit/rollit-ts-poster.jpg' %>"
+			"<%= asset_path 'desktop/work/chrysler-horb/chrysler-horb-ts-poster.jpg' %>"
 		],
 		"videos": [
 			{
-				"path": "rollit-loop",
+				"path": "chrysler-horb",
 				"size": [960, 540]
 			}
 		],
 		"sequences": []
 	},
 	"title": "Hands On Ron Burgundy",
-	"summary": "An online competition with Wieden + Kennedy.",
+	"summary": "An online competition for Dodge with Wieden + Kennedy.",
 	"thumbnail": "<%= asset_path 'desktop/work/chrysler-horb/chrysler-horb-thumb.jpg' %>",
 	"related": "paranorman",
 	"related_name": "Related: Paranorman",
 	"slides": [
 		{
 			"type": "TitleScreen",
-			"title": "Roll It",
-			"summary": "A Chrome Experiment for Google with Mode Set.",
+			"title": "Hands on Ron Burgundy",
+			"summary": "An online competition for Dodge with Wieden + Kennedy.",
 			"services": [
 				"User Experience",
 				"Art Direction",
 				"Interface Design",
 				"Development",
-				"3D Modeling",
 				"Animation"
 			],
-			"recognition": [
-				"<a href=\"http://www.thefwa.com/site/roll-it\" target=\"_new\">FWA SOTD</a>",
-				"<a href=\"http://www.thefwa.com/mobile/roll-it\" target=\"_new\">FWA MOTD</a>",
-				"<a href=\"https://twitter.com/search/realtime?q=campaigns%2Frollit&src=savs\" target=\"_new\">Trend on Twitter</a>",
-				"<a href=\"http://www.thefwa.com/adobe/tcea/roll-it\" target=\"_new\">Adobe Cutting Edge</a>",
-				"<a href=\"http://www.awwwards.com/web-design-awards/roll-it\" target=\"_new\">Awwwards</a>"
-			],
 			"overview": [
-				"Roll It is a Chrome Experiment that reimagines a classic boardwalk game using only the browser on your phone and computer. The browser on your phone lets you aim and roll the ball with a flick of your wrist, while the browser on your computer renders the real time graphics of the Roll It alley with WebGL and Canvas. The two devices communicate via WebSockets. No apps. No downloads. No tokens. All you need is a modern browser."
+				"Taking its cues from the great 1997 documentary Hands on a Hardbody, we worked with Wieden+Kennedy to launch a week long contest called Hands on Ron Burgundy–an online test of endurance that featured daily giveaways and a grand prize of a new Dodge Durango to the person who had the longest cumulative streak of touching Ron. "
 			],
-			"callout": "Learn More",
-			"url": "http://g.co/rollit",
 			"background": {
 				"type": "video",
-				"id": "rollit-loop",
-				"src": "<%= asset_path 'desktop/work/rollit/rollit-ts-poster.jpg' %>"
+				"id": "chrysler-horb",
+				"src": "<%= asset_path 'desktop/work/chrysler-horb/chrysler-horb-ts-poster.jpg' %>"
 			}
 		},
 		{
 			"type": "Video",
 			"background_color": "#222",
-			"id": "67414298"
+			"id": "80931999"
+		},
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/chrysler-horb/design.gif' %>",
+			"sidebar": {
+				"title": "User Experience",
+				"text": "<p>This experience was unlike anything we had ever built. Time was also tight as the client had a short window before the film was released. No one was sure how it should flow so that it was the right amount of challenge vs. retention. So, we built a set of interactive wireframes that allowed us to test the flow while we were designing the contest. This allowed us to design something the client was almost completely on board with in the first pass.</p><p><a href=\"http://test.legworkstudio.com/hohb-wires/\" target=\"_new\">Check out the wireframes</a></p>"
+			}
+		},
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/chrysler-horb/server.gif' %>",
+			"sidebar": {
+				"title": "Architecture",
+				"text": "<p>With the tight timeline we faced, Weiden + Kennedy tasked us with building the frontend of the game while they focused on a backend API. The backend API was built using Python on an Amazon EC2 instance. The frontend was entirely comprised of static files (html, js, css) that interfaced with the backend API via AJAX/JSON and was hosted on an Amazon CloudFront distribution. We worked together to build a technical specification that detailed every request and the data being passed back and forth and we collaborated via a Github repository with post-commit hooks for deployment.</p>"
+			}
+		},
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/chrysler-horb/security.gif' %>",
+			"sidebar": {
+				"title": "Security Measures",
+				"text": "<p>We knew this contest would be a target. If you could script against it, you could easily win a car. So, we implemented several security features to make sure that didn't happen. First, we made scripted events much harder to use by requiring real event input. Next, we built a human verification service by asking users to select an image of Ron Burgundy where only the server knew the right answer. Finally, on the server side, we ensured that users could only be logged in in one place, that their score never exceeded the time they spent on the site and required cross site forgery protection in headers for all requests back and forth. As a result, no one was able to cheat.</p><p><a href=\"http://www.ronburgundyshumanverificationservice.com/\" target=\"_new\">Ron Burgundy Human Verification Service</a></p>"
+			}
+		},
+		{
+			"type": "FullScreenImage",
+			"image": "<%= asset_path 'desktop/work/chrysler-horb/engagement.gif' %>",
+			"sidebar": {
+				"title": "User Engagement",
+				"text": "<p>A major goal for the client was a high retention rate, so we needed to find the balance between endurance and fun. In addition to touching Ron, we built in several breaks where users could watch videos or play mini games. By doing well in the games, you could add bonus points to your score which became more valuable the longer you played.</p><p>Here are <a href=\"http://test.legworkstudio.com/burgundy-games/\" target=\"_new\">a few of the mini games</a> that we created for the contest.</p>"
+			}
 		}
 	]
 }
